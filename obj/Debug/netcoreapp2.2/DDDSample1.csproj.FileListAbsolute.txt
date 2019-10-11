@@ -1,0 +1,14 @@
+/home/cferreira/Desktop/actividadelectiva/ARQSI_2019/exemploDDD/dddsample1/bin/Debug/netcoreapp2.2/DDDSample1.deps.json
+/home/cferreira/Desktop/actividadelectiva/ARQSI_2019/exemploDDD/dddsample1/bin/Debug/netcoreapp2.2/DDDSample1.runtimeconfig.json
+/home/cferreira/Desktop/actividadelectiva/ARQSI_2019/exemploDDD/dddsample1/bin/Debug/netcoreapp2.2/DDDSample1.runtimeconfig.dev.json
+/home/cferreira/Desktop/actividadelectiva/ARQSI_2019/exemploDDD/dddsample1/bin/Debug/netcoreapp2.2/DDDSample1.dll
+/home/cferreira/Desktop/actividadelectiva/ARQSI_2019/exemploDDD/dddsample1/bin/Debug/netcoreapp2.2/DDDSample1.pdb
+/home/cferreira/Desktop/actividadelectiva/ARQSI_2019/exemploDDD/dddsample1/obj/Debug/netcoreapp2.2/DDDSample1.csprojAssemblyReference.cache
+/home/cferreira/Desktop/actividadelectiva/ARQSI_2019/exemploDDD/dddsample1/obj/Debug/netcoreapp2.2/DDDSample1.csproj.CoreCompileInputs.cache
+/home/cferreira/Desktop/actividadelectiva/ARQSI_2019/exemploDDD/dddsample1/obj/Debug/netcoreapp2.2/DDDSample1.RazorAssemblyInfo.cache
+/home/cferreira/Desktop/actividadelectiva/ARQSI_2019/exemploDDD/dddsample1/obj/Debug/netcoreapp2.2/DDDSample1.RazorAssemblyInfo.cs
+/home/cferreira/Desktop/actividadelectiva/ARQSI_2019/exemploDDD/dddsample1/obj/Debug/netcoreapp2.2/DDDSample1.AssemblyInfoInputs.cache
+/home/cferreira/Desktop/actividadelectiva/ARQSI_2019/exemploDDD/dddsample1/obj/Debug/netcoreapp2.2/DDDSample1.AssemblyInfo.cs
+/home/cferreira/Desktop/actividadelectiva/ARQSI_2019/exemploDDD/dddsample1/obj/Debug/netcoreapp2.2/DDDSample1.RazorTargetAssemblyInfo.cache
+/home/cferreira/Desktop/actividadelectiva/ARQSI_2019/exemploDDD/dddsample1/obj/Debug/netcoreapp2.2/DDDSample1.dll
+/home/cferreira/Desktop/actividadelectiva/ARQSI_2019/exemploDDD/dddsample1/obj/Debug/netcoreapp2.2/DDDSample1.pdb

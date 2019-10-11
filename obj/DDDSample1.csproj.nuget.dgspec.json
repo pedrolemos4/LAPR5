@@ -1,0 +1,69 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/cferreira/Desktop/actividadelectiva/ARQSI_2019/exemploDDD/dddsample1/DDDSample1.csproj": {}
+  },
+  "projects": {
+    "/home/cferreira/Desktop/actividadelectiva/ARQSI_2019/exemploDDD/dddsample1/DDDSample1.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/cferreira/Desktop/actividadelectiva/ARQSI_2019/exemploDDD/dddsample1/DDDSample1.csproj",
+        "projectName": "DDDSample1",
+        "projectPath": "/home/cferreira/Desktop/actividadelectiva/ARQSI_2019/exemploDDD/dddsample1/DDDSample1.csproj",
+        "packagesPath": "/home/cferreira/.nuget/packages/",
+        "outputPath": "/home/cferreira/Desktop/actividadelectiva/ARQSI_2019/exemploDDD/dddsample1/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/home/cferreira/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.AspNetCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "Microsoft.AspNetCore.Razor.Design": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}
