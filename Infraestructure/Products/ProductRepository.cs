@@ -5,42 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Categories;
 using DDDSample1.Domain.Products;
+using DDDSample1.Infrastructure.Shared;
 
 namespace DDDSample1.Infrastructure.Products
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : BaseRepository<Product, ProductId>,IProductRepository
     {
         private readonly DDDSample1DbContext _context;
-        public ProductRepository(DDDSample1DbContext context)
+        public ProductRepository(DDDSample1DbContext context):base(context.Products)
         {
-            this._context = context ?? throw new ArgumentNullException(nameof(context));
-        }
-
-        public async Task<List<Product>> GetAllAsync()
-        {
-            return await this._context.Products.ToListAsync();
-        }
-        public async Task<Product> GetByIdAsync(ProductId id)
-        {
-            return await this._context
-                .Products
-                .Where(x => id.Equals(x.Id)).FirstOrDefaultAsync();
-        }
-        public async Task<List<Product>> GetByIdsAsync(List<ProductId> ids)
-        {
-            return await this._context
-                .Products
-                .Where(x => ids.Contains(x.Id)).ToListAsync();
-        }
-        public async Task<Product> AddAsync(Product product)
-        {
-            var ret = await this._context.Products.AddAsync(product);
-            return ret.Entity;
-        }
-
-        public void Remove(Product product)
-        {
-            this._context.Products.Remove(product);
+           
         }
     }
 }

@@ -2,7 +2,7 @@ using System;
 
 namespace DDDSample1.Domain.Shared
 {
-    public abstract class TypedIdValueBase : IEquatable<TypedIdValueBase>
+    public abstract class TypedIdValueBase : EntityId,IEquatable<TypedIdValueBase>
     {
         public Guid Value { get; }
 

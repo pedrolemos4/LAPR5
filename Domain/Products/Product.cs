@@ -4,10 +4,8 @@ using DDDSample1.Domain.Categories;
 
 namespace DDDSample1.Domain.Products
 {
-    public class Product : Entity, IAggregateRoot
+    public class Product : Entity<ProductId>, IAggregateRoot
     {
-        public ProductId Id { get;  private set; }
-
         public string Description { get;  private set; }
 
         public CategoryId CategoryId { get;  private set; }

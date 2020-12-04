@@ -1,15 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DDDSample1.Domain.Shared;
 
 namespace DDDSample1.Domain.Products
 {
-    public interface IProductRepository
+    public interface IProductRepository: IRepository<Product,ProductId>
     {
-        Task<List<Product>> GetAllAsync();
-        Task<Product> GetByIdAsync(ProductId id);
-        Task<List<Product>> GetByIdsAsync(List<ProductId> ids);
-        Task<Product> AddAsync(Product product);
-        void Remove(Product product);
     }
 }

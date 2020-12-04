@@ -3,10 +3,9 @@ using DDDSample1.Domain.Shared;
 
 namespace DDDSample1.Domain.Categories
 {
-    public class Category : Entity, IAggregateRoot
+    public class Category : Entity<CategoryId>, IAggregateRoot
     {
-        public CategoryId Id { get;  private set; }
-
+     
         public string Description { get;  private set; }
 
         public bool Active{ get;  private set; }

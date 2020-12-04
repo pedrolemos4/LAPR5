@@ -20,7 +20,7 @@ namespace DDDSample1.Infrastructure
         public DbSet<Product> Products { get; set; }
 
 
-        public DbSet<Family> Families { get; set; }
+        //public DbSet<Family> Families { get; set; }
 
         public DDDSample1DbContext(DbContextOptions options) : base(options)
         {
@@ -31,7 +31,7 @@ namespace DDDSample1.Infrastructure
         {
             modelBuilder.ApplyConfiguration(new CategoryEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ProductEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new FamilyEntityTypeConfiguration());
+            //modelBuilder.ApplyConfiguration(new FamilyEntityTypeConfiguration());
         }
     }
 }
