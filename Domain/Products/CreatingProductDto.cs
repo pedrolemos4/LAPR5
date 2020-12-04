@@ -8,6 +8,7 @@ namespace DDDSample1.Domain.Products
 
         public CategoryId CategoryId { get;   set; }
 
+
         public CreatingProductDto(string description, CategoryId catId)
         {
             this.Description = description;

@@ -9,7 +9,7 @@ namespace DDDSample1.Infrastructure.Categories
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
-            builder.ToTable("Categories", SchemaNames.DDDSample1);
+            //builder.ToTable("Categories", SchemaNames.DDDSample1);
             builder.HasKey(b => b.Id);
             //builder.Property<bool>("_active").HasColumnName("Active");
         }

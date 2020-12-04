@@ -19,6 +19,7 @@ namespace DDDSample1.Infrastructure.Categories
         {
             return await this._context.Categories.ToListAsync();
         }
+        
         public async Task<Category> GetByIdAsync(CategoryId id)
         {
             //return await this._context.Categories.FindAsync(id);

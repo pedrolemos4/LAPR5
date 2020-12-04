@@ -10,7 +10,7 @@ namespace DDDSample1.Infrastructure.Products
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.ToTable("Products", SchemaNames.DDDSample1);
+            //builder.ToTable("Products", SchemaNames.DDDSample1);
             builder.HasKey(b => b.Id);
         }
     }
