@@ -1,8 +1,9 @@
 
-Criei um pequeno projeto em ASP.NET Core 2.2 API para demonstrar como usar/aplicar (alguns conceitos de) DDD nesta tecnologia e usando também Entity Framework.
+Projeto exemplo/template em ASP.NET Core 5.0 API para demonstrar como usar/aplicar (alguns conceitos de) DDD nesta tecnologia e usando também Entity Framework.
+Adota um estilo arquitetural Onion.
 
 Este exemplo compreende:
-- um dominio com 2 aggregate roots (Category e Product);
+- um dominio com 3 aggregate roots (Category, Product e Family);
 - um relacionamento de N <— 1 entre Category e Product;
 - clara separação entre (i) API REST, (ii) Domínio e (iii) Infraestrutura (Persistência);
 - aplicação de algumas regras de negócio/validação.
@@ -13,6 +14,3 @@ Como é óbvio, outras alternativas de empacotamento são aceitáveis e (se calh
 
 Também reconheço que podem ser introduzidas algumas melhorias interessantes com relativamente pouco esforço (mas de momento não tenho tempo).
 
-O projeto está disponível e partilhado convosco em https://bitbucket.org/pafomaio/dddsample1 (todos devem ter permissão de escrita no mesmo).
-
-Está/estejam à vontade para incluir as vossas contribuições.
