@@ -10,7 +10,7 @@ namespace DDDSample1.Infrastructure.Categories
 {
     public class CategoryRepository : BaseRepository<Category, CategoryId>, ICategoryRepository
     {
-        private readonly DDDSample1DbContext _context;
+    
         public CategoryRepository(DDDSample1DbContext context):base(context.Categories)
         {
            

@@ -11,7 +11,6 @@ namespace DDDSample1.Infrastructure.Products
 {
     public class ProductRepository : BaseRepository<Product, ProductId>,IProductRepository
     {
-        private readonly DDDSample1DbContext _context;
         public ProductRepository(DDDSample1DbContext context):base(context.Products)
         {
            

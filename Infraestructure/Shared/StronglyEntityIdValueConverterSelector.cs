@@ -9,12 +9,12 @@ namespace DDDSample1.Infrastructure.Shared
     /// <summary>
     /// Based on https://andrewlock.net/strongly-typed-ids-in-ef-core-using-strongly-typed-entity-ids-to-avoid-primitive-obsession-part-4/
     /// </summary>
-    public class StronglyTypedIdValueConverterSelector : ValueConverterSelector
+    public class StronglyEntityIdValueConverterSelector : ValueConverterSelector
     {
         private readonly ConcurrentDictionary<(Type ModelClrType, Type ProviderClrType), ValueConverterInfo> _converters
             = new ConcurrentDictionary<(Type ModelClrType, Type ProviderClrType), ValueConverterInfo>();
 
-        public StronglyTypedIdValueConverterSelector(ValueConverterSelectorDependencies dependencies) 
+        public StronglyEntityIdValueConverterSelector(ValueConverterSelectorDependencies dependencies) 
             : base(dependencies)
         {
         }
@@ -30,18 +30,18 @@ namespace DDDSample1.Infrastructure.Shared
             var underlyingModelType = UnwrapNullableType(modelClrType);
             var underlyingProviderType = UnwrapNullableType(providerClrType);
 
-            if (underlyingProviderType is null || underlyingProviderType == typeof(Guid))
+            if (underlyingProviderType is null || underlyingProviderType == typeof(String))
             {
-                var isTypedIdValue = typeof(TypedIdValueBase).IsAssignableFrom(underlyingModelType);
+                var isTypedIdValue = typeof(EntityId).IsAssignableFrom(underlyingModelType);
                 if (isTypedIdValue)
                 {
-                    var converterType = typeof(TypedIdValueConverter<>).MakeGenericType(underlyingModelType);
+                    var converterType = typeof(EntityIdValueConverter<>).MakeGenericType(underlyingModelType);
 
-                    yield return _converters.GetOrAdd((underlyingModelType, typeof(Guid)), _ =>
+                    yield return _converters.GetOrAdd((underlyingModelType, typeof(String)), _ =>
                     {
                         return new ValueConverterInfo(
                             modelClrType: modelClrType,
-                            providerClrType: typeof(Guid),
+                            providerClrType: typeof(String),
                             factory: valueConverterInfo => (ValueConverter)Activator.CreateInstance(converterType, valueConverterInfo.MappingHints));
                     });
                 }

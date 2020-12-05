@@ -1,32 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "/home/cferreira/Desktop/actividadelectiva/ARQSI_2019/exemploDDD/dddsample1/DDDSample1.csproj": {}
+    "/Users/paulomaio/Work/Ensino/2019-20/ARQSI/Projects/DDDSample1/DDDSample1.csproj": {}
   },
   "projects": {
-    "/home/cferreira/Desktop/actividadelectiva/ARQSI_2019/exemploDDD/dddsample1/DDDSample1.csproj": {
+    "/Users/paulomaio/Work/Ensino/2019-20/ARQSI/Projects/DDDSample1/DDDSample1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/cferreira/Desktop/actividadelectiva/ARQSI_2019/exemploDDD/dddsample1/DDDSample1.csproj",
+        "projectUniqueName": "/Users/paulomaio/Work/Ensino/2019-20/ARQSI/Projects/DDDSample1/DDDSample1.csproj",
         "projectName": "DDDSample1",
-        "projectPath": "/home/cferreira/Desktop/actividadelectiva/ARQSI_2019/exemploDDD/dddsample1/DDDSample1.csproj",
-        "packagesPath": "/home/cferreira/.nuget/packages/",
-        "outputPath": "/home/cferreira/Desktop/actividadelectiva/ARQSI_2019/exemploDDD/dddsample1/obj/",
+        "projectPath": "/Users/paulomaio/Work/Ensino/2019-20/ARQSI/Projects/DDDSample1/DDDSample1.csproj",
+        "packagesPath": "/Users/paulomaio/.nuget/packages/",
+        "outputPath": "/Users/paulomaio/Work/Ensino/2019-20/ARQSI/Projects/DDDSample1/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "/usr/share/dotnet/sdk/NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "/home/cferreira/.nuget/NuGet/NuGet.Config"
+          "/Users/paulomaio/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp2.2"
+          "netcoreapp5.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp2.2": {
+          "net5.0": {
+            "targetAlias": "netcoreapp5.0",
             "projectReferences": {}
           }
         },
@@ -37,31 +35,54 @@
         }
       },
       "frameworks": {
-        "netcoreapp2.2": {
+        "net5.0": {
+          "targetAlias": "netcoreapp5.0",
           "dependencies": {
-            "Microsoft.AspNetCore.App": {
-              "suppressParent": "All",
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
-              "version": "[2.2.0, )",
-              "autoReferenced": true
+              "version": "[5.0.0, )"
             },
             "Microsoft.AspNetCore.Razor.Design": {
               "suppressParent": "All",
               "target": "Package",
               "version": "[2.2.0, )"
             },
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
+            "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[2.2.0, )",
-              "autoReferenced": true
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational.Design": {
+              "target": "Package",
+              "version": "[1.1.6, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
             }
           },
           "imports": [
-            "net461"
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
           ],
           "assetTargetFallback": true,
-          "warn": true
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.100/RuntimeIdentifierGraph.json"
         }
       }
     }

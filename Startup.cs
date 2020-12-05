@@ -33,9 +33,10 @@ namespace DDDSample1
         {
             services.AddDbContext<DDDSample1DbContext>(opt =>
                 opt.UseInMemoryDatabase("DDDSample1DB")
-                .ReplaceService<IValueConverterSelector, StronglyTypedIdValueConverterSelector>());
+                .ReplaceService<IValueConverterSelector, StronglyEntityIdValueConverterSelector>());
 
             ConfigureMyServices(services);
+            
 
             services.AddControllers().AddNewtonsoftJson();
         }
@@ -54,7 +55,6 @@ namespace DDDSample1
             }
 
             app.UseHttpsRedirection();
-            //app.UseMvc();
 
             app.UseRouting();
 
