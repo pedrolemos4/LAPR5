@@ -5359,11 +5359,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/paulomaio/Work/Ensino/2019-20/ARQSI/Projects/DDDSample1/DDDSample1.csproj",
-      "projectName": "DDDSample1",
-      "projectPath": "/Users/paulomaio/Work/Ensino/2019-20/ARQSI/Projects/DDDSample1/DDDSample1.csproj",
+      "projectUniqueName": "/Users/paulomaio/Work/Ensino/2019-20/ARQSI/Projects/DDDNetCore/DDDNetCore.csproj",
+      "projectName": "DDDNetCore",
+      "projectPath": "/Users/paulomaio/Work/Ensino/2019-20/ARQSI/Projects/DDDNetCore/DDDNetCore.csproj",
       "packagesPath": "/Users/paulomaio/.nuget/packages/",
-      "outputPath": "/Users/paulomaio/Work/Ensino/2019-20/ARQSI/Projects/DDDSample1/obj/",
+      "outputPath": "/Users/paulomaio/Work/Ensino/2019-20/ARQSI/Projects/DDDNetCore/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/paulomaio/.nuget/NuGet/NuGet.Config"

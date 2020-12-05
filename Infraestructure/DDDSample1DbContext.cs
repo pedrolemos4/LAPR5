@@ -1,15 +1,9 @@
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using DDDSample1.Domain.Categories;
 using DDDSample1.Domain.Products;
 using DDDSample1.Domain.Families;
-using DDDSample1.Domain.Shared;
 using DDDSample1.Infrastructure.Categories;
 using DDDSample1.Infrastructure.Products;
-using DDDSample1.Infrastructure.Families;
 
 namespace DDDSample1.Infrastructure
 {

@@ -1,8 +1,6 @@
-using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using DDDSample1.Domain.Products;
-using DDDSample1.Domain.Categories;
 
 namespace DDDSample1.Infrastructure.Products
 {

@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace DDDSample1.Domain.Shared
 {
     /// <summary>
