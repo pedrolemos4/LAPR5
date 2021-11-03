@@ -15,6 +15,20 @@ namespace DDDSample1.Infrastructure
 
         public DbSet<Family> Families { get; set; }
 
+        public DbSet<Jogador> Jogadores { get; set; }
+
+        public DbSet<Missao> Missoes { get; set; }
+
+        public DbSet<Perfil> Perfis { get; set; }
+
+        public DbSet<Ligacao> Ligacoes { get; set; }
+
+        public DbSet<Post> Posts { get; set; }
+
+        public DbSet<Relacao> Relacoes { get; set; }
+
+        public DbSet<Introducao> Introducoes { get; set; }
+
         public DDDSample1DbContext(DbContextOptions options) : base(options)
         {
 
@@ -25,6 +39,13 @@ namespace DDDSample1.Infrastructure
             modelBuilder.ApplyConfiguration(new CategoryEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ProductEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new FamilyEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new JogadorEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new MissaoEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PerfilEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new LigacaoEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PostEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new RelacaoEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new IntroducaoEntityTypeConfiguration());
         }
     }
 }
