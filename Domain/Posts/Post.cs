@@ -23,29 +23,29 @@ namespace DDDSample1.Domain.Posts
             this.Active = true;
         }
 
-        public Post(string code, Texto texto, Tag tags, Comentario comentario, LikeDislike likeDislike, ForcaLigacao forca)
+        public Post(string code, string texto, string tags, string comentario, string likeDislike, int forca)
         {
             this.Id = new PostId(code);
-            this.Texto = texto;
-            this.Tags = tags;
-            this.Comentario = comentario;
-            this.LikeDislike = likeDislike;
-            this.ForcaLigacao = forca;
+            this.Texto = new Texto(texto);
+            this.Tags = new Tag(tags);
+            this.Comentario = new Comentario(comentario);
+            this.LikeDislike = new LikeDislike(likeDislike);
+            this.ForcaLigacao = new ForcaLigacao(forca);
             this.Active = true;
         }
 
-        public void ChangeTexto(Texto texto)
+        public void ChangeTexto(string texto)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the text to an inactive post.");
-            this.Texto = texto;
+            this.Texto = new Texto(texto);
         }
 
-        public void ChangeTags(Tag tags)
+        public void ChangeTags(string tags)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the tags to an inactive post.");
-            this.Tags = tags;
+            this.Tags = new Tag(tags);
         }
         
         public void MarkAsInative()

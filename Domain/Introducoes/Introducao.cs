@@ -15,18 +15,18 @@ namespace DDDSample1.Domain.Introducoes
             this.Active = true;
         }
 
-        public Introducao(string code, Estado estado)
+        public Introducao(string code, string estado)
         {
             this.Id = new IntroducaoId(code);
-            this.Estado = estado;
+            this.Estado = new Estado(estado);
             this.Active = true;
         }
 
-        public void ChangeEstado(Estado estado)
+        public void ChangeEstado(string estado)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the description to an inactive family.");
-            this.Estado = estado;
+            this.Estado = new Estado(estado);
         }
         public void MarkAsInative()
         {

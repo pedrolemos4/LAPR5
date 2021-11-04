@@ -19,20 +19,20 @@ namespace DDDSample1.Domain.Relacoes
             this.Active = true;
         }
 
-        public Relacao(string code, Tag tags, ForcaRelacao forcaRelacao, ForcaLigacao fl)
+        public Relacao(string code, string tags, int fr, int fl)
         {
             this.Id = new RelacaoId(code);
-            this.Tags = tags;
-            this.ForcaRelacao = fr;
-            this.ForcaLigacao = fl;
+            this.Tags = new Tag(tags);
+            this.ForcaRelacao = new ForcaRelacao(fr);
+            this.ForcaLigacao = new ForcaLigacao(fl);
             this.Active = true;
         }
 
-        public void ChangeTags(Tag tags)
+        public void ChangeTags(string tags)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the tags to an inactive relationship.");
-            this.Tags = tags;
+            this.Tags = new Tag(tags);
         }
         public void MarkAsInative()
         {

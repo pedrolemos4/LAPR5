@@ -26,66 +26,66 @@ namespace DDDSample1.Domain.Perfis
             this.Active = true;
         }
 
-        public Perfil(string code, Nome nome, Email email, Telefone telefone, DataNascimento data, EstadoHumor estado, PerfilFacebook perfilFB, PerfilLinkedin perfilLI)
+        public Perfil(string code, string nome, string email, int telefone, string data, string estado, string perfilFB, string perfilLI)
         {
             this.Id = new PerfilId(code);
-            this.Nome = nome;
-            this.Email = email;
-            this.Telefone = telefone;
-            this.DataNascimento = data;
-            this.EstadoHumor = estado;
-            this.PerfilFacebook = perfilFB;
-            this.PerfilLinkedin = perfilLI;
+            this.Nome = new Nome(nome);
+            this.Email = new Email(email);
+            this.Telefone = new Telefone(telefone);
+            this.DataNascimento = new DataNascimento(data);
+            this.EstadoHumor = new EstadoHumor(estado);
+            this.PerfilFacebook = new PerfilFacebook(perfilFB);
+            this.PerfilLinkedin = new PerfilLinkedin(perfilLI);
             this.Active = true;
         }
 
-        public void ChangeNome(Nome nome)
+        public void ChangeNome(string nome)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the name to an inactive profile.");
-            this.Nome = nome;
+            this.Nome = new Nome(nome);
         }
 
-        public void ChangeEmail(Email email)
+        public void ChangeEmail(string email)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the email to an inactive profile.");
-            this.Email = email;
+            this.Email = new Email(email);
         }
 
-        public void ChangeTelefone(Telefone telefone)
+        public void ChangeTelefone(int telefone)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the phone number to an inactive profile.");
-            this.Telefone = telefone;
+            this.Telefone = new Telefone(telefone);
         }
 
-        public void ChangeDataNascimento(DataNascimento data)
+        public void ChangeDataNascimento(string data)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the date to an inactive profile.");
-            this.DataNascimento = data;
+            this.DataNascimento = new DataNascimento(data);
         }
 
-        public void ChangeEstadoHumor(EstadoHumor estado)
+        public void ChangeEstadoHumor(string estado)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the mood to an inactive profile.");
-            this.EstadoHumor = estado;
+            this.EstadoHumor = new EstadoHumor(estado);
         }
 
-        public void ChangePerfilFacebook(PerfilFacebook perfil)
+        public void ChangePerfilFacebook(string perfil)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the facebook profile to an inactive profile.");
-            this.PerfilFacebook = perfil;
+            this.PerfilFacebook = new PerfilFacebook(perfil);
         }
 
-        public void ChangePerfilLinkedin(PerfilLinkedin perfil)
+        public void ChangePerfilLinkedin(string perfil)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the linkedin profile to an inactive profile.");
-            this.PerfilLinkedin = perfil;
+            this.PerfilLinkedin = new PerfilLinkedin(perfil);
         }
         public void MarkAsInative()
         {

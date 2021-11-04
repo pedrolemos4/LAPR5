@@ -16,26 +16,26 @@ namespace DDDSample1.Domain.Missoes
             this.Active = true;
         }
 
-        public Missao(string code, Dificuldade dificuldade, Data data)
+        public Missao(string code, string dificuldade, string data)
         {
             this.Id = new MissaoId(code);
-            this.Dificuldade = dificuldade;
-            this.Data = data;
+            this.Dificuldade = new Dificuldade(dificuldade);
+            this.Data = new Data(data);
             this.Active = true;
         }
 
-        public void ChangeDificuldade(Dificuldade dificuldade)
+        public void ChangeDificuldade(string dificuldade)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the dificulty to an inactive mission.");
-            this.Dificuldade = dificuldade;
+            this.Dificuldade = new Dificuldade(dificuldade);
         }
 
-        public void ChangeData(Data data)
+        public void ChangeData(string data)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the date to an inactive mission.");
-            this.Data = data;
+            this.Data = new Data(data);
         }
 
         public void MarkAsInative()

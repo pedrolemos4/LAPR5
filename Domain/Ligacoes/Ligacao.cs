@@ -15,26 +15,26 @@ namespace DDDSample1.Domain.Ligacoes
             this.Active = true;
         }
 
-        public Ligacao(string code, TextoLigacao texto, Estado estado)
+        public Ligacao(string code, string texto, string estado)
         {
             this.Id = new LigacaoId(code);
-            this.TextoLigacao = texto;
-            this.Estado = estado;
+            this.TextoLigacao = new TextoLigacao(texto);
+            this.Estado = new Estado(estado);
             this.Active = true;
         }
 
-        public void ChangeTextoLigacao(TextoLigacao texto)
+        public void ChangeTextoLigacao(string texto)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the text to an inactive connection.");
-            this.TextoLigacao = texto;
+            this.TextoLigacao = new TextoLigacao(texto);
         }
 
-        public void ChangeEstado(Estado estado)
+        public void ChangeEstado(string estado)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the state to an inactive connection.");
-            this.Estado = estado;
+            this.Estado = new Estado(estado);
         }
         public void MarkAsInative()
         {
