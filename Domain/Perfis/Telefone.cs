@@ -5,9 +5,9 @@ namespace DDDSample1.Domain.Perfis
     public class Telefone : IValueObject
     {
 
-        public int NumTelefone { get;  private set; }
+        public int NumTelefone { get; private set; }
 
-        public bool Active{ get;  private set; }
+        public bool Active { get; private set; }
 
         private Telefone()
         {
@@ -16,10 +16,21 @@ namespace DDDSample1.Domain.Perfis
 
         public Telefone(int telefone)
         {
-            this.NumTelefone = telefone;
+            setTelefone(telefone);
             this.Active = true;
         }
 
+        private void setTelefone(int telefone)
+        {
+            if (telefone == 0 || (telefone > 99999999999 && telefone < 9999999999999))
+            {
+                this.NumTelefone = telefone;
+            }
+            else
+            {
+                throw new BusinessRuleValidationException("Phone number is invalid.");
+            }
+        }
         public void MarkAsInative()
         {
             this.Active = false;

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Tiago\\Desktop\\LAPR5\\Projeto\\Projeto\\DDDNetCore.csproj": {}
+    "C:\\Users\\pedro\\Documents\\Projeto\\21s5_di_52\\DDDNetCore.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Tiago\\Desktop\\LAPR5\\Projeto\\Projeto\\DDDNetCore.csproj": {
+    "C:\\Users\\pedro\\Documents\\Projeto\\21s5_di_52\\DDDNetCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Tiago\\Desktop\\LAPR5\\Projeto\\Projeto\\DDDNetCore.csproj",
+        "projectUniqueName": "C:\\Users\\pedro\\Documents\\Projeto\\21s5_di_52\\DDDNetCore.csproj",
         "projectName": "DDDNetCore",
-        "projectPath": "C:\\Users\\Tiago\\Desktop\\LAPR5\\Projeto\\Projeto\\DDDNetCore.csproj",
-        "packagesPath": "C:\\Users\\Tiago\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Tiago\\Desktop\\LAPR5\\Projeto\\Projeto\\obj\\",
+        "projectPath": "C:\\Users\\pedro\\Documents\\Projeto\\21s5_di_52\\DDDNetCore.csproj",
+        "packagesPath": "C:\\Users\\pedro\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pedro\\Documents\\Projeto\\21s5_di_52\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Tiago\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\pedro\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp5.0"
