@@ -5,7 +5,7 @@ namespace DDDSample1.Domain.SharedValueObjects
     public class Estado : IValueObject
     {
 
-        public string Estado { get;  private set; }
+        public string Descricao { get;  private set; }
 
         public bool Active{ get;  private set; }
 
@@ -16,7 +16,7 @@ namespace DDDSample1.Domain.SharedValueObjects
 
         public Estado(string estado)
         {
-            this.Estado = estado;
+            this.Descricao = estado;
             this.Active = true;
         }
 

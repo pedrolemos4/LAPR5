@@ -5,7 +5,7 @@ namespace DDDSample1.Domain.Missoes
     public class Data : IValueObject
     {
 
-        public string Data { get;  private set; }
+        public string Date { get;  private set; }
 
         public bool Active{ get;  private set; }
 
@@ -16,7 +16,7 @@ namespace DDDSample1.Domain.Missoes
 
         public Data(string data)
         {
-            this.Data = data;
+            this.Date = data;
             this.Active = true;
         }
 

@@ -5,7 +5,7 @@ namespace DDDSample1.Domain.Perfis
     public class Telefone : IValueObject
     {
 
-        public int Telefone { get;  private set; }
+        public int NumTelefone { get;  private set; }
 
         public bool Active{ get;  private set; }
 
@@ -16,7 +16,7 @@ namespace DDDSample1.Domain.Perfis
 
         public Telefone(int telefone)
         {
-            this.Telefone = telefone;
+            this.NumTelefone = telefone;
             this.Active = true;
         }
 

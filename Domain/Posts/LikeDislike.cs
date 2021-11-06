@@ -5,7 +5,7 @@ namespace DDDSample1.Domain.Posts
     public class LikeDislike : IValueObject
     {
 
-        public string LikeDislike { get;  private set; }
+        public string Descricao { get;  private set; }
 
         public bool Active{ get;  private set; }
 
@@ -16,7 +16,7 @@ namespace DDDSample1.Domain.Posts
 
         public LikeDislike(string likeDislike)
         {
-            this.LikeDislike = likeDislike;
+            this.Descricao = likeDislike;
             this.Active = true;
         }
 

@@ -5,7 +5,7 @@ namespace DDDSample1.Domain.Perfis
     public class PerfilFacebook : IValueObject
     {
 
-        public string PerfilFacebook { get;  private set; }
+        public string PerfilFace { get;  private set; }
 
         public bool Active{ get;  private set; }
 
@@ -16,7 +16,7 @@ namespace DDDSample1.Domain.Perfis
 
         public PerfilFacebook(string perfilFB)
         {
-            this.PerfilFacebook = perfilFB;
+            this.PerfilFace = perfilFB;
             this.Active = true;
         }
 

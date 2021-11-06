@@ -5,7 +5,7 @@ namespace DDDSample1.Domain.SharedValueObjects
     public class ForcaLigacao : IValueObject
     {
 
-        public int ForcaLigacao { get;  private set; }
+        public int Valor { get;  private set; }
 
         public bool Active{ get;  private set; }
 
@@ -16,7 +16,7 @@ namespace DDDSample1.Domain.SharedValueObjects
 
         public ForcaLigacao(int forca)
         {
-            this.ForcaLigacao = forca;
+            this.Valor = forca;
             this.Active = true;
         }
 

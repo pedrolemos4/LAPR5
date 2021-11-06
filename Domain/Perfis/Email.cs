@@ -5,7 +5,7 @@ namespace DDDSample1.Domain.Perfis
     public class Email : IValueObject
     {
 
-        public string Email { get;  private set; }
+        public string EnderecoEmail { get;  private set; }
 
         public bool Active{ get;  private set; }
 
@@ -16,7 +16,7 @@ namespace DDDSample1.Domain.Perfis
 
         public Email(string email)
         {
-            this.Email = email;
+            this.EnderecoEmail = email;
             this.Active = true;
         }
 

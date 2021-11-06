@@ -1,4 +1,5 @@
 using System;
+using DDDSample1.Domain.SharedValueObjects;
 
 
 namespace DDDSample1.Domain.Jogadores

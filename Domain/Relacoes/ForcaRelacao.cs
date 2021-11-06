@@ -5,7 +5,7 @@ namespace DDDSample1.Domain.Relacoes
     public class ForcaRelacao : IValueObject
     {
 
-        public int ForcaRelacao { get;  private set; }
+        public int Valor { get;  private set; }
 
         public bool Active{ get;  private set; }
 
@@ -16,7 +16,7 @@ namespace DDDSample1.Domain.Relacoes
 
         public ForcaRelacao(int forca)
         {
-            this.ForcaRelacao = forca;
+            this.Valor = forca;
             this.Active = true;
         }
 

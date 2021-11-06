@@ -5,7 +5,7 @@ namespace DDDSample1.Domain.Perfis
     public class PerfilLinkedin : IValueObject
     {
 
-        public string PerfilLinkedin { get;  private set; }
+        public string Linkedin { get;  private set; }
 
         public bool Active{ get;  private set; }
 
@@ -16,7 +16,7 @@ namespace DDDSample1.Domain.Perfis
 
         public PerfilLinkedin(string perfilLI)
         {
-            this.PerfilLinkedin = perfilLI;
+            this.Linkedin = perfilLI;
             this.Active = true;
         }
 

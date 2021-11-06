@@ -34,31 +34,31 @@ namespace DDDSample1.Domain.Ligacoes
             return new LigacaoDto{Id = lig.Id.AsString(), TextoLigacao = lig.TextoLigacao, Estado = lig.Estado};
         }
 
-        public async Task<LigacaoDto> AddAsync(LigacaoDto dto)
-        {
-            var ligacao = new Ligacao(dto.Id, dto.TextoLigacao);
+        // public async Task<LigacaoDto> AddAsync(LigacaoDto dto)
+        // {
+        //     var ligacao = new Ligacao(dto.Id, dto.TextoLigacao);
 
-            await this._repo.AddAsync(ligacao);
+        //     await this._repo.AddAsync(ligacao);
 
-            await this._unitOfWork.CommitAsync();
+        //     await this._unitOfWork.CommitAsync();
 
-            return new LigacaoDto { Id = ligacao.Id.AsString(), TextoLigacao = ligacao.TextoLigacao, Estado = lig.Estado };
-        }
+        //     return new LigacaoDto { Id = ligacao.Id.AsString(), TextoLigacao = ligacao.TextoLigacao, Estado = lig.Estado };
+        // }
 
-        public async Task<LigacaoDto> UpdateAsync(LigacaoDto dto)
-        {
-            var ligacao = await this._repo.GetByIdAsync(new LigacaoId(dto.Id)); 
+        // public async Task<LigacaoDto> UpdateAsync(LigacaoDto dto)
+        // {
+        //     var ligacao = await this._repo.GetByIdAsync(new LigacaoId(dto.Id)); 
 
-            if (ligacao == null)
-                return null;   
+        //     if (ligacao == null)
+        //         return null;   
 
-            // change all field
-            ligacao.AddPontuacao(dto.TextoLigacao);
+        //     // change all field
+        //     ligacao.AddPontuacao(dto.TextoLigacao);
             
-            await this._unitOfWork.CommitAsync();
+        //     await this._unitOfWork.CommitAsync();
 
-            return new LigacaoDto { Id = ligacao.Id.AsString(), TextoLigacao = ligacao.TextoLigacao, Estado = lig.Estado };
-        }
+        //     return new LigacaoDto { Id = ligacao.Id.AsString(), TextoLigacao = ligacao.TextoLigacao, Estado = lig.Estado };
+        // }
 
         public async Task<LigacaoDto> InactivateAsync(LigacaoId id)
         {
@@ -72,7 +72,7 @@ namespace DDDSample1.Domain.Ligacoes
             
             await this._unitOfWork.CommitAsync();
 
-            return new LigacaoDto { Id = ligacao.Id.AsString(), TextoLigacao = ligacao.TextoLigacao, Estado = lig.Estado };
+            return new LigacaoDto { Id = ligacao.Id.AsString(), TextoLigacao = ligacao.TextoLigacao, Estado = ligacao.Estado };
         }
 
          public async Task<LigacaoDto> DeleteAsync(LigacaoId id)
@@ -88,7 +88,7 @@ namespace DDDSample1.Domain.Ligacoes
             this._repo.Remove(ligacao);
             await this._unitOfWork.CommitAsync();
 
-            return new LigacaoDto { Id = ligacao.Id.AsString(), TextoLigacao = ligacao.TextoLigacao, Estado = lig.Estado };
+            return new LigacaoDto { Id = ligacao.Id.AsString(), TextoLigacao = ligacao.TextoLigacao, Estado = ligacao.Estado };
         }
     }
 }

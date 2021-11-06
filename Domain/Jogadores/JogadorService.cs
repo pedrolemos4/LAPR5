@@ -19,7 +19,7 @@ namespace DDDSample1.Domain.Jogadores
         {
             var list = await this._repo.GetAllAsync();
             
-            List<JogadorDto> listDto = list.ConvertAll<JogadorDto>(jog => new JogadorDto{Id = jog.Id.AsString(), Pontuacao = jog.Pontuacao, Tags = jog.Tags});
+            List<JogadorDto> listDto = list.ConvertAll<JogadorDto>(jog => new JogadorDto{Id = jog.Id.AsString(), Pontuacao = jog.Pontuacao});//, Tags = jog.Tags});
 
             return listDto;
         }
@@ -31,34 +31,34 @@ namespace DDDSample1.Domain.Jogadores
             if(jog == null)
                 return null;
 
-            return new JogadorDto{Id = jog.Id.AsString(), Pontuacao = jog.Pontuacao, Tags = jog.Tags};
+            return new JogadorDto{Id = jog.Id.AsString(), Pontuacao = jog.Pontuacao};//, Tags = jog.Tags};
         }
 
-        public async Task<JogadorDto> AddAsync(JogadorDto dto)
-        {
-            var jogador = new Jogador(dto.Id, dto.Pontuacao);
+        // public async Task<JogadorDto> AddAsync(JogadorDto dto)
+        // {
+        //     var jogador = new Jogador(dto.Id, dto.Pontuacao,dto.tags);
 
-            await this._repo.AddAsync(jogador);
+        //     await this._repo.AddAsync(jogador);
 
-            await this._unitOfWork.CommitAsync();
+        //     await this._unitOfWork.CommitAsync();
 
-            return new JogadorDto { Id = jogador.Id.AsString(), Pontuacao = jogador.Pontuacao, Tags = jog.Tags };
-        }
+        //     return new JogadorDto { Id = jogador.Id.AsString(), Pontuacao = jogador.Pontuacao, Tags = jog.Tags };
+        // }
 
-        public async Task<JogadorDto> UpdateAsync(JogadorDto dto)
-        {
-            var jogador = await this._repo.GetByIdAsync(new JogadorId(dto.Id)); 
+        // public async Task<JogadorDto> UpdateAsync(JogadorDto dto)
+        // {
+        //     var jogador = await this._repo.GetByIdAsync(new JogadorId(dto.Id)); 
 
-            if (jogador == null)
-                return null;   
+        //     if (jogador == null)
+        //         return null;   
 
-            // change all field
-            jogador.AddPontuacao(dto.Pontuacao);
+        //     // change all field
+        //     jogador.AddPontuacao(dto.Pontuacao);
             
-            await this._unitOfWork.CommitAsync();
+        //     await this._unitOfWork.CommitAsync();
 
-            return new JogadorDto { Id = jogador.Id.AsString(), Pontuacao = jogador.Pontuacao, Tags = jog.Tags };
-        }
+        //     return new JogadorDto { Id = jogador.Id.AsString(), Pontuacao = jogador.Pontuacao, Tags = jog.Tags };
+        // }
 
         public async Task<JogadorDto> InactivateAsync(JogadorId id)
         {
@@ -72,7 +72,7 @@ namespace DDDSample1.Domain.Jogadores
             
             await this._unitOfWork.CommitAsync();
 
-            return new JogadorDto { Id = jogador.Id.AsString(), Pontuacao = jogador.Pontuacao, Tags = jog.Tags };
+            return new JogadorDto { Id = jogador.Id.AsString(), Pontuacao = jogador.Pontuacao};//, Tags = jog.Tags };
         }
 
          public async Task<JogadorDto> DeleteAsync(JogadorId id)
@@ -88,7 +88,7 @@ namespace DDDSample1.Domain.Jogadores
             this._repo.Remove(jogador);
             await this._unitOfWork.CommitAsync();
 
-            return new JogadorDto { Id = jogador.Id.AsString(), Pontuacao = jogador.Pontuacao, Tags = jog.Tags };
+            return new JogadorDto { Id = jogador.Id.AsString(), Pontuacao = jogador.Pontuacao};//, Tags = jogador.Tags };
         }
     }
 }

@@ -34,31 +34,31 @@ namespace DDDSample1.Domain.Missoes
             return new MissaoDto{Id = miss.Id.AsString(), Dificuldade = miss.Dificuldade, Data = miss.Data};
         }
 
-        public async Task<MissaoDto> AddAsync(MissaoDto dto)
-        {
-            var missao = new Missao(dto.Id, dto.Dificuldade);
+        // public async Task<MissaoDto> AddAsync(MissaoDto dto)
+        // {
+        //     var missao = new Missao(dto.Id, dto.Dificuldade);
 
-            await this._repo.AddAsync(missao);
+        //     await this._repo.AddAsync(missao);
 
-            await this._unitOfWork.CommitAsync();
+        //     await this._unitOfWork.CommitAsync();
 
-            return new MissaoDto { Id = missao.Id.AsString(), Dificuldade = missao.Dificuldade, Data = missao.Data };
-        }
+        //     return new MissaoDto { Id = missao.Id.AsString(), Dificuldade = missao.Dificuldade, Data = missao.Data };
+        // }
 
-        public async Task<MissaoDto> UpdateAsync(MissaoDto dto)
-        {
-            var missao = await this._repo.GetByIdAsync(new MissaoId(dto.Id)); 
+        // public async Task<MissaoDto> UpdateAsync(MissaoDto dto)
+        // {
+        //     var missao = await this._repo.GetByIdAsync(new MissaoId(dto.Id)); 
 
-            if (missao == null)
-                return null;   
+        //     if (missao == null)
+        //         return null;   
 
-            // change all field
-            missao.AddPontuacao(dto.Dificuldade);
+        //     // change all field
+        //     missao.AddPontuacao(dto.Dificuldade);
             
-            await this._unitOfWork.CommitAsync();
+        //     await this._unitOfWork.CommitAsync();
 
-            return new MissaoDto { Id = missao.Id.AsString(), Dificuldade = missao.Dificuldade, Data = missao.Data };
-        }
+        //     return new MissaoDto { Id = missao.Id.AsString(), Dificuldade = missao.Dificuldade, Data = missao.Data };
+        // }
 
         public async Task<MissaoDto> InactivateAsync(MissaoId id)
         {

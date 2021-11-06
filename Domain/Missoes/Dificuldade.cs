@@ -5,7 +5,7 @@ namespace DDDSample1.Domain.Missoes
     public class Dificuldade : IValueObject
     {
 
-        public string Dificuldade { get;  private set; }
+        public string GrauDificuldade { get;  private set; }
 
         public bool Active{ get;  private set; }
 
@@ -16,7 +16,7 @@ namespace DDDSample1.Domain.Missoes
 
         public Dificuldade(string dificuldade)
         {
-            this.Dificuldade = dificuldade;
+            this.GrauDificuldade = dificuldade;
             this.Active = true;
         }
 

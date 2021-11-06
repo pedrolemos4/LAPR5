@@ -5,7 +5,7 @@ namespace DDDSample1.Domain.SharedValueObjects
     public class Tag : IValueObject
     {
 
-        public string Tag { get;  private set; }
+        public string Descricao { get;  private set; }
 
         public bool Active{ get;  private set; }
 
@@ -16,7 +16,7 @@ namespace DDDSample1.Domain.SharedValueObjects
 
         public Tag(string tag)
         {
-            this.Tag = tag;
+            this.Descricao = tag;
             this.Active = true;
         }
 

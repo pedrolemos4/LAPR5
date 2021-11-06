@@ -5,7 +5,7 @@ namespace DDDSample1.Domain.Perfis
     public class EstadoHumor : IValueObject
     {
 
-        public string EstadoHumor { get;  private set; }
+        public string Humor { get;  private set; }
 
         public bool Active{ get;  private set; }
 
@@ -16,7 +16,7 @@ namespace DDDSample1.Domain.Perfis
 
         public EstadoHumor(string estado)
         {
-            this.EstadoHumor = estado;
+            this.Humor = estado;
             this.Active = true;
         }
 

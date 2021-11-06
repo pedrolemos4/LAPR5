@@ -5,19 +5,19 @@ namespace DDDSample1.Domain.Ligacoes
     public class TextoLigacao : IValueObject
     {
 
-        public string TextoLigacao { get;  private set; }
+        public string Texto { get;  private set; }
 
         public bool Active{ get;  private set; }
 
         private TextoLigacao()
         {
-            this.TextoLigacao = "";
+            this.Texto = "";
             this.Active = true;
         }
 
         public TextoLigacao(string texto)
         {
-            this.TextoLigacao = texto;
+            this.Texto = texto;
             this.Active = true;
         }
 

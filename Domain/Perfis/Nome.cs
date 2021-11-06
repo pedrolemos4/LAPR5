@@ -5,7 +5,7 @@ namespace DDDSample1.Domain.Perfis
     public class Nome : IValueObject
     {
 
-        public string Nome { get;  private set; }
+        public string Name { get;  private set; }
 
         public bool Active{ get;  private set; }
 
@@ -16,7 +16,7 @@ namespace DDDSample1.Domain.Perfis
 
         public Nome(string nome)
         {
-            this.Nome = nome;
+            this.Name = nome;
             this.Active = true;
         }
 

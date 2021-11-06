@@ -14,9 +14,9 @@ namespace DDDSample1.Domain.Jogadores
 
         private Jogador()
         {
-            this.Pontuacao = new Pontuacao();
-            this.Tags = new Tag();
-            this.Active = true;
+           // this.Pontuacao = new Pontuacao();
+           // this.Tags = new Tag();
+           // this.Active = true;
         }
 
         public Jogador(string code, int pontuacao, string tags)

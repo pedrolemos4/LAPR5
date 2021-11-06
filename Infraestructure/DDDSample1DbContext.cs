@@ -2,8 +2,24 @@ using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Categories;
 using DDDSample1.Domain.Products;
 using DDDSample1.Domain.Families;
+using DDDSample1.Domain.Missoes;
+using DDDSample1.Domain.Perfis;
+using DDDSample1.Domain.Ligacoes;
+using DDDSample1.Domain.Posts;
+using DDDSample1.Domain.Jogadores;
+using DDDSample1.Domain.Relacoes;
+using DDDSample1.Domain.Introducoes;
 using DDDSample1.Infrastructure.Categories;
 using DDDSample1.Infrastructure.Products;
+using DDDSample1.Infrastructure.Introducoes;
+using DDDSample1.Infrastructure.Jogadores;
+using DDDSample1.Infrastructure.Ligacoes;
+using DDDSample1.Infrastructure.Missoes;
+using DDDSample1.Infrastructure.Perfis;
+using DDDSample1.Infrastructure.Posts;
+using DDDSample1.Infrastructure.Relacoes;
+
+
 
 namespace DDDSample1.Infrastructure
 {

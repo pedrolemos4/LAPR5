@@ -3,7 +3,7 @@ using DDDSample1.Domain.SharedValueObjects;
 
 namespace DDDSample1.Domain.Ligacoes
 {
-    public class Jogador : Entity<JogadorId>, IAggregateRoot
+    public class Ligacao : Entity<LigacaoId>, IAggregateRoot
     {
 
         public TextoLigacao TextoLigacao { get;  private set; }

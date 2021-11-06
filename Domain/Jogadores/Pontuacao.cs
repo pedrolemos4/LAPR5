@@ -5,19 +5,19 @@ namespace DDDSample1.Domain.Jogadores
     public class Pontuacao : IValueObject
     {
 
-        public int Pontuacao { get;  private set; }
+        public int Pontos { get;  private set; }
 
         public bool Active{ get;  private set; }
 
         private Pontuacao()
         {
-            this.Pontuacao = 0;
-            this.Active = true;
+          //  this.Pontos = 0;
+           // this.Active = true;
         }
 
         public Pontuacao(int pontos)
         {
-            this.Pontuacao = pontos;
+            this.Pontos = pontos;
             this.Active = true;
         }
 

@@ -34,31 +34,31 @@ namespace DDDSample1.Domain.Introducoes
             return new IntroducaoDto{Id = intro.Id.AsString(), Estado = intro.Estado};
         }
 
-        public async Task<IntroducaoDto> AddAsync(IntroducaoDto dto)
-        {
-            var introducao = new Introducao(dto.Id, dto.Estado);
+        // public async Task<IntroducaoDto> AddAsync(IntroducaoDto dto)
+        // {
+        //     var introducao = new Introducao(dto.Id, dto.Estado);
 
-            await this._repo.AddAsync(introducao);
+        //     await this._repo.AddAsync(introducao);
 
-            await this._unitOfWork.CommitAsync();
+        //     await this._unitOfWork.CommitAsync();
 
-            return new IntroducaoDto { Id = introducao.Id.AsString(), Estado = introducao.Estado };
-        }
+        //     return new IntroducaoDto { Id = introducao.Id.AsString(), Estado = introducao.Estado };
+        // }
 
-        public async Task<IntroducaoDto> UpdateAsync(IntroducaoDto dto)
-        {
-            var introducao = await this._repo.GetByIdAsync(new IntroducaoId(dto.Id)); 
+        // public async Task<IntroducaoDto> UpdateAsync(IntroducaoDto dto)
+        // {
+        //     var introducao = await this._repo.GetByIdAsync(new IntroducaoId(dto.Id)); 
 
-            if (introducao == null)
-                return null;   
+        //     if (introducao == null)
+        //         return null;   
 
-            // change all field
-            introducao.AddPontuacao(dto.Estado);
+        //     // change all field
+        //     introducao.AddPontuacao(dto.Estado);
             
-            await this._unitOfWork.CommitAsync();
+        //     await this._unitOfWork.CommitAsync();
 
-            return new IntroducaoDto { Id = introducao.Id.AsString(), Estado = introducao.Estado };
-        }
+        //     return new IntroducaoDto { Id = introducao.Id.AsString(), Estado = introducao.Estado };
+        // }
 
         public async Task<IntroducaoDto> InactivateAsync(IntroducaoId id)
         {

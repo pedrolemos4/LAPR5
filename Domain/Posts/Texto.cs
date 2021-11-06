@@ -5,7 +5,7 @@ namespace DDDSample1.Domain.Posts
     public class Texto : IValueObject
     {
 
-        public string Texto { get;  private set; }
+        public string Descricao { get;  private set; }
 
         public bool Active{ get;  private set; }
 
@@ -16,7 +16,7 @@ namespace DDDSample1.Domain.Posts
 
         public Texto(string texto)
         {
-            this.Texto = texto;
+            this.Descricao = texto;
             this.Active = true;
         }
 

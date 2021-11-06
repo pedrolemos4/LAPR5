@@ -5,7 +5,7 @@ namespace DDDSample1.Domain.Posts
     public class Comentario : IValueObject
     {
 
-        public string Comentario { get;  private set; }
+        public string Texto { get;  private set; }
 
         public bool Active{ get;  private set; }
 
@@ -16,7 +16,7 @@ namespace DDDSample1.Domain.Posts
 
         public Comentario(string comentario)
         {
-            this.Comentario = comentario;
+            this.Texto = comentario;
             this.Active = true;
         }
 

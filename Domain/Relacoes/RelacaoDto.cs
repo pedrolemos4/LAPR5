@@ -1,9 +1,10 @@
 using System;
+using DDDSample1.Domain.SharedValueObjects;
 
 
-namespace DDDSample1.Domain.Perfis
+namespace DDDSample1.Domain.Relacoes
 {
-    public class PerfilDto
+    public class RelacaoDto
     {
         public String Id { get; set; }
 

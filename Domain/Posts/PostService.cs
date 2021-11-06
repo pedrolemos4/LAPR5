@@ -15,14 +15,14 @@ namespace DDDSample1.Domain.Posts
             this._repo = repo;
         }
 
-        public async Task<List<PostDto>> GetAllAsync()
-        {
-            var list = await this._repo.GetAllAsync();
+        // public async Task<List<PostDto>> GetAllAsync()
+        // {
+        //     var list = await this._repo.GetAllAsync();
             
-            List<PostDto> listDto = list.ConvertAll<PostDto>(async post => new PostDto{Id = post.Id.AsString(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike, ForcaLigacao = post.ForcaLigacao});
+        //     List<PostDto> listDto = list.ConvertAll<PostDto>(async post => new PostDto{Id = post.Id.AsString(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike, ForcaLigacao = post.ForcaLigacao});
 
-            return listDto;
-        }
+        //     return listDto;
+        // }
 
         public async Task<PostDto> GetByIdAsync(PostId id)
         {
@@ -34,31 +34,31 @@ namespace DDDSample1.Domain.Posts
             return new PostDto{Id = post.Id.AsString(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike, ForcaLigacao = post.ForcaLigacao};
         }
 
-        public async Task<PostDto> AddAsync(PostDto dto)
-        {
-            var post = new Post(dto.Id, dto.Texto);
+        // public async Task<PostDto> AddAsync(PostDto dto)
+        // {
+        //     var post = new Post(dto.Id, dto.Texto);
 
-            await this._repo.AddAsync(post);
+        //     await this._repo.AddAsync(post);
 
-            await this._unitOfWork.CommitAsync();
+        //     await this._unitOfWork.CommitAsync();
 
-            return new PostDto { Id = post.Id.AsString(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike, ForcaLigacao = post.ForcaLigacao };
-        }
+        //     return new PostDto { Id = post.Id.AsString(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike, ForcaLigacao = post.ForcaLigacao };
+        // }
 
-        public async Task<PostDto> UpdateAsync(PostDto dto)
-        {
-            var post = await this._repo.GetByIdAsync(new PostId(dto.Id)); 
+        // public async Task<PostDto> UpdateAsync(PostDto dto)
+        // {
+        //     var post = await this._repo.GetByIdAsync(new PostId(dto.Id)); 
 
-            if (post == null)
-                return null;   
+        //     if (post == null)
+        //         return null;   
 
-            // change all field
-            post.AddPontuacao(dto.Texto);
+        //     // change all field
+        //     post.AddPontuacao(dto.Texto);
             
-            await this._unitOfWork.CommitAsync();
+        //     await this._unitOfWork.CommitAsync();
 
-            return new PostDto { Id = post.Id.AsString(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike, ForcaLigacao = post.ForcaLigacao };
-        }
+        //     return new PostDto { Id = post.Id.AsString(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike, ForcaLigacao = post.ForcaLigacao };
+        // }
 
         public async Task<PostDto> InactivateAsync(PostId id)
         {
