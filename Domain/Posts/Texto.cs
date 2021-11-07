@@ -1,7 +1,8 @@
 using DDDSample1.Domain.Shared;
-
+using Microsoft.EntityFrameworkCore;
 namespace DDDSample1.Domain.Posts
 {
+    [Owned]
     public class Texto : IValueObject
     {
 

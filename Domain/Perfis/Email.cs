@@ -1,8 +1,10 @@
 using DDDSample1.Domain.Shared;
 using System.Net.Mail;
+using Microsoft.EntityFrameworkCore;
 
 namespace DDDSample1.Domain.Perfis
 {
+    [Owned]
     public class Email : IValueObject
     {
 

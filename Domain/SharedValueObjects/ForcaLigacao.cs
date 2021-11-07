@@ -1,7 +1,9 @@
 using DDDSample1.Domain.Shared;
+using Microsoft.EntityFrameworkCore;
 
 namespace DDDSample1.Domain.SharedValueObjects
 {
+    [Owned]
     public class ForcaLigacao : IValueObject
     {
 

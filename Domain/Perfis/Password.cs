@@ -1,9 +1,11 @@
 using DDDSample1.Domain.Shared;
 using System;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace DDDSample1.Domain.Perfis
 {
+    [Owned]
     public class Password : IValueObject
     {
         public string password { get; private set; }

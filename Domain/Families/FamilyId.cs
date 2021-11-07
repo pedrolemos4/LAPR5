@@ -1,9 +1,8 @@
 using System;
 using DDDSample1.Domain.Shared;
-
 namespace DDDSample1.Domain.Families
 {
-    public class FamilyId : EntityId
+        public class FamilyId : EntityId
     {
 
         public FamilyId(String value):base(value)
