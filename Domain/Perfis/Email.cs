@@ -26,7 +26,7 @@ namespace DDDSample1.Domain.Perfis
             try
             {
                 MailAddress endereco = new MailAddress(email);
-                this.EnderecoEmail = endereco;
+                this.EnderecoEmail = endereco.ToString();
             }
             catch
             {

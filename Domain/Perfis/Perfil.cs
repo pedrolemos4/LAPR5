@@ -17,6 +17,8 @@ namespace DDDSample1.Domain.Perfis
 
         public EstadoHumor EstadoHumor { get; private set; }
 
+        public Password password { get; private set; }
+
         public List<Tag> tags { get; private set; }
 
         public PerfilFacebook PerfilFacebook { get; private set; }
@@ -47,12 +49,12 @@ namespace DDDSample1.Domain.Perfis
 
         private void setTags(List<string> tag)
         {
-            List<Tag> tags = new List<Tag>();
-            foreach (Tag t in tag)
+            List<Tag> tagsList = new List<Tag>();
+            foreach (string t in tag)
             {
-                tags.Add(new Tag(tag));
+                tagsList.Add(new Tag(t));
             }
-            this.tags = tags;
+            this.tags = tagsList;
         }
 
         private void setEstadoHumor(string estado)
@@ -60,7 +62,7 @@ namespace DDDSample1.Domain.Perfis
             try
             {
                 EstadoHumor enumerado;
-                EstadoHumor.TryParse(estado, enumerado);
+                EstadoHumor.TryParse(estado, out enumerado);
                 this.EstadoHumor = enumerado;
             }
             catch
@@ -97,12 +99,12 @@ namespace DDDSample1.Domain.Perfis
             this.DataNascimento = new DataNascimento(data);
         }
 
-        public void ChangeEstadoHumor(string estado)
+        /*public void ChangeEstadoHumor(string estado)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the mood to an inactive profile.");
             this.EstadoHumor = new EstadoHumor(estado);
-        }
+        }*/
 
         public void ChangePerfilFacebook(string perfil)
         {

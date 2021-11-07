@@ -16,7 +16,7 @@ namespace DDDSample1.Domain.Perfis
 
         public Nome(string nome)
         {
-            this.Name = setNome(nome);
+            setNome(nome);
             this.Active = true;
         }
 
