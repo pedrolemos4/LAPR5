@@ -9202,19 +9202,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\beatr\\.nuget\\packages\\": {}
+    "C:\\Users\\José Oliveira\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\beatr\\Desktop\\ISEP\\3ANO\\LAPR5\\DDDNetCore.csproj",
+      "projectUniqueName": "C:\\Users\\José Oliveira\\Documents\\21s5_di_52\\DDDNetCore.csproj",
       "projectName": "DDDNetCore",
-      "projectPath": "C:\\Users\\beatr\\Desktop\\ISEP\\3ANO\\LAPR5\\DDDNetCore.csproj",
-      "packagesPath": "C:\\Users\\beatr\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\beatr\\Desktop\\ISEP\\3ANO\\LAPR5\\obj\\",
+      "projectPath": "C:\\Users\\José Oliveira\\Documents\\21s5_di_52\\DDDNetCore.csproj",
+      "packagesPath": "C:\\Users\\José Oliveira\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\José Oliveira\\Documents\\21s5_di_52\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\beatr\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\José Oliveira\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
@@ -9293,20 +9293,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[5.0.0, 5.0.0]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[5.0.0, 5.0.0]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[5.0.0, 5.0.0]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -9315,7 +9301,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

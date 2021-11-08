@@ -19,7 +19,7 @@ namespace DDDSample1.Domain.Introducoes
         {
             var list = await this._repo.GetAllAsync();
             
-            List<IntroducaoDto> listDto = list.ConvertAll<IntroducaoDto>(intro => new IntroducaoDto{Id = intro.Id.AsString(), Estado = intro.EstadoIntroducao});
+            List<IntroducaoDto> listDto = list.ConvertAll<IntroducaoDto>(intro => new IntroducaoDto{Id = intro.Id.AsString(), JogadorInicial = intro.JogadorInicial, JogadorIntrodutor = intro.JogadorIntrodutor, JogadorObjetivo = intro.JogadorObjetivo, Estado = intro.EstadoIntroducao});
 
             return listDto;
         }
@@ -31,7 +31,7 @@ namespace DDDSample1.Domain.Introducoes
             if(intro == null)
                 return null;
 
-            return new IntroducaoDto{Id = intro.Id.AsString(), Estado = intro.EstadoIntroducao};
+            return new IntroducaoDto{Id = intro.Id.AsString(), JogadorInicial = intro.JogadorInicial, JogadorIntrodutor = intro.JogadorIntrodutor, JogadorObjetivo = intro.JogadorObjetivo, Estado = intro.EstadoIntroducao};
         }
 
         // public async Task<IntroducaoDto> AddAsync(IntroducaoDto dto)
@@ -42,7 +42,7 @@ namespace DDDSample1.Domain.Introducoes
 
         //     await this._unitOfWork.CommitAsync();
 
-        //     return new IntroducaoDto { Id = introducao.Id.AsString(), Estado = introducao.Estado };
+        //     return new IntroducaoDto { Id = introducao.Id.AsString(), JogadorInicial = intro.JogadorInicial, JogadorIntrodutor = intro.JogadorIntrodutor, JogadorObjetivo = intro.JogadorObjetivo, Estado = introducao.Estado };
         // }
 
         // public async Task<IntroducaoDto> UpdateAsync(IntroducaoDto dto)
@@ -57,7 +57,7 @@ namespace DDDSample1.Domain.Introducoes
             
         //     await this._unitOfWork.CommitAsync();
 
-        //     return new IntroducaoDto { Id = introducao.Id.AsString(), Estado = introducao.Estado };
+        //     return new IntroducaoDto { Id = introducao.Id.AsString(), JogadorInicial = intro.JogadorInicial, JogadorIntrodutor = intro.JogadorIntrodutor, JogadorObjetivo = intro.JogadorObjetivo, Estado = introducao.Estado };
         // }
 
         public async Task<IntroducaoDto> InactivateAsync(IntroducaoId id)
@@ -72,7 +72,7 @@ namespace DDDSample1.Domain.Introducoes
             
             await this._unitOfWork.CommitAsync();
 
-            return new IntroducaoDto { Id = introducao.Id.AsString(), Estado = introducao.EstadoIntroducao };
+            return new IntroducaoDto { Id = introducao.Id.AsString(), JogadorInicial = introducao.JogadorInicial, JogadorIntrodutor = introducao.JogadorIntrodutor, JogadorObjetivo = introducao.JogadorObjetivo, Estado = introducao.EstadoIntroducao };
         }
 
          public async Task<IntroducaoDto> DeleteAsync(IntroducaoId id)
@@ -88,7 +88,7 @@ namespace DDDSample1.Domain.Introducoes
             this._repo.Remove(introducao);
             await this._unitOfWork.CommitAsync();
 
-            return new IntroducaoDto { Id = introducao.Id.AsString(), Estado = introducao.EstadoIntroducao };
+            return new IntroducaoDto { Id = introducao.Id.AsString(), JogadorInicial = introducao.JogadorInicial, JogadorIntrodutor = introducao.JogadorIntrodutor, JogadorObjetivo = introducao.JogadorObjetivo, Estado = introducao.EstadoIntroducao };
         }
     }
 }

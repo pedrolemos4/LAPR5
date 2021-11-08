@@ -1,10 +1,16 @@
 using DDDSample1.Domain.Shared;
+using DDDSample1.Domain.Jogadores;
 using DDDSample1.Domain.SharedValueObjects;
 
 namespace DDDSample1.Domain.Introducoes
 {
     public class Introducao : Entity<IntroducaoId>, IAggregateRoot
     {
+        public Jogador JogadorInicial { get;  private set; }
+
+        public Jogador JogadorIntrodutor { get;  private set; }
+
+        public Jogador JogadorObjetivo { get;  private set; }
 
         public Estado EstadoIntroducao { get;  private set; }
 
@@ -15,9 +21,12 @@ namespace DDDSample1.Domain.Introducoes
             this.Active = true;
         }
 
-        public Introducao(string code, string estado)
+        public Introducao(string code, Jogador jog_inicial, Jogador jog_introdutor, Jogador jog_objetivo, string estado)
         {
             this.Id = new IntroducaoId(code);
+            this.JogadorInicial = jog_inicial;
+            this.JogadorIntrodutor = jog_introdutor;
+            this.JogadorObjetivo = jog_objetivo;
             setEstado(estado);
             this.Active = true;
         }
