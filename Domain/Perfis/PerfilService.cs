@@ -24,15 +24,15 @@ namespace DDDSample1.Domain.Perfis
     //         return listDto;
     //     }
 
-    //     public async Task<PerfilDto> GetByIdAsync(PerfilId id)
-    //     {
-    //         var per = await this._repo.GetByIdAsync(id);
+        public async Task<PerfilDto> GetByIdAsync(PerfilId id)
+        {
+            var per = await this._repo.GetByIdAsync(id);
             
-    //         if(per == null)
-    //             return null;
+            if(per == null)
+                return null;
 
-    //         return new PerfilDto{Id = per.Id.AsString(), Nome = per.Nome, Email = per.Email, Telefone = per.Telefone, DataNascimento = per.DataNascimento, EstadoHumor = per.EstadoHumor, PerfilFacebook = per.PerfilFacebook, PerfilLinkedin = per.PerfilLinkedin};
-    //     }
+            return new PerfilDto{Id = per.Id.AsString(), Nome = per.nome};
+        }
 
     //     public async Task<PerfilDto> AddAsync(PerfilDto dto)
     //     {

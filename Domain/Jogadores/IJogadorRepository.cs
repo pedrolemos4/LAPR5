@@ -5,6 +5,6 @@ namespace DDDSample1.Domain.Jogadores
 {
     public interface IJogadorRepository:IRepository<Jogador,JogadorId>
     {
-
+    
     }
 }

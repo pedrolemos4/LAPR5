@@ -16,6 +16,9 @@ namespace DDDNetCore.Controllers
     public class JogadoresController : ControllerBase
     {
         private readonly DDDSample1DbContext _context;
+        private readonly JogadorService _serviceJog;
+
+        private readonly PerfilService _servicePer;
 
         public JogadoresController(DDDSample1DbContext context)
         {
@@ -31,9 +34,10 @@ namespace DDDNetCore.Controllers
 
         // GET: api/Jogadores/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Jogador>> GetJogador(JogadorId id)
+        public async Task<ActionResult<JogadorDto>> GetJogador(JogadorId id)
         {
-            var jogador = await _context.Jogadores.FindAsync(id);
+            //var jogador = await _context.Jogadores.FindAsync(id);
+            var jogador = await _serviceJog.GetByIdAsync(id);
 
             if (jogador == null)
             {
@@ -45,17 +49,20 @@ namespace DDDNetCore.Controllers
 
         // GET: api/Perfis/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Perfil>> GetPerfilJogador(JogadorId id)
-        {
-            Jogador jogador = await _context.Jogadores.FindAsync(id);
-
-            if (jogador == null)
+        public async Task<ActionResult<PerfilDto>> GetPerfilJogador(JogadorId id)
+        {   
+            JogadorDto jogadorDto = await _serviceJog.GetByIdAsync(id);
+            //Jogador jogador = await _context.Jogadores.FindAsync(id);
+            
+            if (jogadorDto == null)
             {
                 return NotFound();
             }
-        
-            var perfil = await _context.Perfis.FindAsync(jogador.perfil.Id);
-            return perfil;
+
+        //    var perfil = await _context.Perfis.FindAsync(jogadorDto.perfilId);
+            var perfil = await _servicePer.GetByIdAsync(jogadorDto.perfilId);
+            //ou criar uma query no service
+            return perfil;  
         }
 
         // PUT: api/Jogadores/5

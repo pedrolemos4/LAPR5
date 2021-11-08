@@ -31,7 +31,7 @@ namespace DDDSample1.Domain.Jogadores
             if(jog == null)
                 return null;
 
-            return new JogadorDto{Id = jog.Id.AsString(), Pontuacao = jog.Pontuacao};//, Tags = jog.Tags};
+            return new JogadorDto{Id = jog.Id.AsString(), Pontuacao = jog.Pontuacao, perfilId = jog.perfil.Id};//, Tags = jog.Tags};
         }
 
         // public async Task<JogadorDto> AddAsync(JogadorDto dto)
