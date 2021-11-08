@@ -19,7 +19,7 @@ namespace DDDSample1.Domain.Relacoes
         // {
         //     var list = await this._repo.GetAllAsync();
             
-        //     List<RelacaoDto> listDto = list.ConvertAll<RelacaoDto>(async relacao => new RelacaoDto{Id = relacao.Id.AsString(), Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao});
+        //     List<RelacaoDto> listDto = list.ConvertAll<RelacaoDto>(async relacao => new RelacaoDto{Id = relacao.Id.AsString(), Jogador1 = relacao.Jogador1, Jogador2 = relacao.Jogador2, Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao});
 
         //     return listDto;
         // }
@@ -31,7 +31,7 @@ namespace DDDSample1.Domain.Relacoes
             if(relacao == null)
                 return null;
 
-            return new RelacaoDto{Id = relacao.Id.AsString(), Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao};
+            return new RelacaoDto{Id = relacao.Id.AsString(), Jogador1 = relacao.Jogador1, Jogador2 = relacao.Jogador2, Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao};
         }
 
         // public async Task<RelacaoDto> AddAsync(RelacaoDto dto)
@@ -42,7 +42,7 @@ namespace DDDSample1.Domain.Relacoes
 
         //     await this._unitOfWork.CommitAsync();
 
-        //     return new RelacaoDto { Id = relacao.Id.AsString(), Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao };
+        //     return new RelacaoDto { Id = relacao.Id.AsString(), Jogador1 = relacao.Jogador1, Jogador2 = relacao.Jogador2, Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao };
         // }
 
         // public async Task<RelacaoDto> UpdateAsync(RelacaoDto dto)
@@ -57,7 +57,7 @@ namespace DDDSample1.Domain.Relacoes
             
         //     await this._unitOfWork.CommitAsync();
 
-        //     return new RelacaoDto { Id = relacao.Id.AsString(), Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao };
+        //     return new RelacaoDto { Id = relacao.Id.AsString(), Jogador1 = relacao.Jogador1, Jogador2 = relacao.Jogador2, Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao };
         // }
 
         public async Task<RelacaoDto> InactivateAsync(RelacaoId id)
@@ -72,7 +72,7 @@ namespace DDDSample1.Domain.Relacoes
             
             await this._unitOfWork.CommitAsync();
 
-            return new RelacaoDto { Id = relacao.Id.AsString(), Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao };
+            return new RelacaoDto { Id = relacao.Id.AsString(), Jogador1 = relacao.Jogador1, Jogador2 = relacao.Jogador2, Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao };
         }
 
          public async Task<RelacaoDto> DeleteAsync(RelacaoId id)
@@ -88,7 +88,7 @@ namespace DDDSample1.Domain.Relacoes
             this._repo.Remove(relacao);
             await this._unitOfWork.CommitAsync();
 
-            return new RelacaoDto { Id = relacao.Id.AsString(), Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao };
+            return new RelacaoDto { Id = relacao.Id.AsString(), Jogador1 = relacao.Jogador1, Jogador2 = relacao.Jogador2, Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao };
         }
     }
 }

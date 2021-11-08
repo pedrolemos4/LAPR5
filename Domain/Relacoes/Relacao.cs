@@ -1,4 +1,5 @@
 using DDDSample1.Domain.Shared;
+using DDDSample1.Domain.Jogadores;
 using DDDSample1.Domain.SharedValueObjects;
 using System.Collections.Generic;
 
@@ -6,6 +7,9 @@ namespace DDDSample1.Domain.Relacoes
 {
     public class Relacao : Entity<RelacaoId>, IAggregateRoot
     {
+        public Jogador Jogador1 { get;  private set; }
+
+        public Jogador Jogador2 { get;  private set; }
 
         public List<Tag> Tags { get;  private set; }
 
@@ -20,9 +24,11 @@ namespace DDDSample1.Domain.Relacoes
             this.Active = true;
         }
 
-        public Relacao(string code, List<string> tags, int fr, int fl)
+        public Relacao(string code, Jogador jog1, Jogador jog2, List<string> tags, int fr, int fl)
         {
             this.Id = new RelacaoId(code);
+            this.Jogador1 = jog1;
+            this.Jogador2 = jog2;
             setTags(tags);
             this.ForcaRelacao = new ForcaRelacao(fr);
             this.ForcaLigacao = new ForcaLigacao(fl);

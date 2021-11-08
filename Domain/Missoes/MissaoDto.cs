@@ -1,5 +1,5 @@
 using System;
-
+using DDDSample1.Domain.Jogadores;
 
 namespace DDDSample1.Domain.Missoes
 {
@@ -10,5 +10,8 @@ namespace DDDSample1.Domain.Missoes
         public Dificuldade Dificuldade { get; set; }
 
         public Data Data { get; set; }
+
+        public Jogador JogadorObjetivo { get; set; }
+
     }
 }

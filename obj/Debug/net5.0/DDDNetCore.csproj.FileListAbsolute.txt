@@ -310,3 +310,12 @@ C:\Users\beatr\Desktop\ISEP\3ANO\LAPR5\obj\Debug\net5.0\scopedcss\bundle\DDDNetC
 C:\Users\beatr\Desktop\ISEP\3ANO\LAPR5\obj\Debug\net5.0\DDDNetCore.RazorTargetAssemblyInfo.cache
 C:\Users\beatr\Desktop\ISEP\3ANO\LAPR5\obj\Debug\net5.0\DDDNetCore.csproj.CopyComplete
 C:\Users\beatr\Desktop\ISEP\3ANO\LAPR5\obj\Debug\net5.0\DDDNetCore.genruntimeconfig.cache
+C:\Users\José Oliveira\Documents\21s5_di_52\obj\Debug\net5.0\DDDNetCore.csproj.AssemblyReference.cache
+C:\Users\José Oliveira\Documents\21s5_di_52\obj\Debug\net5.0\DDDNetCore.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\José Oliveira\Documents\21s5_di_52\obj\Debug\net5.0\DDDNetCore.AssemblyInfoInputs.cache
+C:\Users\José Oliveira\Documents\21s5_di_52\obj\Debug\net5.0\DDDNetCore.AssemblyInfo.cs
+C:\Users\José Oliveira\Documents\21s5_di_52\obj\Debug\net5.0\DDDNetCore.csproj.CoreCompileInputs.cache
+C:\Users\José Oliveira\Documents\21s5_di_52\obj\Debug\net5.0\DDDNetCore.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\José Oliveira\Documents\21s5_di_52\obj\Debug\net5.0\DDDNetCore.dll
+C:\Users\José Oliveira\Documents\21s5_di_52\obj\Debug\net5.0\ref\DDDNetCore.dll
+C:\Users\José Oliveira\Documents\21s5_di_52\obj\Debug\net5.0\DDDNetCore.pdb

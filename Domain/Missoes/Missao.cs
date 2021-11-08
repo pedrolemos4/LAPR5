@@ -1,4 +1,5 @@
 using DDDSample1.Domain.Shared;
+using DDDSample1.Domain.Jogadores;
 
 namespace DDDSample1.Domain.Missoes
 {
@@ -8,6 +9,8 @@ namespace DDDSample1.Domain.Missoes
         public Dificuldade Dificuldade { get;  private set; }
 
         public Data Data { get;  private set; }
+
+        public Jogador JogadorObjetivo { get;  private set; }
 
         public bool Active{ get;  private set; }
 
@@ -38,6 +41,12 @@ namespace DDDSample1.Domain.Missoes
             this.Data = new Data(data);
         }
 
+        public void AddObjetivo(Jogador jogador_objetivo)
+        {
+            if (!this.Active)
+                throw new BusinessRuleValidationException("It is not possible to change the objective to an inactive mission.");
+            this.JogadorObjetivo = jogador_objetivo;
+        }
         public void MarkAsInative()
         {
             this.Active = false;

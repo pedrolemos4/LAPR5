@@ -19,7 +19,7 @@ namespace DDDSample1.Domain.Missoes
         {
             var list = await this._repo.GetAllAsync();
             
-            List<MissaoDto> listDto = list.ConvertAll<MissaoDto>(miss => new MissaoDto{Id = miss.Id.AsString(), Dificuldade = miss.Dificuldade, Data = miss.Data});
+            List<MissaoDto> listDto = list.ConvertAll<MissaoDto>(miss => new MissaoDto{Id = miss.Id.AsString(), Dificuldade = miss.Dificuldade, Data = miss.Data, JogadorObjetivo = miss.JogadorObjetivo});
 
             return listDto;
         }
@@ -31,7 +31,7 @@ namespace DDDSample1.Domain.Missoes
             if(miss == null)
                 return null;
 
-            return new MissaoDto{Id = miss.Id.AsString(), Dificuldade = miss.Dificuldade, Data = miss.Data};
+            return new MissaoDto{Id = miss.Id.AsString(), Dificuldade = miss.Dificuldade, Data = miss.Data, JogadorObjetivo = miss.JogadorObjetivo};
         }
 
         // public async Task<MissaoDto> AddAsync(MissaoDto dto)
@@ -57,7 +57,7 @@ namespace DDDSample1.Domain.Missoes
             
         //     await this._unitOfWork.CommitAsync();
 
-        //     return new MissaoDto { Id = missao.Id.AsString(), Dificuldade = missao.Dificuldade, Data = missao.Data };
+        //     return new MissaoDto { Id = missao.Id.AsString(), Dificuldade = missao.Dificuldade, Data = missao.Data, JogadorObjetivo = miss.JogadorObjetivo };
         // }
 
         public async Task<MissaoDto> InactivateAsync(MissaoId id)
@@ -72,7 +72,7 @@ namespace DDDSample1.Domain.Missoes
             
             await this._unitOfWork.CommitAsync();
 
-            return new MissaoDto { Id = missao.Id.AsString(), Dificuldade = missao.Dificuldade, Data = missao.Data };
+            return new MissaoDto { Id = missao.Id.AsString(), Dificuldade = missao.Dificuldade, Data = missao.Data, JogadorObjetivo = miss.JogadorObjetivo };
         }
 
          public async Task<MissaoDto> DeleteAsync(MissaoId id)
@@ -88,7 +88,7 @@ namespace DDDSample1.Domain.Missoes
             this._repo.Remove(missao);
             await this._unitOfWork.CommitAsync();
 
-            return new MissaoDto { Id = missao.Id.AsString(), Dificuldade = missao.Dificuldade, Data = missao.Data };
+            return new MissaoDto { Id = missao.Id.AsString(), Dificuldade = missao.Dificuldade, Data = missao.Data, JogadorObjetivo = miss.JogadorObjetivo };
         }
     }
 }
