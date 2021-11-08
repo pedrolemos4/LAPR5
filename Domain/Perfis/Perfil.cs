@@ -7,23 +7,25 @@ namespace DDDSample1.Domain.Perfis
     public class Perfil : Entity<PerfilId>, IAggregateRoot
     {
 
-        public Nome Nome { get; private set; }
+        public Nome nome { get; private set; }
 
-        public Email Email { get; private set; }
+        public Email email { get; private set; }
 
-        public Telefone Telefone { get; private set; }
+        public Telefone telefone { get; private set; }
 
-        public DataNascimento DataNascimento { get; private set; }
+        public Pais pais {get; private set;}
 
-        public EstadoHumor EstadoHumor { get; private set; }
+        public DataNascimento dataNascimento { get; private set; }
+
+        public EstadoHumor estadoHumor { get; private set; }
 
         public Password password { get; private set; }
 
         public List<Tag> tags { get; private set; }
 
-        public PerfilFacebook PerfilFacebook { get; private set; }
+        public PerfilFacebook perfilFacebook { get; private set; }
 
-        public PerfilLinkedin PerfilLinkedin { get; private set; }
+        public PerfilLinkedin perfilLinkedin { get; private set; }
 
         public bool Active { get; private set; }
 
@@ -32,18 +34,18 @@ namespace DDDSample1.Domain.Perfis
             this.Active = true;
         }
 
-        public Perfil(string code, string nome, string email, int telefone, List<string> tag, string data, string estado, string password, string perfilFB, string perfilLI)
+        public Perfil(string code, string nome, string email, long telefone, List<string> tag, string data, string estado, string password, string perfilFB, string perfilLI)
         {
             this.Id = new PerfilId(code);
-            this.Nome = new Nome(nome);
-            this.Email = new Email(email);
-            this.Telefone = new Telefone(telefone);
-            this.DataNascimento = new DataNascimento(data);
+            this.nome = new Nome(nome);
+            this.email = new Email(email);
+            this.telefone = new Telefone(telefone);
+            this.dataNascimento = new DataNascimento(data);
             setTags(tag);
             this.password = new Password(password);
-            setEstadoHumor(estado);
-            this.PerfilFacebook = new PerfilFacebook(perfilFB);
-            this.PerfilLinkedin = new PerfilLinkedin(perfilLI);
+            setestadoHumor(estado);
+            this.perfilFacebook = new PerfilFacebook(perfilFB);
+            this.perfilLinkedin = new PerfilLinkedin(perfilLI);
             this.Active = true;
         }
 
@@ -57,13 +59,13 @@ namespace DDDSample1.Domain.Perfis
             this.tags = tagsList;
         }
 
-        private void setEstadoHumor(string estado)
+        private void setestadoHumor(string estado)
         {
             try
             {
                 EstadoHumor enumerado;
                 EstadoHumor.TryParse(estado, out enumerado);
-                this.EstadoHumor = enumerado;
+                this.estadoHumor = enumerado;
             }
             catch
             {
@@ -71,53 +73,53 @@ namespace DDDSample1.Domain.Perfis
             }
         }
 
-        public void ChangeNome(string nome)
+        public void Changenome(string nome)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the name to an inactive profile.");
-            this.Nome = new Nome(nome);
+            this.nome = new Nome(nome);
         }
 
-        public void ChangeEmail(string email)
+        public void Changeemail(string email)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the email to an inactive profile.");
-            this.Email = new Email(email);
+            this.email = new Email(email);
         }
 
-        public void ChangeTelefone(int telefone)
+        public void Changetelefone(long telefone)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the phone number to an inactive profile.");
-            this.Telefone = new Telefone(telefone);
+            this.telefone = new Telefone(telefone);
         }
 
-        public void ChangeDataNascimento(string data)
+        public void ChangedataNascimento(string data)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the date to an inactive profile.");
-            this.DataNascimento = new DataNascimento(data);
+            this.dataNascimento = new DataNascimento(data);
         }
 
-        /*public void ChangeEstadoHumor(string estado)
+        /*public void ChangeestadoHumor(string estado)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the mood to an inactive profile.");
-            this.EstadoHumor = new EstadoHumor(estado);
+            this.estadoHumor = new estadoHumor(estado);
         }*/
 
         public void ChangePerfilFacebook(string perfil)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the facebook profile to an inactive profile.");
-            this.PerfilFacebook = new PerfilFacebook(perfil);
+            this.perfilFacebook = new PerfilFacebook(perfil);
         }
 
         public void ChangePerfilLinkedin(string perfil)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the linkedin profile to an inactive profile.");
-            this.PerfilLinkedin = new PerfilLinkedin(perfil);
+            this.perfilLinkedin = new PerfilLinkedin(perfil);
         }
         public void MarkAsInative()
         {

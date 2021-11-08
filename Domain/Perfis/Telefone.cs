@@ -7,7 +7,7 @@ namespace DDDSample1.Domain.Perfis
     public class Telefone : IValueObject
     {
 
-        public int NumTelefone { get; private set; }
+        public long NumTelefone { get; private set; }
 
         public bool Active { get; private set; }
 
@@ -16,13 +16,13 @@ namespace DDDSample1.Domain.Perfis
             this.Active = true;
         }
 
-        public Telefone(int telefone)
+        public Telefone(long telefone)
         {
             setTelefone(telefone);
             this.Active = true;
         }
 
-        private void setTelefone(int telefone)
+        private void setTelefone(long telefone)
         {
             if (telefone == 0 || (telefone > 99999999999 && telefone < 9999999999999))
             {
