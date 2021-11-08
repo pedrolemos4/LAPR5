@@ -16,7 +16,7 @@ namespace DDDSample1.Domain.Missoes
             this.Active = true;
         }
 
-        public Missao(string code, string dificuldade, string data)
+        public Missao(string code, int dificuldade, string data)
         {
             this.Id = new MissaoId(code);
             this.Dificuldade = new Dificuldade(dificuldade);
@@ -24,7 +24,7 @@ namespace DDDSample1.Domain.Missoes
             this.Active = true;
         }
 
-        public void ChangeDificuldade(string dificuldade)
+        public void ChangeDificuldade(int dificuldade)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the dificulty to an inactive mission.");

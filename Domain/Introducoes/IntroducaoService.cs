@@ -19,7 +19,7 @@ namespace DDDSample1.Domain.Introducoes
         {
             var list = await this._repo.GetAllAsync();
             
-            List<IntroducaoDto> listDto = list.ConvertAll<IntroducaoDto>(intro => new IntroducaoDto{Id = intro.Id.AsString(), Estado = intro.Estado});
+            List<IntroducaoDto> listDto = list.ConvertAll<IntroducaoDto>(intro => new IntroducaoDto{Id = intro.Id.AsString(), Estado = intro.EstadoIntroducao});
 
             return listDto;
         }
@@ -31,7 +31,7 @@ namespace DDDSample1.Domain.Introducoes
             if(intro == null)
                 return null;
 
-            return new IntroducaoDto{Id = intro.Id.AsString(), Estado = intro.Estado};
+            return new IntroducaoDto{Id = intro.Id.AsString(), Estado = intro.EstadoIntroducao};
         }
 
         // public async Task<IntroducaoDto> AddAsync(IntroducaoDto dto)
@@ -72,7 +72,7 @@ namespace DDDSample1.Domain.Introducoes
             
             await this._unitOfWork.CommitAsync();
 
-            return new IntroducaoDto { Id = introducao.Id.AsString(), Estado = introducao.Estado };
+            return new IntroducaoDto { Id = introducao.Id.AsString(), Estado = introducao.EstadoIntroducao };
         }
 
          public async Task<IntroducaoDto> DeleteAsync(IntroducaoId id)
@@ -88,7 +88,7 @@ namespace DDDSample1.Domain.Introducoes
             this._repo.Remove(introducao);
             await this._unitOfWork.CommitAsync();
 
-            return new IntroducaoDto { Id = introducao.Id.AsString(), Estado = introducao.Estado };
+            return new IntroducaoDto { Id = introducao.Id.AsString(), Estado = introducao.EstadoIntroducao };
         }
     }
 }
