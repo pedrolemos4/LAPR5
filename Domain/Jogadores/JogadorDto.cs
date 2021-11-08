@@ -2,6 +2,7 @@ using System;
 using DDDSample1.Domain.SharedValueObjects;
 using DDDSample1.Domain.Perfis;
 using DDDSample1.Domain.Missoes;
+using DDDSample1.Domain.Relacoes;
 using System.Collections.Generic;
 
 
@@ -16,5 +17,7 @@ namespace DDDSample1.Domain.Jogadores
         public PerfilId perfilId {get; set;}
 
         public List<Missao> Missao{ get; set; }
+
+        public List<Relacao> Relacao{ get; set; }
     }
 }

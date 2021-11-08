@@ -31,7 +31,7 @@ namespace DDDSample1.Domain.Posts
             if(post == null)
                 return null;
 
-            return new PostDto{Id = post.Id.AsString(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike, ForcaLigacao = post.ForcaLigacao};
+            return new PostDto{Id = post.Id.AsString(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike};
         }
 
         // public async Task<PostDto> AddAsync(PostDto dto)
@@ -72,7 +72,7 @@ namespace DDDSample1.Domain.Posts
             
             await this._unitOfWork.CommitAsync();
 
-            return new PostDto { Id = post.Id.AsString(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike, ForcaLigacao = post.ForcaLigacao };
+            return new PostDto { Id = post.Id.AsString(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike};
         }
 
          public async Task<PostDto> DeleteAsync(PostId id)
@@ -88,7 +88,7 @@ namespace DDDSample1.Domain.Posts
             this._repo.Remove(post);
             await this._unitOfWork.CommitAsync();
 
-            return new PostDto { Id = post.Id.AsString(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike, ForcaLigacao = post.ForcaLigacao };
+            return new PostDto { Id = post.Id.AsString(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike};
         }
     }
 }

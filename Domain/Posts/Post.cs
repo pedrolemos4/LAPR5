@@ -1,5 +1,6 @@
 using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.SharedValueObjects;
+using System.Collections.Generic;
 
 namespace DDDSample1.Domain.Posts
 {
@@ -8,13 +9,11 @@ namespace DDDSample1.Domain.Posts
 
         public Texto Texto { get;  private set; }
 
-        public Tag Tags { get;  private set; }
+        public List<Tag> Tags { get;  private set; }
 
-        public Comentario Comentario { get;  private set; }
+        public List<Comentario> Comentario { get;  private set; }
 
         public LikeDislike LikeDislike { get;  private set; }
-
-        public ForcaLigacao ForcaLigacao { get;  private set; }
 
         public bool Active{ get;  private set; }
 
@@ -23,29 +22,48 @@ namespace DDDSample1.Domain.Posts
             this.Active = true;
         }
 
-        public Post(string code, string texto, string tags, string comentario, string likeDislike, int forca)
+        public Post(string code, string texto, List<string> tags, List<string> comentario, string likeDislike, int forca)
         {
             this.Id = new PostId(code);
             this.Texto = new Texto(texto);
-            this.Tags = new Tag(tags);
-            this.Comentario = new Comentario(comentario);
+            setTags(tags);
+            setComentarios(comentario);
             this.LikeDislike = new LikeDislike(likeDislike);
-            this.ForcaLigacao = new ForcaLigacao(forca);
             this.Active = true;
         }
 
-        public void ChangeTexto(string texto)
+        private void setTags(List<string> tag)
+        {
+            List<Tag> tagsList = new List<Tag>();
+            foreach (string t in tag)
+            {
+                tagsList.Add(new Tag(t));
+            }
+            this.Tags = tagsList;
+        }
+
+        private void setComentarios(List<string> comentario)
+        {
+            List<Comentario> list = new List<Comentario>();
+            foreach (string t in comentario)
+            {
+                list.Add(new Comentario(t));
+            }
+            this.Comentario = list;
+        }
+
+        public void ChangeTexto(List<string> texto)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the text to an inactive post.");
-            this.Texto = new Texto(texto);
+            setComentarios(texto);
         }
 
-        public void ChangeTags(string tags)
+        public void ChangeTags(List<string> tags)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the tags to an inactive post.");
-            this.Tags = new Tag(tags);
+            setTags(tags);
         }
         
         public void MarkAsInative()
