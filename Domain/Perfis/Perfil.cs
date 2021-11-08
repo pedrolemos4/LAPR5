@@ -13,6 +13,10 @@ namespace DDDSample1.Domain.Perfis
 
         public Telefone telefone { get; private set; }
 
+        public Pais pais { get; private set; }
+
+        public Cidade cidade { get; private set; }
+
         public DataNascimento dataNascimento { get; private set; }
 
         public EstadoHumor estadoHumor { get; private set; }
@@ -32,7 +36,7 @@ namespace DDDSample1.Domain.Perfis
             this.Active = true;
         }
 
-        public Perfil(string code, string nome, string email, long telefone, List<string> tag, string data, string estado, string password, string perfilFB, string perfilLI)
+        public Perfil(string code, string nome, string email, long telefone, List<string> tag, string data, string estado, string password, string cidade, string perfilFB, string perfilLI)
         {
             this.Id = new PerfilId(code);
             this.nome = new Nome(nome);
@@ -42,6 +46,7 @@ namespace DDDSample1.Domain.Perfis
             setTags(tag);
             this.password = new Password(password);
             setestadoHumor(estado);
+            this.cidade = new Cidade(cidade);
             this.perfilFacebook = new PerfilFacebook(perfilFB);
             this.perfilLinkedin = new PerfilLinkedin(perfilLI);
             this.Active = true;
