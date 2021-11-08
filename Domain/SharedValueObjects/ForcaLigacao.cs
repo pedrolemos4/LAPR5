@@ -18,8 +18,20 @@ namespace DDDSample1.Domain.SharedValueObjects
 
         public ForcaLigacao(int forca)
         {
-            this.Valor = forca;
+            setForcaLigacao(forca);
             this.Active = true;
+        }
+
+        private void setForcaLigacao(int forca)
+        {
+            if (forca > 0 && forca < 101)
+            {
+                this.Valor = forca;
+            }
+            else
+            {
+                throw new BusinessRuleValidationException("Força de ligação inválida.");
+            }
         }
 
         public void MarkAsInative()

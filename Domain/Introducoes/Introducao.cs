@@ -6,7 +6,7 @@ namespace DDDSample1.Domain.Introducoes
     public class Introducao : Entity<IntroducaoId>, IAggregateRoot
     {
 
-        public Estado Estado { get;  private set; }
+        public Estado EstadoIntroducao { get;  private set; }
 
         public bool Active{ get;  private set; }
 
@@ -18,7 +18,7 @@ namespace DDDSample1.Domain.Introducoes
         public Introducao(string code, string estado)
         {
             this.Id = new IntroducaoId(code);
-            this.Estado = new Estado(estado);
+            setEstado(estado);
             this.Active = true;
         }
 
@@ -26,8 +26,23 @@ namespace DDDSample1.Domain.Introducoes
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the description to an inactive family.");
-            this.Estado = new Estado(estado);
+            setEstado(estado);
         }
+
+        private void setEstado(string estado)
+        {
+            try
+            {
+                Estado enumerado;
+                Estado.TryParse(estado, out enumerado);
+                this.EstadoIntroducao = enumerado;
+            }
+            catch
+            {
+                throw new BusinessRuleValidationException("Estado de Pedido de Introdução inválido.");
+            }
+        }
+
         public void MarkAsInative()
         {
             this.Active = false;

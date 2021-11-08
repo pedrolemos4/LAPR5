@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Tiago\\Desktop\\LAPR5\\Projeto\\Projeto\\DDDNetCore.csproj": {}
+    "C:\\Users\\beatr\\Desktop\\ISEP\\3ANO\\LAPR5\\DDDNetCore.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Tiago\\Desktop\\LAPR5\\Projeto\\Projeto\\DDDNetCore.csproj": {
+    "C:\\Users\\beatr\\Desktop\\ISEP\\3ANO\\LAPR5\\DDDNetCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Tiago\\Desktop\\LAPR5\\Projeto\\Projeto\\DDDNetCore.csproj",
+        "projectUniqueName": "C:\\Users\\beatr\\Desktop\\ISEP\\3ANO\\LAPR5\\DDDNetCore.csproj",
         "projectName": "DDDNetCore",
-        "projectPath": "C:\\Users\\Tiago\\Desktop\\LAPR5\\Projeto\\Projeto\\DDDNetCore.csproj",
-        "packagesPath": "C:\\Users\\Tiago\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Tiago\\Desktop\\LAPR5\\Projeto\\Projeto\\obj\\",
+        "projectPath": "C:\\Users\\beatr\\Desktop\\ISEP\\3ANO\\LAPR5\\DDDNetCore.csproj",
+        "packagesPath": "C:\\Users\\beatr\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\beatr\\Desktop\\ISEP\\3ANO\\LAPR5\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Tiago\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\beatr\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -93,6 +93,20 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[5.0.0, 5.0.0]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[5.0.0, 5.0.0]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[5.0.0, 5.0.0]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -101,7 +115,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

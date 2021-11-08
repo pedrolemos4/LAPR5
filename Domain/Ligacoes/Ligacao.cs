@@ -7,7 +7,7 @@ namespace DDDSample1.Domain.Ligacoes
     {
 
         public TextoLigacao TextoLigacao { get;  private set; }
-        public Estado Estado { get;  private set; }
+        public Estado EstadoLigacao { get;  private set; }
         public bool Active{ get;  private set; }
 
         private Ligacao()
@@ -19,8 +19,22 @@ namespace DDDSample1.Domain.Ligacoes
         {
             this.Id = new LigacaoId(code);
             this.TextoLigacao = new TextoLigacao(texto);
-            this.Estado = new Estado(estado);
+            setEstado(estado);
             this.Active = true;
+        }
+
+        private void setEstado(string estado)
+        {
+            try
+            {
+                Estado enumerado;
+                Estado.TryParse(estado, out enumerado);
+                this.EstadoLigacao = enumerado;
+            }
+            catch
+            {
+                throw new BusinessRuleValidationException("Estado de Pedido de Ligação inválido.");
+            }
         }
 
         public void ChangeTextoLigacao(string texto)
@@ -34,7 +48,7 @@ namespace DDDSample1.Domain.Ligacoes
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the state to an inactive connection.");
-            this.Estado = new Estado(estado);
+            setEstado(estado);
         }
         public void MarkAsInative()
         {

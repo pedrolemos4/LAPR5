@@ -1,6 +1,6 @@
 using System;
 using DDDSample1.Domain.SharedValueObjects;
-
+using System.Collections.Generic;
 
 namespace DDDSample1.Domain.Relacoes
 {
@@ -8,7 +8,7 @@ namespace DDDSample1.Domain.Relacoes
     {
         public String Id { get; set; }
 
-        public Tag Tags { get; set; }
+        public List<Tag> Tags { get; set; }
 
         public ForcaRelacao ForcaRelacao { get; set; }
 
