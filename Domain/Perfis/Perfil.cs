@@ -13,8 +13,6 @@ namespace DDDSample1.Domain.Perfis
 
         public Telefone telefone { get; private set; }
 
-        public Pais pais {get; private set;}
-
         public DataNascimento dataNascimento { get; private set; }
 
         public EstadoHumor estadoHumor { get; private set; }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Jogadores;
+using DDDSample1.Domain.Perfis;
 using DDDSample1.Infrastructure;
 
 namespace DDDNetCore.Controllers
@@ -40,6 +41,21 @@ namespace DDDNetCore.Controllers
             }
 
             return jogador;
+        }
+
+        // GET: api/Perfis/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Perfil>> GetPerfilJogador(JogadorId id)
+        {
+            Jogador jogador = await _context.Jogadores.FindAsync(id);
+
+            if (jogador == null)
+            {
+                return NotFound();
+            }
+        
+            var perfil = await _context.Perfis.FindAsync(jogador.perfil.Id);
+            return perfil;
         }
 
         // PUT: api/Jogadores/5
