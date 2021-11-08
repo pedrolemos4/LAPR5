@@ -19,7 +19,7 @@ namespace DDDSample1.Domain.Ligacoes
         {
             var list = await this._repo.GetAllAsync();
             
-            List<LigacaoDto> listDto = list.ConvertAll<LigacaoDto>(lig => new LigacaoDto{Id = lig.Id.AsString(), TextoLigacao = lig.TextoLigacao, Estado = lig.EstadoLigacao});
+            List<LigacaoDto> listDto = list.ConvertAll<LigacaoDto>(lig => new LigacaoDto{Id = lig.Id.AsString(), TextoLigacao = lig.TextoLigacao, Estado = lig.EstadoLigacao, Jogador1 = lig.Jogador1, Jogador2 = lig.Jogador2});
 
             return listDto;
         }
@@ -31,7 +31,7 @@ namespace DDDSample1.Domain.Ligacoes
             if(lig == null)
                 return null;
 
-            return new LigacaoDto{Id = lig.Id.AsString(), TextoLigacao = lig.TextoLigacao, Estado = lig.EstadoLigacao};
+            return new LigacaoDto{Id = lig.Id.AsString(), TextoLigacao = lig.TextoLigacao, Estado = lig.EstadoLigacao, Jogador1 = lig.Jogador1, Jogador2 = lig.Jogador2};
         }
 
         // public async Task<LigacaoDto> AddAsync(LigacaoDto dto)
@@ -72,7 +72,7 @@ namespace DDDSample1.Domain.Ligacoes
             
             await this._unitOfWork.CommitAsync();
 
-            return new LigacaoDto { Id = ligacao.Id.AsString(), TextoLigacao = ligacao.TextoLigacao, Estado = ligacao.EstadoLigacao };
+            return new LigacaoDto { Id = ligacao.Id.AsString(), TextoLigacao = ligacao.TextoLigacao, Estado = ligacao.EstadoLigacao, Jogador1 = ligacao.Jogador1, Jogador2 = ligacao.Jogador2 };
         }
 
          public async Task<LigacaoDto> DeleteAsync(LigacaoId id)
@@ -88,7 +88,7 @@ namespace DDDSample1.Domain.Ligacoes
             this._repo.Remove(ligacao);
             await this._unitOfWork.CommitAsync();
 
-            return new LigacaoDto { Id = ligacao.Id.AsString(), TextoLigacao = ligacao.TextoLigacao, Estado = ligacao.EstadoLigacao };
+            return new LigacaoDto { Id = ligacao.Id.AsString(), TextoLigacao = ligacao.TextoLigacao, Estado = ligacao.EstadoLigacao, Jogador1 = ligacao.Jogador1, Jogador2 = ligacao.Jogador2 };
         }
     }
 }

@@ -2,6 +2,7 @@ using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.SharedValueObjects;
 using DDDSample1.Domain.Perfis;
 using System.Collections.Generic;
+using DDDSample1.Domain.Missoes;
 
 namespace DDDSample1.Domain.Jogadores
 {
@@ -11,6 +12,8 @@ namespace DDDSample1.Domain.Jogadores
         public Pontuacao Pontuacao { get; private set; }
 
         public bool Active { get; private set; }
+
+        public List<Missao> ListaMissoes { get; private set; }
 
         public Perfil perfil { get; private set; }
 
@@ -25,6 +28,7 @@ namespace DDDSample1.Domain.Jogadores
         {
             this.Id = new JogadorId(code);
             this.Pontuacao = new Pontuacao(pontuacao);
+            this.ListaMissoes = new List<Missao>();
             this.Active = true;
         }
 
@@ -33,8 +37,14 @@ namespace DDDSample1.Domain.Jogadores
         {
             this.Id = new JogadorId(code);
             this.Pontuacao = new Pontuacao(pontuacao);
+            this.ListaMissoes = new List<Missao>();
             this.Active = true;
             this.perfil = new Perfil(codePerfil, nome, email, telefone, tag, data, estado, password, perfilFB, perfilLI);
+        }
+
+        private void adicionaMissao(Missao missao)
+        {
+            this.ListaMissoes.Add(missao);
         }
 
         public void ChangePontuacao(int pontos)
