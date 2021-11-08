@@ -72,7 +72,7 @@ namespace DDDSample1.Domain.Missoes
             
             await this._unitOfWork.CommitAsync();
 
-            return new MissaoDto { Id = missao.Id.AsString(), Dificuldade = missao.Dificuldade, Data = missao.Data, JogadorObjetivo = miss.JogadorObjetivo };
+            return new MissaoDto { Id = missao.Id.AsString(), Dificuldade = missao.Dificuldade, Data = missao.Data, JogadorObjetivo = missao.JogadorObjetivo };
         }
 
          public async Task<MissaoDto> DeleteAsync(MissaoId id)
@@ -88,7 +88,7 @@ namespace DDDSample1.Domain.Missoes
             this._repo.Remove(missao);
             await this._unitOfWork.CommitAsync();
 
-            return new MissaoDto { Id = missao.Id.AsString(), Dificuldade = missao.Dificuldade, Data = missao.Data, JogadorObjetivo = miss.JogadorObjetivo };
+            return new MissaoDto { Id = missao.Id.AsString(), Dificuldade = missao.Dificuldade, Data = missao.Data, JogadorObjetivo = missao.JogadorObjetivo };
         }
     }
 }

@@ -7,11 +7,11 @@ namespace DDDSample1.Domain.Introducoes
 {
     public class IntroducaoDto
     {
-        public Jogador JogadorInicial { get;  private set; }
+        public Jogador JogadorInicial { get; set; }
 
-        public Jogador JogadorIntrodutor { get;  private set; }
+        public Jogador JogadorIntrodutor { get; set; }
 
-        public Jogador JogadorObjetivo { get;  private set; }
+        public Jogador JogadorObjetivo { get; set; }
 
         public String Id { get; set; }
 
