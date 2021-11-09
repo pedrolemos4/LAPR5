@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Perfis;
 using DDDSample1.Infrastructure;
+using DDDSample1.Domain.Shared;
+using DDDSample1.Domain.SharedValueObjects;
 
 namespace DDDNetCore.Controllers
 {
@@ -15,6 +17,7 @@ namespace DDDNetCore.Controllers
     public class PerfisController : ControllerBase
     {
         private readonly DDDSample1DbContext _context;
+        private readonly PerfilService _servicePerfil;
 
         public PerfisController(DDDSample1DbContext context)
         {
@@ -78,24 +81,29 @@ namespace DDDNetCore.Controllers
         [HttpPost]
         public async Task<ActionResult<Perfil>> PostPerfil(Perfil perfil)
         {
-            _context.Perfis.Add(perfil);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (PerfilExists(perfil.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return CreatedAtAction("GetPerfil", new { id = perfil.Id }, perfil);
+            /*ActionResult<Perfil> perfilS = await*/
+            await _servicePerfil.AddAsync(perfil);
+
+            return CreatedAtAction("PostPerfil", new { id = perfil.Id }, perfil);
+            // _context.Perfis.Add(perfil);
+            // try
+            // {
+            //     await _context.SaveChangesAsync();
+            // }
+            // catch (DbUpdateException)
+            // {
+            //     if (PerfilExists(perfil.Id))
+            //     {
+            //         return Conflict();
+            //     }
+            //     else
+            //     {
+            //         throw;
+            //     }
+            // }
+
+            // return CreatedAtAction("GetPerfil", new { id = perfil.Id }, perfil);
         }
 
         // DELETE: api/Perfis/5

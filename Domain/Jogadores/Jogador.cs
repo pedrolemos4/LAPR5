@@ -30,7 +30,7 @@ namespace DDDSample1.Domain.Jogadores
             // this.Active = true;
         }
 
-        public Jogador(string code, int pontuacao, string tags)
+        public Jogador(string code, int pontuacao)
         {
             this.Id = new JogadorId(code);
             this.Pontuacao = new Pontuacao(pontuacao);
@@ -40,16 +40,15 @@ namespace DDDSample1.Domain.Jogadores
             this.Active = true;
         }
 
-        public Jogador(
-        string codePerfil, string nome, string email, long telefone, List<string> tag, string data, string estado, string password, string cidade, string perfilFB, string perfilLI)
+        public Jogador(string code, Perfil perfil)
         {
-            this.Id = new JogadorId(codePerfil);
+            this.Id = new JogadorId(code);
             this.Pontuacao = new Pontuacao(0);
             this.ListaMissoes = new List<Missao>();
             this.ListaRelacoes = new List<Relacao>();
             this.ListaPosts = new List<Post>();
             this.Active = true;
-            this.perfil = new Perfil(codePerfil, nome, email, telefone, tag, data, estado, password, cidade, perfilFB, perfilLI);
+            this.perfil = perfil;
         }
 
         private void adicionaMissao(Missao missao)

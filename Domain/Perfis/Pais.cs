@@ -41,6 +41,7 @@ namespace DDDSample1.Domain.Perfis
             }else{
                 throw new BusinessRuleValidationException("Invalid country.");
             }*/
+            this.pais=pais;
         }
 
     }

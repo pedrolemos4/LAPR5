@@ -34,6 +34,16 @@ namespace DDDSample1.Domain.Jogadores
             return new JogadorDto{Id = jog.Id.AsString(), Pontuacao = jog.Pontuacao, perfilId = jog.perfil.Id, Post = jog.ListaPosts};
         }
 
+        public async Task<Jogador> AddAsync(Jogador jogador)
+        {
+
+            await this._repo.AddAsync(jogador);
+
+            await this._unitOfWork.CommitAsync();
+
+            return jogador;
+        }
+
         // public async Task<JogadorDto> AddAsync(JogadorDto dto)
         // {
         //     var jogador = new Jogador(dto.Id, dto.Pontuacao,dto.tags);
