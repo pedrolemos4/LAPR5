@@ -6,6 +6,7 @@ namespace DDDSample1.Domain.Perfis
 {
     public class PerfilService
     {
+        
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPerfilRepository _repo;
 
@@ -34,16 +35,25 @@ namespace DDDSample1.Domain.Perfis
             return new PerfilDto{Id = per.Id.AsString(), Nome = per.nome};
         }
 
-    //     public async Task<PerfilDto> AddAsync(PerfilDto dto)
-    //     {
-    //         var perfil = new Perfil(dto.Id, dto.Nome);
+        public async Task<Perfil> AddAsync(Perfil perfil)
+         {
+             await this._repo.AddAsync(perfil);
 
-    //         await this._repo.AddAsync(perfil);
+             await this._unitOfWork.CommitAsync();
 
-    //         await this._unitOfWork.CommitAsync();
+             return perfil;
+         }
 
-    //         return new PerfilDto { Id = perfil.Id.AsString(), Nome = perfil.Nome, Email = perfil.Email, Telefone = perfil.Telefone, DataNascimento = perfil.DataNascimento, EstadoHumor = perfil.EstadoHumor, PerfilFacebook = perfil.PerfilFacebook, PerfilLinkedin = perfil.PerfilLinkedin };
-    //     }
+        //  public async Task<PerfilDto> AddAsync(PerfilDto dto)
+        //  {
+        //      var perfil = new Perfil(dto.Id, dto.Nome);
+
+        //      await this._repo.AddAsync(perfil);
+
+        //      await this._unitOfWork.CommitAsync();
+
+        //      return new PerfilDto { Id = perfil.Id.AsString(), Nome = perfil.Nome, Email = perfil.Email, Telefone = perfil.Telefone, DataNascimento = perfil.DataNascimento, EstadoHumor = perfil.EstadoHumor, PerfilFacebook = perfil.PerfilFacebook, PerfilLinkedin = perfil.PerfilLinkedin };
+        //  }
 
     //     public async Task<PerfilDto> UpdateAsync(PerfilDto dto)
     //     {

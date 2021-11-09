@@ -3,6 +3,8 @@ using DDDSample1.Domain.SharedValueObjects;
 using DDDSample1.Domain.Perfis;
 using System.Collections.Generic;
 using DDDSample1.Domain.Missoes;
+using DDDSample1.Domain.Relacoes;
+using DDDSample1.Domain.Posts;
 
 namespace DDDSample1.Domain.Jogadores
 {
@@ -17,6 +19,10 @@ namespace DDDSample1.Domain.Jogadores
 
         public Perfil perfil { get; private set; }
 
+        public List<Relacao> ListaRelacoes { get; private set; }
+
+        public List<Post> ListaPosts { get; private set; }
+
         private Jogador()
         {
             // this.Pontuacao = new Pontuacao();
@@ -24,28 +30,42 @@ namespace DDDSample1.Domain.Jogadores
             // this.Active = true;
         }
 
-        public Jogador(string code, int pontuacao, string tags)
+        public Jogador(string code, int pontuacao)
         {
             this.Id = new JogadorId(code);
             this.Pontuacao = new Pontuacao(pontuacao);
             this.ListaMissoes = new List<Missao>();
+            this.ListaRelacoes = new List<Relacao>();
+            this.ListaPosts = new List<Post>();
             this.Active = true;
         }
 
-        public Jogador(string code, int pontuacao, string tags,
-        string codePerfil, string nome, string email, int telefone, List<string> tag, string data, string estado, string password, string perfilFB, string perfilLI)
+        public Jogador(string code, Perfil perfil)
         {
             this.Id = new JogadorId(code);
-            this.Pontuacao = new Pontuacao(pontuacao);
+            this.Pontuacao = new Pontuacao(0);
             this.ListaMissoes = new List<Missao>();
+            this.ListaRelacoes = new List<Relacao>();
+            this.ListaPosts = new List<Post>();
             this.Active = true;
-            this.perfil = new Perfil(codePerfil, nome, email, telefone, tag, data, estado, password, perfilFB, perfilLI);
+            this.perfil = perfil;
         }
 
         private void adicionaMissao(Missao missao)
         {
             this.ListaMissoes.Add(missao);
         }
+
+        private void adicionaRelacao(Relacao relacao)
+        {
+            this.ListaRelacoes.Add(relacao);
+        }
+
+        private void adicionaPost(Post post)
+        {
+            this.ListaPosts.Add(post);
+        }
+
 
         public void ChangePontuacao(int pontos)
         {

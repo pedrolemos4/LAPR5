@@ -50,19 +50,19 @@ namespace DDDNetCore.Controllers
         // GET: api/Perfis/5
         [HttpGet("{id}")]
         public async Task<ActionResult<PerfilDto>> GetPerfilJogador(JogadorId id)
-        {   
+        {
             JogadorDto jogadorDto = await _serviceJog.GetByIdAsync(id);
             //Jogador jogador = await _context.Jogadores.FindAsync(id);
-            
+
             if (jogadorDto == null)
             {
                 return NotFound();
             }
 
-        //    var perfil = await _context.Perfis.FindAsync(jogadorDto.perfilId);
+            //    var perfil = await _context.Perfis.FindAsync(jogadorDto.perfilId);
             var perfil = await _servicePer.GetByIdAsync(jogadorDto.perfilId);
             //ou criar uma query no service
-            return perfil;  
+            return perfil;
         }
 
         // GET: api/Jogadores/5
@@ -108,24 +108,28 @@ namespace DDDNetCore.Controllers
         [HttpPost]
         public async Task<ActionResult<Jogador>> PostJogador(Jogador jogador)
         {
-            _context.Jogadores.Add(jogador);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (JogadorExists(jogador.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _serviceJog.AddAsync(jogador);
 
-            return CreatedAtAction("GetJogador", new { id = jogador.Id }, jogador);
+            return CreatedAtAction("PostJogador", new { id = jogador.Id }, jogador);
+
+            // _context.Jogadores.Add(jogador);
+            // try
+            // {
+            //     await _context.SaveChangesAsync();
+            // }
+            // catch (DbUpdateException)
+            // {
+            //     if (JogadorExists(jogador.Id))
+            //     {
+            //         return Conflict();
+            //     }
+            //     else
+            //     {
+            //         throw;
+            //     }
+            // }
+
+            // return CreatedAtAction("GetJogador", new { id = jogador.Id }, jogador);
         }
 
         // DELETE: api/Jogadores/5

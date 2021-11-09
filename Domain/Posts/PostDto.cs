@@ -1,6 +1,6 @@
 using System;
 using DDDSample1.Domain.SharedValueObjects;
-
+using System.Collections.Generic;
 
 namespace DDDSample1.Domain.Posts
 {
@@ -10,12 +10,11 @@ namespace DDDSample1.Domain.Posts
 
         public Texto Texto { get; set; }
 
-        public Tag Tags { get; set; }
+        public List<Tag> Tags { get; set; }
 
-        public Comentario Comentario { get; set; }
+        public List<Comentario> Comentario { get; set; }
 
         public LikeDislike LikeDislike { get; set; }
 
-        public ForcaLigacao ForcaLigacao { get; set; }
     }
 }
