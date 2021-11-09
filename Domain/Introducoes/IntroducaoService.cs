@@ -34,16 +34,17 @@ namespace DDDSample1.Domain.Introducoes
             return new IntroducaoDto{Id = intro.Id.AsString(), JogadorInicial = intro.JogadorInicial, JogadorIntrodutor = intro.JogadorIntrodutor, JogadorObjetivo = intro.JogadorObjetivo, Estado = intro.EstadoIntroducao};
         }
 
-        // public async Task<IntroducaoDto> AddAsync(IntroducaoDto dto)
-        // {
-        //     var introducao = new Introducao(dto.Id, dto.Estado);
+        public async Task<IntroducaoDto> AddAsync(Introducao introducao)
+        {
+           // var introducao = new Introducao(dto.Id, dto.Estado);
 
-        //     await this._repo.AddAsync(introducao);
+            await this._repo.AddAsync(introducao);
 
-        //     await this._unitOfWork.CommitAsync();
+            await this._unitOfWork.CommitAsync();
 
-        //     return new IntroducaoDto { Id = introducao.Id.AsString(), JogadorInicial = intro.JogadorInicial, JogadorIntrodutor = intro.JogadorIntrodutor, JogadorObjetivo = intro.JogadorObjetivo, Estado = introducao.Estado };
-        // }
+            return new IntroducaoDto { Id = introducao.Id.AsString(), JogadorInicial = introducao.JogadorInicial, JogadorIntrodutor = introducao.JogadorIntrodutor,
+             JogadorObjetivo = introducao.JogadorObjetivo, Estado = introducao.EstadoIntroducao};
+        }
 
         // public async Task<IntroducaoDto> UpdateAsync(IntroducaoDto dto)
         // {

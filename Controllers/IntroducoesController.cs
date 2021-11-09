@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Introducoes;
+using DDDSample1.Domain.Jogadores;
+using DDDSample1.Domain.Relacoes;
 using DDDSample1.Infrastructure;
 
 namespace DDDNetCore.Controllers
@@ -15,6 +17,10 @@ namespace DDDNetCore.Controllers
     public class IntroducoesController : ControllerBase
     {
         private readonly DDDSample1DbContext _context;
+
+        private readonly RelacaoService _serviceRel;
+
+        private readonly IntroducaoService _serviceIntro;
 
         public IntroducoesController(DDDSample1DbContext context)
         {
@@ -76,16 +82,25 @@ namespace DDDNetCore.Controllers
         // POST: api/Introducoes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Introducao>> PostIntroducao(Introducao introducao)
+        public async Task<ActionResult<Introducao>> PostIntroducao(IntroducaoDto introducao)
         {
-            _context.Introducoes.Add(introducao);
+            //_context.Introducoes.Add(introducao);
+            var intro = new Introducao(introducao.Id,introducao.JogadorInicial,introducao.JogadorIntrodutor,
+            introducao.JogadorObjetivo,"Pendente"); //corrigir
+          /*  {
+                JogadorInicial = introducao.JogadorInicial,
+                JogadorIntrodutor = introducao.JogadorIntrodutor,
+                JogadorObjetivo = introducao.JogadorObjetivo,
+                EstadoIntroducao = introducao.Estado
+            };*/
+            await _serviceIntro.AddAsync(intro);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (IntroducaoExists(introducao.Id))
+                if (IntroducaoExists(intro.Id))
                 {
                     return Conflict();
                 }

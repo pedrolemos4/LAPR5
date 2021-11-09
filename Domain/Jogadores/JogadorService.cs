@@ -18,8 +18,8 @@ namespace DDDSample1.Domain.Jogadores
         public async Task<List<JogadorDto>> GetAllAsync()
         {
             var list = await this._repo.GetAllAsync();
-            
-            List<JogadorDto> listDto = list.ConvertAll<JogadorDto>(jog => new JogadorDto{Id = jog.Id.AsString(), Pontuacao = jog.Pontuacao, perfilId = jog.perfil.Id, Missao = jog.ListaMissoes});
+
+            List<JogadorDto> listDto = list.ConvertAll<JogadorDto>(jog => new JogadorDto { Id = jog.Id.AsString(), Pontuacao = jog.Pontuacao, perfilId = jog.perfil.Id, Missao = jog.ListaMissoes });
 
             return listDto;
         }
@@ -27,13 +27,25 @@ namespace DDDSample1.Domain.Jogadores
         public async Task<JogadorDto> GetByIdAsync(JogadorId id)
         {
             var jog = await this._repo.GetByIdAsync(id);
-            
-            if(jog == null)
+
+            if (jog == null)
                 return null;
 
-            return new JogadorDto{Id = jog.Id.AsString(), Pontuacao = jog.Pontuacao, perfilId = jog.perfil.Id};
+            return new JogadorDto { Id = jog.Id.AsString(), Pontuacao = jog.Pontuacao, perfilId = jog.perfil.Id };
         }
-
+        
+        public async Task<List<JogadorDto>> GetAmigosEmComum(JogadorId idJog, JogadorId idObj)
+        {
+            var list = await this._repo.GetAmigosEmComum(idJog, idObj);
+            List<JogadorDto> listJog = list.ConvertAll<JogadorDto>(jog => new JogadorDto
+            {
+                Id = jog.Id.AsString(),
+                Pontuacao = jog.Pontuacao,
+                perfilId = jog.perfil.Id,
+                Missao = jog.ListaMissoes
+            });
+            return listJog;
+        }
         // public async Task<JogadorDto> AddAsync(JogadorDto dto)
         // {
         //     var jogador = new Jogador(dto.Id, dto.Pontuacao,dto.tags);
@@ -54,7 +66,7 @@ namespace DDDSample1.Domain.Jogadores
 
         //     // change all field
         //     jogador.AddPontuacao(dto.Pontuacao);
-            
+
         //     await this._unitOfWork.CommitAsync();
 
         //     return new JogadorDto { Id = jogador.Id.AsString(), Pontuacao = jogador.Pontuacao, Tags = jog.Tags };
@@ -62,33 +74,33 @@ namespace DDDSample1.Domain.Jogadores
 
         public async Task<JogadorDto> InactivateAsync(JogadorId id)
         {
-            var jogador = await this._repo.GetByIdAsync(id); 
+            var jogador = await this._repo.GetByIdAsync(id);
 
             if (jogador == null)
-                return null;   
+                return null;
 
             // change all fields
             jogador.MarkAsInative();
-            
+
             await this._unitOfWork.CommitAsync();
 
-            return new JogadorDto { Id = jogador.Id.AsString(), Pontuacao = jogador.Pontuacao, perfilId = jogador.perfil.Id, Missao = jogador.ListaMissoes};
+            return new JogadorDto { Id = jogador.Id.AsString(), Pontuacao = jogador.Pontuacao, perfilId = jogador.perfil.Id, Missao = jogador.ListaMissoes };
         }
 
-         public async Task<JogadorDto> DeleteAsync(JogadorId id)
+        public async Task<JogadorDto> DeleteAsync(JogadorId id)
         {
-            var jogador = await this._repo.GetByIdAsync(id); 
+            var jogador = await this._repo.GetByIdAsync(id);
 
             if (jogador == null)
-                return null;   
+                return null;
 
             if (jogador.Active)
                 throw new BusinessRuleValidationException("It is not possible to delete an active jogador.");
-            
+
             this._repo.Remove(jogador);
             await this._unitOfWork.CommitAsync();
 
-            return new JogadorDto { Id = jogador.Id.AsString(), Pontuacao = jogador.Pontuacao, perfilId = jogador.perfil.Id, Missao = jogador.ListaMissoes};
+            return new JogadorDto { Id = jogador.Id.AsString(), Pontuacao = jogador.Pontuacao, perfilId = jogador.perfil.Id, Missao = jogador.ListaMissoes };
         }
     }
 }
