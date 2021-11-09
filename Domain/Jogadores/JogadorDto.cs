@@ -4,6 +4,7 @@ using DDDSample1.Domain.Perfis;
 using DDDSample1.Domain.Missoes;
 using DDDSample1.Domain.Relacoes;
 using System.Collections.Generic;
+using DDDSample1.Domain.Posts;
 
 
 namespace DDDSample1.Domain.Jogadores
@@ -19,5 +20,7 @@ namespace DDDSample1.Domain.Jogadores
         public List<Missao> Missao{ get; set; }
 
         public List<Relacao> Relacao{ get; set; }
+
+        public List<Post> Post{ get; set; }
     }
 }

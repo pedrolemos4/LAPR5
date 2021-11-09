@@ -19,7 +19,7 @@ namespace DDDSample1.Domain.Jogadores
         {
             var list = await this._repo.GetAllAsync();
             
-            List<JogadorDto> listDto = list.ConvertAll<JogadorDto>(jog => new JogadorDto{Id = jog.Id.AsString(), Pontuacao = jog.Pontuacao, perfilId = jog.perfil.Id, Missao = jog.ListaMissoes, Relacao = jog.ListaRelacoes});
+            List<JogadorDto> listDto = list.ConvertAll<JogadorDto>( jog => new JogadorDto{Id = jog.Id.AsString(), Pontuacao = jog.Pontuacao, perfilId = jog.perfil.Id, Missao = jog.ListaMissoes, Relacao = jog.ListaRelacoes, Post = jog.ListaPosts});
 
             return listDto;
         }
@@ -31,7 +31,7 @@ namespace DDDSample1.Domain.Jogadores
             if(jog == null)
                 return null;
 
-            return new JogadorDto{Id = jog.Id.AsString(), Pontuacao = jog.Pontuacao, perfilId = jog.perfil.Id};
+            return new JogadorDto{Id = jog.Id.AsString(), Pontuacao = jog.Pontuacao, perfilId = jog.perfil.Id, Post = jog.ListaPosts};
         }
 
         // public async Task<JogadorDto> AddAsync(JogadorDto dto)
@@ -72,7 +72,7 @@ namespace DDDSample1.Domain.Jogadores
             
             await this._unitOfWork.CommitAsync();
 
-            return new JogadorDto { Id = jogador.Id.AsString(), Pontuacao = jogador.Pontuacao, perfilId = jogador.perfil.Id, Missao = jogador.ListaMissoes, Relacao = jogador.ListaRelacoes};
+            return new JogadorDto { Id = jogador.Id.AsString(), Pontuacao = jogador.Pontuacao, perfilId = jogador.perfil.Id, Missao = jogador.ListaMissoes, Relacao = jogador.ListaRelacoes, Post = jogador.ListaPosts};
         }
 
          public async Task<JogadorDto> DeleteAsync(JogadorId id)
@@ -88,7 +88,7 @@ namespace DDDSample1.Domain.Jogadores
             this._repo.Remove(jogador);
             await this._unitOfWork.CommitAsync();
 
-            return new JogadorDto { Id = jogador.Id.AsString(), Pontuacao = jogador.Pontuacao, perfilId = jogador.perfil.Id, Missao = jogador.ListaMissoes,  Relacao = jogador.ListaRelacoes};
+            return new JogadorDto { Id = jogador.Id.AsString(), Pontuacao = jogador.Pontuacao, perfilId = jogador.perfil.Id, Missao = jogador.ListaMissoes,  Relacao = jogador.ListaRelacoes, Post = jogador.ListaPosts};
         }
     }
 }

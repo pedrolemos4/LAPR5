@@ -4,6 +4,7 @@ using DDDSample1.Domain.Perfis;
 using System.Collections.Generic;
 using DDDSample1.Domain.Missoes;
 using DDDSample1.Domain.Relacoes;
+using DDDSample1.Domain.Posts;
 
 namespace DDDSample1.Domain.Jogadores
 {
@@ -20,6 +21,8 @@ namespace DDDSample1.Domain.Jogadores
 
         public List<Relacao> ListaRelacoes { get; private set; }
 
+        public List<Post> ListaPosts { get; private set; }
+
         private Jogador()
         {
             // this.Pontuacao = new Pontuacao();
@@ -33,6 +36,7 @@ namespace DDDSample1.Domain.Jogadores
             this.Pontuacao = new Pontuacao(pontuacao);
             this.ListaMissoes = new List<Missao>();
             this.ListaRelacoes = new List<Relacao>();
+            this.ListaPosts = new List<Post>();
             this.Active = true;
         }
 
@@ -43,6 +47,7 @@ namespace DDDSample1.Domain.Jogadores
             this.Pontuacao = new Pontuacao(pontuacao);
             this.ListaMissoes = new List<Missao>();
             this.ListaRelacoes = new List<Relacao>();
+            this.ListaPosts = new List<Post>();
             this.Active = true;
             this.perfil = new Perfil(codePerfil, nome, email, telefone, tag, data, estado, password, perfilFB, perfilLI);
         }
@@ -55,6 +60,11 @@ namespace DDDSample1.Domain.Jogadores
         private void adicionaRelacao(Relacao relacao)
         {
             this.ListaRelacoes.Add(relacao);
+        }
+
+        private void adicionaPost(Post post)
+        {
+            this.ListaPosts.Add(post);
         }
 
 
