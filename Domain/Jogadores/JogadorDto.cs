@@ -12,6 +12,14 @@ namespace DDDSample1.Domain.Jogadores
     {
         public JogadorId Id { get; set; }
 
-        public PerfilId perfilId { get; set; }
+        public Pontuacao Pontuacao { get; set; }
+
+        public PerfilId perfilId {get; set;}
+
+        public List<Missao> Missao{ get; set; }
+
+        public List<Relacao> Relacao{ get; set; }
+
+        public List<Post> Post{ get; set; }
     }
 }

@@ -1,14 +1,33 @@
 using DDDSample1.Domain.Jogadores;
 using DDDSample1.Infrastructure.Shared;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using DDDSample1.Domain.Relacoes;
+
 
 
 namespace DDDSample1.Infrastructure.Jogadores
 {
-    public class JogadorRepository : BaseRepository<Jogador,JogadorId>, IJogadorRepository
+    public class JogadorRepository : BaseRepository<Jogador, JogadorId>, IJogadorRepository
     {
-          public JogadorRepository(DDDSample1DbContext context):base(context.Jogadores)
+        private readonly DDDSample1DbContext _context;
+        public JogadorRepository(DDDSample1DbContext context) : base(context.Jogadores)
         {
-           
+            _context = context;
+        }
+
+        public async Task<List<Jogador>> GetAmigosEmComum(JogadorId jogadorId, JogadorId jogObjId)
+        {
+            var amigosObj = await _context.Relacoes
+                .Where(r => (r.Jogador1.Id.Equals(jogObjId))
+                || (r.Jogador2.Id.Equals(jogObjId))).ToListAsync();
+            var amigosJog = await _context.Relacoes
+                .Where(r => (r.Jogador1.Id.Equals(jogadorId)) || (r.Jogador2.Id.Equals(jogadorId))).ToListAsync();
+            List<Jogador> amigos = amigosJog.Select(r => !r.Jogador1.Equals(jogadorId) ? r.Jogador1 : r.Jogador2).ToList();
+            List<Jogador> amigosOj = amigosObj.Select(r => !r.Jogador1.Equals(jogObjId) ? r.Jogador1 : r.Jogador2).ToList();
+            return amigos.Intersect(amigosOj).ToList();
         }
     }
 }

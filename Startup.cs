@@ -30,14 +30,17 @@ namespace DDDSample1
             //     opt.UseInMemoryDatabase("DDDSample1DB")
             //     .ReplaceService<IValueConverterSelector, StronglyEntityIdValueConverterSelector>());
 
-            // ConfigureMyServices(services);
+            services.AddDbContext<DDDSample1DbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+                .ReplaceService<IValueConverterSelector, StronglyEntityIdValueConverterSelector>()); 
+                
+
+            ConfigureMyServices(services);
 
 
              services.AddControllers().AddNewtonsoftJson();
 
-           services.AddDbContext<DDDSample1DbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
-                .ReplaceService<IValueConverterSelector, StronglyEntityIdValueConverterSelector>()); 
+
            // services.AddDataBaseDeveloperPageExceptionFilter();
             //services.AddControllersWithViews();
 
