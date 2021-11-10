@@ -78,6 +78,13 @@ namespace DDDNetCore.Controllers
 
             return jogador;
         }
+        
+        // GET: api/Jogadores/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<JogadorDto>>> GetAmigosEmComum(JogadorId idJog, JogadorId idObj)
+        {
+            return await _serviceJog.GetAmigosEmComum(idJog, idObj);
+        }
 
         // PUT: api/Jogadores/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -113,9 +120,10 @@ namespace DDDNetCore.Controllers
         // POST: api/Jogadores
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Jogador>> PostJogador(Jogador jogador)
+        public async Task<ActionResult<Jogador>> PostJogador(CreatingJogadorDto jogadorDto)
         {
-            await _serviceJog.AddAsync(jogador);
+
+            var jogador = await _serviceJog.AddAsync(jogadorDto);
 
             return CreatedAtAction("PostJogador", new { id = jogador.Id }, jogador);
 

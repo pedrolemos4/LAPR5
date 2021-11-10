@@ -1,5 +1,4 @@
 using System;
-using DDDSample1.Domain.SharedValueObjects;
 using DDDSample1.Domain.Perfis;
 using DDDSample1.Domain.Missoes;
 using DDDSample1.Domain.Relacoes;
@@ -11,7 +10,7 @@ namespace DDDSample1.Domain.Jogadores
 {
     public class JogadorDto
     {
-        public String Id { get; set; }
+        public JogadorId Id { get; set; }
 
         public Pontuacao Pontuacao { get; set; }
 

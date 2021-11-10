@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using DDDSample1.Domain.Shared;
-
+using DDDSample1.Domain.Jogadores;
 namespace DDDSample1.Domain.Relacoes
 {
     public class RelacaoService
