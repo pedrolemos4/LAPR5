@@ -65,6 +65,20 @@ namespace DDDNetCore.Controllers
             return perfil;
         }
 
+        // GET: api/Perfis/7
+        [HttpGet("{perfil}")]
+        public async Task<ActionResult<JogadorDto>> GetJogadorByPerfil(Perfil perfil)
+        {
+            var jogador = await _serviceJog.GetJogadorByPerfil(perfil);
+
+            if (jogador == null)
+            {
+                return NotFound();
+            }
+
+            return jogador;
+        }
+
         // PUT: api/Jogadores/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

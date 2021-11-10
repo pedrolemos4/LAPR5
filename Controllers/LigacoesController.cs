@@ -16,9 +16,12 @@ namespace DDDNetCore.Controllers
     {
         private readonly DDDSample1DbContext _context;
 
-        public LigacoesController(DDDSample1DbContext context)
+        private readonly LigacaoService _service;
+
+        public LigacoesController(DDDSample1DbContext context, LigacaoService service)
         {
             _context = context;
+            _service = service;
         }
 
         // GET: api/Ligacoes

@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using DDDSample1.Domain.Shared;
+using DDDSample1.Domain.Perfis;
 
 namespace DDDSample1.Domain.Jogadores
 {
@@ -44,6 +45,16 @@ namespace DDDSample1.Domain.Jogadores
             return jogador;
         }
 
+        public async Task<JogadorDto> GetJogadorByPerfil(Perfil perfil)
+        {
+            var jogador = await this._repo.GetJogadorByPerfil(perfil);
+            
+            if(jogador == null)
+                return null;
+
+            return new JogadorDto { Id = jogador.Id.AsString(), Pontuacao = jogador.Pontuacao, perfilId = jogador.perfil.Id, Missao = jogador.ListaMissoes, Relacao = jogador.ListaRelacoes, Post = jogador.ListaPosts};
+        }
+
         // public async Task<JogadorDto> AddAsync(JogadorDto dto)
         // {
         //     var jogador = new Jogador(dto.Id, dto.Pontuacao,dto.tags);
@@ -64,7 +75,7 @@ namespace DDDSample1.Domain.Jogadores
 
         //     // change all field
         //     jogador.AddPontuacao(dto.Pontuacao);
-            
+
         //     await this._unitOfWork.CommitAsync();
 
         //     return new JogadorDto { Id = jogador.Id.AsString(), Pontuacao = jogador.Pontuacao, Tags = jog.Tags };

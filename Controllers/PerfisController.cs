@@ -1,14 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Perfis;
 using DDDSample1.Infrastructure;
-using DDDSample1.Domain.Shared;
-using DDDSample1.Domain.SharedValueObjects;
 
 namespace DDDNetCore.Controllers
 {
@@ -19,9 +15,10 @@ namespace DDDNetCore.Controllers
         private readonly DDDSample1DbContext _context;
         private readonly PerfilService _servicePerfil;
 
-        public PerfisController(DDDSample1DbContext context)
+        public PerfisController(DDDSample1DbContext context, PerfilService service)
         {
             _context = context;
+            _servicePerfil = service;
         }
 
         // GET: api/Perfis
@@ -43,6 +40,48 @@ namespace DDDNetCore.Controllers
             }
 
             return perfil;
+        }
+
+        // GET: api/Perfis/6
+        [HttpGet("{nome}")]
+        public async Task<ActionResult<PerfilDto>> GetPerfilByNome(string nome)
+        {
+            var perfil = await _servicePerfil.getPerfilByNome(nome);
+
+            if (perfil == null)
+            {
+                return NotFound();
+            }
+
+            return perfil;
+        }
+
+        // GET: api/Perfis/7
+        [HttpGet("{email}")]
+        public async Task<ActionResult<PerfilDto>> GetPerfilByEmail(string email)
+        {
+            var perfil = await _servicePerfil.GetPerfilByEmail(email);
+
+            if (perfil == null)
+            {
+                return NotFound();
+            }
+
+            return perfil;
+        }
+
+        // GET: api/Perfis/8
+        [HttpGet("{pais}")]
+        public async Task<ActionResult<List<PerfilDto>>> GetPerfilByPais(string pais)
+        {
+            List<PerfilDto> listaPerfil = await _servicePerfil.GetPerfilByPais(pais);
+
+            if (listaPerfil == null)
+            {
+                return NotFound();
+            }
+
+            return listaPerfil;
         }
 
         // PUT: api/Perfis/5
