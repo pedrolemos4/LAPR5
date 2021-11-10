@@ -79,11 +79,9 @@ namespace DDDNetCore.Controllers
         // POST: api/Perfis
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Perfil>> PostPerfil(Perfil perfil)
+        public async Task<ActionResult<Perfil>> PostPerfil(CreatingPerfilDto perfilDto)
         {
-
-            /*ActionResult<Perfil> perfilS = await*/
-            await _servicePerfil.AddAsync(perfil);
+            var perfil = await _servicePerfil.AddAsync(perfilDto);
 
             return CreatedAtAction("PostPerfil", new { id = perfil.Id }, perfil);
             // _context.Perfis.Add(perfil);

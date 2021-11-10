@@ -36,9 +36,9 @@ namespace DDDSample1.Domain.Perfis
             this.Active = true;
         }
 
-        public Perfil(string code, string nome, string email, long telefone, List<string> tag, string data, string estado, string password, string pais, string cidade, string perfilFB, string perfilLI)
+        public Perfil(/*string code, */string nome, string email, long telefone, List<string> tag, string data, string estado, string password, string pais, string cidade, string perfilFB, string perfilLI)
         {
-            this.Id = new PerfilId(code);
+            //this.Id = new PerfilId(code);
             this.nome = new Nome(nome);
             this.email = new Email(email);
             this.telefone = new Telefone(telefone);

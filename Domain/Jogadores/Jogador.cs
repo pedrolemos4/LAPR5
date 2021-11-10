@@ -40,9 +40,9 @@ namespace DDDSample1.Domain.Jogadores
             this.Active = true;
         }
 
-        public Jogador(string code, Perfil perfil)
+        public Jogador(/*string code,*/ Perfil perfil)
         {
-            this.Id = new JogadorId(code);
+            //this.Id = new JogadorId(code);
             this.Pontuacao = new Pontuacao(0);
             this.ListaMissoes = new List<Missao>();
             this.ListaRelacoes = new List<Relacao>();

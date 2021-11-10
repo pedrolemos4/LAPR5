@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using DDDSample1.Domain.Shared;
@@ -19,7 +20,7 @@ namespace DDDSample1.Domain.Jogadores
         {
             var list = await this._repo.GetAllAsync();
             
-            List<JogadorDto> listDto = list.ConvertAll<JogadorDto>( jog => new JogadorDto{Id = jog.Id.AsString(), Pontuacao = jog.Pontuacao, perfilId = jog.perfil.Id, Missao = jog.ListaMissoes, Relacao = jog.ListaRelacoes, Post = jog.ListaPosts});
+            List<JogadorDto> listDto = list.ConvertAll<JogadorDto>( jog => new JogadorDto{Id = jog.Id});
 
             return listDto;
         }
@@ -31,17 +32,18 @@ namespace DDDSample1.Domain.Jogadores
             if(jog == null)
                 return null;
 
-            return new JogadorDto{Id = jog.Id.AsString(), Pontuacao = jog.Pontuacao, perfilId = jog.perfil.Id, Post = jog.ListaPosts};
+            return new JogadorDto{Id = jog.Id};
         }
 
-        public async Task<Jogador> AddAsync(Jogador jogador)
+        public async Task<JogadorDto> AddAsync(CreatingJogadorDto jogadorDto)
         {
+            var jogador = new Jogador(jogadorDto.perfil);
 
             await this._repo.AddAsync(jogador);
 
             await this._unitOfWork.CommitAsync();
 
-            return jogador;
+            return new JogadorDto{Id = jogador.Id};
         }
 
         // public async Task<JogadorDto> AddAsync(JogadorDto dto)
@@ -82,7 +84,7 @@ namespace DDDSample1.Domain.Jogadores
             
             await this._unitOfWork.CommitAsync();
 
-            return new JogadorDto { Id = jogador.Id.AsString(), Pontuacao = jogador.Pontuacao, perfilId = jogador.perfil.Id, Missao = jogador.ListaMissoes, Relacao = jogador.ListaRelacoes, Post = jogador.ListaPosts};
+            return new JogadorDto { Id = jogador.Id};
         }
 
          public async Task<JogadorDto> DeleteAsync(JogadorId id)
@@ -98,7 +100,7 @@ namespace DDDSample1.Domain.Jogadores
             this._repo.Remove(jogador);
             await this._unitOfWork.CommitAsync();
 
-            return new JogadorDto { Id = jogador.Id.AsString(), Pontuacao = jogador.Pontuacao, perfilId = jogador.perfil.Id, Missao = jogador.ListaMissoes,  Relacao = jogador.ListaRelacoes, Post = jogador.ListaPosts};
+            return new JogadorDto { Id = jogador.Id};
         }
     }
 }
