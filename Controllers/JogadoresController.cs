@@ -86,6 +86,13 @@ namespace DDDNetCore.Controllers
             return await _serviceJog.GetAmigosEmComum(idJog, idObj);
         }
 
+        // GET: api/Jogadores/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<List<JogadorDto>>> GetAmigos(JogadorId idJog)
+        {
+            return await _serviceJog.GetAmigos(idJog);
+        }
+
         // PUT: api/Jogadores/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

@@ -32,5 +32,13 @@ namespace DDDSample1.Infrastructure.Jogadores
             List<Jogador> amigosOj = amigosObj.Select(r => !r.Jogador1.Equals(jogObjId) ? r.Jogador1 : r.Jogador2).ToList();
             return amigos.Intersect(amigosOj).ToList();
         }
+
+        public async Task<List<Jogador>> GetAmigos(JogadorId jogadorId)
+        {
+            var amigosJog = await _context.Relacoes
+                .Where(r => (r.Jogador1.Id.Equals(jogadorId))).ToListAsync();
+            List<Jogador> amigos = amigosJog.Select(r => !r.Jogador1.Equals(jogadorId) ? r.Jogador1 : r.Jogador2).ToList();
+            return amigos.ToList();
+        }
     }
 }

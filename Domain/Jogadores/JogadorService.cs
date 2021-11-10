@@ -48,6 +48,19 @@ namespace DDDSample1.Domain.Jogadores
             return listJog;
         }
 
+        public async Task<List<JogadorDto>> GetAmigos(JogadorId idJog)
+        {
+            var list = await this._repo.GetAmigos(idJog);
+            List<JogadorDto> listJog = list.ConvertAll<JogadorDto>(jog => new JogadorDto
+            {
+                Id = jog.Id,
+                Pontuacao = jog.Pontuacao,
+                perfilId = jog.perfil.Id,
+                Missao = jog.ListaMissoes
+            });
+            return listJog;
+        }
+
         public async Task<JogadorDto> AddAsync(CreatingJogadorDto jogadorDto)
         {
             var jogador = new Jogador(jogadorDto.perfil);
