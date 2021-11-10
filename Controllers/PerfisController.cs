@@ -13,9 +13,9 @@ namespace DDDNetCore.Controllers
     public class PerfisController : ControllerBase
     {
         private readonly DDDSample1DbContext _context;
-        private readonly PerfilService _servicePerfil;
+        private readonly IPerfilService _servicePerfil;
 
-        public PerfisController(DDDSample1DbContext context, PerfilService service)
+        public PerfisController(DDDSample1DbContext context, IPerfilService service)
         {
             _context = context;
             _servicePerfil = service;

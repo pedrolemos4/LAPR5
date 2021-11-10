@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Ligacoes;
@@ -16,9 +14,9 @@ namespace DDDNetCore.Controllers
     {
         private readonly DDDSample1DbContext _context;
 
-        private readonly LigacaoService _service;
+        private readonly ILigacaoService _service;
 
-        public LigacoesController(DDDSample1DbContext context, LigacaoService service)
+        public LigacoesController(DDDSample1DbContext context, ILigacaoService service)
         {
             _context = context;
             _service = service;
@@ -99,6 +97,17 @@ namespace DDDNetCore.Controllers
             }
 
             return CreatedAtAction("GetLigacao", new { id = ligacao.Id }, ligacao);
+        }
+
+        // POST: api/Ligacoes/6
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        public async Task<ActionResult<LigacaoDto>> PostLigacao(CreatingLigacaoDto ligacaoDto)
+        {
+
+            var ligacao = await _service.AddAsync(ligacaoDto);
+
+            return CreatedAtAction("PostLigacao", new { id = ligacao.Id }, ligacao);
         }
 
         // DELETE: api/Ligacoes/5

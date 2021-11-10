@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Jogadores;
@@ -16,13 +14,15 @@ namespace DDDNetCore.Controllers
     public class JogadoresController : ControllerBase
     {
         private readonly DDDSample1DbContext _context;
-        private readonly JogadorService _serviceJog;
+        private readonly IJogadorService _serviceJog;
 
-        private readonly PerfilService _servicePer;
+        private readonly IPerfilService _servicePer;
 
-        public JogadoresController(DDDSample1DbContext context)
+        public JogadoresController(DDDSample1DbContext context, IJogadorService serviceJog, IPerfilService servicePer)
         {
             _context = context;
+            _serviceJog = serviceJog;
+            _servicePer = servicePer;
         }
 
         // GET: api/Jogadores
@@ -81,7 +81,7 @@ namespace DDDNetCore.Controllers
         
         // GET: api/Jogadores/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<JogadorDto>>> GetAmigosEmComum(JogadorId idJog, JogadorId idObj)
+        public async Task<ActionResult<List<JogadorDto>>> GetAmigosEmComum(JogadorId idJog, JogadorId idObj)
         {
             return await _serviceJog.GetAmigosEmComum(idJog, idObj);
         }

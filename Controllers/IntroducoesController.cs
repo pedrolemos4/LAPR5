@@ -1,12 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Introducoes;
-using DDDSample1.Domain.Jogadores;
 using DDDSample1.Domain.Relacoes;
 using DDDSample1.Infrastructure;
 
@@ -18,13 +15,15 @@ namespace DDDNetCore.Controllers
     {
         private readonly DDDSample1DbContext _context;
 
-        private readonly RelacaoService _serviceRel;
+        private readonly IRelacaoService _serviceRel;
 
-        private readonly IntroducaoService _serviceIntro;
+        private readonly IIntroducaoService _serviceIntro;
 
-        public IntroducoesController(DDDSample1DbContext context)
+        public IntroducoesController(DDDSample1DbContext context, IRelacaoService serviceRel, IIntroducaoService serviceIntro)
         {
             _context = context;
+            _serviceRel = serviceRel;
+            _serviceIntro = serviceIntro;
         }
 
         // GET: api/Introducoes

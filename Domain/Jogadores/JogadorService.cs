@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using DDDSample1.Domain.Shared;
@@ -6,7 +5,7 @@ using DDDSample1.Domain.Perfis;
 
 namespace DDDSample1.Domain.Jogadores
 {
-    public class JogadorService
+    public class JogadorService : IJogadorService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IJogadorRepository _repo;

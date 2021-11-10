@@ -16,9 +16,12 @@ namespace DDDNetCore.Controllers
     {
         private readonly DDDSample1DbContext _context;
 
-        public MissoesController(DDDSample1DbContext context)
+        private readonly IMissaoService _service;
+
+        public MissoesController(DDDSample1DbContext context, IMissaoService service)
         {
             _context = context;
+            _service = service;
         }
 
         // GET: api/Missoes

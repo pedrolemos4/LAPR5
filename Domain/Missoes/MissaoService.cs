@@ -4,7 +4,7 @@ using DDDSample1.Domain.Shared;
 
 namespace DDDSample1.Domain.Missoes
 {
-    public class MissaoService
+    public class MissaoService : IMissaoService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMissaoRepository _repo;

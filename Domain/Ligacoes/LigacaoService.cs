@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using DDDSample1.Domain.Shared;
+using System;
 
 namespace DDDSample1.Domain.Ligacoes
 {
@@ -34,16 +35,16 @@ namespace DDDSample1.Domain.Ligacoes
             return new LigacaoDto{Id = lig.Id.AsString(), TextoLigacao = lig.TextoLigacao, Estado = lig.EstadoLigacao, Jogador1 = lig.Jogador1, Jogador2 = lig.Jogador2};
         }
 
-        // public async Task<LigacaoDto> AddAsync(LigacaoDto dto)
-        // {
-        //     var ligacao = new Ligacao(dto.Id, dto.TextoLigacao);
+        public async Task<LigacaoDto> AddAsync(CreatingLigacaoDto dto)
+        {
+            var ligacao = new Ligacao(dto.ligacaoId.AsString(), dto.TextoLigacao.Texto, dto.EstadoLigacao.ToString(), dto.Jogador1, dto.Jogador2);
 
-        //     await this._repo.AddAsync(ligacao);
+            await this._repo.AddAsync(ligacao);
 
-        //     await this._unitOfWork.CommitAsync();
+            await this._unitOfWork.CommitAsync();
 
-        //     return new LigacaoDto { Id = ligacao.Id.AsString(), TextoLigacao = ligacao.TextoLigacao, Estado = lig.Estado };
-        // }
+            return new LigacaoDto { Id = ligacao.Id.AsString(), TextoLigacao = ligacao.TextoLigacao, Estado = ligacao.EstadoLigacao, Jogador1 = ligacao.Jogador1, Jogador2 = ligacao.Jogador2 };
+        }
 
         // public async Task<LigacaoDto> UpdateAsync(LigacaoDto dto)
         // {

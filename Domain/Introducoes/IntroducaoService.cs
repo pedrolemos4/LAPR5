@@ -4,7 +4,7 @@ using DDDSample1.Domain.Shared;
 
 namespace DDDSample1.Domain.Introducoes
 {
-    public class IntroducaoService
+    public class IntroducaoService : IIntroducaoService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IIntroducaoRepository _repo;

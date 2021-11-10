@@ -4,8 +4,7 @@ using DDDSample1.Domain.Shared;
 
 namespace DDDSample1.Domain.Perfis
 {
-    public class PerfilService
-    {
+    public class PerfilService : IPerfilService {
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPerfilRepository _repo;

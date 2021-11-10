@@ -16,9 +16,12 @@ namespace DDDNetCore.Controllers
     {
         private readonly DDDSample1DbContext _context;
 
-        public PostsController(DDDSample1DbContext context)
+        private readonly IPostService _service;
+
+        public PostsController(DDDSample1DbContext context, IPostService service)
         {
             _context = context;
+            _service = service;
         }
 
         // GET: api/Posts
