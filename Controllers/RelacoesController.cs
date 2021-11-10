@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Relacoes;
 using DDDSample1.Infrastructure;
+using DDDSample1.Domain.Jogadores;
 
 namespace DDDNetCore.Controllers
 {
@@ -15,9 +15,12 @@ namespace DDDNetCore.Controllers
     {
         private readonly DDDSample1DbContext _context;
 
-        public RelacoesController(DDDSample1DbContext context)
+        private readonly IRelacaoService _service;
+
+        public RelacoesController(DDDSample1DbContext context, IRelacaoService service)
         {
             _context = context;
+            _service = service;
         }
 
         // GET: api/Relacoes
@@ -33,6 +36,18 @@ namespace DDDNetCore.Controllers
         {
             var relacao = await _context.Relacoes.FindAsync(id);
 
+            if (relacao == null)
+            {
+                return NotFound();
+            }
+
+            return relacao;
+        }
+
+        public async Task<ActionResult<List<RelacaoDto>>> GetRelacoesDoJogador(Jogador jog)
+        {
+            var relacao = await this._service.GetRelacoesDoJogador(jog);
+            
             if (relacao == null)
             {
                 return NotFound();

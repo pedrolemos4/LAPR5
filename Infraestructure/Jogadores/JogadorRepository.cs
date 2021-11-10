@@ -5,12 +5,6 @@ using DDDSample1.Domain.Perfis;
 using DDDSample1.Infrastructure.Shared;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using DDDSample1.Domain.Relacoes;
-
-
 
 namespace DDDSample1.Infrastructure.Jogadores
 {

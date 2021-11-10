@@ -2,10 +2,10 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.Jogadores;
+
 namespace DDDSample1.Domain.Relacoes
 {
-    public class RelacaoService
-    {
+    public class RelacaoService : IRelacaoService {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IRelacaoRepository _repo;
 
@@ -34,6 +34,18 @@ namespace DDDSample1.Domain.Relacoes
             return new RelacaoDto{Id = relacao.Id.AsString(), Jogador1 = relacao.Jogador1, Jogador2 = relacao.Jogador2, Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao};
         }
 
+        public async Task<List<RelacaoDto>> GetRelacoesDoJogador(Jogador jog)
+        {
+            var relacao = await this._repo.GetRelacoesDoJogador(jog);
+            
+            if(relacao == null)
+                return null;
+
+            List<RelacaoDto> lista = relacao.ConvertAll<RelacaoDto>( relacao => new RelacaoDto{ Id = relacao.Id.AsString(), Jogador1 = relacao.Jogador1, Jogador2 = relacao.Jogador2, Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao});
+
+            return lista;
+        }
+
         // public async Task<RelacaoDto> AddAsync(RelacaoDto dto)
         // {
         //     var relacao = new Relacao(dto.Id, dto.Tags);
@@ -54,7 +66,7 @@ namespace DDDSample1.Domain.Relacoes
 
         //     // change all field
         //     relacao.AddPontuacao(dto.Tags);
-            
+
         //     await this._unitOfWork.CommitAsync();
 
         //     return new RelacaoDto { Id = relacao.Id.AsString(), Jogador1 = relacao.Jogador1, Jogador2 = relacao.Jogador2, Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao };
