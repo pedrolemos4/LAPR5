@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using DDDSample1.Domain.Shared;
+using DDDSample1.Domain.Jogadores;
 
 namespace DDDSample1.Domain.Introducoes
 {
@@ -18,8 +19,8 @@ namespace DDDSample1.Domain.Introducoes
         public async Task<List<IntroducaoDto>> GetAllAsync()
         {
             var list = await this._repo.GetAllAsync();
-            
-            List<IntroducaoDto> listDto = list.ConvertAll<IntroducaoDto>(intro => new IntroducaoDto{Id = intro.Id.AsString(), JogadorInicial = intro.JogadorInicial, JogadorIntrodutor = intro.JogadorIntrodutor, JogadorObjetivo = intro.JogadorObjetivo, Estado = intro.EstadoIntroducao});
+
+            List<IntroducaoDto> listDto = list.ConvertAll<IntroducaoDto>(intro => new IntroducaoDto { Id = intro.Id.AsString(), JogadorInicial = intro.JogadorInicial, JogadorIntrodutor = intro.JogadorIntrodutor, JogadorObjetivo = intro.JogadorObjetivo, Estado = intro.EstadoIntroducao });
 
             return listDto;
         }
@@ -27,23 +28,29 @@ namespace DDDSample1.Domain.Introducoes
         public async Task<IntroducaoDto> GetByIdAsync(IntroducaoId id)
         {
             var intro = await this._repo.GetByIdAsync(id);
-            
-            if(intro == null)
+
+            if (intro == null)
                 return null;
 
-            return new IntroducaoDto{Id = intro.Id.AsString(), JogadorInicial = intro.JogadorInicial, JogadorIntrodutor = intro.JogadorIntrodutor, JogadorObjetivo = intro.JogadorObjetivo, Estado = intro.EstadoIntroducao};
+            return new IntroducaoDto { Id = intro.Id.AsString(), JogadorInicial = intro.JogadorInicial, JogadorIntrodutor = intro.JogadorIntrodutor, JogadorObjetivo = intro.JogadorObjetivo, Estado = intro.EstadoIntroducao };
         }
 
         public async Task<IntroducaoDto> AddAsync(Introducao introducao)
         {
-           // var introducao = new Introducao(dto.Id, dto.Estado);
+            // var introducao = new Introducao(dto.Id, dto.Estado);
 
             await this._repo.AddAsync(introducao);
 
             await this._unitOfWork.CommitAsync();
 
-            return new IntroducaoDto { Id = introducao.Id.AsString(), JogadorInicial = introducao.JogadorInicial, JogadorIntrodutor = introducao.JogadorIntrodutor,
-             JogadorObjetivo = introducao.JogadorObjetivo, Estado = introducao.EstadoIntroducao};
+            return new IntroducaoDto
+            {
+                Id = introducao.Id.AsString(),
+                JogadorInicial = introducao.JogadorInicial,
+                JogadorIntrodutor = introducao.JogadorIntrodutor,
+                JogadorObjetivo = introducao.JogadorObjetivo,
+                Estado = introducao.EstadoIntroducao
+            };
         }
 
         // public async Task<IntroducaoDto> UpdateAsync(IntroducaoDto dto)
@@ -55,7 +62,7 @@ namespace DDDSample1.Domain.Introducoes
 
         //     // change all field
         //     introducao.AddPontuacao(dto.Estado);
-            
+
         //     await this._unitOfWork.CommitAsync();
 
         //     return new IntroducaoDto { Id = introducao.Id.AsString(), JogadorInicial = intro.JogadorInicial, JogadorIntrodutor = intro.JogadorIntrodutor, JogadorObjetivo = intro.JogadorObjetivo, Estado = introducao.Estado };
@@ -63,29 +70,42 @@ namespace DDDSample1.Domain.Introducoes
 
         public async Task<IntroducaoDto> InactivateAsync(IntroducaoId id)
         {
-            var introducao = await this._repo.GetByIdAsync(id); 
+            var introducao = await this._repo.GetByIdAsync(id);
 
             if (introducao == null)
-                return null;   
+                return null;
 
             // change all fields
             introducao.MarkAsInative();
-            
+
             await this._unitOfWork.CommitAsync();
 
             return new IntroducaoDto { Id = introducao.Id.AsString(), JogadorInicial = introducao.JogadorInicial, JogadorIntrodutor = introducao.JogadorIntrodutor, JogadorObjetivo = introducao.JogadorObjetivo, Estado = introducao.EstadoIntroducao };
         }
 
-         public async Task<IntroducaoDto> DeleteAsync(IntroducaoId id)
+        public async Task<List<IntroducaoDto>> GetIntroducoesPorAprovar(JogadorId idJog)
         {
-            var introducao = await this._repo.GetByIdAsync(id); 
+            var list = await this._repo.GetIntroducoesPorAprovar(idJog);
+            List<IntroducaoDto> listIntro = list.ConvertAll<IntroducaoDto>(intro => new IntroducaoDto
+            {
+                JogadorInicial = intro.JogadorInicial,
+                JogadorIntrodutor = intro.JogadorIntrodutor,
+                JogadorObjetivo = intro.JogadorObjetivo,
+                Id = intro.Id.AsString(),
+                Estado = intro.EstadoIntroducao
+            });
+            return listIntro;
+        }
+        public async Task<IntroducaoDto> DeleteAsync(IntroducaoId id)
+        {
+            var introducao = await this._repo.GetByIdAsync(id);
 
             if (introducao == null)
-                return null;   
+                return null;
 
             if (introducao.Active)
                 throw new BusinessRuleValidationException("It is not possible to delete an active introducao.");
-            
+
             this._repo.Remove(introducao);
             await this._unitOfWork.CommitAsync();
 
