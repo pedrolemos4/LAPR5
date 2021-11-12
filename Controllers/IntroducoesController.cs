@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Introducoes;
 using DDDSample1.Domain.Relacoes;
 using DDDSample1.Infrastructure;
+using DDDSample1.Domain.Shared;
 
 namespace DDDNetCore.Controllers
 {
@@ -76,6 +77,30 @@ namespace DDDNetCore.Controllers
             }
 
             return NoContent();
+        }
+
+        // PATCH: api/Introducoes/5
+        [HttpPut("{introducao}")]
+        public async Task<IActionResult> PatchIntroducao(IntroducaoId id, IntroducaoDto dto)
+        {
+            if (id.AsString() != dto.Id)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var intro = await _serviceIntro.PatchEstadoIntroducao(dto);
+
+                if (intro == null) {
+                    return NotFound();
+                }
+                return Ok(intro);
+            }
+            catch (BusinessRuleValidationException ex)
+            {
+                return BadRequest(new {Message = ex.Message});
+            }
         }
 
         // POST: api/Introducoes

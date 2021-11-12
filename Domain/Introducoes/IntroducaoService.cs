@@ -46,7 +46,7 @@ namespace DDDSample1.Domain.Introducoes
              JogadorObjetivo = introducao.JogadorObjetivo, EstadoIntroducao = introducao.EstadoIntroducao};
         }
 
-        public async Task<IntroducaoDto> UpdateEstadoIntroducao(IntroducaoDto dto)
+        public async Task<IntroducaoDto> PatchEstadoIntroducao(IntroducaoDto dto)
         {
             var intro = await this._repo.GetByIdAsync(new IntroducaoId(dto.Id)); 
 
