@@ -112,29 +112,15 @@ namespace DDDNetCore.Controllers
             }
         }
 
-        // POST: api/Relacoes
+        // POST: api/Relacoes/6
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Relacao>> PostRelacao(Relacao relacao)
+        public async Task<ActionResult<RelacaoDto>> PostRelacao(CreatingRelacaoDto relacaoDto)
         {
-            _context.Relacoes.Add(relacao);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (RelacaoExists(relacao.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return CreatedAtAction("GetRelacao", new { id = relacao.Id }, relacao);
+            var relacao = await _service.AddAsync(relacaoDto);
+
+            return CreatedAtAction("PostLigacao", new { id = relacao.Id }, relacao);
         }
 
         // DELETE: api/Relacoes/5

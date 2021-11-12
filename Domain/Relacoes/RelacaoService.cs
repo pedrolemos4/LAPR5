@@ -37,16 +37,18 @@ namespace DDDSample1.Domain.Relacoes
             return lista;
         }
 
-        // public async Task<RelacaoDto> AddAsync(RelacaoDto dto)
-        // {
-        //     var relacao = new Relacao(dto.Id, dto.Tags);
+        public async Task<RelacaoDto> AddAsync(CreatingRelacaoDto dto)
+        {
+            List<string> tags = converteParaListaString(dto.Tags);
 
-        //     await this._repo.AddAsync(relacao);
+            var relacao = new Relacao(dto.RelacaoId.AsString(), dto.Jogador1, dto.Jogador2, tags, dto.ForcaRelacao.Valor, dto.ForcaLigacao.Valor);
 
-        //     await this._unitOfWork.CommitAsync();
+            await this._repo.AddAsync(relacao);
 
-        //     return new RelacaoDto { Id = relacao.Id.AsString(), Jogador1 = relacao.Jogador1, Jogador2 = relacao.Jogador2, Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao };
-        // }
+            await this._unitOfWork.CommitAsync();
+
+            return new RelacaoDto { Id = relacao.Id.AsString(), Jogador1 = relacao.Jogador1, Jogador2 = relacao.Jogador2, Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao };
+        }
 
         // public async Task<RelacaoDto> UpdateAsync(RelacaoDto dto)
         // {
