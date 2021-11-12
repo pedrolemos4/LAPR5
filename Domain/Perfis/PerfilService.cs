@@ -78,6 +78,21 @@ namespace DDDSample1.Domain.Perfis
             return lista;
         }
 
+        public async Task<PerfilDto> PatchEstadoHumor(PerfilDto dto)
+        {
+            var perfil = await this._repo.GetByIdAsync(new PerfilId(dto.Id)); 
+
+            if (perfil == null)
+                return null;   
+
+            // change all field
+            perfil.ChangeestadoHumor(dto.EstadoHumor.ToString());
+            
+            await this._unitOfWork.CommitAsync();
+
+            return new PerfilDto { Id = perfil.Id.AsString(), Nome = perfil.nome, EstadoHumor = perfil.estadoHumor };
+        }
+
         //  public async Task<PerfilDto> AddAsync(PerfilDto dto)
         //  {
         //      var perfil = new Perfil(dto.Id, dto.Nome);
