@@ -10,5 +10,6 @@ namespace DDDSample1.Domain.Relacoes
         Task<List<RelacaoDto>> GetRelacoesDoJogador(Jogador jog);
         Task<RelacaoDto> PatchRelacaoTagsForca(RelacaoDto dto);
         Task<List<RelacaoDto>> ToListAsync();
+        Task<RelacaoDto> AddAsync(CreatingRelacaoDto relacaoDto);
     }
 }

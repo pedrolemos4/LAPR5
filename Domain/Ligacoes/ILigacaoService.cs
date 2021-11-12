@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using DDDSample1.Domain.Jogadores;
 
 namespace DDDSample1.Domain.Ligacoes
 {
@@ -8,5 +9,7 @@ namespace DDDSample1.Domain.Ligacoes
     {
         Task<LigacaoDto> AddAsync(CreatingLigacaoDto ligacaoDto);
         Task<List<LigacaoDto>> GetAllAsync();
+        Task<List<LigacaoDto>> GetLigacaoPendente(JogadorId id);
+        Task<LigacaoDto> PatchEstadoLigacao(LigacaoDto dto);
     }
 }

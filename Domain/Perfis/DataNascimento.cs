@@ -26,12 +26,18 @@ namespace DDDSample1.Domain.Perfis
         private void setDataNascimento(string data)
         {
             DateTime dateOut;
-            if(!DateTime.TryParse(data, out dateOut)){
+            if (!DateTime.TryParse(data, out dateOut))
+            {
                 throw new BusinessRuleValidationException("Date it is incorrect.");
-            }else{
-                this.DataNasc = dateOut; // Verificar
             }
-           
+            else
+            {
+                if (dateOut.Year >= 16)
+                {
+                    this.DataNasc = dateOut;
+                }
+            }
+
         }
         public void MarkAsInative()
         {

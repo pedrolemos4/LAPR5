@@ -3,8 +3,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using DDDSample1.Domain.Jogadores;
 using DDDSample1.Domain.Ligacoes;
 using DDDSample1.Infrastructure;
+using DDDSample1.Domain.Shared;
 
 namespace DDDSample1.Controllers
 {
@@ -43,6 +45,10 @@ namespace DDDSample1.Controllers
             return ligacao;
         }
 
+        public async Task<ActionResult<List<LigacaoDto>>> GetLigacaoPendente(JogadorId id)
+        {
+            return await _service.GetLigacaoPendente(id);
+        }
         // PUT: api/Ligacoes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -72,6 +78,30 @@ namespace DDDSample1.Controllers
             }
 
             return NoContent();
+        }
+
+        // PATCH: api/Ligacoes/5
+        [HttpPut("{ligacao}")]
+        public async Task<IActionResult> PatchLigacao(LigacaoId id, LigacaoDto dto)
+        {
+            if (id.AsString() != dto.Id)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var intro = await _service.PatchEstadoLigacao(dto);
+
+                if (intro == null) {
+                    return NotFound();
+                }
+                return Ok(intro);
+            }
+            catch (BusinessRuleValidationException ex)
+            {
+                return BadRequest(new {Message = ex.Message});
+            }
         }
 
         // POST: api/Ligacoes/6
