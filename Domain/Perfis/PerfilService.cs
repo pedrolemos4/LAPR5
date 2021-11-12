@@ -4,7 +4,8 @@ using DDDSample1.Domain.Shared;
 
 namespace DDDSample1.Domain.Perfis
 {
-    public class PerfilService : IPerfilService {
+    public class PerfilService : IPerfilService
+    {
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPerfilRepository _repo;
@@ -15,14 +16,14 @@ namespace DDDSample1.Domain.Perfis
             this._repo = repo;
         }
 
-        //     public async Task<List<PerfilDto>> GetAllAsync()
-        //     {
-        //         var list = await this._repo.GetAllAsync();
+        public async Task<List<PerfilDto>> GetAllAsync()
+        {
+            var list = await this._repo.GetAllAsync();
 
-        //         List<PerfilDto> listDto = list.ConvertAll<PerfilDto>(async per => new PerfilDto{Id = per.Id.AsString(), Nome = per.Nome, Email = per.Email, Telefone = per.Telefone, DataNascimento = per.DataNascimento, EstadoHumor = per.EstadoHumor, PerfilFacebook = per.PerfilFacebook, PerfilLinkedin = per.PerfilLinkedin});
+            List<PerfilDto> listDto = list.ConvertAll<PerfilDto>(per => new PerfilDto { Id = per.Id.AsString(), Nome = per.nome/*, Email = per.Email, Telefone = per.Telefone, DataNascimento = per.DataNascimento, EstadoHumor = per.EstadoHumor, PerfilFacebook = per.PerfilFacebook, PerfilLinkedin = per.PerfilLinkedin*/ });
 
-        //         return listDto;
-        //     }
+            return listDto;
+        }
 
         public async Task<PerfilDto> GetByIdAsync(PerfilId id)
         {
@@ -48,18 +49,18 @@ namespace DDDSample1.Domain.Perfis
         public async Task<PerfilDto> getPerfilByNome(string nome)
         {
             var per = await this._repo.getPerfilByNome(nome);
-            
-            if(per == null)
+
+            if (per == null)
                 return null;
 
-            return new PerfilDto { Id = per.Id.AsString(), Nome = per.nome};
+            return new PerfilDto { Id = per.Id.AsString(), Nome = per.nome };
         }
 
         public async Task<PerfilDto> GetPerfilByEmail(string email)
         {
             var per = await this._repo.GetPerfilByEmail(email);
-            
-            if(per == null)
+
+            if (per == null)
                 return null;
 
             return new PerfilDto { Id = per.Id.AsString(), Nome = per.nome/*, Email = per.Email, Telefone = per.Telefone, DataNascimento = per.DataNascimento, EstadoHumor = per.EstadoHumor, PerfilFacebook = per.PerfilFacebook, PerfilLinkedin = per.PerfilLinkedin */};
@@ -69,25 +70,25 @@ namespace DDDSample1.Domain.Perfis
         {
 
             var per = await this._repo.GetPerfilByPais(pais);
-            
-            if(per == null)
+
+            if (per == null)
                 return null;
 
-            List<PerfilDto> lista = per.ConvertAll<PerfilDto>( per => new PerfilDto{ Id = per.Id.AsString(), Nome = per.nome });
+            List<PerfilDto> lista = per.ConvertAll<PerfilDto>(per => new PerfilDto { Id = per.Id.AsString(), Nome = per.nome });
 
             return lista;
         }
 
         public async Task<PerfilDto> PatchEstadoHumor(PerfilDto dto)
         {
-            var perfil = await this._repo.GetByIdAsync(new PerfilId(dto.Id)); 
+            var perfil = await this._repo.GetByIdAsync(new PerfilId(dto.Id));
 
             if (perfil == null)
-                return null;   
+                return null;
 
             // change all field
             perfil.ChangeestadoHumor(dto.EstadoHumor.ToString());
-            
+
             await this._unitOfWork.CommitAsync();
 
             return new PerfilDto { Id = perfil.Id.AsString(), Nome = perfil.nome, EstadoHumor = perfil.estadoHumor };
@@ -107,12 +108,12 @@ namespace DDDSample1.Domain.Perfis
         //     public async Task<PerfilDto> UpdateAsync(PerfilDto dto)
         //     {
         //         var perfil = await this._repo.GetByIdAsync(new PerfilId(dto.Id)); 
-    //         var perfil = await this._repo.GetByIdAsync(new PerfilId(dto.Id)); 
+        //         var perfil = await this._repo.GetByIdAsync(new PerfilId(dto.Id)); 
         //         var perfil = await this._repo.GetByIdAsync(new PerfilId(dto.Id)); 
 
         //         if (perfil == null)
         //             return null;   
-    //             return null;   
+        //             return null;   
         //             return null;   
 
         //         // change all field
@@ -126,12 +127,12 @@ namespace DDDSample1.Domain.Perfis
         //     public async Task<PerfilDto> InactivateAsync(PerfilId id)
         //     {
         //         var perfil = await this._repo.GetByIdAsync(id); 
-    //         var perfil = await this._repo.GetByIdAsync(id); 
+        //         var perfil = await this._repo.GetByIdAsync(id); 
         //         var perfil = await this._repo.GetByIdAsync(id); 
 
         //         if (perfil == null)
         //             return null;   
-    //             return null;   
+        //             return null;   
         //             return null;   
 
         //         // change all fields
@@ -145,12 +146,12 @@ namespace DDDSample1.Domain.Perfis
         //      public async Task<PerfilDto> DeleteAsync(PerfilId id)
         //     {
         //         var perfil = await this._repo.GetByIdAsync(id); 
-    //         var perfil = await this._repo.GetByIdAsync(id); 
+        //         var perfil = await this._repo.GetByIdAsync(id); 
         //         var perfil = await this._repo.GetByIdAsync(id); 
 
         //         if (perfil == null)
         //             return null;   
-    //             return null;   
+        //             return null;   
         //             return null;   
 
         //         if (perfil.Active)

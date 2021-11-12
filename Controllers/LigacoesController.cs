@@ -24,9 +24,9 @@ namespace DDDNetCore.Controllers
 
         // GET: api/Ligacoes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Ligacao>>> GetLigacoes()
+        public async Task<ActionResult<List<LigacaoDto>>> GetLigacoes()
         {
-            return await _context.Ligacoes.ToListAsync();
+            return await _service.GetAllAsync();
         }
 
         // GET: api/Ligacoes/5
@@ -72,31 +72,6 @@ namespace DDDNetCore.Controllers
             }
 
             return NoContent();
-        }
-
-        // POST: api/Ligacoes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Ligacao>> PostLigacao(Ligacao ligacao)
-        {
-            _context.Ligacoes.Add(ligacao);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (LigacaoExists(ligacao.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtAction("GetLigacao", new { id = ligacao.Id }, ligacao);
         }
 
         // POST: api/Ligacoes/6

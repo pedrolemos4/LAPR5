@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DDDSample1.Domain.Perfis
 {
@@ -10,5 +11,6 @@ namespace DDDSample1.Domain.Perfis
         Task<PerfilDto> AddAsync(CreatingPerfilDto perfilDto);
         Task<PerfilDto> GetByIdAsync(PerfilId perfilId);
         Task<PerfilDto> PatchEstadoHumor(PerfilDto dto);
+        Task<List<PerfilDto>> GetAllAsync();
     }
 }

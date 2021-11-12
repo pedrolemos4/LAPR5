@@ -27,9 +27,9 @@ namespace DDDNetCore.Controllers
 
         // GET: api/Jogadores
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Jogador>>> GetJogadores()
+        public async Task<ActionResult<List<JogadorDto>>> GetJogadores()
         {
-            return await _context.Jogadores.ToListAsync();
+            return await _serviceJog.GetAllAsync();
         }
 
         // GET: api/Jogadores/5

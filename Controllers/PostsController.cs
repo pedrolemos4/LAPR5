@@ -26,9 +26,9 @@ namespace DDDNetCore.Controllers
 
         // GET: api/Posts
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Post>>> GetPosts()
+        public async Task<ActionResult<List<PostDto>>> GetPosts()
         {
-            return await _context.Posts.ToListAsync();
+            return await _service.GetAllAsync();
         }
 
         // GET: api/Posts/5

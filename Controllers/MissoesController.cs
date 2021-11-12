@@ -26,9 +26,9 @@ namespace DDDNetCore.Controllers
 
         // GET: api/Missoes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Missao>>> GetMissoes()
+        public async Task<ActionResult<List<MissaoDto>>> GetMissoes()
         {
-            return await _context.Missoes.ToListAsync();
+            return await _service.GetAllAsync();
         }
 
         // GET: api/Missoes/5

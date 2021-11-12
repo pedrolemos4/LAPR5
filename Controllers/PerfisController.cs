@@ -24,9 +24,9 @@ namespace DDDNetCore.Controllers
 
         // GET: api/Perfis
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Perfil>>> GetPerfis()
+        public async Task<ActionResult<List<PerfilDto>>> GetPerfis()
         {
-            return await _context.Perfis.ToListAsync();
+            return await _servicePerfil.GetAllAsync();
         }
 
         // GET: api/Perfis/5
