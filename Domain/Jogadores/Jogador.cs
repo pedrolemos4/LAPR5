@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using DDDSample1.Domain.Missoes;
 using DDDSample1.Domain.Relacoes;
 using DDDSample1.Domain.Posts;
+using System;
 
 namespace DDDSample1.Domain.Jogadores
 {
@@ -19,7 +20,7 @@ namespace DDDSample1.Domain.Jogadores
 
         public Perfil perfil { get; private set; }
 
-        public List<Relacao> ListaRelacoes { get; private set; }
+        public HashSet<Relacao> ListaRelacoes { get; private set; }
 
         public List<Post> ListaPosts { get; private set; }
 
@@ -35,7 +36,7 @@ namespace DDDSample1.Domain.Jogadores
             this.Id = new JogadorId(code);
             this.Pontuacao = new Pontuacao(pontuacao);
             this.ListaMissoes = new List<Missao>();
-            this.ListaRelacoes = new List<Relacao>();
+            this.ListaRelacoes = new HashSet<Relacao>();
             this.ListaPosts = new List<Post>();
             this.Active = true;
         }
@@ -43,9 +44,10 @@ namespace DDDSample1.Domain.Jogadores
         public Jogador(/*string code,*/ Perfil perfil)
         {
             //this.Id = new JogadorId(code);
+            this.Id = new JogadorId(Guid.NewGuid());
             this.Pontuacao = new Pontuacao(0);
             this.ListaMissoes = new List<Missao>();
-            this.ListaRelacoes = new List<Relacao>();
+            this.ListaRelacoes = new HashSet<Relacao>();
             this.ListaPosts = new List<Post>();
             this.Active = true;
             this.perfil = perfil;

@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using DDDSample1.Domain.Families;
 using DDDSample1.Domain.Missoes;
 using DDDSample1.Domain.Perfis;
 using DDDSample1.Domain.Ligacoes;
@@ -7,7 +6,6 @@ using DDDSample1.Domain.Posts;
 using DDDSample1.Domain.Jogadores;
 using DDDSample1.Domain.Relacoes;
 using DDDSample1.Domain.Introducoes;
-using DDDSample1.Infrastructure.Families;
 using DDDSample1.Infrastructure.Introducoes;
 using DDDSample1.Infrastructure.Jogadores;
 using DDDSample1.Infrastructure.Ligacoes;
@@ -26,7 +24,7 @@ namespace DDDSample1.Infrastructure
 
        // public DbSet<Product> Products { get; set; }
 
-        public DbSet<Family> Families { get; set; }
+//public DbSet<Family> Families { get; set; }
 
         public DbSet<Jogador> Jogadores { get; set; }
 
@@ -51,7 +49,7 @@ namespace DDDSample1.Infrastructure
         {
           //  modelBuilder.ApplyConfiguration(new CategoryEntityTypeConfiguration());
           //  modelBuilder.ApplyConfiguration(new ProductEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new FamilyEntityTypeConfiguration());
+         //   modelBuilder.ApplyConfiguration(new FamilyEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new JogadorEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new MissaoEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PerfilEntityTypeConfiguration());

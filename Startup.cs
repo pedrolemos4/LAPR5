@@ -5,13 +5,23 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DDDSample1.Infrastructure;
-using DDDSample1.Infrastructure.Families;
 using DDDSample1.Domain.Shared;
-using DDDSample1.Domain.Families;
 using DDDSample1.Infrastructure.Shared;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-
-
+using DDDSample1.Domain.Introducoes;
+using DDDSample1.Infrastructure.Introducoes;
+using DDDSample1.Domain.Jogadores;
+using DDDSample1.Infrastructure.Jogadores;
+using DDDSample1.Domain.Ligacoes;
+using DDDSample1.Infrastructure.Ligacoes;
+using DDDSample1.Domain.Missoes;
+using DDDSample1.Infrastructure.Missoes;
+using DDDSample1.Domain.Perfis;
+using DDDSample1.Infrastructure.Perfis;
+using DDDSample1.Domain.Posts;
+using DDDSample1.Infrastructure.Posts;
+using DDDSample1.Domain.Relacoes;
+using DDDSample1.Infrastructure.Relacoes;
 namespace DDDSample1
 {
     public class Startup
@@ -81,8 +91,23 @@ namespace DDDSample1
             // services.AddTransient<IProductRepository, ProductRepository>();
             // services.AddTransient<ProductService>();
 
-            services.AddTransient<IFamilyRepository, FamilyRepository>();
-            services.AddTransient<FamilyService>();
+            //services.AddTransient<IFamilyRepository, FamilyRepository>();
+            //services.AddTransient<FamilyService>();
+
+            services.AddTransient<IIntroducaoRepository, IntroducaoRepository>();
+            services.AddTransient<IntroducaoService>();
+            services.AddTransient<IJogadorRepository, JogadorRepository>();
+            services.AddTransient<JogadorService>();
+            services.AddTransient<ILigacaoRepository, LigacaoRepository>();
+            services.AddTransient<LigacaoService>();
+            services.AddTransient<IMissaoRepository, MissaoRepository>();
+            services.AddTransient<MissaoService>();
+            services.AddTransient<IPerfilRepository, PerfilRepository>();
+            services.AddTransient<IPerfilService,PerfilService>();
+            services.AddTransient<IPostRepository, PostRepository>();
+            services.AddTransient<PostService>();
+            services.AddTransient<IRelacaoRepository, RelacaoRepository>();
+            services.AddTransient<RelacaoService>();
         }
     }
 }

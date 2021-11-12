@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Ligacoes;
 using DDDSample1.Infrastructure;
 
-namespace DDDNetCore.Controllers
+namespace DDDSample1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -46,7 +46,7 @@ namespace DDDNetCore.Controllers
         // PUT: api/Ligacoes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLigacao(LigacaoId id, Ligacao ligacao)
+        public async Task<IActionResult> PutLigacao([FromRoute]LigacaoId id, [FromBody]Ligacao ligacao)
         {
             if (id != ligacao.Id)
             {

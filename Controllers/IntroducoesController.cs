@@ -9,7 +9,7 @@ using DDDSample1.Domain.Relacoes;
 using DDDSample1.Infrastructure;
 using DDDSample1.Domain.Shared;
 
-namespace DDDNetCore.Controllers
+namespace DDDSample1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -58,9 +58,9 @@ namespace DDDNetCore.Controllers
         // PUT: api/Introducoes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutIntroducao(IntroducaoId id, Introducao introducao)
+        public async Task<IActionResult> Update([FromBody] IntroducaoId id, [FromRoute] IntroducaoDto introducao)
         {
-            if (id != introducao.Id)
+            if (id.AsString() != introducao.Id)
             {
                 return BadRequest();
             }
@@ -88,7 +88,7 @@ namespace DDDNetCore.Controllers
 
         // PATCH: api/Introducoes/5
         [HttpPut("{introducao}")]
-        public async Task<IActionResult> PatchIntroducao(IntroducaoId id, IntroducaoDto dto)
+        public async Task<IActionResult> PatchIntroducao([FromBody]IntroducaoId id, [FromRoute]IntroducaoDto dto)
         {
             if (id.AsString() != dto.Id)
             {

@@ -8,19 +8,6 @@ namespace DDDNetCore.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Families",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Active = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Families", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Perfis",
                 columns: table => new
                 {
@@ -31,6 +18,10 @@ namespace DDDNetCore.Migrations
                     email_Active = table.Column<bool>(type: "bit", nullable: true),
                     telefone_NumTelefone = table.Column<long>(type: "bigint", nullable: true),
                     telefone_Active = table.Column<bool>(type: "bit", nullable: true),
+                    pais_Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    pais_Active = table.Column<bool>(type: "bit", nullable: true),
+                    cidade_City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    cidade_Active = table.Column<bool>(type: "bit", nullable: true),
                     dataNascimento_DataNasc = table.Column<DateTime>(type: "datetime2", nullable: true),
                     dataNascimento_Active = table.Column<bool>(type: "bit", nullable: true),
                     estadoHumor = table.Column<int>(type: "int", nullable: false),
@@ -45,28 +36,6 @@ namespace DDDNetCore.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Perfis", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Posts",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Texto_Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Texto_Active = table.Column<bool>(type: "bit", nullable: true),
-                    Tags_Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Tags_Active = table.Column<bool>(type: "bit", nullable: true),
-                    Comentario_Texto = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Comentario_Active = table.Column<bool>(type: "bit", nullable: true),
-                    LikeDislike_Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LikeDislike_Active = table.Column<bool>(type: "bit", nullable: true),
-                    ForcaLigacao_Valor = table.Column<int>(type: "int", nullable: true),
-                    ForcaLigacao_Active = table.Column<bool>(type: "bit", nullable: true),
-                    Active = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Posts", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -198,33 +167,93 @@ namespace DDDNetCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Posts",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Texto_Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Texto_Active = table.Column<bool>(type: "bit", nullable: true),
+                    LikeDislike_Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LikeDislike_Active = table.Column<bool>(type: "bit", nullable: true),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
+                    JogadorId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Posts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Posts_Jogadores_JogadorId",
+                        column: x => x.JogadorId,
+                        principalTable: "Jogadores",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Relacoes",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Jogador1Id = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Jogador2Id = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Jogador1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Jogador2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ForcaRelacao_Valor = table.Column<int>(type: "int", nullable: true),
                     ForcaRelacao_Active = table.Column<bool>(type: "bit", nullable: true),
                     ForcaLigacao_Valor = table.Column<int>(type: "int", nullable: true),
                     ForcaLigacao_Active = table.Column<bool>(type: "bit", nullable: true),
-                    Active = table.Column<bool>(type: "bit", nullable: false)
+                    Active = table.Column<bool>(type: "bit", nullable: false),
+                    JogadorId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Relacoes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Relacoes_Jogadores_Jogador1Id",
-                        column: x => x.Jogador1Id,
+                        name: "FK_Relacoes_Jogadores_JogadorId",
+                        column: x => x.JogadorId,
                         principalTable: "Jogadores",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Comentario",
+                columns: table => new
+                {
+                    PostId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Texto = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Active = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comentario", x => new { x.PostId, x.Id });
                     table.ForeignKey(
-                        name: "FK_Relacoes_Jogadores_Jogador2Id",
-                        column: x => x.Jogador2Id,
-                        principalTable: "Jogadores",
+                        name: "FK_Comentario_Posts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Posts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Posts_Tags",
+                columns: table => new
+                {
+                    PostId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Active = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Posts_Tags", x => new { x.PostId, x.Id });
+                    table.ForeignKey(
+                        name: "FK_Posts_Tags_Posts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Posts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -284,20 +313,20 @@ namespace DDDNetCore.Migrations
                 column: "JogadorObjetivoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Relacoes_Jogador1Id",
-                table: "Relacoes",
-                column: "Jogador1Id");
+                name: "IX_Posts_JogadorId",
+                table: "Posts",
+                column: "JogadorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Relacoes_Jogador2Id",
+                name: "IX_Relacoes_JogadorId",
                 table: "Relacoes",
-                column: "Jogador2Id");
+                column: "JogadorId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Families");
+                name: "Comentario");
 
             migrationBuilder.DropTable(
                 name: "Introducoes");
@@ -312,10 +341,13 @@ namespace DDDNetCore.Migrations
                 name: "Perfis_tags");
 
             migrationBuilder.DropTable(
-                name: "Posts");
+                name: "Posts_Tags");
 
             migrationBuilder.DropTable(
                 name: "Relacoes_Tags");
+
+            migrationBuilder.DropTable(
+                name: "Posts");
 
             migrationBuilder.DropTable(
                 name: "Relacoes");

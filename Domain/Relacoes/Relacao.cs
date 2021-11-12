@@ -7,9 +7,9 @@ namespace DDDSample1.Domain.Relacoes
 {
     public class Relacao : Entity<RelacaoId>, IAggregateRoot
     {
-        public Jogador Jogador1 { get;  private set; }
+        public JogadorId Jogador1 { get;  private set; }
 
-        public Jogador Jogador2 { get;  private set; }
+        public JogadorId Jogador2 { get;  private set; }
 
         public List<Tag> Tags { get;  private set; }
 
@@ -24,7 +24,7 @@ namespace DDDSample1.Domain.Relacoes
             this.Active = true;
         }
 
-        public Relacao(string code, Jogador jog1, Jogador jog2, List<string> tags, int fr, int fl)
+        public Relacao(string code, JogadorId jog1, JogadorId jog2, List<string> tags, int fr, int fl)
         {
             this.Id = new RelacaoId(code);
             this.Jogador1 = jog1;

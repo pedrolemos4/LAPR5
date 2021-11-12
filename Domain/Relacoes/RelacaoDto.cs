@@ -7,9 +7,9 @@ namespace DDDSample1.Domain.Relacoes
 {
     public class RelacaoDto
     {
-        public Jogador Jogador1 { get; set; }
+        public JogadorId Jogador1 { get; set; }
 
-        public Jogador Jogador2 { get; set; }
+        public JogadorId Jogador2 { get; set; }
 
         public String Id { get; set; }
 

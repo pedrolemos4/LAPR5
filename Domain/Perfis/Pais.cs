@@ -9,9 +9,13 @@ namespace DDDSample1.Domain.Perfis
     [Owned]
     public class Pais : IValueObject
     {
-        public string pais { get; private set; }
+        public string Country { get; private set; }
 
         public bool Active { get; private set; }
+
+        private Pais(){
+            this.Active = true;
+        }
 
         public Pais(string pais)
         {
@@ -41,7 +45,7 @@ namespace DDDSample1.Domain.Perfis
             }else{
                 throw new BusinessRuleValidationException("Invalid country.");
             }*/
-            this.pais=pais;
+            this.Country=pais;
         }
 
     }

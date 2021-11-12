@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Missoes;
 using DDDSample1.Infrastructure;
 
-namespace DDDNetCore.Controllers
+namespace DDDSample1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -48,7 +48,7 @@ namespace DDDNetCore.Controllers
         // PUT: api/Missoes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMissao(MissaoId id, Missao missao)
+        public async Task<IActionResult> PutMissao([FromRoute]MissaoId id,[FromBody] Missao missao)
         {
             if (id != missao.Id)
             {

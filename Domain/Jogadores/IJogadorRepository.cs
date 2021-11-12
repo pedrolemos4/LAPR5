@@ -9,7 +9,7 @@ namespace DDDSample1.Domain.Jogadores
     public interface IJogadorRepository : IRepository<Jogador, JogadorId>
     {
         Task<Jogador> GetJogadorByPerfil(Perfil perfil);
-        Task<List<Jogador>> GetAmigosEmComum(JogadorId idJog, JogadorId idObj);
-        Task<List<Jogador>> GetAmigos(JogadorId idJog);
+        Task<List<JogadorId>> GetAmigosEmComum(JogadorId idJog, JogadorId idObj);
+        Task<List<JogadorId>> GetAmigos(JogadorId idJog);
     }
 }
