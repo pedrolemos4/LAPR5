@@ -15,6 +15,6 @@ namespace DDDSample1.Domain.Introducoes
 
         public String Id { get; set; }
 
-        public Estado Estado { get; set; }
+        public Estado EstadoIntroducao { get; set; }
     }
 }

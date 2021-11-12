@@ -105,12 +105,12 @@ namespace DDDSample1.Domain.Perfis
             this.dataNascimento = new DataNascimento(data);
         }
 
-        /*public void ChangeestadoHumor(string estado)
+        public void ChangeestadoHumor(string estado)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the mood to an inactive profile.");
-            this.estadoHumor = new estadoHumor(estado);
-        }*/
+            setestadoHumor(estado);
+        }
 
         public void ChangePerfilFacebook(string perfil)
         {

@@ -8,6 +8,7 @@ namespace DDDSample1.Domain.Jogadores
         Task<JogadorDto> GetByIdAsync(JogadorId id);
         Task<JogadorDto> GetJogadorByPerfil(Perfil perfil);
         Task<List<JogadorDto>> GetAmigosEmComum(JogadorId idJog, JogadorId idObj);
+        Task<List<JogadorDto>> GetAmigos(JogadorId idJog);
         Task<JogadorDto> AddAsync(CreatingJogadorDto jogadorDto);
     }
 }

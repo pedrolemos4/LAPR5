@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Relacoes;
 using DDDSample1.Infrastructure;
 using DDDSample1.Domain.Jogadores;
+using DDDSample1.Domain.Shared;
 
 namespace DDDNetCore.Controllers
 {
@@ -25,9 +26,9 @@ namespace DDDNetCore.Controllers
 
         // GET: api/Relacoes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Relacao>>> GetRelacoes()
+        public async Task<ActionResult<List<RelacaoDto>>> GetRelacoes()
         {
-            return await _context.Relacoes.ToListAsync();
+            return await _service.ToListAsync();
         }
 
         // GET: api/Relacoes/5
@@ -85,6 +86,30 @@ namespace DDDNetCore.Controllers
             }
 
             return NoContent();
+        }
+
+        // PATCH: api/Relacoes/6
+        [HttpPut("{relacao}")]
+        public async Task<ActionResult<RelacaoDto>> PatchRelacao(RelacaoId id, RelacaoDto dto){
+
+            if (id.AsString() != dto.Id){
+                return BadRequest();
+            }
+
+            try
+            {
+                var rel = await _service.PatchRelacaoTagsForca(dto);
+                
+                if (rel == null)
+                {
+                    return NotFound();
+                }
+                return Ok(rel);
+            }
+            catch(BusinessRuleValidationException ex)
+            {
+                return BadRequest(new {Message = ex.Message});
+            }
         }
 
         // POST: api/Relacoes
