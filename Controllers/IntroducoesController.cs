@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Introducoes;
+using DDDSample1.Domain.Jogadores;
 using DDDSample1.Domain.Relacoes;
 using DDDSample1.Infrastructure;
 using DDDSample1.Domain.Shared;
@@ -48,6 +49,12 @@ namespace DDDNetCore.Controllers
             return introducao;
         }
 
+        // GET: api/Introducoes/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<IntroducaoDto>>> GetIntroducoesPorAprovar(JogadorId id)
+        {
+            return await _serviceIntro.GetIntroducoesPorAprovar(id);
+        }
         // PUT: api/Introducoes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
