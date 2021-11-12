@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using DDDSample1.Domain.Shared;
 using System;
+using DDDSample1.Domain.Jogadores;
 
 namespace DDDSample1.Domain.Ligacoes
 {
@@ -22,6 +23,14 @@ namespace DDDSample1.Domain.Ligacoes
             
             List<LigacaoDto> listDto = list.ConvertAll<LigacaoDto>(lig => new LigacaoDto{Id = lig.Id.AsString(), TextoLigacao = lig.TextoLigacao, Estado = lig.EstadoLigacao, Jogador1 = lig.Jogador1, Jogador2 = lig.Jogador2});
 
+            return listDto;
+        }
+
+        public async Task<List<LigacaoDto>> GetLigacaoPendente(JogadorId id){
+            var list = await this._repo.GetLigacaoPendente(id);
+            
+            List<LigacaoDto> listDto = list.ConvertAll<LigacaoDto>(lig => new LigacaoDto{Id = lig.Id.AsString(), TextoLigacao = lig.TextoLigacao, Estado = lig.EstadoLigacao, Jogador1 = lig.Jogador1, Jogador2 = lig.Jogador2});
+       
             return listDto;
         }
 

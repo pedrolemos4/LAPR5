@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using DDDSample1.Domain.Jogadores;
 using DDDSample1.Domain.Ligacoes;
 using DDDSample1.Infrastructure;
 
@@ -43,6 +44,10 @@ namespace DDDNetCore.Controllers
             return ligacao;
         }
 
+        public async Task<ActionResult<List<LigacaoDto>>> GetLigacaoPendente(JogadorId id)
+        {
+            return await _service.GetLigacaoPendente(id);
+        }
         // PUT: api/Ligacoes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
