@@ -55,6 +55,21 @@ namespace DDDSample1.Domain.Ligacoes
             return new LigacaoDto { Id = ligacao.Id.AsString(), TextoLigacao = ligacao.TextoLigacao, Estado = ligacao.EstadoLigacao, Jogador1 = ligacao.Jogador1, Jogador2 = ligacao.Jogador2 };
         }
 
+        public async Task<LigacaoDto> PatchEstadoLigacao(LigacaoDto dto)
+        {
+            var lig = await this._repo.GetByIdAsync(new LigacaoId(dto.Id)); 
+
+            if (lig == null)
+                return null;   
+
+            // change all field
+            lig.ChangeEstado(dto.Estado.ToString());
+            
+            await this._unitOfWork.CommitAsync();
+
+            return new LigacaoDto { Id = lig.Id.AsString(), TextoLigacao = lig.TextoLigacao, Estado = lig.EstadoLigacao, Jogador1 = lig.Jogador1, Jogador2 = lig.Jogador2 };
+        }
+
         // public async Task<LigacaoDto> UpdateAsync(LigacaoDto dto)
         // {
         //     var ligacao = await this._repo.GetByIdAsync(new LigacaoId(dto.Id)); 

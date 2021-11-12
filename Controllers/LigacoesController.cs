@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Jogadores;
 using DDDSample1.Domain.Ligacoes;
 using DDDSample1.Infrastructure;
+using DDDSample1.Domain.Shared;
 
 namespace DDDNetCore.Controllers
 {
@@ -77,6 +78,30 @@ namespace DDDNetCore.Controllers
             }
 
             return NoContent();
+        }
+
+        // PATCH: api/Ligacoes/5
+        [HttpPut("{ligacao}")]
+        public async Task<IActionResult> PatchLigacao(LigacaoId id, LigacaoDto dto)
+        {
+            if (id.AsString() != dto.Id)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var intro = await _service.PatchEstadoLigacao(dto);
+
+                if (intro == null) {
+                    return NotFound();
+                }
+                return Ok(intro);
+            }
+            catch (BusinessRuleValidationException ex)
+            {
+                return BadRequest(new {Message = ex.Message});
+            }
         }
 
         // POST: api/Ligacoes/6

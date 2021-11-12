@@ -11,7 +11,6 @@ namespace DDDSample1.Domain.Ligacoes
         public Estado EstadoLigacao { get;  private set; }
         public bool Active{ get;  private set; }
         public Jogador Jogador1 { get; private set; }
-
         public Jogador Jogador2 { get; private set; }
 
         private Ligacao()
