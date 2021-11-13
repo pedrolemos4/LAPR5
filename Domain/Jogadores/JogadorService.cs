@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.Perfis;
-using DDDSample1.Domain.Utils;
 
 namespace DDDSample1.Domain.Jogadores
 {
@@ -150,53 +149,6 @@ namespace DDDSample1.Domain.Jogadores
             await this._unitOfWork.CommitAsync();
 
             return new JogadorDto { Id = jogador.Id };
-        }
-
-        public async Task<UndirectedGenericGraph<JogadorDto>> GetRedeJogador(List<JogadorDto> jogadores, JogadorDto centro)
-        {
-            var i = 0;
-            var j = 0;
-            var graph = new UndirectedGenericGraph<JogadorDto>();
-            Vertex<JogadorDto>[] vertices = new Vertex<JogadorDto>[jogadores.Count];
-            vertices[0] = new Vertex<JogadorDto>(centro);
-
-            List<JogadorDto> amigos = await GetAmigos(centro.Id);
-            List<List<JogadorDto>> listAux = new List<List<JogadorDto>>();
-
-            foreach(JogadorDto amigo in amigos) {
-                List<JogadorDto> amigosdosamigos = await GetAmigos(amigo.Id);
-                listAux.Add(amigosdosamigos);
-            }
-
-            /*while(jogadores.Count != 0) {
-                foreach(JogadorDto jog in amigos){
-                    vertices[j] = new Vertex<JogadorDto>(jog);
-                    graph.AddPair(vertices[i],vertices[j]);
-                    j++;
-                    amigos = await GetAmigos(jog.Id);
-                }
-                i++;
-            }*/
-
-            //NIVEL 1
-            foreach(JogadorDto jog in amigos){
-                vertices[i] = new Vertex<JogadorDto>(jog);
-                graph.AddPair(vertices[0],vertices[i]);
-                i++;
-            }
-
-            //NIVEL 2
-            i = 1;
-            foreach(List<JogadorDto> listjog in listAux){
-                foreach(JogadorDto jog in listjog) {
-                    vertices[j] = new Vertex<JogadorDto>(jog);
-                    graph.AddPair(vertices[i],vertices[j]);
-                    j++;            
-                }
-                i++;
-            }
-
-            return graph;
         }
     }
 }

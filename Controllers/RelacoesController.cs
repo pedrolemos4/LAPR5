@@ -45,7 +45,7 @@ namespace DDDSample1.Controllers
             return relacao;
         }
 
-        public async Task<ActionResult<List<RelacaoDto>>> GetRelacoesDoJogador(Jogador jog)
+        public async Task<ActionResult<List<RelacaoDto>>> GetRelacoesDoJogador(JogadorId jog)
         {
             var relacao = await this._service.GetRelacoesDoJogador(jog);
             
@@ -137,6 +137,13 @@ namespace DDDSample1.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        // GET: api/Jogadores/5
+        [HttpGet("{id}")]
+        public async Task<List<RelacaoDto>> GetRedeJogador(JogadorId id, int n)
+        {
+            return await _service.GetRedeJogador(id, n);
         }
 
         private bool RelacaoExists(RelacaoId id)

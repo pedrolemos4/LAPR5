@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Jogadores;
 using DDDSample1.Domain.Perfis;
-using DDDSample1.Domain.Utils;
 using DDDSample1.Infrastructure;
 
 namespace DDDSample1.Controllers
@@ -92,13 +91,6 @@ namespace DDDSample1.Controllers
         public async Task<ActionResult<List<JogadorDto>>> GetAmigos(JogadorId idJog)
         {
             return await _serviceJog.GetAmigos(idJog);
-        }
-
-        // GET: api/Jogadores/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<UndirectedGenericGraph<JogadorDto>>> GetRedeJogador(List<JogadorDto> jogadores, JogadorDto idJog)
-        {
-            return await _serviceJog.GetRedeJogador(jogadores, idJog);
         }
 
         // PUT: api/Jogadores/5

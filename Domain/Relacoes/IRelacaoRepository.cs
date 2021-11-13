@@ -7,6 +7,6 @@ namespace DDDSample1.Domain.Relacoes
 {
     public interface IRelacaoRepository : IRepository<Relacao, RelacaoId>
     {
-        Task<List<Relacao>> GetRelacoesDoJogador(Jogador jog);
+        Task<List<Relacao>> GetRelacoesDoJogador(JogadorId jog);
     }
 }

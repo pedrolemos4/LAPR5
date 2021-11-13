@@ -7,9 +7,10 @@ namespace DDDSample1.Domain.Relacoes
 {
     public interface IRelacaoService
     {
-        Task<List<RelacaoDto>> GetRelacoesDoJogador(Jogador jog);
+        Task<List<RelacaoDto>> GetRelacoesDoJogador(JogadorId jog);
         Task<RelacaoDto> PatchRelacaoTagsForca(RelacaoDto dto);
         Task<List<RelacaoDto>> ToListAsync();
+        Task<List<RelacaoDto>> GetRedeJogador(JogadorId id, int n);
         Task<RelacaoDto> AddAsync(CreatingRelacaoDto relacaoDto);
     }
 }
