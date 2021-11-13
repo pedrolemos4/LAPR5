@@ -11,7 +11,7 @@ namespace DDDSample1.Domain.Relacoes
 
         public JogadorId Jogador2 { get; set; }
 
-        public String Id { get; set; }
+        public Guid Id { get; set; }
 
         public List<Tag> Tags { get; set; }
 

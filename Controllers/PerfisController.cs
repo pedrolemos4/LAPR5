@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Perfis;
 using DDDSample1.Infrastructure;
 using DDDSample1.Domain.Shared;
+using System;
 
 namespace DDDSample1.Controllers
 {
@@ -31,9 +32,9 @@ namespace DDDSample1.Controllers
 
         // GET: api/Perfis/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Perfil>> GetPerfil(PerfilId id)
+        public async Task<ActionResult<PerfilDto>> GetPerfil(Guid id)
         {
-            var perfil = await _context.Perfis.FindAsync(id);
+            var perfil = await _servicePerfil.GetByIdAsync(new PerfilId(id));
 
             if (perfil == null)
             {
@@ -88,39 +89,33 @@ namespace DDDSample1.Controllers
         // PUT: api/Perfis/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPerfil([FromRoute] PerfilId id, [FromBody] Perfil perfil)
+        public async Task<ActionResult<PerfilDto>> PutPerfil([FromRoute] Guid id, [FromBody] PerfilDto perfil)
         {
             if (id != perfil.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(perfil).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PerfilExists(id))
+                var per = await _servicePerfil.UpdateAsync(perfil);
+                if (per == null)
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+                return Ok(per);
             }
-
-            return NoContent();
+            catch (BusinessRuleValidationException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
         }
 
         // PATCH: api/Perfis/5
         [HttpPut("{perfil}")]
-        public async Task<IActionResult> PatchPerfil([FromRoute] PerfilId id,[FromBody] PerfilDto dto)
+        public async Task<ActionResult<PerfilDto>> PatchPerfil([FromRoute] Guid id, [FromBody] PerfilDto dto)
         {
-            if (id.AsString() != dto.Id)
+            if (id != dto.Id)
             {
                 return BadRequest();
             }
@@ -146,45 +141,36 @@ namespace DDDSample1.Controllers
         [HttpPost]
         public async Task<ActionResult<Perfil>> PostPerfil(CreatingPerfilDto perfilDto)
         {
-            var perfil = await _servicePerfil.AddAsync(perfilDto);
+            try
+            {
+                var perfil = await _servicePerfil.AddAsync(perfilDto);
 
-            return CreatedAtAction("PostPerfil", new { id = perfil.Id }, perfil);
-            // _context.Perfis.Add(perfil);
-            // try
-            // {
-            //     await _context.SaveChangesAsync();
-            // }
-            // catch (DbUpdateException)
-            // {
-            //     if (PerfilExists(perfil.Id))
-            //     {
-            //         return Conflict();
-            //     }
-            //     else
-            //     {
-            //         throw;
-            //     }
-            // }
-
-            // return CreatedAtAction("GetPerfil", new { id = perfil.Id }, perfil);
+                return CreatedAtAction(nameof(GetPerfil), new { id = perfil.Id }, perfil);
+            }
+            catch (BusinessRuleValidationException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
         }
 
         // DELETE: api/Perfis/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePerfil(PerfilId id)
+        public async Task<ActionResult<PerfilDto>> DeletePerfil(Guid id)
         {
-            var perfil = await _context.Perfis.FindAsync(id);
-            if (perfil == null)
+            try
             {
-                return NotFound();
+                var perfil = await _servicePerfil.DeleteAsync(new PerfilId(id));
+                if (perfil == null)
+                {
+                    return NotFound();
+                }
+                return Ok(perfil);
             }
-
-            _context.Perfis.Remove(perfil);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            catch (BusinessRuleValidationException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
         }
-
         private bool PerfilExists(PerfilId id)
         {
             return _context.Perfis.Any(e => e.Id == id);

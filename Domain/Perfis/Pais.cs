@@ -1,7 +1,5 @@
 using DDDSample1.Domain.Shared;
-using System;
-using System.Linq;
-using System.Collections.Generic;
+using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 
 namespace DDDSample1.Domain.Perfis
@@ -13,7 +11,8 @@ namespace DDDSample1.Domain.Perfis
 
         public bool Active { get; private set; }
 
-        private Pais(){
+        private Pais()
+        {
             this.Active = true;
         }
 
@@ -24,28 +23,18 @@ namespace DDDSample1.Domain.Perfis
         }
         private void setPais(string pais)
         {
-            /*Program p = new Program();
-            
-//       
-//       
-//             List<string> listaPaises = new List<string>();
-            
-//             string text = System.IO.File.ReadAllText(@"listaPaises.txt");
-//             string[] vs = text.Split(";");
+            try
+            {
+                CultureInfo[] getCultureInfo = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
 
-//             for (int i = 0; i < vs.Length; i++){
-//                 listaPaises.Add(vs[i]);
-//             }
-//             return listaPaises;
-//         }
+                RegionInfo GetRegionInfo = new RegionInfo(new CultureInfo(pais).Name);
 
-//             List<string> listaPaises = p.listaPaises;
-            if(listaPaises.Contains(pais)){
-                this.pais=pais;
-            }else{
+                this.Country = GetRegionInfo.EnglishName;
+            }
+            catch
+            {
                 throw new BusinessRuleValidationException("Invalid country.");
-            }*/
-            this.Country=pais;
+            }
         }
 
     }

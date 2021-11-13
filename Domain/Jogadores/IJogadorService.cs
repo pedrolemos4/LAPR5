@@ -7,10 +7,12 @@ namespace DDDSample1.Domain.Jogadores
 {
     public interface IJogadorService {
         Task<JogadorDto> GetByIdAsync(JogadorId id);
-        Task<JogadorDto> GetJogadorByPerfil(Perfil perfil);
+        Task<JogadorDto> GetJogadorByPerfil(PerfilId perfil);
         Task<List<JogadorDto>> GetAmigosEmComum(JogadorId idJog, JogadorId idObj);
         Task<List<JogadorDto>> GetAmigos(JogadorId idJog);
         Task<JogadorDto> AddAsync(CreatingJogadorDto jogadorDto);
         Task<List<JogadorDto>> GetAllAsync();
+        Task<JogadorDto> UpdateAsync(JogadorDto jogador);
+        Task<JogadorDto> DeleteAsync(JogadorId jogadorId);
     }
 }

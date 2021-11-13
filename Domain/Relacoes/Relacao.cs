@@ -2,6 +2,7 @@ using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.Jogadores;
 using DDDSample1.Domain.SharedValueObjects;
 using System.Collections.Generic;
+using System;
 
 namespace DDDSample1.Domain.Relacoes
 {
@@ -24,9 +25,9 @@ namespace DDDSample1.Domain.Relacoes
             this.Active = true;
         }
 
-        public Relacao(string code, JogadorId jog1, JogadorId jog2, List<string> tags, int fr, int fl)
+        public Relacao(JogadorId jog1, JogadorId jog2, List<string> tags, int fr, int fl)
         {
-            this.Id = new RelacaoId(code);
+            this.Id = new RelacaoId(Guid.NewGuid());
             this.Jogador1 = jog1;
             this.Jogador2 = jog2;
             setTags(tags);

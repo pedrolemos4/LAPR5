@@ -7,5 +7,6 @@ namespace DDDSample1.Domain.Posts
     public interface IPostService
     {
         Task<List<PostDto>> GetAllAsync();
+        Task<PostDto> GetByIdAsync(PostId id);
     }
 }

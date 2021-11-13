@@ -1,6 +1,7 @@
 using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.SharedValueObjects;
 using System.Collections.Generic;
+using System;
 
 namespace DDDSample1.Domain.Posts
 {
@@ -22,9 +23,9 @@ namespace DDDSample1.Domain.Posts
             this.Active = true;
         }
 
-        public Post(string code, string texto, List<string> tags, List<string> comentario, string likeDislike, int forca)
+        public Post(string texto, List<string> tags, List<string> comentario, string likeDislike, int forca)
         {
-            this.Id = new PostId(code);
+            this.Id = new PostId(Guid.NewGuid());
             this.Texto = new Texto(texto);
             setTags(tags);
             setComentarios(comentario);
