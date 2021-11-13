@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Jogadores;
 using DDDSample1.Domain.Perfis;
 using DDDSample1.Domain.Utils;
