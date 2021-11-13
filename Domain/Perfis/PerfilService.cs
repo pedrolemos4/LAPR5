@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using DDDSample1.Domain.Shared;
+using DDDSample1.Domain.SharedValueObjects;
 
 namespace DDDSample1.Domain.Perfis
 {
@@ -37,13 +38,22 @@ namespace DDDSample1.Domain.Perfis
 
         public async Task<PerfilDto> AddAsync(CreatingPerfilDto perfilC)
         {
-            var perfil = new Perfil(perfilC.nome, perfilC.email, perfilC.telefone, perfilC.tags, perfilC.dataNascimento, perfilC.estadoHumor, perfilC.password, perfilC.pais, perfilC.cidade, perfilC.perfilFacebook, perfilC.perfilLinkedin);
+            var perfil = new Perfil(perfilC.nome.Name, perfilC.email.EnderecoEmail, perfilC.telefone.NumTelefone, converteParaListaString(perfilC.tags),
+             perfilC.dataNascimento.ToString(), perfilC.estadoHumor.ToString(), perfilC.password.password, perfilC.pais.Country, perfilC.cidade.City, perfilC.perfilFacebook.PerfilFace, perfilC.perfilLinkedin.Linkedin);
 
             await this._repo.AddAsync(perfil);
 
             await this._unitOfWork.CommitAsync();
 
             return new PerfilDto { Id = perfil.Id.AsGuid(), Nome = perfil.nome };
+        }
+
+        public static List<string> converteParaListaString(List<Tag> lista){
+            List<string> ls = new List<string>();
+            foreach (Tag tag in lista){
+                ls.Add(tag.Descricao);
+            }
+            return ls;
         }
 
         public async Task<PerfilDto> getPerfilByNome(string nome)
@@ -93,17 +103,6 @@ namespace DDDSample1.Domain.Perfis
 
             return new PerfilDto { Id = perfil.Id.AsGuid(), Nome = perfil.nome, EstadoHumor = perfil.estadoHumor };
         }
-
-        //  public async Task<PerfilDto> AddAsync(PerfilDto dto)
-        //  {
-        //      var perfil = new Perfil(dto.Id, dto.Nome);
-
-        //      await this._repo.AddAsync(perfil);
-
-        //      await this._unitOfWork.CommitAsync();
-
-        //      return new PerfilDto { Id = perfil.Id.AsString(), Nome = perfil.Nome, Email = perfil.Email, Telefone = perfil.Telefone, DataNascimento = perfil.DataNascimento, EstadoHumor = perfil.EstadoHumor, PerfilFacebook = perfil.PerfilFacebook, PerfilLinkedin = perfil.PerfilLinkedin };
-        //  }
 
             public async Task<PerfilDto> UpdateAsync(PerfilDto dto)
             {

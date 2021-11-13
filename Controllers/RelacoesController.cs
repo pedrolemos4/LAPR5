@@ -46,9 +46,9 @@ namespace DDDSample1.Controllers
             return relacao;
         }
 
-        public async Task<ActionResult<List<RelacaoDto>>> GetRelacoesDoJogador(JogadorId jog)
+        public async Task<ActionResult<List<RelacaoDto>>> GetRelacoesDoJogador(Guid jog)
         {
-            var relacao = await this._service.GetRelacoesDoJogador(jog);
+            var relacao = await this._service.GetRelacoesDoJogador(new JogadorId(jog));
 
             if (relacao == null)
             {
@@ -128,11 +128,11 @@ namespace DDDSample1.Controllers
 
         // DELETE: api/Relacoes/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<RelacaoDto>> DeleteRelacao(RelacaoId id)
+        public async Task<ActionResult<RelacaoDto>> DeleteRelacao(Guid id)
         {
             try
             {
-                var relacao = await _service.DeleteAsync(id);
+                var relacao = await _service.DeleteAsync(new RelacaoId(id));
 
                 if (relacao == null)
                 {
