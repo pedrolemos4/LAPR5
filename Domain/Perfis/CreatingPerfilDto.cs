@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.SharedValueObjects;
 
 namespace DDDSample1.Domain.Perfis
@@ -6,60 +7,55 @@ namespace DDDSample1.Domain.Perfis
     public class CreatingPerfilDto
     {
 
-        public Nome nome { get; set; }
+        public string nome { get; set; }
 
-        public Email email { get; set; }
+        public string email { get; set; }
 
-        public Telefone telefone { get; set; }
+        public long telefone { get; set; }
 
-        public Pais pais { get; set; }
+        public string pais { get; set; }
 
-        public Cidade cidade { get; set; }
+        public string cidade { get; set; }
 
-        public DataNascimento dataNascimento { get; set; }
+        public string dataNascimento { get; set; }
 
-        public EstadoHumor estadoHumor { get; set; }
+        public string estadoHumor { get; set; }
 
-        public Password password { get; set; }
+        public string password { get; set; }
 
-        public List<Tag> tags { get; set; }
+        public List<string> tags { get; set; }
 
-        public PerfilFacebook perfilFacebook { get; set; }
+        public string perfilFacebook { get; set; }
 
-        public PerfilLinkedin perfilLinkedin { get; set; }
+        public string perfilLinkedin { get; set; }
+
+        public bool Active { get; set; }
 
         public CreatingPerfilDto(string nome, string email, long telefone, List<string> tag, string data, string estado, string password, string pais, string cidade, string perfilFB, string perfilLI)
         {
-            this.nome = new Nome(nome);
-            this.email = new Email(email);
-            this.telefone = new Telefone(telefone);
-            this.dataNascimento = new DataNascimento(data);
-            setTags(tag);
-            this.password = new Password(password);
-            setestadoHumor(estado);
-            this.pais = new Pais(pais);
-            this.cidade = new Cidade(cidade);
-            this.perfilFacebook = new PerfilFacebook(perfilFB);
-            this.perfilLinkedin = new PerfilLinkedin(perfilLI);
+            this.nome = (nome);
+            this.email = (email);
+            this.telefone = (telefone);
+            this.dataNascimento = (data);
+            this.tags=tag;
+            this.password = (password);
+            this.estadoHumor = estadoHumor;
+            this.pais = (pais);
+            this.cidade = (cidade);
+            this.perfilFacebook = (perfilFB);
+            this.perfilLinkedin = (perfilLI);
+            this.Active = true;
+            //setTags(tag);
         }
 
-        private void setTags(List<string> tag)
-        {
-            List<Tag> tagsList = new List<Tag>();
-            foreach (string t in tag)
-            {
-                tagsList.Add(new Tag(t));
-            }
-            this.tags = tagsList;
-        }
-
-        private void setestadoHumor(string estado)
-        {
-            EstadoHumor enumerado;
-            EstadoHumor.TryParse(estado, out enumerado);
-            this.estadoHumor = enumerado;
-
-        }
-
+        // private void setTags(List<string> tag)
+        // {
+        //     List<string> tagsList = new List<string>();
+        //     foreach (string t in tag)
+        //     {
+        //         tagsList.Add(t);
+        //     }
+        //     this.tags = tagsList;
+        // }
     }
 }
