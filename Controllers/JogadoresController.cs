@@ -96,7 +96,7 @@ namespace DDDSample1.Controllers
 
         // GET: api/Jogadores/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<UndirectedGenericGraph<JogadorDto>>> GetRedeJogador([FromBodyAttribute]List<JogadorDto> jogadores,[FromRouteAttribute] JogadorDto idJog)
+        public async Task<ActionResult<UndirectedGenericGraph<JogadorDto>>> GetRedeJogador([FromBodyAttribute]List<JogadorDto> jogadores, [FromRouteAttribute] JogadorDto idJog)
         {
             return await _serviceJog.GetRedeJogador(jogadores, idJog);
         }
