@@ -21,7 +21,7 @@ namespace DDDSample1.Domain.Perfis
         {
             var list = await this._repo.GetAllAsync();
 
-            List<PerfilDto> listDto = list.ConvertAll<PerfilDto>(per => new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome, Email = per.email, EstadoHumor = per.estadoHumor, Pais = per.pais});
+            List<PerfilDto> listDto = list.ConvertAll<PerfilDto>(per => new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome, dataN = per.dataNascimento ,Email = per.email, EstadoHumor = per.estadoHumor, Pais = per.pais});
 
             return listDto;
         }

@@ -9,6 +9,8 @@ namespace DDDSample1.Domain.Perfis
 
         public Nome Nome { get; set; }
 
+        public DataNascimento dataN {get; set;}
+
         public EstadoHumor EstadoHumor { get; set; }
 
         public Email Email{ get; set; }
