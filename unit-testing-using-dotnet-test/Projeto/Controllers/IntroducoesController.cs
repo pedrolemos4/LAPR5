@@ -1,0 +1,142 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using DDDSample1.Domain.Introducoes;
+using DDDSample1.Domain.Jogadores;
+using DDDSample1.Domain.Relacoes;
+using DDDSample1.Infrastructure;
+using DDDSample1.Domain.Shared;
+using System;
+
+namespace DDDSample1.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class IntroducoesController : ControllerBase
+    {
+        private readonly DDDSample1DbContext _context;
+
+        private readonly IRelacaoService _serviceRel;
+
+        private readonly IIntroducaoService _serviceIntro;
+
+        public IntroducoesController(DDDSample1DbContext context, IRelacaoService serviceRel, IIntroducaoService serviceIntro)
+        {
+            _context = context;
+            _serviceRel = serviceRel;
+            _serviceIntro = serviceIntro;
+        }
+
+        // GET: api/Introducoes
+        [HttpGet]
+        public async Task<ActionResult<List<IntroducaoDto>>> GetIntroducoes()
+        {
+            return await _serviceIntro.GetAllAsync();
+        }
+
+        // GET: api/Introducoes/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IntroducaoDto>> GetIntroducao(Guid id)
+        {
+            var introducao = await _serviceIntro.GetByIdAsync(new IntroducaoId(id));
+
+            if (introducao == null)
+            {
+                return NotFound();
+            }
+
+            return introducao;
+        }
+
+        // GET: api/Introducoes/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<List<IntroducaoDto>>> GetIntroducoesPorAprovar(JogadorId id)
+        {
+            return await _serviceIntro.GetIntroducoesPorAprovar(id);
+        }
+
+        // PUT: api/Introducoes
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public async Task<ActionResult<IntroducaoDto>> PutIntroducao([FromBody] Guid id, [FromRoute] IntroducaoDto introducao)
+        {
+            if (id != introducao.Id)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var cat = await _serviceIntro.UpdateAsync(introducao);
+                
+                if (cat == null)
+                {
+                    return NotFound();
+                }
+                return Ok(cat);
+            }
+            catch(BusinessRuleValidationException ex)
+            {
+                return BadRequest(new {Message = ex.Message});
+            }
+        }
+
+        // PATCH: api/Introducoes/5
+        [HttpPut("{introducao}")]
+        public async Task<ActionResult<IntroducaoDto>> PatchIntroducao([FromRoute] Guid id, [FromBody] IntroducaoDto dto) {
+            if (id != dto.Id)  {
+                return BadRequest();
+            }
+
+            try {
+                var intro = await _serviceIntro.PatchEstadoIntroducao(dto);
+
+                if (intro == null) {
+                    return NotFound();
+                }
+                return Ok(intro);
+            }
+            catch (BusinessRuleValidationException ex)  {
+                return BadRequest(new {Message = ex.Message});
+            }
+        }
+
+        // POST: api/Introducoes
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        public async Task<ActionResult<Introducao>> PostIntroducao(CreatingIntroducaoDto introducao) {
+            try {
+                var intro = await _serviceIntro.AddAsync(introducao);
+
+                return CreatedAtAction(nameof(GetIntroducao), new { id = intro.Id }, intro);
+            }
+            catch(BusinessRuleValidationException ex) {
+                return BadRequest(new {Message = ex.Message});
+            }
+        }
+
+
+        // DELETE: api/Introducoes/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<IntroducaoDto>> DeleteIntroducao(Guid id)
+        {
+            try
+            {
+                var intro = await _serviceIntro.DeleteAsync(new IntroducaoId(id));
+
+                if (intro == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(intro);
+            }
+            catch(BusinessRuleValidationException ex)
+            {
+               return BadRequest(new {Message = ex.Message});
+            }
+        }
+
+    }
+}
