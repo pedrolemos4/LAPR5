@@ -10,7 +10,7 @@ namespace DDDSample1.Domain.Jogadores
 {
     public class JogadorDto
     {
-        public JogadorId Id { get; set; }
+        public Guid Id { get; set; }
 
         public Pontuacao Pontuacao { get; set; }
 
