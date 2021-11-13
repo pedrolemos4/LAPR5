@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using DDDSample1.Domain.Shared;
+using DDDSample1.Domain.SharedValueObjects;
 
 namespace DDDSample1.Domain.Perfis
 {
@@ -20,7 +21,7 @@ namespace DDDSample1.Domain.Perfis
         {
             var list = await this._repo.GetAllAsync();
 
-            List<PerfilDto> listDto = list.ConvertAll<PerfilDto>(per => new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome/*, Email = per.Email, Telefone = per.Telefone, DataNascimento = per.DataNascimento, EstadoHumor = per.EstadoHumor, PerfilFacebook = per.PerfilFacebook, PerfilLinkedin = per.PerfilLinkedin*/ });
+            List<PerfilDto> listDto = list.ConvertAll<PerfilDto>(per => new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome, Email = per.email, EstadoHumor = per.estadoHumor, Pais = per.pais});
 
             return listDto;
         }
@@ -32,18 +33,29 @@ namespace DDDSample1.Domain.Perfis
             if (per == null)
                 return null;
 
-            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome };
+            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome, Email = per.email, EstadoHumor = per.estadoHumor, Pais = per.pais};
         }
 
         public async Task<PerfilDto> AddAsync(CreatingPerfilDto perfilC)
         {
-            var perfil = new Perfil(perfilC.nome, perfilC.email, perfilC.telefone, perfilC.tags, perfilC.dataNascimento, perfilC.estadoHumor, perfilC.password, perfilC.pais, perfilC.cidade, perfilC.perfilFacebook, perfilC.perfilLinkedin);
+            var per = new Perfil(perfilC.nome.Name, perfilC.email.EnderecoEmail, perfilC.telefone.NumTelefone,
+            converteParaListaString(perfilC.tags), perfilC.dataNascimento.ToString(), perfilC.estadoHumor.ToString(), perfilC.password.password, perfilC.pais.Country, perfilC.cidade.City, perfilC.perfilFacebook.PerfilFace, perfilC.perfilLinkedin.Linkedin);
 
-            await this._repo.AddAsync(perfil);
+            await this._repo.AddAsync(per);
 
             await this._unitOfWork.CommitAsync();
 
-            return new PerfilDto { Id = perfil.Id.AsGuid(), Nome = perfil.nome };
+            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome, Email = per.email, EstadoHumor = per.estadoHumor, Pais = per.pais};
+        }
+
+        public static List<string> converteParaListaString(List<Tag> lista)
+        {
+            List<string> ls = new List<string>();
+            foreach (Tag tag in lista)
+            {
+                ls.Add(tag.Descricao);
+            }
+            return ls;
         }
 
         public async Task<PerfilDto> getPerfilByNome(string nome)
@@ -53,7 +65,7 @@ namespace DDDSample1.Domain.Perfis
             if (per == null)
                 return null;
 
-            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome };
+            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome, Email = per.email, EstadoHumor = per.estadoHumor, Pais = per.pais};
         }
 
         public async Task<PerfilDto> GetPerfilByEmail(string email)
@@ -63,7 +75,7 @@ namespace DDDSample1.Domain.Perfis
             if (per == null)
                 return null;
 
-            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome/*, Email = per.Email, Telefone = per.Telefone, DataNascimento = per.DataNascimento, EstadoHumor = per.EstadoHumor, PerfilFacebook = per.PerfilFacebook, PerfilLinkedin = per.PerfilLinkedin */};
+            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome, Email = per.email, EstadoHumor = per.estadoHumor, Pais = per.pais};
         }
 
         public async Task<List<PerfilDto>> GetPerfilByPais(string pais)
@@ -74,24 +86,24 @@ namespace DDDSample1.Domain.Perfis
             if (per == null)
                 return null;
 
-            List<PerfilDto> lista = per.ConvertAll<PerfilDto>(per => new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome });
+            List<PerfilDto> listDto = per.ConvertAll<PerfilDto>(per => new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome, Email = per.email, EstadoHumor = per.estadoHumor, Pais = per.pais});
 
-            return lista;
+            return listDto;
         }
 
         public async Task<PerfilDto> PatchEstadoHumor(PerfilDto dto)
         {
-            var perfil = await this._repo.GetByIdAsync(new PerfilId(dto.Id));
+            var per = await this._repo.GetByIdAsync(new PerfilId(dto.Id));
 
-            if (perfil == null)
+            if (per == null)
                 return null;
 
             // change all field
-            perfil.ChangeestadoHumor(dto.EstadoHumor.ToString());
+            per.ChangeestadoHumor(dto.EstadoHumor.ToString());
 
             await this._unitOfWork.CommitAsync();
 
-            return new PerfilDto { Id = perfil.Id.AsGuid(), Nome = perfil.nome, EstadoHumor = perfil.estadoHumor };
+            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome, Email = per.email, EstadoHumor = per.estadoHumor, Pais = per.pais};
         }
 
         //  public async Task<PerfilDto> AddAsync(PerfilDto dto)
@@ -107,18 +119,18 @@ namespace DDDSample1.Domain.Perfis
 
             public async Task<PerfilDto> UpdateAsync(PerfilDto dto)
             {
-                var perfil = await this._repo.GetByIdAsync(new PerfilId(dto.Id)); 
+                var per = await this._repo.GetByIdAsync(new PerfilId(dto.Id)); 
                 
-                if (perfil == null)
+                if (per == null)
                     return null;   
 
                 // change all field
-                perfil.Changenome(dto.Nome.ToString());
-                perfil.Changeemail(dto.Email.ToString());
+                per.Changenome(dto.Nome.ToString());
+                per.Changeemail(dto.Email.ToString());
 
                 await this._unitOfWork.CommitAsync();
 
-                return new PerfilDto { Id = perfil.Id.AsGuid(), Nome = perfil.nome, Email = perfil.email, EstadoHumor = perfil.estadoHumor, Pais = perfil.pais };
+            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome, Email = per.email, EstadoHumor = per.estadoHumor, Pais = per.pais};
             }
 
         //     public async Task<PerfilDto> InactivateAsync(PerfilId id)
@@ -142,18 +154,18 @@ namespace DDDSample1.Domain.Perfis
 
              public async Task<PerfilDto> DeleteAsync(PerfilId id)
             {
-                var perfil = await this._repo.GetByIdAsync(id); 
+                var per = await this._repo.GetByIdAsync(id); 
              
-                if (perfil == null)
+                if (per == null)
                     return null;   
 
-                if (perfil.Active)
+                if (per.Active)
                     throw new BusinessRuleValidationException("It is not possible to delete an active perfil.");
 
-                this._repo.Remove(perfil);
+                this._repo.Remove(per);
                 await this._unitOfWork.CommitAsync();
 
-                return new PerfilDto { Id = perfil.Id.AsGuid(), Nome = perfil.nome, Email = perfil.email, EstadoHumor = perfil.estadoHumor, Pais = perfil.pais };
+            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome, Email = per.email, EstadoHumor = per.estadoHumor, Pais = per.pais};
             }
     }
 }

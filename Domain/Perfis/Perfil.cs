@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
 using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.SharedValueObjects;
-using System;
+
 namespace DDDSample1.Domain.Perfis
 {
     public class Perfil : Entity<PerfilId>, IAggregateRoot

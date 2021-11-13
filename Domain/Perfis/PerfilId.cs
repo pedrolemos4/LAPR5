@@ -8,12 +8,12 @@ namespace DDDSample1.Domain.Perfis
     {
 
         [JsonConstructor]
-        public PerfilId(Guid value) : base(value)
+        public PerfilId(Guid value):base(value)
         {
 
         }
 
-        public PerfilId(String value) : base(value)
+        public PerfilId(String value):base(value)
         {
 
         }
@@ -21,18 +21,18 @@ namespace DDDSample1.Domain.Perfis
         override
         protected Object createFromString(String text)
         {
-            return text;
+            return new Guid(text);
         }
         override
         public String AsString()
         {
-            Guid obj = (Guid)base.ObjValue;
+            Guid obj = (Guid) base.ObjValue;
             return obj.ToString();
         }
         
         public Guid AsGuid()
         {
-            return (Guid)base.ObjValue;
+            return (Guid) base.ObjValue;
         }
     }
 }
