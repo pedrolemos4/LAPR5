@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DDDSample1.Domain.Perfis
 {
-    public interface IPerfilService {
+    public interface IPerfilService
+    {
         Task<PerfilDto> getPerfilByNome(string nome);
         Task<PerfilDto> GetPerfilByEmail(string email);
         Task<List<PerfilDto>> GetPerfilByPais(string pais);
@@ -12,5 +13,9 @@ namespace DDDSample1.Domain.Perfis
         Task<PerfilDto> GetByIdAsync(PerfilId perfilId);
         Task<PerfilDto> PatchEstadoHumor(PerfilDto dto);
         Task<List<PerfilDto>> GetAllAsync();
+        Task<PerfilDto> UpdateAsync(PerfilDto perfil);
+
+        Task<PerfilDto> DeleteAsync(PerfilId ligacaoId);
+
     }
 }
