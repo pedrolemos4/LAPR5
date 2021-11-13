@@ -95,19 +95,19 @@ namespace DDDSample1
             //services.AddTransient<FamilyService>();
 
             services.AddTransient<IIntroducaoRepository, IntroducaoRepository>();
-            services.AddTransient<IntroducaoService>();
+            services.AddTransient<IIntroducaoService, IntroducaoService>();
             services.AddTransient<IJogadorRepository, JogadorRepository>();
-            services.AddTransient<JogadorService>();
+            services.AddTransient<IJogadorService, JogadorService>();
             services.AddTransient<ILigacaoRepository, LigacaoRepository>();
-            services.AddTransient<LigacaoService>();
+            services.AddTransient<ILigacaoService, LigacaoService>();
             services.AddTransient<IMissaoRepository, MissaoRepository>();
-            services.AddTransient<MissaoService>();
+            services.AddTransient<IMissaoService, MissaoService>();
             services.AddTransient<IPerfilRepository, PerfilRepository>();
             services.AddTransient<IPerfilService,PerfilService>();
             services.AddTransient<IPostRepository, PostRepository>();
-            services.AddTransient<PostService>();
+            services.AddTransient<IPostService, PostService>();
             services.AddTransient<IRelacaoRepository, RelacaoRepository>();
-            services.AddTransient<RelacaoService>();
+            services.AddTransient<IRelacaoService, RelacaoService>();
         }
     }
 }

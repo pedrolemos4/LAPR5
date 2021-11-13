@@ -4,7 +4,7 @@ using DDDSample1.Domain.Shared;
 
 namespace DDDSample1.Domain.Posts
 {
-    public class PostService
+    public class PostService : IPostService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPostRepository _repo;
@@ -15,14 +15,14 @@ namespace DDDSample1.Domain.Posts
             this._repo = repo;
         }
 
-        // public async Task<List<PostDto>> GetAllAsync()
-        // {
-        //     var list = await this._repo.GetAllAsync();
+         public async Task<List<PostDto>> GetAllAsync()
+         {
+             var list = await this._repo.GetAllAsync();
             
-        //     List<PostDto> listDto = list.ConvertAll<PostDto>(async post => new PostDto{Id = post.Id.AsString(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike, ForcaLigacao = post.ForcaLigacao});
+             List<PostDto> listDto = list.ConvertAll<PostDto>(post => new PostDto{Id = post.Id.AsString(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike});
 
-        //     return listDto;
-        // }
+             return listDto;
+         }
 
         public async Task<PostDto> GetByIdAsync(PostId id)
         {

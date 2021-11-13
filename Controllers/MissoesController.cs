@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Missoes;
 using DDDSample1.Infrastructure;
+using DDDSample1.Domain.Shared;
 
 namespace DDDSample1.Controllers
 {
@@ -33,9 +34,9 @@ namespace DDDSample1.Controllers
 
         // GET: api/Missoes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Missao>> GetMissao(MissaoId id)
+        public async Task<ActionResult<MissaoDto>> GetMissao(Guid id)
         {
-            var missao = await _context.Missoes.FindAsync(id);
+            var missao = await _service.GetByIdAsync(new MissaoId(id));
 
             if (missao == null)
             {
@@ -45,76 +46,40 @@ namespace DDDSample1.Controllers
             return missao;
         }
 
-        // PUT: api/Missoes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMissao([FromRoute]MissaoId id,[FromBody] Missao missao)
-        {
-            if (id != missao.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(missao).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MissaoExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
 
         // POST: api/Missoes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Missao>> PostMissao(Missao missao)
+        public async Task<ActionResult<MissaoDto>> PostMissao(CreatingMissaoDto missao)
         {
-            _context.Missoes.Add(missao);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (MissaoExists(missao.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            try {
 
-            return CreatedAtAction("GetMissao", new { id = missao.Id }, missao);
+            var m = await _service.AddAsync(missao);
+
+            return CreatedAtAction(nameof(GetMissao), new { id = m.Id }, m);
+            }
+            catch(BusinessRuleValidationException ex) {
+                return BadRequest(new {Message = ex.Message});
+            }
         }
 
         // DELETE: api/Missoes/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMissao(MissaoId id)
-        {
-            var missao = await _context.Missoes.FindAsync(id);
-            if (missao == null)
-            {
-                return NotFound();
+        public async Task<ActionResult<MissaoDto>> DeleteMissao(Guid id) {
+            try{
+                var lig = await _service.DeleteAsync(new MissaoId(id));
+
+                if (lig == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(lig);
             }
-
-            _context.Missoes.Remove(missao);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            catch(BusinessRuleValidationException ex)
+            {
+               return BadRequest(new {Message = ex.Message});
+            }
         }
 
         private bool MissaoExists(MissaoId id)

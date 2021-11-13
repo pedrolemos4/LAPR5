@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Introducoes;
 using DDDSample1.Domain.Jogadores;
 using DDDSample1.Domain.Relacoes;
 using DDDSample1.Infrastructure;
 using DDDSample1.Domain.Shared;
+using System;
 
 namespace DDDSample1.Controllers
 {
@@ -30,16 +30,16 @@ namespace DDDSample1.Controllers
 
         // GET: api/Introducoes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Introducao>>> GetIntroducoes()
+        public async Task<ActionResult<List<IntroducaoDto>>> GetIntroducoes()
         {
-            return await _context.Introducoes.ToListAsync();
+            return await _serviceIntro.GetAllAsync();
         }
 
         // GET: api/Introducoes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Introducao>> GetIntroducao(IntroducaoId id)
+        public async Task<ActionResult<IntroducaoDto>> GetIntroducao(Guid id)
         {
-            var introducao = await _context.Introducoes.FindAsync(id);
+            var introducao = await _serviceIntro.GetByIdAsync(new IntroducaoId(id));
 
             if (introducao == null)
             {
@@ -51,52 +51,45 @@ namespace DDDSample1.Controllers
 
         // GET: api/Introducoes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<IntroducaoDto>>> GetIntroducoesPorAprovar(JogadorId id)
+        public async Task<ActionResult<List<IntroducaoDto>>> GetIntroducoesPorAprovar(JogadorId id)
         {
             return await _serviceIntro.GetIntroducoesPorAprovar(id);
         }
-        // PUT: api/Introducoes/5
+
+        // PUT: api/Introducoes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update([FromBody] IntroducaoId id, [FromRoute] IntroducaoDto introducao)
+        public async Task<ActionResult<IntroducaoDto>> PutIntroducao([FromBody] Guid id, [FromRoute] IntroducaoDto introducao)
         {
-            if (id.AsString() != introducao.Id)
+            if (id != introducao.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(introducao).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!IntroducaoExists(id))
+                var cat = await _serviceIntro.UpdateAsync(introducao);
+                
+                if (cat == null)
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+                return Ok(cat);
             }
-
-            return NoContent();
+            catch(BusinessRuleValidationException ex)
+            {
+                return BadRequest(new {Message = ex.Message});
+            }
         }
 
         // PATCH: api/Introducoes/5
         [HttpPut("{introducao}")]
-        public async Task<IActionResult> PatchIntroducao([FromBody]IntroducaoId id, [FromRoute]IntroducaoDto dto)
-        {
-            if (id.AsString() != dto.Id)
-            {
+        public async Task<ActionResult<IntroducaoDto>> PatchIntroducao([FromRoute] Guid id, [FromBody] IntroducaoDto dto) {
+            if (id != dto.Id)  {
                 return BadRequest();
             }
 
-            try
-            {
+            try {
                 var intro = await _serviceIntro.PatchEstadoIntroducao(dto);
 
                 if (intro == null) {
@@ -104,8 +97,7 @@ namespace DDDSample1.Controllers
                 }
                 return Ok(intro);
             }
-            catch (BusinessRuleValidationException ex)
-            {
+            catch (BusinessRuleValidationException ex)  {
                 return BadRequest(new {Message = ex.Message});
             }
         }
@@ -113,56 +105,38 @@ namespace DDDSample1.Controllers
         // POST: api/Introducoes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Introducao>> PostIntroducao(IntroducaoDto introducao)
-        {
-            //_context.Introducoes.Add(introducao);
-            var intro = new Introducao(introducao.Id,introducao.JogadorInicial,introducao.JogadorIntrodutor,
-            introducao.JogadorObjetivo,"Pendente"); //corrigir
-          /*  {
-                JogadorInicial = introducao.JogadorInicial,
-                JogadorIntrodutor = introducao.JogadorIntrodutor,
-                JogadorObjetivo = introducao.JogadorObjetivo,
-                EstadoIntroducao = introducao.Estado
-            };*/
-            await _serviceIntro.AddAsync(intro);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (IntroducaoExists(intro.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        public async Task<ActionResult<Introducao>> PostIntroducao(CreatingIntroducaoDto introducao) {
+            try {
+                var intro = await _serviceIntro.AddAsync(introducao);
 
-            return CreatedAtAction("GetIntroducao", new { id = introducao.Id }, introducao);
+                return CreatedAtAction(nameof(GetIntroducao), new { id = intro.Id }, intro);
+            }
+            catch(BusinessRuleValidationException ex) {
+                return BadRequest(new {Message = ex.Message});
+            }
         }
+
 
         // DELETE: api/Introducoes/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteIntroducao(IntroducaoId id)
+        public async Task<ActionResult<IntroducaoDto>> DeleteIntroducao(Guid id)
         {
-            var introducao = await _context.Introducoes.FindAsync(id);
-            if (introducao == null)
+            try
             {
-                return NotFound();
+                var intro = await _serviceIntro.DeleteAsync(new IntroducaoId(id));
+
+                if (intro == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(intro);
             }
-
-            _context.Introducoes.Remove(introducao);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            catch(BusinessRuleValidationException ex)
+            {
+               return BadRequest(new {Message = ex.Message});
+            }
         }
 
-        private bool IntroducaoExists(IntroducaoId id)
-        {
-            return _context.Introducoes.Any(e => e.Id == id);
-        }
     }
 }

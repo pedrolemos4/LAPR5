@@ -41,7 +41,7 @@ namespace DDDSample1.Domain.Relacoes
         {
             List<string> tags = converteParaListaString(dto.Tags);
 
-            var relacao = new Relacao(dto.RelacaoId.AsString(), dto.Jogador1, dto.Jogador2, tags, dto.ForcaRelacao.Valor, dto.ForcaLigacao.Valor);
+            var relacao = new Relacao(dto.RelacaoId.AsString(), dto.Jogador1.Id, dto.Jogador2.Id, tags, dto.ForcaRelacao.Valor, dto.ForcaLigacao.Valor);
 
             await this._repo.AddAsync(relacao);
 

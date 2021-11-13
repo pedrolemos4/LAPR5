@@ -1,6 +1,7 @@
 using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.SharedValueObjects;
 using DDDSample1.Domain.Jogadores;
+using System;
 
 namespace DDDSample1.Domain.Ligacoes
 {
@@ -18,9 +19,9 @@ namespace DDDSample1.Domain.Ligacoes
             this.Active = true;
         }
 
-        public Ligacao(string code, string texto, string estado, Jogador jogador1, Jogador jogador2)
+        public Ligacao(/*string code, */string texto, string estado, Jogador jogador1, Jogador jogador2)
         {
-            this.Id = new LigacaoId(code);
+            this.Id = new LigacaoId(Guid.NewGuid());
             this.TextoLigacao = new TextoLigacao(texto);
             setEstado(estado);
             this.Jogador1 = jogador1;
@@ -54,6 +55,12 @@ namespace DDDSample1.Domain.Ligacoes
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the state to an inactive connection.");
             setEstado(estado);
+        }
+
+        public void ChangeJogador2(Jogador jog) {
+            if (!this.Active)
+                throw new BusinessRuleValidationException("It is not possible to change Jogador2 to an inactive connection.");
+            this.Jogador2 = jog;
         }
         public void MarkAsInative()
         {
