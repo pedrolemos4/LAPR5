@@ -6,6 +6,11 @@ namespace DDDSample1.Domain.Posts
     public class PostId : EntityId
     {
 
+        public PostId(Guid value):base(value)
+        {
+
+        }
+
         public PostId(String value):base(value)
         {
 
@@ -18,6 +23,10 @@ namespace DDDSample1.Domain.Posts
         override
         public String AsString(){
             return (String) base.Value;
+        }
+
+        public Guid AsGuid(){
+            return (Guid) base.ObjValue;
         }
     }
 }

@@ -6,7 +6,7 @@ namespace DDDSample1.Domain.Posts
 {
     public class PostDto
     {
-        public String Id { get; set; }
+        public Guid Id { get; set; }
 
         public Texto Texto { get; set; }
 

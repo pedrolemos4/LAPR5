@@ -141,27 +141,16 @@ namespace DDDSample1.Controllers
         [HttpPost]
         public async Task<ActionResult<Perfil>> PostPerfil(CreatingPerfilDto perfilDto)
         {
-            var perfil = await _servicePerfil.AddAsync(perfilDto);
+            try
+            {
+                var perfil = await _servicePerfil.AddAsync(perfilDto);
 
-            return CreatedAtAction("PostPerfil", new { id = perfil.Id }, perfil);
-            // _context.Perfis.Add(perfil);
-            // try
-            // {
-            //     await _context.SaveChangesAsync();
-            // }
-            // catch (DbUpdateException)
-            // {
-            //     if (PerfilExists(perfil.Id))
-            //     {
-            //         return Conflict();
-            //     }
-            //     else
-            //     {
-            //         throw;
-            //     }
-            // }
-
-            // return CreatedAtAction("GetPerfil", new { id = perfil.Id }, perfil);
+                return CreatedAtAction(nameof(GetPerfil), new { id = perfil.Id }, perfil);
+            }
+            catch (BusinessRuleValidationException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
         }
 
         // DELETE: api/Perfis/5

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -33,9 +34,9 @@ namespace DDDSample1.Controllers
 
         // GET: api/Relacoes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Relacao>> GetRelacao(RelacaoId id)
+        public async Task<ActionResult<RelacaoDto>> GetRelacao(Guid id)
         {
-            var relacao = await _context.Relacoes.FindAsync(id);
+            var relacao = await _service.GetByIdAsync(new RelacaoId(id));
 
             if (relacao == null)
             {
@@ -48,7 +49,7 @@ namespace DDDSample1.Controllers
         public async Task<ActionResult<List<RelacaoDto>>> GetRelacoesDoJogador(Jogador jog)
         {
             var relacao = await this._service.GetRelacoesDoJogador(jog);
-            
+
             if (relacao == null)
             {
                 return NotFound();
@@ -60,55 +61,51 @@ namespace DDDSample1.Controllers
         // PUT: api/Relacoes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRelacao([FromRoute] RelacaoId id,[FromBody] Relacao relacao)
+        public async Task<ActionResult<RelacaoDto>> PutRelacao([FromRoute] Guid id, [FromBody] RelacaoDto relacao)
         {
             if (id != relacao.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(relacao).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RelacaoExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // PATCH: api/Relacoes/6
-        [HttpPut("{relacao}")]
-        public async Task<ActionResult<RelacaoDto>> PatchRelacao([FromRoute]RelacaoId id,[FromBody] RelacaoDto dto){
-
-            if (id.AsString() != dto.Id){
-                return BadRequest();
-            }
-
-            try
-            {
-                var rel = await _service.PatchRelacaoTagsForca(dto);
-                
+                var rel = await _service.UpdateAsync(relacao);
                 if (rel == null)
                 {
                     return NotFound();
                 }
                 return Ok(rel);
             }
-            catch(BusinessRuleValidationException ex)
+            catch (BusinessRuleValidationException ex)
             {
-                return BadRequest(new {Message = ex.Message});
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
+
+        // PATCH: api/Relacoes/6
+        [HttpPut("{relacao}")]
+        public async Task<ActionResult<RelacaoDto>> PatchRelacao([FromRoute] Guid id, [FromBody] RelacaoDto dto)
+        {
+
+            if (id != dto.Id)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var rel = await _service.PatchRelacaoTagsForca(dto);
+
+                if (rel == null)
+                {
+                    return NotFound();
+                }
+                return Ok(rel);
+            }
+            catch (BusinessRuleValidationException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
             }
         }
 
@@ -117,31 +114,41 @@ namespace DDDSample1.Controllers
         [HttpPost]
         public async Task<ActionResult<RelacaoDto>> PostRelacao(CreatingRelacaoDto relacaoDto)
         {
+            try
+            {
+                var relacao = await _service.AddAsync(relacaoDto);
 
-            var relacao = await _service.AddAsync(relacaoDto);
-
-            return CreatedAtAction("PostLigacao", new { id = relacao.Id }, relacao);
+                return CreatedAtAction(nameof(GetRelacao), new { id = relacao.Id }, relacao);
+            }
+            catch (BusinessRuleValidationException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
         }
 
         // DELETE: api/Relacoes/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRelacao(RelacaoId id)
+        public async Task<ActionResult<RelacaoDto>> DeleteRelacao(RelacaoId id)
         {
-            var relacao = await _context.Relacoes.FindAsync(id);
-            if (relacao == null)
+            try
             {
-                return NotFound();
+                var relacao = await _service.DeleteAsync(id);
+
+                if (relacao == null)
+                {
+                    return NotFound();
+                }
+                return Ok(relacao);
             }
-
-            _context.Relacoes.Remove(relacao);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            catch (BusinessRuleValidationException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
         }
 
-        private bool RelacaoExists(RelacaoId id)
+        /*private bool RelacaoExists(RelacaoId id)
         {
             return _context.Relacoes.Any(e => e.Id == id);
-        }
+        }*/
     }
 }

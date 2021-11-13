@@ -19,7 +19,7 @@ namespace DDDSample1.Domain.Posts
          {
              var list = await this._repo.GetAllAsync();
             
-             List<PostDto> listDto = list.ConvertAll<PostDto>(post => new PostDto{Id = post.Id.AsString(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike});
+             List<PostDto> listDto = list.ConvertAll<PostDto>(post => new PostDto{Id = post.Id.AsGuid(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike});
 
              return listDto;
          }
@@ -31,7 +31,7 @@ namespace DDDSample1.Domain.Posts
             if(post == null)
                 return null;
 
-            return new PostDto{Id = post.Id.AsString(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike};
+            return new PostDto{Id = post.Id.AsGuid(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike};
         }
 
         // public async Task<PostDto> AddAsync(PostDto dto)
@@ -60,20 +60,20 @@ namespace DDDSample1.Domain.Posts
         //     return new PostDto { Id = post.Id.AsString(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike, ForcaLigacao = post.ForcaLigacao };
         // }
 
-        public async Task<PostDto> InactivateAsync(PostId id)
-        {
-            var post = await this._repo.GetByIdAsync(id); 
+        // public async Task<PostDto> InactivateAsync(PostId id)
+        // {
+        //     var post = await this._repo.GetByIdAsync(id); 
 
-            if (post == null)
-                return null;   
+        //     if (post == null)
+        //         return null;   
 
-            // change all fields
-            post.MarkAsInative();
+        //     // change all fields
+        //     post.MarkAsInative();
             
-            await this._unitOfWork.CommitAsync();
+        //     await this._unitOfWork.CommitAsync();
 
-            return new PostDto { Id = post.Id.AsString(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike};
-        }
+        //     return new PostDto { Id = post.Id.AsGuid(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike};
+        // }
 
          public async Task<PostDto> DeleteAsync(PostId id)
         {
@@ -88,7 +88,7 @@ namespace DDDSample1.Domain.Posts
             this._repo.Remove(post);
             await this._unitOfWork.CommitAsync();
 
-            return new PostDto { Id = post.Id.AsString(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike};
+            return new PostDto { Id = post.Id.AsGuid(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike};
         }
     }
 }
