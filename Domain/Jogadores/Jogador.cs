@@ -33,7 +33,7 @@ namespace DDDSample1.Domain.Jogadores
 
         public Jogador(string code, int pontuacao)
         {
-            this.Id = new JogadorId(code);
+            this.Id = new JogadorId(Guid.NewGuid());
             this.Pontuacao = new Pontuacao(pontuacao);
             this.ListaMissoes = new List<Missao>();
             this.ListaRelacoes = new HashSet<Relacao>();
@@ -41,7 +41,7 @@ namespace DDDSample1.Domain.Jogadores
             this.Active = true;
         }
 
-        public Jogador(/*string code,*/ Perfil perfil)
+        public Jogador(Perfil perfil)
         {
             //this.Id = new JogadorId(code);
             this.Id = new JogadorId(Guid.NewGuid());
@@ -74,6 +74,34 @@ namespace DDDSample1.Domain.Jogadores
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to add more points to an inactive player.");
             this.Pontuacao = new Pontuacao(pontos);
+        }
+
+        public void ChangePerfil(Perfil perfil)
+        {
+            if (!this.Active)
+                throw new BusinessRuleValidationException("It is not possible to add more points to an inactive player.");
+            this.perfil = perfil;
+        }
+
+        public void ChangeMissoes(List<Missao> missoes)
+        {
+            if (!this.Active)
+                throw new BusinessRuleValidationException("It is not possible to add more points to an inactive player.");
+            this.ListaMissoes = missoes;
+        }
+
+        public void ChangeRelacoes(HashSet<Relacao> relacoes)
+        {
+            if (!this.Active)
+                throw new BusinessRuleValidationException("It is not possible to add more points to an inactive player.");
+            this.ListaRelacoes = relacoes;
+        }
+
+        public void ChangePosts(List<Post> posts)
+        {
+            if (!this.Active)
+                throw new BusinessRuleValidationException("It is not possible to add more points to an inactive player.");
+            this.ListaPosts = posts;
         }
         public void MarkAsInative()
         {

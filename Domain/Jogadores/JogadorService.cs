@@ -11,17 +11,20 @@ namespace DDDSample1.Domain.Jogadores
         private readonly IUnitOfWork _unitOfWork;
         private readonly IJogadorRepository _repo;
 
-        public JogadorService(IUnitOfWork unitOfWork, IJogadorRepository repo)
+        private readonly IPerfilRepository _repoPer;
+
+        public JogadorService(IUnitOfWork unitOfWork, IJogadorRepository repo, IPerfilRepository repoPer)
         {
             this._unitOfWork = unitOfWork;
             this._repo = repo;
+            this._repoPer = repoPer;
         }
 
         public async Task<List<JogadorDto>> GetAllAsync()
         {
             var list = await this._repo.GetAllAsync();
 
-            List<JogadorDto> listDto = list.ConvertAll<JogadorDto>(jog => new JogadorDto { Id = jog.Id });
+            List<JogadorDto> listDto = list.ConvertAll<JogadorDto>(jog => new JogadorDto { Id = jog.Id.AsGuid() });
 
             return listDto;
         }
@@ -33,7 +36,7 @@ namespace DDDSample1.Domain.Jogadores
             if (jog == null)
                 return null;
 
-            return new JogadorDto { Id = jog.Id, Pontuacao = jog.Pontuacao, perfilId = jog.perfil.Id };
+            return new JogadorDto { Id = jog.Id.AsGuid(), Pontuacao = jog.Pontuacao, perfilId = jog.perfil.Id };
         }
 
         public async Task<List<JogadorDto>> GetAmigosEmComum(JogadorId idJog, JogadorId idObj)
@@ -43,7 +46,7 @@ namespace DDDSample1.Domain.Jogadores
             foreach (JogadorId id in list)
             {
                 var jog = await this._repo.GetByIdAsync(id);
-                jogadors.Add(new JogadorDto { Id = jog.Id, Pontuacao = jog.Pontuacao, perfilId = jog.perfil.Id });
+                jogadors.Add(new JogadorDto { Id = jog.Id.AsGuid(), Pontuacao = jog.Pontuacao, perfilId = jog.perfil.Id });
             }
             // List<JogadorDto> listJog = list.ConvertAll<JogadorDto>(jog => new JogadorDto
             // {
@@ -62,7 +65,7 @@ namespace DDDSample1.Domain.Jogadores
             foreach (JogadorId id in listAux)
             {
                 var jog = await this._repo.GetByIdAsync(id);
-                jogadors.Add(new JogadorDto { Id = jog.Id, Pontuacao = jog.Pontuacao, perfilId = jog.perfil.Id });
+                jogadors.Add(new JogadorDto { Id = jog.Id.AsGuid(), Pontuacao = jog.Pontuacao, perfilId = jog.perfil.Id });
             }
             // List<JogadorDto> listJog = listAux.ConvertAll<JogadorDto>(jog => new JogadorDto
             // {
@@ -82,44 +85,38 @@ namespace DDDSample1.Domain.Jogadores
 
             await this._unitOfWork.CommitAsync();
 
-            return new JogadorDto { Id = jogador.Id };
+            return new JogadorDto { Id = jogador.Id.AsGuid() };
         }
 
-        public async Task<JogadorDto> GetJogadorByPerfil(Perfil perfil)
+        public async Task<JogadorDto> GetJogadorByPerfil(PerfilId perfil)
         {
             var jogador = await this._repo.GetJogadorByPerfil(perfil);
 
             if (jogador == null)
                 return null;
 
-            return new JogadorDto { Id = jogador.Id, Pontuacao = jogador.Pontuacao, perfilId = jogador.perfil.Id, Missao = jogador.ListaMissoes, Relacao = jogador.ListaRelacoes, Post = jogador.ListaPosts };
+            return new JogadorDto { Id = jogador.Id.AsGuid(), Pontuacao = jogador.Pontuacao, perfilId = jogador.perfil.Id, Missao = jogador.ListaMissoes, Relacao = jogador.ListaRelacoes, Post = jogador.ListaPosts };
         }
 
-        // public async Task<JogadorDto> AddAsync(JogadorDto dto)
-        // {
-        //     var jogador = new Jogador(dto.Id, dto.Pontuacao,dto.tags);
+         public async Task<JogadorDto> UpdateAsync(JogadorDto dto)
+         {
+             var jogador = await this._repo.GetByIdAsync(new JogadorId(dto.Id));
+             var perfil = await this._repoPer.GetByIdAsync(dto.perfilId); 
 
-        //     await this._repo.AddAsync(jogador);
+             if (jogador == null)
+                 return null;   
 
-        //     await this._unitOfWork.CommitAsync();
+             // change all field
+             jogador.ChangePontuacao(dto.Pontuacao.Pontos);
+             jogador.ChangeMissoes(dto.Missao);
+             jogador.ChangePerfil(perfil);
+             jogador.ChangePosts(dto.Post);
+             jogador.ChangeRelacoes(dto.Relacao);
 
-        //     return new JogadorDto { Id = jogador.Id.AsString(), Pontuacao = jogador.Pontuacao, Tags = jog.Tags };
-        // }
+             await this._unitOfWork.CommitAsync();
 
-        // public async Task<JogadorDto> UpdateAsync(JogadorDto dto)
-        // {
-        //     var jogador = await this._repo.GetByIdAsync(new JogadorId(dto.Id)); 
-
-        //     if (jogador == null)
-        //         return null;   
-
-        //     // change all field
-        //     jogador.AddPontuacao(dto.Pontuacao);
-
-        //     await this._unitOfWork.CommitAsync();
-
-        //     return new JogadorDto { Id = jogador.Id.AsString(), Pontuacao = jogador.Pontuacao, Tags = jog.Tags };
-        // }
+            return new JogadorDto { Id = jogador.Id.AsGuid(), Pontuacao = jogador.Pontuacao, perfilId = jogador.perfil.Id, Missao = jogador.ListaMissoes, Relacao = jogador.ListaRelacoes, Post = jogador.ListaPosts };
+         }
 
         public async Task<JogadorDto> InactivateAsync(JogadorId id)
         {
@@ -133,7 +130,7 @@ namespace DDDSample1.Domain.Jogadores
 
             await this._unitOfWork.CommitAsync();
 
-            return new JogadorDto { Id = jogador.Id };
+            return new JogadorDto { Id = jogador.Id.AsGuid() };
         }
 
         public async Task<JogadorDto> DeleteAsync(JogadorId id)
@@ -149,7 +146,7 @@ namespace DDDSample1.Domain.Jogadores
             this._repo.Remove(jogador);
             await this._unitOfWork.CommitAsync();
 
-            return new JogadorDto { Id = jogador.Id };
+            return new JogadorDto { Id = jogador.Id.AsGuid() };
         }
 
         public async Task<UndirectedGenericGraph<JogadorDto>> GetRedeJogador(List<JogadorDto> jogadores, JogadorDto centro)
@@ -160,11 +157,11 @@ namespace DDDSample1.Domain.Jogadores
             Vertex<JogadorDto>[] vertices = new Vertex<JogadorDto>[jogadores.Count];
             vertices[0] = new Vertex<JogadorDto>(centro);
 
-            List<JogadorDto> amigos = await GetAmigos(centro.Id);
+            List<JogadorDto> amigos = await GetAmigos(new JogadorId(centro.Id));
             List<List<JogadorDto>> listAux = new List<List<JogadorDto>>();
 
             foreach(JogadorDto amigo in amigos) {
-                List<JogadorDto> amigosdosamigos = await GetAmigos(amigo.Id);
+                List<JogadorDto> amigosdosamigos = await GetAmigos(new JogadorId(amigo.Id));
                 listAux.Add(amigosdosamigos);
             }
 
