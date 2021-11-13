@@ -18,7 +18,7 @@ namespace DDDSample1.Domain.Jogadores
 
         public List<Missao> Missao{ get; set; }
 
-        public List<Relacao> Relacao{ get; set; }
+        public HashSet<Relacao> Relacao{ get; set; }
 
         public List<Post> Post{ get; set; }
     }

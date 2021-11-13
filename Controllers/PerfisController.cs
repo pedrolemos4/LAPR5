@@ -7,7 +7,7 @@ using DDDSample1.Domain.Perfis;
 using DDDSample1.Infrastructure;
 using DDDSample1.Domain.Shared;
 
-namespace DDDNetCore.Controllers
+namespace DDDSample1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -88,7 +88,7 @@ namespace DDDNetCore.Controllers
         // PUT: api/Perfis/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPerfil(PerfilId id, Perfil perfil)
+        public async Task<IActionResult> PutPerfil([FromRoute] PerfilId id, [FromBody] Perfil perfil)
         {
             if (id != perfil.Id)
             {
@@ -118,7 +118,7 @@ namespace DDDNetCore.Controllers
 
         // PATCH: api/Perfis/5
         [HttpPut("{perfil}")]
-        public async Task<IActionResult> PatchPerfil(PerfilId id, PerfilDto dto)
+        public async Task<IActionResult> PatchPerfil([FromRoute] PerfilId id,[FromBody] PerfilDto dto)
         {
             if (id.AsString() != dto.Id)
             {
@@ -129,14 +129,15 @@ namespace DDDNetCore.Controllers
             {
                 var intro = await _servicePerfil.PatchEstadoHumor(dto);
 
-                if (intro == null) {
+                if (intro == null)
+                {
                     return NotFound();
                 }
                 return Ok(intro);
             }
             catch (BusinessRuleValidationException ex)
             {
-                return BadRequest(new {Message = ex.Message});
+                return BadRequest(new { Message = ex.Message });
             }
         }
 

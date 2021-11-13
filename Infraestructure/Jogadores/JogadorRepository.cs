@@ -21,23 +21,23 @@ namespace DDDSample1.Infrastructure.Jogadores
             return await this._context.Jogadores.Where(x => perfil.Equals(x.perfil)).FirstOrDefaultAsync();
         }
 
-        public async Task<List<Jogador>> GetAmigosEmComum(JogadorId jogadorId, JogadorId jogObjId)
+        public async Task<List<JogadorId>> GetAmigosEmComum(JogadorId jogadorId, JogadorId jogObjId)
         {
             var amigosObj = await _context.Relacoes
-                .Where(r => (r.Jogador1.Id.Equals(jogObjId))
-                || (r.Jogador2.Id.Equals(jogObjId))).ToListAsync();
+                .Where(r => (r.Jogador1.Equals(jogObjId))
+                || (r.Jogador2.Equals(jogObjId))).ToListAsync();
             var amigosJog = await _context.Relacoes
-                .Where(r => (r.Jogador1.Id.Equals(jogadorId)) || (r.Jogador2.Id.Equals(jogadorId))).ToListAsync();
-            List<Jogador> amigos = amigosJog.Select(r => !r.Jogador1.Equals(jogadorId) ? r.Jogador1 : r.Jogador2).ToList();
-            List<Jogador> amigosOj = amigosObj.Select(r => !r.Jogador1.Equals(jogObjId) ? r.Jogador1 : r.Jogador2).ToList();
+                .Where(r => (r.Jogador1.Equals(jogadorId)) || (r.Jogador2.Equals(jogadorId))).ToListAsync();
+            List<JogadorId> amigos = amigosJog.Select(r => !r.Jogador1.Equals(jogadorId) ? r.Jogador1 : r.Jogador2).ToList();
+            List<JogadorId> amigosOj = amigosObj.Select(r => !r.Jogador1.Equals(jogObjId) ? r.Jogador1 : r.Jogador2).ToList();
             return amigos.Intersect(amigosOj).ToList();
         }
 
-        public async Task<List<Jogador>> GetAmigos(JogadorId jogadorId)
+        public async Task<List<JogadorId>> GetAmigos(JogadorId jogadorId)
         {
             var amigosJog = await _context.Relacoes
-                .Where(r => (r.Jogador1.Id.Equals(jogadorId))).ToListAsync();
-            List<Jogador> amigos = amigosJog.Select(r => !r.Jogador1.Equals(jogadorId) ? r.Jogador1 : r.Jogador2).ToList();
+                .Where(r => (r.Jogador1.Equals(jogadorId))).ToListAsync();
+            List<JogadorId> amigos = amigosJog.Select(r => !r.Jogador1.Equals(jogadorId) ? r.Jogador1 : r.Jogador2).ToList();
             return amigos.ToList();
         }
     }

@@ -7,8 +7,9 @@ using DDDSample1.Domain.Jogadores;
 using DDDSample1.Domain.Ligacoes;
 using DDDSample1.Infrastructure;
 using DDDSample1.Domain.Shared;
+using System;
 
-namespace DDDNetCore.Controllers
+namespace DDDSample1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -33,12 +34,11 @@ namespace DDDNetCore.Controllers
 
         // GET: api/Ligacoes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Ligacao>> GetLigacao(LigacaoId id)
+        public async Task<ActionResult<LigacaoDto>> GetLigacao(Guid id)
         {
-            var ligacao = await _context.Ligacoes.FindAsync(id);
+            var ligacao = await _service.GetByIdAsync(new LigacaoId(id));
 
-            if (ligacao == null)
-            {
+            if (ligacao == null) {
                 return NotFound();
             }
 
@@ -49,42 +49,36 @@ namespace DDDNetCore.Controllers
         {
             return await _service.GetLigacaoPendente(id);
         }
-        // PUT: api/Ligacoes/5
+
+        // PUT: api/Ligacoes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLigacao(LigacaoId id, Ligacao ligacao)
+        public async Task<ActionResult<LigacaoDto>> PutLigacao([FromRoute] Guid id, [FromBody] LigacaoDto ligacao)
         {
-            if (id != ligacao.Id)
-            {
+            if (id != ligacao.Id) {
                 return BadRequest();
             }
 
-            _context.Entry(ligacao).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LigacaoExists(id))
+            try {
+                var cat = await _service.UpdateAsync(ligacao);
+                
+                if (cat == null)
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+                return Ok(cat);
             }
-
-            return NoContent();
+            catch(BusinessRuleValidationException ex)
+            {
+                return BadRequest(new {Message = ex.Message});
+            }
         }
 
         // PATCH: api/Ligacoes/5
         [HttpPut("{ligacao}")]
-        public async Task<IActionResult> PatchLigacao(LigacaoId id, LigacaoDto dto)
+        public async Task<ActionResult<LigacaoDto>> PatchLigacao(Guid id, LigacaoDto dto)
         {
-            if (id.AsString() != dto.Id)
+            if (id != dto.Id)
             {
                 return BadRequest();
             }
@@ -109,26 +103,36 @@ namespace DDDNetCore.Controllers
         [HttpPost]
         public async Task<ActionResult<LigacaoDto>> PostLigacao(CreatingLigacaoDto ligacaoDto)
         {
+            try {
 
             var ligacao = await _service.AddAsync(ligacaoDto);
 
-            return CreatedAtAction("PostLigacao", new { id = ligacao.Id }, ligacao);
+            return CreatedAtAction(nameof(GetLigacao), new { id = ligacao.Id }, ligacao);
+            }
+            catch(BusinessRuleValidationException ex) {
+                return BadRequest(new {Message = ex.Message});
+            }
         }
 
         // DELETE: api/Ligacoes/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLigacao(LigacaoId id)
+        public async Task<ActionResult<LigacaoDto>> DeleteLigacao(Guid id)
         {
-            var ligacao = await _context.Ligacoes.FindAsync(id);
-            if (ligacao == null)
+            try
             {
-                return NotFound();
+                var lig = await _service.DeleteAsync(new LigacaoId(id));
+
+                if (lig == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(lig);
             }
-
-            _context.Ligacoes.Remove(ligacao);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            catch(BusinessRuleValidationException ex)
+            {
+               return BadRequest(new {Message = ex.Message});
+            }
         }
 
         private bool LigacaoExists(LigacaoId id)

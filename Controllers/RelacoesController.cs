@@ -8,7 +8,7 @@ using DDDSample1.Infrastructure;
 using DDDSample1.Domain.Jogadores;
 using DDDSample1.Domain.Shared;
 
-namespace DDDNetCore.Controllers
+namespace DDDSample1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -60,7 +60,7 @@ namespace DDDNetCore.Controllers
         // PUT: api/Relacoes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRelacao(RelacaoId id, Relacao relacao)
+        public async Task<IActionResult> PutRelacao([FromRoute] RelacaoId id,[FromBody] Relacao relacao)
         {
             if (id != relacao.Id)
             {
@@ -90,7 +90,7 @@ namespace DDDNetCore.Controllers
 
         // PATCH: api/Relacoes/6
         [HttpPut("{relacao}")]
-        public async Task<ActionResult<RelacaoDto>> PatchRelacao(RelacaoId id, RelacaoDto dto){
+        public async Task<ActionResult<RelacaoDto>> PatchRelacao([FromRoute]RelacaoId id,[FromBody] RelacaoDto dto){
 
             if (id.AsString() != dto.Id){
                 return BadRequest();

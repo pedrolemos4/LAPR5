@@ -28,7 +28,7 @@ namespace DDDSample1.Infrastructure.Perfis
 
         public async Task<List<Perfil>> GetPerfilByPais(string pais)
         {
-            return await this._context.Perfis.Where(x => pais.Equals(x.pais.pais)).ToListAsync();
+            return await this._context.Perfis.Where(x => pais.Equals(x.pais.Country)).ToListAsync();
         }
     }
 }

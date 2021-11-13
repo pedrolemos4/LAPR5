@@ -1,6 +1,7 @@
 using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.Jogadores;
 using DDDSample1.Domain.SharedValueObjects;
+using System;
 
 namespace DDDSample1.Domain.Introducoes
 {
@@ -21,9 +22,9 @@ namespace DDDSample1.Domain.Introducoes
             this.Active = true;
         }
 
-        public Introducao(string code, Jogador jog_inicial, Jogador jog_introdutor, Jogador jog_objetivo, string estado)
+        public Introducao(/*string code, */Jogador jog_inicial, Jogador jog_introdutor, Jogador jog_objetivo, string estado)
         {
-            this.Id = new IntroducaoId(code);
+            this.Id = new IntroducaoId(Guid.NewGuid());
             this.JogadorInicial = jog_inicial;
             this.JogadorIntrodutor = jog_introdutor;
             this.JogadorObjetivo = jog_objetivo;
@@ -50,6 +51,20 @@ namespace DDDSample1.Domain.Introducoes
             {
                 throw new BusinessRuleValidationException("Estado de Pedido de Introdução inválido.");
             }
+        }
+
+        public void ChangeJogadorIntrodutor(Jogador jog)
+        {
+            if (!this.Active)
+                throw new BusinessRuleValidationException("It is not possible to change the jogadorIntrodutor to an inactive introducao.");
+            this.JogadorIntrodutor = jog;
+        }
+
+        public void ChangeJogadorObjetivo(Jogador jog)
+        {
+            if (!this.Active)
+                throw new BusinessRuleValidationException("It is not possible to change the jogadorObjetivo to an inactive introducao.");
+            this.JogadorObjetivo = jog;
         }
 
         public void MarkAsInative()

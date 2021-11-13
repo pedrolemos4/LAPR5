@@ -7,13 +7,13 @@ namespace DDDSample1.Domain.Introducoes
 {
     public class IntroducaoDto
     {
-        public Jogador JogadorInicial { get; set; }
+        public JogadorId JogadorInicial { get; set; }
 
-        public Jogador JogadorIntrodutor { get; set; }
+        public JogadorId JogadorIntrodutor { get; set; }
 
-        public Jogador JogadorObjetivo { get; set; }
+        public JogadorId JogadorObjetivo { get; set; }
 
-        public String Id { get; set; }
+        public Guid Id { get; set; }
 
         public Estado EstadoIntroducao { get; set; }
     }

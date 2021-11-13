@@ -8,7 +8,7 @@ using DDDSample1.Domain.Perfis;
 using DDDSample1.Domain.Utils;
 using DDDSample1.Infrastructure;
 
-namespace DDDNetCore.Controllers
+namespace DDDSample1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -82,7 +82,7 @@ namespace DDDNetCore.Controllers
         
         // GET: api/Jogadores/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<JogadorDto>>> GetAmigosEmComum(JogadorId idJog, JogadorId idObj)
+        public async Task<ActionResult<List<JogadorDto>>> GetAmigosEmComum([FromRoute]JogadorId idJog, [FromBody]JogadorId idObj)
         {
             return await _serviceJog.GetAmigosEmComum(idJog, idObj);
         }
@@ -104,7 +104,7 @@ namespace DDDNetCore.Controllers
         // PUT: api/Jogadores/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutJogador(JogadorId id, Jogador jogador)
+        public async Task<IActionResult> PutJogador([FromRoute]JogadorId id,[FromBody] Jogador jogador)
         {
             if (id != jogador.Id)
             {

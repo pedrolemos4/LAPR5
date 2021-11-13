@@ -19,46 +19,30 @@ namespace DDDSample1.Domain.Missoes
         {
             var list = await this._repo.GetAllAsync();
             
-            List<MissaoDto> listDto = list.ConvertAll<MissaoDto>(miss => new MissaoDto{Id = miss.Id.AsString(), Dificuldade = miss.Dificuldade, Data = miss.Data, JogadorObjetivo = miss.JogadorObjetivo});
+            List<MissaoDto> listDto = list.ConvertAll<MissaoDto>(miss => new MissaoDto{Id = miss.Id.AsGuid(), Dificuldade = miss.Dificuldade, Data = miss.Data, JogadorObjetivo = miss.JogadorObjetivo.Id});
 
             return listDto;
         }
 
-        public async Task<MissaoDto> GetByIdAsync(MissaoId id)
-        {
+        public async Task<MissaoDto> GetByIdAsync(MissaoId id) {
             var miss = await this._repo.GetByIdAsync(id);
             
             if(miss == null)
                 return null;
 
-            return new MissaoDto{Id = miss.Id.AsString(), Dificuldade = miss.Dificuldade, Data = miss.Data, JogadorObjetivo = miss.JogadorObjetivo};
+            return new MissaoDto{Id = miss.Id.AsGuid(), Dificuldade = miss.Dificuldade, Data = miss.Data, JogadorObjetivo = miss.JogadorObjetivo.Id};
         }
 
-        // public async Task<MissaoDto> AddAsync(MissaoDto dto)
-        // {
-        //     var missao = new Missao(dto.Id, dto.Dificuldade);
+         public async Task<MissaoDto> AddAsync(CreatingMissaoDto dto) {
+             var missao = new Missao(dto.Dificuldade.GrauDificuldade, dto.Data.Date, dto.JogadorObjetivo);
 
-        //     await this._repo.AddAsync(missao);
+             await this._repo.AddAsync(missao);
 
-        //     await this._unitOfWork.CommitAsync();
+             await this._unitOfWork.CommitAsync();
 
-        //     return new MissaoDto { Id = missao.Id.AsString(), Dificuldade = missao.Dificuldade, Data = missao.Data };
-        // }
+             return new MissaoDto { Id = missao.Id.AsGuid(), Dificuldade = missao.Dificuldade, Data = missao.Data, JogadorObjetivo = missao.JogadorObjetivo.Id};
+         }
 
-        // public async Task<MissaoDto> UpdateAsync(MissaoDto dto)
-        // {
-        //     var missao = await this._repo.GetByIdAsync(new MissaoId(dto.Id)); 
-
-        //     if (missao == null)
-        //         return null;   
-
-        //     // change all field
-        //     missao.AddPontuacao(dto.Dificuldade);
-            
-        //     await this._unitOfWork.CommitAsync();
-
-        //     return new MissaoDto { Id = missao.Id.AsString(), Dificuldade = missao.Dificuldade, Data = missao.Data, JogadorObjetivo = miss.JogadorObjetivo };
-        // }
 
         public async Task<MissaoDto> InactivateAsync(MissaoId id)
         {
@@ -72,7 +56,7 @@ namespace DDDSample1.Domain.Missoes
             
             await this._unitOfWork.CommitAsync();
 
-            return new MissaoDto { Id = missao.Id.AsString(), Dificuldade = missao.Dificuldade, Data = missao.Data, JogadorObjetivo = missao.JogadorObjetivo };
+            return new MissaoDto { Id = missao.Id.AsGuid(), Dificuldade = missao.Dificuldade, Data = missao.Data, JogadorObjetivo = missao.JogadorObjetivo.Id };
         }
 
          public async Task<MissaoDto> DeleteAsync(MissaoId id)
@@ -88,7 +72,7 @@ namespace DDDSample1.Domain.Missoes
             this._repo.Remove(missao);
             await this._unitOfWork.CommitAsync();
 
-            return new MissaoDto { Id = missao.Id.AsString(), Dificuldade = missao.Dificuldade, Data = missao.Data, JogadorObjetivo = missao.JogadorObjetivo };
+            return new MissaoDto { Id = missao.Id.AsGuid(), Dificuldade = missao.Dificuldade, Data = missao.Data, JogadorObjetivo = missao.JogadorObjetivo.Id };
         }
     }
 }
