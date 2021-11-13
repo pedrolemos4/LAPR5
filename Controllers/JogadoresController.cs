@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Jogadores;
 using DDDSample1.Domain.Perfis;
+using DDDSample1.Domain.Utils;
 using DDDSample1.Infrastructure;
 
 namespace DDDNetCore.Controllers
@@ -93,6 +94,13 @@ namespace DDDNetCore.Controllers
             return await _serviceJog.GetAmigos(idJog);
         }
 
+        // GET: api/Jogadores/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<UndirectedGenericGraph<JogadorDto>>> GetRedeJogador(List<JogadorDto> jogadores, JogadorDto idJog)
+        {
+            return await _serviceJog.GetRedeJogador(jogadores, idJog);
+        }
+
         // PUT: api/Jogadores/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -174,5 +182,7 @@ namespace DDDNetCore.Controllers
         {
             return _context.Jogadores.Any(e => e.Id == id);
         }
+
+
     }
 }
