@@ -1,9 +1,41 @@
+using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using DDDSample1.Domain.Shared;
+
 
 namespace DDDSample1.Domain.Perfis
 {
-    public enum EstadoHumor
+    [Owned]
+    public class EstadoHumor : IValueObject
     {
-        Joyful, Distressed, Hopeful ,Fearful,Relieve,Disappointed,Proud,Remorseful,Grateful,Angry
-       
-    };
+        public string Estado { get; private set; }
+
+        public bool Active { get; private set; }
+
+        private EstadoHumor()
+        {
+            this.Active = true;
+        }
+
+        public EstadoHumor(string estado)
+        {
+            setEstadoHumor(estado);
+            this.Active = true;
+        }
+        private void setEstadoHumor(string estado)
+        {
+            List<string> lista = new List<string>() {"Joyful", "Distressed", "Hopeful", "Fearful", "Relieve", "Disappointed", "Proud", "Remorseful",
+            "Grateful", "Angry"};
+            if (lista.Contains(estado))
+            {
+                this.Estado = estado;
+            }
+            else
+            {
+                throw new BusinessRuleValidationException("Invalid emotional state.");
+            }
+        }
+
+    }
 }

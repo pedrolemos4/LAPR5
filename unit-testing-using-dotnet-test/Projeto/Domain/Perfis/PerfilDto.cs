@@ -7,13 +7,15 @@ namespace DDDSample1.Domain.Perfis
     {
         public Guid Id { get; set; }
 
-        public Nome Nome { get; set; }
+        public string Nome { get; set; }
 
-        public EstadoHumor EstadoHumor { get; set; }
+        public DateTime dataN {get; set;}
 
-        public Email Email{ get; set; }
+        public string EstadoHumor { get; set; }
 
-        public Pais Pais { get; set; }
+        public string Email{ get; set; }
+
+        public string Pais { get; set; }
 
     }
 }

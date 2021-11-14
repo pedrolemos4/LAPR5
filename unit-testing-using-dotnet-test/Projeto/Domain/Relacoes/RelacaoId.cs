@@ -1,5 +1,7 @@
 using System;
 using DDDSample1.Domain.Shared;
+using Newtonsoft.Json;
+
 
 namespace DDDSample1.Domain.Relacoes
 {
@@ -11,6 +13,7 @@ namespace DDDSample1.Domain.Relacoes
 
         }
 
+        [JsonConstructor]
         public RelacaoId(Guid value) : base(value)
         {
 
@@ -19,12 +22,13 @@ namespace DDDSample1.Domain.Relacoes
         override
         protected Object createFromString(String text)
         {
-            return text;
+            return new Guid(text);
         }
         override
         public String AsString()
         {
-            return (String)base.Value;
+            Guid obj = (Guid)base.ObjValue;
+            return obj.ToString();
         }
 
         public Guid AsGuid()

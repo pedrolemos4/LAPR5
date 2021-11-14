@@ -1,5 +1,6 @@
 using DDDSample1.Domain.Perfis;
 using DDDSample1.Domain.Jogadores;
+using DDDSample1.Domain.Relacoes;
 using System.Collections.Generic;
 using System;
 using System.Linq;
@@ -38,13 +39,11 @@ namespace DDDSample1.Infrastructure
             List<string> listaTags2 = new List<string>() { "Valongo", "Ballet" };
             Perfil p1 = new Perfil(/*"codPerfil",*/ "Carlos", "carlos@gmail.com", 351936825014, listaTags, "2000/05/20", "Joyful", "carlos_Sport7", "en-PT", "Porto", "perfilFB", "perfilLink");
             Perfil p2 = new Perfil(/*"codPerfil2", */ "Fiona", "fiona@gmail.com", 351936825014, listaTags2, "2003/10/07", "Disappointed", "super+Fifi48", "en-US", "Lisboa", "perfilFB2", "perfilLink2");
-            Perfil p3 = new Perfil(/*"codPerfil2", */ "Pato", "pato@gmail.com", 351932155410, listaTags, "2001/07/12", "Disappointed", "pass+Lp42", "en-US", "States", "perfilFB3", "perfilLink3");
 
-            var perfis = new Jogador[] { new Jogador(p1), new Jogador(p2), new Jogador(p3) };
+            var perfis = new Jogador[] { new Jogador(p1), new Jogador(p2) };
 
             context.Perfis.Add(p1);
             context.Perfis.Add(p2);
-            context.Perfis.Add(p3);
 
             context.SaveChanges();
 
@@ -58,6 +57,10 @@ namespace DDDSample1.Infrastructure
                 context.Jogadores.Add(j);
             }
 
+            context.SaveChanges();
+
+            Relacao relacao = new Relacao(perfis[0].Id,perfis[1].Id,listaTags,5,80);
+            context.Relacoes.Add(relacao);
             context.SaveChanges();
         }
     }
