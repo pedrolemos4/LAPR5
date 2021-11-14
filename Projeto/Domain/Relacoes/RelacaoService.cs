@@ -17,15 +17,6 @@ namespace DDDSample1.Domain.Relacoes
             this._unitOfWork = unitOfWork;
             this._repo = repo;
         }
-
-        // public async Task<List<RelacaoDto>> GetAllAsync()
-        // {
-        //     var list = await this._repo.GetAllAsync();
-
-        //     List<RelacaoDto> listDto = list.ConvertAll<RelacaoDto>(async relacao => new RelacaoDto{Id = relacao.Id.AsString(), Jogador1 = relacao.Jogador1, Jogador2 = relacao.Jogador2, Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao});
-
-        //     return listDto;
-        // }
         public async Task<RelacaoDto> GetByIdAsync(RelacaoId id)
         {
             var relacao = await this._repo.GetByIdAsync(id);
@@ -33,7 +24,7 @@ namespace DDDSample1.Domain.Relacoes
             if(relacao == null)
                 return null;
 
-            return new RelacaoDto { Id = relacao.Id.AsGuid(), Jogador1 = relacao.Jogador1, Jogador2 = relacao.Jogador2, Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao };
+            return new RelacaoDto { Id = relacao.Id.AsGuid(), Jogador1 = relacao.Jogador1.AsGuid(), Jogador2 = relacao.Jogador2.AsGuid(), Tags = converteParaListaString(relacao.Tags), ForcaRelacao = relacao.ForcaRelacao.Valor, ForcaLigacao = relacao.ForcaLigacao.Valor };
         }
 
         public async Task<List<RelacaoDto>> GetRelacoesDoJogador(JogadorId jog)
@@ -43,22 +34,21 @@ namespace DDDSample1.Domain.Relacoes
             if (relacao == null)
                 return null;
 
-            List<RelacaoDto> lista = relacao.ConvertAll<RelacaoDto>(relacao => new RelacaoDto { Id = relacao.Id.AsGuid(), Jogador1 = relacao.Jogador1, Jogador2 = relacao.Jogador2, Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao });
+            List<RelacaoDto> lista = relacao.ConvertAll<RelacaoDto>(relacao => new RelacaoDto { Id = relacao.Id.AsGuid(), Jogador1 = relacao.Jogador1.AsGuid(), Jogador2 = relacao.Jogador2.AsGuid(), Tags = converteParaListaString(relacao.Tags), ForcaRelacao = relacao.ForcaRelacao.Valor, ForcaLigacao = relacao.ForcaLigacao.Valor });
 
             return lista;
         }
 
         public async Task<RelacaoDto> AddAsync(CreatingRelacaoDto dto)
         {
-            List<string> tags = converteParaListaString(dto.Tags);
 
-            var relacao = new Relacao(dto.Jogador1.Id, dto.Jogador2.Id, tags, dto.ForcaRelacao.Valor, dto.ForcaLigacao.Valor);
+            var relacao = new Relacao(new JogadorId(dto.Jogador1), new JogadorId(dto.Jogador2), dto.Tags, dto.ForcaRelacao, dto.ForcaLigacao);
 
             await this._repo.AddAsync(relacao);
 
             await this._unitOfWork.CommitAsync();
 
-            return new RelacaoDto { Id = relacao.Id.AsGuid(), Jogador1 = relacao.Jogador1, Jogador2 = relacao.Jogador2, Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao };
+            return new RelacaoDto { Id = relacao.Id.AsGuid(), Jogador1 = relacao.Jogador1.AsGuid(), Jogador2 = relacao.Jogador2.AsGuid(), Tags = converteParaListaString(relacao.Tags), ForcaRelacao = relacao.ForcaRelacao.Valor, ForcaLigacao = relacao.ForcaLigacao.Valor };
         }
 
         public async Task<RelacaoDto> UpdateAsync(RelacaoDto dto)
@@ -72,23 +62,8 @@ namespace DDDSample1.Domain.Relacoes
 
             await this._unitOfWork.CommitAsync();
 
-            return new RelacaoDto { Id = relacao.Id.AsGuid(), Jogador1 = relacao.Jogador1, Jogador2 = relacao.Jogador2, Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao };
+            return new RelacaoDto { Id = relacao.Id.AsGuid(), Jogador1 = relacao.Jogador1.AsGuid(), Jogador2 = relacao.Jogador2.AsGuid(), Tags = converteParaListaString(relacao.Tags), ForcaRelacao = relacao.ForcaRelacao.Valor, ForcaLigacao = relacao.ForcaLigacao.Valor };
         }
-
-        /*public async Task<RelacaoDto> InactivateAsync(RelacaoId id)
-        {
-            var relacao = await this._repo.GetByIdAsync(id);
-
-            if (relacao == null)
-                return null;
-
-            // change all fields
-            relacao.MarkAsInative();
-
-            await this._unitOfWork.CommitAsync();
-
-            return new RelacaoDto { Id = relacao.Id.AsGuid(), Jogador1 = relacao.Jogador1, Jogador2 = relacao.Jogador2, Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao };
-        }*/
 
         public async Task<RelacaoDto> DeleteAsync(RelacaoId id)
         {
@@ -103,7 +78,7 @@ namespace DDDSample1.Domain.Relacoes
             this._repo.Remove(relacao);
             await this._unitOfWork.CommitAsync();
 
-            return new RelacaoDto { Id = relacao.Id.AsGuid(), Jogador1 = relacao.Jogador1, Jogador2 = relacao.Jogador2, Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao };
+            return new RelacaoDto { Id = relacao.Id.AsGuid(), Jogador1 = relacao.Jogador1.AsGuid(), Jogador2 = relacao.Jogador2.AsGuid(), Tags = converteParaListaString(relacao.Tags), ForcaRelacao = relacao.ForcaRelacao.Valor, ForcaLigacao = relacao.ForcaLigacao.Valor };
         }
 
         public async Task<RelacaoDto> PatchRelacaoTagsForca(RelacaoDto dto)
@@ -114,13 +89,13 @@ namespace DDDSample1.Domain.Relacoes
                 return null;
 
             // change all field
-            relacao.ChangeTags(converteParaListaString(dto.Tags));
+            relacao.ChangeTags(dto.Tags);
 
-            relacao.ChangeForcaLigacao(dto.ForcaLigacao.Valor);
+            relacao.ChangeForcaLigacao(dto.ForcaLigacao);
 
             await this._unitOfWork.CommitAsync();
 
-            return new RelacaoDto { Id = relacao.Id.AsGuid(), Jogador1 = relacao.Jogador1, Jogador2 = relacao.Jogador2, Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao };
+            return new RelacaoDto { Id = relacao.Id.AsGuid(), Jogador1 = relacao.Jogador1.AsGuid(), Jogador2 = relacao.Jogador2.AsGuid(), Tags = converteParaListaString(relacao.Tags), ForcaRelacao = relacao.ForcaRelacao.Valor, ForcaLigacao = relacao.ForcaLigacao.Valor };
         }
 
         public static List<string> converteParaListaString(List<Tag> lista)
@@ -140,7 +115,7 @@ namespace DDDSample1.Domain.Relacoes
             if (relacao == null)
                 return null;
 
-            List<RelacaoDto> lista = relacao.ConvertAll<RelacaoDto>(relacao => new RelacaoDto { Id = relacao.Id.AsGuid(), Jogador1 = relacao.Jogador1, Jogador2 = relacao.Jogador2, Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao });
+            List<RelacaoDto> lista = relacao.ConvertAll<RelacaoDto>(relacao => new RelacaoDto { Id = relacao.Id.AsGuid(), Jogador1 = relacao.Jogador1.AsGuid(), Jogador2 = relacao.Jogador2.AsGuid(), Tags = converteParaListaString(relacao.Tags), ForcaRelacao = relacao.ForcaRelacao.Valor, ForcaLigacao = relacao.ForcaLigacao.Valor });
 
             return lista;
         }
@@ -151,7 +126,7 @@ namespace DDDSample1.Domain.Relacoes
             redeAmigos = await this.GetRedeJogador(id, nivel, redeAmigos);
 
             List<RelacaoDto> redeAmigosDto = redeAmigos.ConvertAll<RelacaoDto>(relacao =>
-                new RelacaoDto{ Id = relacao.Id.AsGuid(), Jogador1 = relacao.Jogador1, Jogador2 = relacao.Jogador2, Tags = relacao.Tags, ForcaRelacao = relacao.ForcaRelacao, ForcaLigacao = relacao.ForcaLigacao});
+                new RelacaoDto{ Id = relacao.Id.AsGuid(), Jogador1 = relacao.Jogador1.AsGuid(), Jogador2 = relacao.Jogador2.AsGuid(), Tags = converteParaListaString(relacao.Tags), ForcaRelacao = relacao.ForcaRelacao.Valor, ForcaLigacao = relacao.ForcaLigacao.Valor});
 
             return redeAmigosDto;
         }

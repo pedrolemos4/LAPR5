@@ -15,7 +15,7 @@ namespace DDDSample1.Domain.Posts
             this._repo = repo;
         }
 
-         public async Task<List<PostDto>> GetAllAsync()
+         /*public async Task<List<PostDto>> GetAllAsync()
          {
              var list = await this._repo.GetAllAsync();
             
@@ -32,7 +32,7 @@ namespace DDDSample1.Domain.Posts
                 return null;
 
             return new PostDto{Id = post.Id.AsGuid(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike};
-        }
+        }*/
 
         // public async Task<PostDto> AddAsync(PostDto dto)
         // {
@@ -75,7 +75,7 @@ namespace DDDSample1.Domain.Posts
         //     return new PostDto { Id = post.Id.AsGuid(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike};
         // }
 
-         public async Task<PostDto> DeleteAsync(PostId id)
+        /* public async Task<PostDto> DeleteAsync(PostId id)
         {
             var post = await this._repo.GetByIdAsync(id); 
 
@@ -89,6 +89,6 @@ namespace DDDSample1.Domain.Posts
             await this._unitOfWork.CommitAsync();
 
             return new PostDto { Id = post.Id.AsGuid(), Texto = post.Texto, Tags = post.Tags, Comentario = post.Comentario, LikeDislike = post.LikeDislike};
-        }
+        }*/
     }
 }

@@ -59,7 +59,7 @@ namespace DDDSample1.Controllers
                 return NotFound();
             }
 
-            var perfil = await _servicePer.GetByIdAsync(jogadorDto.perfilId);
+            var perfil = await _servicePer.GetByIdAsync(new PerfilId(jogadorDto.Id));
 
             return perfil;
         }

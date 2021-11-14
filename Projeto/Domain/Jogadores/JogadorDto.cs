@@ -1,9 +1,6 @@
 using System;
-using DDDSample1.Domain.Perfis;
-using DDDSample1.Domain.Missoes;
-using DDDSample1.Domain.Relacoes;
 using System.Collections.Generic;
-using DDDSample1.Domain.Posts;
+
 
 
 namespace DDDSample1.Domain.Jogadores
@@ -12,14 +9,14 @@ namespace DDDSample1.Domain.Jogadores
     {
         public Guid Id { get; set; }
 
-        public Pontuacao Pontuacao { get; set; }
+        public int Pontuacao { get; set; }
 
-        public PerfilId perfilId {get; set;}
+        public Guid PerfilId {get; set;}
 
-        public List<Missao> Missao{ get; set; }
+        public List<Guid> Missao{ get; set; }
 
-        public HashSet<Relacao> Relacao{ get; set; }
+        public HashSet<Guid> Relacao{ get; set; }
 
-        public List<Post> Post{ get; set; }
+        public List<Guid> Post{ get; set; }
     }
 }

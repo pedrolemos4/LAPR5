@@ -1,34 +1,21 @@
-using DDDSample1.Domain.SharedValueObjects;
-using DDDSample1.Domain.Jogadores;
+using System;
 
 namespace DDDSample1.Domain.Ligacoes
 {
     public class CreatingLigacaoDto
     {
+        public string TextoLigacao { get;  private set; }
+        public string EstadoLigacao { get;  private set; }
+        public Guid Jogador1 { get; private set; }
 
-        public LigacaoId ligacaoId { get; private set; } 
-        public TextoLigacao TextoLigacao { get;  private set; }
-        public Estado EstadoLigacao { get;  private set; }
-        public bool Active{ get;  private set; }
-        public Jogador Jogador1 { get; private set; }
+        public Guid Jogador2 { get; private set; }
 
-        public Jogador Jogador2 { get; private set; }
-
-        public CreatingLigacaoDto(string code, string texto, string estado, Jogador jogador1, Jogador jogador2)
+        public CreatingLigacaoDto(string texto, string estado, Guid jogador1, Guid jogador2)
         {
-            this.ligacaoId = new LigacaoId(code);
-            this.TextoLigacao = new TextoLigacao(texto);
-            setEstado(estado);
+            this.TextoLigacao = texto;
+            this.EstadoLigacao = estado;
             this.Jogador1 = jogador1;
             this.Jogador2 = jogador2;
-            this.Active = true;
-        }
-
-        private void setEstado(string estado)
-        {
-            Estado enumerado;
-            Estado.TryParse(estado, out enumerado);
-            this.EstadoLigacao = enumerado;
         }
 
     }

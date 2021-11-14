@@ -1,5 +1,4 @@
 using DDDSample1.Domain.Shared;
-using DDDSample1.Domain.SharedValueObjects;
 using DDDSample1.Domain.Perfis;
 using System.Collections.Generic;
 using DDDSample1.Domain.Missoes;

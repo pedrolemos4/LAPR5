@@ -1,15 +1,15 @@
-using DDDSample1.Domain.Perfis;
+using System;
 
 namespace DDDSample1.Domain.Jogadores
 {
 
     public class CreatingJogadorDto
     {
-        public Perfil perfil { get; set; }
+        public Guid perfilId { get; set; }
 
-        public CreatingJogadorDto(Perfil perfil)
+        public CreatingJogadorDto(Guid perfil)
         {
-            this.perfil = perfil;
+            this.perfilId = perfil;
         }
     }
 }
