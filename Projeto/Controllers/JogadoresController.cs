@@ -93,7 +93,7 @@ namespace DDDSample1.Controllers
         // PUT: api/Jogadores/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutJogador([FromRoute]Guid id,[FromBody] JogadorDto jogador)
+        public async Task<ActionResult> PutJogador([FromRoute]Guid id,[FromBody] JogadorDto jogador)
         {
             if (id != jogador.Id) {
                 return BadRequest();
