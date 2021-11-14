@@ -21,6 +21,9 @@ namespace DDDSample1.Domain.Ligacoes
 
         public Ligacao(/*string code, */string texto, string estado, Jogador jogador1, Jogador jogador2)
         {
+            if(jogador1 == null || jogador2 == null){
+                throw new BusinessRuleValidationException("It is not possible to create an introduction with a player null.");
+            }
             this.Id = new LigacaoId(Guid.NewGuid());
             this.TextoLigacao = new TextoLigacao(texto);
             setEstado(estado);
