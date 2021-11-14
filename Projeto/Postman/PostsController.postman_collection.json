@@ -1,0 +1,189 @@
+{
+	"info": {
+		"_postman_id": "2789d513-cfe0-4249-a342-41c7008b2ee1",
+		"name": "PostsController",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get Posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"There are no posts\", function () {\r",
+							"    pm.response.to.have.body(\"[]\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/Posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create Post",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"const responseJson = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body returns the correct texto\", function () {\r",
+							"    pm.expect(responseJson.texto).to.eql(\"Texto\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body returns the correct tags\", function () {\r",
+							"    pm.expect(responseJson.tags).to.eql([\"musica\"]);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body returns the correct comentario\", function () {\r",
+							"    pm.expect(responseJson.comentario).to.eql([\"Comentario\"]);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body returns the correct likedislike\", function () {\r",
+							"    pm.expect(responseJson.likedislike).to.eql(\"200-20\");\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"post_id\", responseJson.id); // save the category's id for further tests\r",
+							"\r",
+							"console.log(pm.environment.get(\"post_id\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"texto\":\"Texto\",\r\n    \"tags\":[\"musica\"],\r\n    \"comentario\":[\"Comentario\"],\r\n    \"likedislike\":\"200-20\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/Posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get created Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseJson = pm.response.json();\r",
+							"\r",
+							"console.log(pm.environment.get(\"post_id\"));\r",
+							"\r",
+							"pm.test(\"Post creation returns status 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returned Post has correct post_id\", function () {\r",
+							"    pm.expect(responseJson.id).to.eql(pm.environment.get(\"post_id\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returned Post has correct texto\", function () {\r",
+							"    pm.expect(responseJson.texto).to.eql(pm.environment.get(\"post_texto\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returned Post has correct tags\", function () {\r",
+							"    pm.expect(responseJson.tags).to.eql(pm.environment.get(\"post_tags\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returned Post has correct comentario\", function () {\r",
+							"    pm.expect(responseJson.comentario).to.eql(pm.environment.get(\"post_comentario\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returned Post has correct likedislike\", function () {\r",
+							"    pm.expect(responseJson.likedislike).to.eql(pm.environment.get(\"post_likedislike\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update Post",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"texto\":\"NovoTexto\",\r\n    \"tags\":[\"Desporto\"],\r\n    \"comentario\":\"NovoComentario\",\r\n    \"likedislike\":\"210-25\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	]
+}

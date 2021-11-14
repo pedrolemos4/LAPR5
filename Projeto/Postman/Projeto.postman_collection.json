@@ -1,0 +1,1263 @@
+{
+	"info": {
+		"_postman_id": "2338e698-3cd1-43f4-a6df-b21ea6555a92",
+		"name": "Projeto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PerfisController",
+			"item": [
+				{
+					"name": "Get Perfis",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Não existem perfis\", function () {\r",
+									"    pm.response.to.have.body(\"[]\");\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"perfil_id\", \"55ed6c3a-c31d-49bd-9842-9306545201c5\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/perfis",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"perfis"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Perfil",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna nome correto\", function () {\r",
+									"    pm.expect(responseJson.nome).to.eql(\"Beatriz\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna email correto\", function () {\r",
+									"    pm.expect(responseJson.email).to.eql(\"beatriz.vaz2001@gmail.com\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna telefone correto\", function () {\r",
+									"    pm.expect(responseJson.telefone).to.eql(351915879523);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna pais correto\", function () {\r",
+									"    pm.expect(responseJson.pais).to.eql(\"en-PT\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna cidade correto\", function () {\r",
+									"    pm.expect(responseJson.cidade).to.eql(\"Porto1\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna data de nascimento correto\", function () {\r",
+									"    pm.expect(responseJson.dataNascimento).to.eql(\"2000-05-26\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna estado de humor correto\", function () {\r",
+									"    pm.expect(responseJson.estadoHumor).to.eql(\"Disappointed\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna password correto\", function () {\r",
+									"    pm.expect(responseJson.password).to.eql(\"B@123456\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna tags correto\", function () {\r",
+									"    pm.expect(responseJson.tags).to.eql([\"musica\"]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna perfil facebook correto\", function () {\r",
+									"    pm.expect(responseJson.perfilFacebook).to.eql(\"PerfilFb\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna perfil Linkedin correto\", function () {\r",
+									"    pm.expect(responseJson.perfilLinkedin).to.eql(\"PerfilLn\");\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"perfil_id\", responseJson.id); // save the perfil's id for further tests\r",
+									"pm.environment.set(\"perfil_nomeguardado\", responseJson.nome);\r",
+									"pm.environment.set(\"perfil_emailguardado\", responseJson.email);\r",
+									"pm.environment.set(\"perfil_paisguardado\", responseJson.pais);\r",
+									"\r",
+									"console.log(pm.environment.get(\"perfil_id\"));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\":\"Beatriz\",\r\n  \"email\":\"beatriz.vaz2001@gmail.com\",\r\n  \"telefone\":351915879523,\r\n  \"dataNascimento\":\"2000-05-26\",\r\n  \"tags\":[\"musica\"],\r\n  \"estadoHumor\":\"Disappointed\",\r\n  \"password\":\"B@123456\",\r\n  \"pais\":\"en-PT\",\r\n  \"cidade\":\"Porto1\",\r\n  \"PerfilFacebook\":\"PerfilFb\",\r\n  \"perfilLinkedin\":\"PerfilLn\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/Perfis",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"Perfis"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Perfil Pelo Id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna nome correto\", function () {\r",
+									"    pm.expect(responseJson.nome).to.eql(\"Beatriz\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna email correto\", function () {\r",
+									"    pm.expect(responseJson.email).to.eql(\"beatriz.vaz2001@gmail.com\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna telefone correto\", function () {\r",
+									"    pm.expect(responseJson.telefone).to.eql(351915879523);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna pais correto\", function () {\r",
+									"    pm.expect(responseJson.pais).to.eql(\"en-PT\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna cidade correto\", function () {\r",
+									"    pm.expect(responseJson.cidade).to.eql(\"Porto1\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna data de nascimento correto\", function () {\r",
+									"    pm.expect(responseJson.dataNascimento).to.eql(\"2000-05-26\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna estado de humor correto\", function () {\r",
+									"    pm.expect(responseJson.estadoHumor).to.eql(\"Disappointed\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna password correto\", function () {\r",
+									"    pm.expect(responseJson.password).to.eql(\"B@123456\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna tags correto\", function () {\r",
+									"    pm.expect(responseJson.tags).to.eql([\"musica\"]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna perfil facebook correto\", function () {\r",
+									"    pm.expect(responseJson.perfilFacebook).to.eql(\"PerfilFb\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna perfil Linkedin correto\", function () {\r",
+									"    pm.expect(responseJson.perfilLinkedin).to.eql(\"PerfilLn\");\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"introducao_id\", responseJson.id); // save the perfil's id for further tests\r",
+									"//pm.environment.set(\"perfil_nomeguardado\", responseJson.nome);\r",
+									"//pm.environment.set(\"perfil_emailguardado\", responseJson.email);\r",
+									"//pm.environment.set(\"perfil_paisguardado\", responseJson.pais);\r",
+									"\r",
+									"console.log(pm.environment.get(\"introducao_id\"));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"jogadorInicial\":{\"pontuaçao\":0,\r\n            \"listaMissoes\":[],\r\n            \"perfil\":{\r\n                    \"nome\":\"Beatriz\",\r\n                    \"email\":\"beatriz.vaz2001@gmail.com\",\r\n                    \"telefone\":351915879523,\r\n                    \"pais\":\"en-US\",\r\n                    \"cidade\":\"Porto1\",\r\n                    \"dataNascimento\":\"2003/10/07\",\r\n                    \"estadoHumor\":\"Disappointed\",\r\n                    \"password\":\"B@123456\",\r\n                    \"tags\":[\"musica\",\"coca-cola\"],\r\n                    \"perfilFacebook\":\"PerfilFb\",\r\n                    \"perfilLinkedin\":\"PerfilLn\"\r\n            },\r\n            \"listaRelacoes\":[],\r\n            \"listaPosts\":[]\r\n  },\r\n\r\n  \"jogadorIntrodutor\":{\"pontuaçao\":0,\r\n            \"listaMissoes\":[],\r\n            \"perfil\":{\r\n                    \"nome\":\"Jose\",\r\n                    \"email\":\"josevaz2101@gmail.com\",\r\n                    \"telefone\":351919674523,\r\n                    \"pais\":\"en-PT\",\r\n                    \"cidade\":\"Porto12\",\r\n                    \"dataNascimento\":\"2000/11/17\",\r\n                    \"estadoHumor\":\"Disappointed\",\r\n                    \"password\":\"C@as123456\",\r\n                    \"tags\":[\"arroz\",\"coca-cola\"],\r\n                    \"perfilFacebook\":\"PerfilFb1\",\r\n                    \"perfilLinkedin\":\"PerfilLn1\"\r\n            },\r\n            \"listaRelacoes\":[],\r\n            \"listaPosts\":[]\r\n  },\r\n\r\n  \"jogadorObjetivo\":{\"pontuaçao\":0,\r\n            \"listaMissoes\":[],\r\n            \"perfil\":{\r\n                    \"nome\":\"Paulinho\",\r\n                    \"email\":\"paulinhofalhatudo@gmail.com\",\r\n                    \"telefone\":351915879000,\r\n                    \"pais\":\"en-US\",\r\n                    \"cidade\":\"Porto01\",\r\n                    \"dataNascimento\":\"1999/01/20\",\r\n                    \"estadoHumor\":\"Disappointed\",\r\n                    \"password\":\"Kkk@123456\",\r\n                    \"tags\":[\"musica\",\"pepsi\"],\r\n                    \"perfilFacebook\":\"PerfilF1b\",\r\n                    \"perfilLinkedin\":\"PerfilLn0\"\r\n            },\r\n            \"listaRelacoes\":[],\r\n            \"listaPosts\":[]\r\n  },\r\n  \"estadoIntroducao\":\"Aceite\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/Introducoes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"Introducoes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Perfil Pelo Nome",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"console.log(pm.environment.get(\"perfil_nomeguardado\"));\r",
+									"\r",
+									"pm.test(\"Criação do Perfil returns status 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna nome correto\", function () {\r",
+									"    pm.expect(responseJson.nome).to.eql(\"Beatriz\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna email correto\", function () {\r",
+									"    pm.expect(responseJson.email).to.eql(\"beatriz.vaz2001@gmail.com\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna telefone correto\", function () {\r",
+									"    pm.expect(responseJson.telefone).to.eql(351915879523);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna pais correto\", function () {\r",
+									"    pm.expect(responseJson.pais).to.eql(\"en-PT\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna cidade correto\", function () {\r",
+									"    pm.expect(responseJson.cidade).to.eql(\"Porto1\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna data de nascimento correto\", function () {\r",
+									"    pm.expect(responseJson.dataNascimento).to.eql(\"2000-05-26\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna estado de humor correto\", function () {\r",
+									"    pm.expect(responseJson.estadoHumor).to.eql(\"Disappointed\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna password correto\", function () {\r",
+									"    pm.expect(responseJson.password).to.eql(\"B@123456\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna tags correto\", function () {\r",
+									"    pm.expect(responseJson.tags).to.eql([\"musica\"]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna perfil facebook correto\", function () {\r",
+									"    pm.expect(responseJson.perfilFacebook).to.eql(\"PerfilFb\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna perfil Linkedin correto\", function () {\r",
+									"    pm.expect(responseJson.perfilLinkedin).to.eql(\"PerfilLn\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/Perfis/{{perfil_nomeguardado}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"Perfis",
+								"{{perfil_nomeguardado}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Perfil Pelo Email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"console.log(pm.environment.get(\"perfil_emailguardado\"));\r",
+									"\r",
+									"pm.test(\"Criação do Perfil returns status 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body retorna nome correto\", function () {\r",
+									"    pm.expect(responseJson.nome).to.eql(\"Beatriz\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna email correto\", function () {\r",
+									"    pm.expect(responseJson.email).to.eql(\"beatriz.vaz2001@gmail.com\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna telefone correto\", function () {\r",
+									"    pm.expect(responseJson.telefone).to.eql(351915879523);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna pais correto\", function () {\r",
+									"    pm.expect(responseJson.pais).to.eql(\"en-PT\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna cidade correto\", function () {\r",
+									"    pm.expect(responseJson.cidade).to.eql(\"Porto1\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna data de nascimento correto\", function () {\r",
+									"    pm.expect(responseJson.dataNascimento).to.eql(\"2000-05-26\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna estado de humor correto\", function () {\r",
+									"    pm.expect(responseJson.estadoHumor).to.eql(\"Disappointed\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna password correto\", function () {\r",
+									"    pm.expect(responseJson.password).to.eql(\"B@123456\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna tags correto\", function () {\r",
+									"    pm.expect(responseJson.tags).to.eql([\"musica\"]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna perfil facebook correto\", function () {\r",
+									"    pm.expect(responseJson.perfilFacebook).to.eql(\"PerfilFb\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna perfil Linkedin correto\", function () {\r",
+									"    pm.expect(responseJson.perfilLinkedin).to.eql(\"PerfilLn\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/Perfis/{{perfil_emailguardado}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"Perfis",
+								"{{perfil_emailguardado}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Perfis Pelo Pais",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"console.log(pm.environment.get(\"perfil_paisguardado\"));\r",
+									"\r",
+									"pm.test(\"Criação do Perfil returns status 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body retorna nome correto\", function () {\r",
+									"    pm.expect(responseJson.nome).to.eql(\"Beatriz\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna email correto\", function () {\r",
+									"    pm.expect(responseJson.email).to.eql(\"beatriz.vaz2001@gmail.com\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna telefone correto\", function () {\r",
+									"    pm.expect(responseJson.telefone).to.eql(351915879523);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna pais correto\", function () {\r",
+									"    pm.expect(responseJson.pais).to.eql(\"en-PT\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna cidade correto\", function () {\r",
+									"    pm.expect(responseJson.cidade).to.eql(\"Porto1\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna data de nascimento correto\", function () {\r",
+									"    pm.expect(responseJson.dataNascimento).to.eql(\"2000-05-26\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna estado de humor correto\", function () {\r",
+									"    pm.expect(responseJson.estadoHumor).to.eql(\"Disappointed\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna password correto\", function () {\r",
+									"    pm.expect(responseJson.password).to.eql(\"B@123456\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna tags correto\", function () {\r",
+									"    pm.expect(responseJson.tags).to.eql([\"musica\"]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna perfil facebook correto\", function () {\r",
+									"    pm.expect(responseJson.perfilFacebook).to.eql(\"PerfilFb\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna perfil Linkedin correto\", function () {\r",
+									"    pm.expect(responseJson.perfilLinkedin).to.eql(\"PerfilLn\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/Perfis/{{perfil_paisguardado}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"Perfis",
+								"{{perfil_paisguardado}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Perfil",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna nome correto\", function () {\r",
+									"    pm.expect(responseJson.nome).to.eql(\"Carla\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna email correto\", function () {\r",
+									"    pm.expect(responseJson.email).to.eql(\"carla123@gmail.com\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna telefone correto\", function () {\r",
+									"    pm.expect(responseJson.telefone).to.eql(351918574856);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna pais correto\", function () {\r",
+									"    pm.expect(responseJson.pais).to.eql(\"en-Pt\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna cidade correto\", function () {\r",
+									"    pm.expect(responseJson.cidade).to.eql(\"Porto1\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna data de nascimento correto\", function () {\r",
+									"    pm.expect(responseJson.dataNascimento).to.eql(\"2001/05/26\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna estado de humor correto\", function () {\r",
+									"    pm.expect(responseJson.estadoHumor).to.eql(\"Joyful\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna password correto\", function () {\r",
+									"    pm.expect(responseJson.password).to.eql(\"Q.w@1852o6\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna tags correto\", function () {\r",
+									"    pm.expect(responseJson.tags).to.eql([\"musica\", \"livros\"]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna perfil facebook correto\", function () {\r",
+									"    pm.expect(responseJson.perfilFacebook).to.eql(\"PerfilFb1\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna perfil Linkedin correto\", function () {\r",
+									"    pm.expect(responseJson.perfilLinkedin).to.eql(\"PerfilL1\");\r",
+									"});\r",
+									"\r",
+									"console.log(pm.environment.get(\"perfil_id\"));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\":\"Carla\",\r\n  \"email\":\"carla123@gmail.com\",\r\n  \"telefone\":351918574856,\r\n  \"pais\":\"en-PT\",\r\n  \"cidade\":\"Porto1\",\r\n  \"dataNascimento\":\"2001/05/26\",\r\n  \"estadoHumor\":\"Joyful\",\r\n  \"password\":\"Q.w@1852o6\",\r\n  \"tags\":[\"musica\", \"livros\"],\r\n  \"perfilFacebook\":\"PerfilFb1\",\r\n  \"perfilLinkedin\":\"PerfilL1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/Perfis/{{perfil_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"Perfis",
+								"{{perfil_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Perfil",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna estado de humor correto\", function () {\r",
+									"    pm.expect(responseJson.estadoHumor).to.eql(\"Joyful\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"estadoHumor\":\"Joyful\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/Perfis/{{perfil_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"Perfis",
+								"{{perfil_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "IntroducoesController",
+			"item": [
+				{
+					"name": "Get Introducao",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Não existem introduções\", function () {\r",
+									"    pm.response.to.have.body(\"[]\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Retorna jogadorInicial correto\", function () {\r",
+									"    pm.expect(responseJson.jogadorInicial).to.eql(pm.environment.get(\"introducao_jogadorInicial\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Retorna jogadorIntrodutor correto\", function () {\r",
+									"    pm.expect(responseJson.jogadorIntrodutor).to.eql(pm.environment.get(\"introducao_jogadorIntrodutor\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Retorna jogadorObjetivo correto\", function () {\r",
+									"    pm.expect(responseJson.jogadorObjetivo).to.eql(pm.environment.get(\"introducao_jogadorObjetivo\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Retorna estado correto\", function () {\r",
+									"    pm.expect(responseJson.estado).to.eql(pm.environment.get(\"introducao_estado\"));\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/Introducoes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"Introducoes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Introducao Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"/*\r",
+									"pm.environment.set(\"perfil_id\", \"55ed6c3a-c31d-49bd-9842-9306545201c5\");\r",
+									"\r",
+									"console.log(pm.environment.get(\"perfil_id\"));\r",
+									"*/\r",
+									"\r",
+									"pm.test(\"Não existem introduções\", function () {\r",
+									"    pm.response.to.have.body(\"[]\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Retorna jogadorInicial correto\", function () {\r",
+									"    pm.expect(responseJson.jogadorInicial).to.eql(pm.environment.get(\"introducao_jogadorInicial\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Retorna jogadorIntrodutor correto\", function () {\r",
+									"    pm.expect(responseJson.jogadorIntrodutor).to.eql(pm.environment.get(\"introducao_jogadorIntrodutor\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Retorna jogadorObjetivo correto\", function () {\r",
+									"    pm.expect(responseJson.jogadorObjetivo).to.eql(pm.environment.get(\"introducao_jogadorObjetivo\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Retorna estado correto\", function () {\r",
+									"    pm.expect(responseJson.estado).to.eql(pm.environment.get(\"introducao_estado\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/Introducoes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"Introducoes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Introducao Por Aprovar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"/*\r",
+									"pm.environment.set(\"perfil_id\", \"55ed6c3a-c31d-49bd-9842-9306545201c5\");\r",
+									"\r",
+									"console.log(pm.environment.get(\"perfil_id\"));\r",
+									"*/\r",
+									"\r",
+									"pm.test(\"Não existem introduções\", function () {\r",
+									"    pm.response.to.have.body(\"[]\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Retorna jogadorInicial correto\", function () {\r",
+									"    pm.expect(responseJson.jogadorInicial).to.eql(pm.environment.get(\"introducao_jogadorInicial\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Retorna jogadorIntrodutor correto\", function () {\r",
+									"    pm.expect(responseJson.jogadorIntrodutor).to.eql(pm.environment.get(\"introducao_jogadorIntrodutor\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Retorna jogadorObjetivo correto\", function () {\r",
+									"    pm.expect(responseJson.jogadorObjetivo).to.eql(pm.environment.get(\"introducao_jogadorObjetivo\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Retorna estado correto\", function () {\r",
+									"    pm.expect(responseJson.estado).to.eql(pm.environment.get(\"introducao_estado\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "Post Introducao",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna jogador inicial correto\", function () {\r",
+									"    pm.expect(responseJson.jogadorInicial).to.eql({\r",
+									"                    nome:\"Beatriz\",\r",
+									"                    email:\"beatriz.vaz2001@gmail.com\",\r",
+									"                    telefone:351915879523,\r",
+									"                    pais:\"en-US\",\r",
+									"                    cidade:\"Porto1\",\r",
+									"                    dataNascimento:\"20031007\",\r",
+									"                    estadoHumor:\"Disappointed\",\r",
+									"                    password:\"B@123456\",\r",
+									"                    tags:[\"musica\",\"coca-cola\"],\r",
+									"                    perfilFacebook:\"PerfilFb\",\r",
+									"                    perfilLinkedin:\"PerfilLn\"\r",
+									"            });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna jogador introdução correto\", function () {\r",
+									"    pm.expect(responseJson.jogadorIntrodutor).to.eql(jog1);\r",
+									"});\r",
+									"/*\r",
+									"pm.test(\"Body retorna jogador objetivo correto\", function () {\r",
+									"    pm.expect(responseJson.jogadorObjetivo).to.eql(jog1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna estado introdução correto\", function () {\r",
+									"    pm.expect(responseJson.estadoIntroducao).to.eql(\"Aceita\");\r",
+									"});\r",
+									"*/\r",
+									"\r",
+									"//pm.environment.set(\"introducao_id\", responseJson.id); // save the perfil's id for further tests\r",
+									"//pm.environment.set(\"perfil_nomeguardado\", responseJson.nome);\r",
+									"//pm.environment.set(\"perfil_emailguardado\", responseJson.email);\r",
+									"//pm.environment.set(\"perfil_paisguardado\", responseJson.pais);\r",
+									"\r",
+									"//console.log(pm.environment.get(\"introducao_id\"));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"jogadorInicial\":{\"pontuaçao\":0,\r\n            \"listaMissoes\":[],\r\n            \"perfil\":{\r\n                    \"nome\":\"Beatriz\",\r\n                    \"email\":\"beatriz.vaz2001@gmail.com\",\r\n                    \"telefone\":351915879523,\r\n                    \"pais\":\"en-US\",\r\n                    \"cidade\":\"Porto1\",\r\n                    \"dataNascimento\":\"2003/10/07\",\r\n                    \"estadoHumor\":\"Disappointed\",\r\n                    \"password\":\"B@123456\",\r\n                    \"tags\":[\"musica\",\"coca-cola\"],\r\n                    \"perfilFacebook\":\"PerfilFb\",\r\n                    \"perfilLinkedin\":\"PerfilLn\"\r\n            },\r\n            \"listaRelacoes\":[],\r\n            \"listaPosts\":[]\r\n  },\r\n\r\n  \"jogadorIntrodutor\":{\"pontuaçao\":0,\r\n            \"listaMissoes\":[],\r\n            \"perfil\":{\r\n                    \"nome\":\"Jose\",\r\n                    \"email\":\"josevaz2101@gmail.com\",\r\n                    \"telefone\":351919674523,\r\n                    \"pais\":\"en-PT\",\r\n                    \"cidade\":\"Porto12\",\r\n                    \"dataNascimento\":\"2000/11/17\",\r\n                    \"estadoHumor\":\"Disappointed\",\r\n                    \"password\":\"C@as123456\",\r\n                    \"tags\":[\"arroz\",\"coca-cola\"],\r\n                    \"perfilFacebook\":\"PerfilFb1\",\r\n                    \"perfilLinkedin\":\"PerfilLn1\"\r\n            },\r\n            \"listaRelacoes\":[],\r\n            \"listaPosts\":[]\r\n  },\r\n\r\n  \"jogadorObjetivo\":{\"pontuaçao\":0,\r\n            \"listaMissoes\":[],\r\n            \"perfil\":{\r\n                    \"nome\":\"Paulinho\",\r\n                    \"email\":\"paulinhofalhatudo@gmail.com\",\r\n                    \"telefone\":351915879000,\r\n                    \"pais\":\"en-US\",\r\n                    \"cidade\":\"Porto01\",\r\n                    \"dataNascimento\":\"1999/01/20\",\r\n                    \"estadoHumor\":\"Disappointed\",\r\n                    \"password\":\"Kkk@123456\",\r\n                    \"tags\":[\"musica\",\"pepsi\"],\r\n                    \"perfilFacebook\":\"PerfilF1b\",\r\n                    \"perfilLinkedin\":\"PerfilLn0\"\r\n            },\r\n            \"listaRelacoes\":[],\r\n            \"listaPosts\":[]\r\n  },\r\n  \"estadoIntroducao\":\"Aceite\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/Introducoes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"Introducoes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Introducao",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const jogadorInicial = pm.variables.replaceIn(\"{{$guid}}\");\r",
+									"const jogadorIntrodutor = pm.variables.replaceIn(\"{{$guid}}\");\r",
+									"const jogadorObjetivo = pm.variables.replaceIn(\"{{$guid}}\");\r",
+									"const estadoIntroducao = \"Aceite\";\r",
+									"\r",
+									"console.log(\"Randomly-generated jogador inicial: \" + jogadorInicial);\r",
+									"console.log(\"Randomly-generated jogador introdutor: \" + jogadorIntrodutor);\r",
+									"console.log(\"Randomly-generated jogador objetivo: \" + jogadorObjetivo);\r",
+									"console.log(\"Randomly-generated estado introducao: \" + estadoIntroducao);\r",
+									"\r",
+									"pm.environment.set(\"introducao_jogadorInicial\", jogadorInicial);\r",
+									"pm.environment.set(\"introducao_jogadorIntrodutor\", jogadorIntrodutor);\r",
+									"pm.environment.set(\"introducao_jogadorObjetivo\", jogadorObjetivo);\r",
+									"pm.environment.set(\"introducao_estadoIntroducao\", estadoIntroducao);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"jogadorInicial\":\"{{perfil_jogadorInicial}}\",\r\n  \"jogadorIntrodutor\":\"{{perfil_jogadorIntrodutor}}\",\r\n  \"jogadorObjetivo\":{{perfil_jogadorObjetivo}},\r\n  \"estadoIntroducao\":\"{{perfil_estadoIntroducao}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/Perfis/{{introducao_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"Perfis",
+								"{{introducao_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Estado Introducao",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna estado correto\", function () {\r",
+									"    pm.expect(responseJson.EstadoIntroducao).to.eql(pm.environment.get(\"introducao_estado\"));\r",
+									"});\r",
+									"\r",
+									"console.log(pm.environment.get(\"introducao_id\"));"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const estado = \"Aceite\";\r",
+									"\r",
+									"console.log(\"Randomly-generated estado de humor: \" + estado);\r",
+									"\r",
+									"pm.environment.set(\"introducao_estado\", estado);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"estado\":\"{{introducao_estado}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/Perfis/{{introducao_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"Perfis",
+								"{{introducao_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MissoesController",
+			"item": [
+				{
+					"name": "Get Missoes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Não existem missoes\", function () {\r",
+									"    pm.response.to.have.body(\"[]\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/missoes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"missoes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Missao",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna dificuldade correto\", function () {\r",
+									"    pm.expect(responseJson.dificuldade).to.eql({\"grauDificuldade\": 1, \"active\": true });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body retorna data correto\", function () {\r",
+									"    pm.expect(responseJson.data).to.eql({ date: '2020/05/06', active: true });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.environment.set(\"missao_id\", responseJson.id); // save the perfil's id for further tests\r",
+									"\r",
+									"console.log(pm.environment.get(\"perfil_id\"));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"dificuldade\":1,\r\n  \"data\":\"2020/05/06\",\r\n  \"jogadorObjetivo\":{\"pontuaçao\":0,\r\n            \"listaMissoes\":[],\r\n            \"perfil\":{\r\n                    \"nome\":\"Beatriz\",\r\n                    \"email\":\"beatriz.vaz2001@gmail.com\",\r\n                    \"telefone\":351915879523,\r\n                    \"pais\":\"en-US\",\r\n                    \"cidade\":\"Porto1\",\r\n                    \"dataNascimento\":\"2003/10/07\",\r\n                    \"estadoHumor\":\"Disappointed\",\r\n                    \"password\":\"B@123456\",\r\n                    \"tags\":[\"musica\",\"coca-cola\"],\r\n                    \"perfilFacebook\":\"PerfilFb\",\r\n                    \"perfilLinkedin\":\"PerfilLn\"\r\n            },\r\n            \"listaRelacoes\":[],\r\n            \"listaPosts\":[]\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/missoes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"missoes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RelacoesController",
+			"item": [
+				{
+					"name": "Get Relacoes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Não existem relações\", function () {\r",
+									"    pm.response.to.have.body(\"[]\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/relacoes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"relacoes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Relacoes Pelo Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"console.log(pm.environment.get(\"relacao_id\"));\r",
+									"\r",
+									"pm.test(\"Criação da Relação returns status 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"/*pm.test(\"Retorna nome correto\", function () {\r",
+									"    pm.expect(responseJson.nome).to.eql(pm.environment.get(\"perfil_nome\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Retorna email correto\", function () {\r",
+									"    pm.expect(responseJson.email).to.eql(pm.environment.get(\"perfil_email\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Retorna telefone correto\", function () {\r",
+									"    pm.expect(responseJson.telefone).to.eql(pm.environment.get(\"perfil_telefone\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Retorna pais correto\", function () {\r",
+									"    pm.expect(responseJson.pais).to.eql(pm.environment.get(\"perfil_pais\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Retorna cidade correto\", function () {\r",
+									"    pm.expect(responseJson.cidade).to.eql(pm.environment.get(\"perfil_cidade\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Retorna data de nascimento correto\", function () {\r",
+									"    pm.expect(responseJson.dataNascimento).to.eql(pm.environment.get(\"perfil_data\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Retorna estado de humor correto\", function () {\r",
+									"    pm.expect(responseJson.estadoHumor).to.eql(pm.environment.get(\"perfil_estado\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Retorna password correto\", function () {\r",
+									"    pm.expect(responseJson.password).to.eql(pm.environment.get(\"perfil_password\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Retorna tags correto\", function () {\r",
+									"    pm.expect(responseJson.tags).to.eql(pm.environment.get(\"perfil_tags\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Retorna perfil facebook correto\", function () {\r",
+									"    pm.expect(responseJson.perfilFacebook).to.eql(pm.environment.get(\"perfil_Fb\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Retorna perfil Linkedin correto\", function () {\r",
+									"    pm.expect(responseJson.perfilLinkedin).to.eql(pm.environment.get(\"perfil_L\"));\r",
+									"});*/"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/relacoes/{{relacao_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"relacoes",
+								"{{relacao_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LigacoesController",
+			"item": []
+		}
+	]
+}

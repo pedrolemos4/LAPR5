@@ -1,0 +1,293 @@
+{
+	"info": {
+		"_postman_id": "5e78a8f5-de5b-49b1-9b07-a40f4ff1e9dc",
+		"name": "JogadoresController",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get Jogadores",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"There are no jogadores\", function () {\r",
+							"    pm.response.to.have.body(\"[]\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/Jogadores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Jogadores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create Jogador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"const responseJson = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body returns the correct pontucao\", function () {\r",
+							"    pm.expect(responseJson.pontucao).to.eql(20);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body returns the correct listaMissoes\", function () {\r",
+							"    pm.expect(responseJson.listaMissoes).to.eql([\"missao1\"]);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body returns the correct perfil\", function () {\r",
+							"    pm.expect(responseJson.perfil).to.eql({\r",
+							"        nome:\"Beatriz\",\r",
+							"        email:\"beatriz.vaz2001@gmail.com\",\r",
+							"        telefone:351915879523,\r",
+							"        pais:\"en-US\",\r",
+							"        cidade:\"Porto1\",\r",
+							"        dataNascimento:\"2003/10/07\",\r",
+							"        estadoHumor:\"Disappointed\",\r",
+							"        password:\"B@123456\",\r",
+							"        tags:[\"musica\",\"coca-cola\"],\r",
+							"        perfilFacebook:\"PerfilFb\",\r",
+							"        perfilLinkedin:\"PerfilLn\"\r",
+							"        });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body returns the correct listaRelacoes\", function () {\r",
+							"    pm.expect(responseJson.listaRelacoes).to.eql([\"relacao1\"]);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body returns the correct listaPosts\", function () {\r",
+							"    pm.expect(responseJson.listaPosts).to.eql([\"post1\"]);\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"jogador_id\", responseJson.id); // save the category's id for further tests\r",
+							"\r",
+							"console.log(pm.environment.get(\"jogador_id\"));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"pontuacao\":20,\r\n    \"listaMissoes\":[\"missao1\"],\r\n    \"perfil\":\r\n        {\r\n        \"nome\":\"Beatriz\",\r\n        \"email\":\"beatriz.vaz2001@gmail.com\",\r\n        \"telefone\":351915879523,\r\n        \"pais\":\"en-US\",\r\n        \"cidade\":\"Porto1\",\r\n        \"dataNascimento\":\"2003/10/07\",\r\n        \"estadoHumor\":\"Disappointed\",\r\n        \"password\":\"B@123456\",\r\n        \"tags\":[\"musica\",\"coca-cola\"],\r\n        \"perfilFacebook\":\"PerfilFb\",\r\n        \"perfilLinkedin\":\"PerfilLn\"\r\n        },\r\n    \"listaRelacoes\":[\"relacao1\"],\r\n    \"listaPosts\":[\"post1\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/Jogadores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Jogadores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get created Jogador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseJson = pm.response.json();\r",
+							"\r",
+							"console.log(pm.environment.get(\"jogador_id\"));\r",
+							"\r",
+							"pm.test(\"Jogador creation returns status 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returned Jogador has correct jogador_id\", function () {\r",
+							"    pm.expect(responseJson.id).to.eql(pm.environment.get(\"jogador_id\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returned Jogador has correct pontuacao\", function () {\r",
+							"    pm.expect(responseJson.pontuacao).to.eql(pm.environment.get(\"jogador_pontuacao\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returned Jogador has correct listaMissoes\", function () {\r",
+							"    pm.expect(responseJson.listaMissoes).to.eql(pm.environment.get(\"jogador_listaMissoes\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returned Jogador has correct perfil\", function () {\r",
+							"    pm.expect(responseJson.perfil).to.eql(pm.environment.get(\"jogador_perfil\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returned Jogador has correct listaRelacoes\", function () {\r",
+							"    pm.expect(responseJson.listaRelacoes).to.eql(pm.environment.get(\"jogador_listaRelacoes\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returned Jogador has correct listaPosts\", function () {\r",
+							"    pm.expect(responseJson.listaPosts).to.eql(pm.environment.get(\"jogador_listaPosts\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/Jogadores/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Jogadores",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update Jogador",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"pontuacao\": 50,\r\n    \"listaMissoes\":[\"missao2\"],\r\n    \"perfil\":\r\n        {\r\n        \"nome\":\"Veatriz\",\r\n        \"email\":\"veatriz.baz2001@gmail.com\",\r\n        \"telefone\":351915879523,\r\n        \"pais\":\"en-US\",\r\n        \"cidade\":\"Porto2\",\r\n        \"dataNascimento\":\"2003/10/07\",\r\n        \"estadoHumor\":\"Disappointed\",\r\n        \"password\":\"B@123456\",\r\n        \"tags\":[\"musica\",\"coca-cola\"],\r\n        \"perfilFacebook\":\"PerfilFb2\",\r\n        \"perfilLinkedin\":\"PerfilLn2\"\r\n        },\r\n    \"listaRelacoes\":[\"relacao2\"],\r\n    \"listaPosts\":[\"post2\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "get Jogador by perfil",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseJson = pm.response.json();\r",
+							"\r",
+							"console.log(pm.environment.get(\"jogador_id\"));\r",
+							"\r",
+							"pm.test(\"Jogador creation returns status 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returned Jogador has correct jogador_id\", function () {\r",
+							"    pm.expect(responseJson.id).to.eql(pm.environment.get(\"jogador_id\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returned Jogador has correct perfil\", function () {\r",
+							"    pm.expect(responseJson.perfil).to.eql(pm.environment.get(\"jogador_perfil\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/Perfis/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Perfis",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get perfil Jogador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseJson = pm.response.json();\r",
+							"\r",
+							"console.log(pm.environment.get(\"jogador_perfil\"));\r",
+							"\r",
+							"pm.test(\"Jogador creation returns status 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returned Jogador has correct perfil\", function () {\r",
+							"    pm.expect(responseJson.perfil).to.eql(pm.environment.get(\"jogador_perfil\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		}
+	]
+}
