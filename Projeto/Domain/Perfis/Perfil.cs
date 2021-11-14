@@ -46,7 +46,7 @@ namespace DDDSample1.Domain.Perfis
             this.dataNascimento = new DataNascimento(data);
             setTags(tag);
             this.password = new Password(password);
-            setestadoHumor(estado);
+            this.estadoHumor = new EstadoHumor(estado);
             this.pais = new Pais(pais);
             this.cidade = new Cidade(cidade);
             this.perfilFacebook = new PerfilFacebook(perfilFB);
@@ -62,20 +62,6 @@ namespace DDDSample1.Domain.Perfis
                 tagsList.Add(new Tag(t));
             }
             this.tags = tagsList;
-        }
-
-        private void setestadoHumor(string estado)
-        {
-            try
-            {
-                EstadoHumor enumerado;
-                EstadoHumor.TryParse(estado, out enumerado);
-                this.estadoHumor = enumerado;
-            }
-            catch
-            {
-                throw new BusinessRuleValidationException("Information incorrect due to spelling or because it does not exist according to OCC model.");
-            }
         }
 
         public void Changenome(string nome)
@@ -110,7 +96,7 @@ namespace DDDSample1.Domain.Perfis
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the mood to an inactive profile.");
-            setestadoHumor(estado);
+            this.estadoHumor = new EstadoHumor(estado);
         }
 
         public void ChangePerfilFacebook(string perfil)

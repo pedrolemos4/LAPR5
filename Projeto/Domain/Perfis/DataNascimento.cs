@@ -48,6 +48,8 @@ namespace DDDSample1.Domain.Perfis
             {
                 throw new BusinessRuleValidationException("Date it is incorrect.");
             }
+            //}
+            //}
 
         }
         
