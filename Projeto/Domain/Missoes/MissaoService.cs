@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using DDDSample1.Domain.Shared;
+using DDDSample1.Domain.Jogadores;
 
 namespace DDDSample1.Domain.Missoes
 {
@@ -8,6 +9,7 @@ namespace DDDSample1.Domain.Missoes
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMissaoRepository _repo;
+        private readonly IJogadorRepository _repoJog;
 
         public MissaoService(IUnitOfWork unitOfWork, IMissaoRepository repo)
         {
@@ -19,7 +21,7 @@ namespace DDDSample1.Domain.Missoes
         {
             var list = await this._repo.GetAllAsync();
             
-            List<MissaoDto> listDto = list.ConvertAll<MissaoDto>(miss => new MissaoDto{Id = miss.Id.AsGuid(), Dificuldade = miss.Dificuldade, Data = miss.Data, JogadorObjetivo = miss.JogadorObjetivo.Id});
+            List<MissaoDto> listDto = list.ConvertAll<MissaoDto>(miss => new MissaoDto{Id = miss.Id.AsGuid(), Dificuldade = miss.Dificuldade.GrauDificuldade, Data = miss.Data.Date, JogadorObjetivo = miss.JogadorObjetivo.Id.AsGuid()});
 
             return listDto;
         }
@@ -30,17 +32,17 @@ namespace DDDSample1.Domain.Missoes
             if(miss == null)
                 return null;
 
-            return new MissaoDto{Id = miss.Id.AsGuid(), Dificuldade = miss.Dificuldade, Data = miss.Data, JogadorObjetivo = miss.JogadorObjetivo.Id};
+            return new MissaoDto{Id = miss.Id.AsGuid(), Dificuldade = miss.Dificuldade.GrauDificuldade, Data = miss.Data.Date, JogadorObjetivo = miss.JogadorObjetivo.Id.AsGuid()};
         }
 
          public async Task<MissaoDto> AddAsync(CreatingMissaoDto dto) {
-             var missao = new Missao(dto.Dificuldade.GrauDificuldade, dto.Data.Date, dto.JogadorObjetivo);
+             var missao = new Missao(dto.Dificuldade, dto.Data, await _repoJog.GetByIdAsync(new JogadorId(dto.JogadorObjetivo)));
 
              await this._repo.AddAsync(missao);
 
              await this._unitOfWork.CommitAsync();
 
-             return new MissaoDto { Id = missao.Id.AsGuid(), Dificuldade = missao.Dificuldade, Data = missao.Data, JogadorObjetivo = missao.JogadorObjetivo.Id};
+             return new MissaoDto { Id = missao.Id.AsGuid(), Dificuldade = missao.Dificuldade.GrauDificuldade, Data = missao.Data.Date, JogadorObjetivo = missao.JogadorObjetivo.Id.AsGuid()};
          }
 
 
@@ -56,7 +58,7 @@ namespace DDDSample1.Domain.Missoes
             
             await this._unitOfWork.CommitAsync();
 
-            return new MissaoDto { Id = missao.Id.AsGuid(), Dificuldade = missao.Dificuldade, Data = missao.Data, JogadorObjetivo = missao.JogadorObjetivo.Id };
+            return new MissaoDto { Id = missao.Id.AsGuid(), Dificuldade = missao.Dificuldade.GrauDificuldade, Data = missao.Data.Date, JogadorObjetivo = missao.JogadorObjetivo.Id.AsGuid() };
         }
 
          public async Task<MissaoDto> DeleteAsync(MissaoId id)
@@ -72,7 +74,7 @@ namespace DDDSample1.Domain.Missoes
             this._repo.Remove(missao);
             await this._unitOfWork.CommitAsync();
 
-            return new MissaoDto { Id = missao.Id.AsGuid(), Dificuldade = missao.Dificuldade, Data = missao.Data, JogadorObjetivo = missao.JogadorObjetivo.Id };
+            return new MissaoDto { Id = missao.Id.AsGuid(), Dificuldade = missao.Dificuldade.GrauDificuldade, Data = missao.Data.Date, JogadorObjetivo = missao.JogadorObjetivo.Id.AsGuid() };
         }
     }
 }

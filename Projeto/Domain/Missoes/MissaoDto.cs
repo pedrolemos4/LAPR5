@@ -7,11 +7,11 @@ namespace DDDSample1.Domain.Missoes
     {
         public Guid Id { get; set; }
 
-        public Dificuldade Dificuldade { get; set; }
+        public int Dificuldade { get; set; }
 
-        public Data Data { get; set; }
+        public string Data { get; set; }
 
-        public JogadorId JogadorObjetivo { get; set; }
+        public Guid JogadorObjetivo { get; set; }
 
     }
 }
