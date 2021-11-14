@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using System.Linq;
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Relacoes;
 using DDDSample1.Infrastructure;
 using DDDSample1.Domain.Jogadores;
@@ -15,13 +13,11 @@ namespace DDDSample1.Controllers
     [ApiController]
     public class RelacoesController : ControllerBase
     {
-        private readonly DDDSample1DbContext _context;
 
         private readonly IRelacaoService _service;
 
-        public RelacoesController(DDDSample1DbContext context, IRelacaoService service)
+        public RelacoesController(IRelacaoService service)
         {
-            _context = context;
             _service = service;
         }
 

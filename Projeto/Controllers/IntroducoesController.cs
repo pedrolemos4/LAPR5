@@ -1,11 +1,9 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DDDSample1.Domain.Introducoes;
 using DDDSample1.Domain.Jogadores;
 using DDDSample1.Domain.Relacoes;
-using DDDSample1.Infrastructure;
 using DDDSample1.Domain.Shared;
 using System;
 
@@ -15,15 +13,12 @@ namespace DDDSample1.Controllers
     [ApiController]
     public class IntroducoesController : ControllerBase
     {
-        private readonly DDDSample1DbContext _context;
-
         private readonly IRelacaoService _serviceRel;
 
         private readonly IIntroducaoService _serviceIntro;
 
-        public IntroducoesController(DDDSample1DbContext context, IRelacaoService serviceRel, IIntroducaoService serviceIntro)
+        public IntroducoesController(IRelacaoService serviceRel, IIntroducaoService serviceIntro)
         {
-            _context = context;
             _serviceRel = serviceRel;
             _serviceIntro = serviceIntro;
         }
