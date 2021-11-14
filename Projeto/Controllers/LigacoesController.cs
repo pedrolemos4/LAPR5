@@ -41,9 +41,9 @@ namespace DDDSample1.Controllers
             return ligacao;
         }
 
-        public async Task<ActionResult<List<LigacaoDto>>> GetLigacaoPendente(JogadorId id)
+        public async Task<ActionResult<List<LigacaoDto>>> GetLigacaoPendente(Guid id)
         {
-            return await _service.GetLigacaoPendente(id);
+            return await _service.GetLigacaoPendente(new JogadorId(id));
         }
 
         // PUT: api/Ligacoes
