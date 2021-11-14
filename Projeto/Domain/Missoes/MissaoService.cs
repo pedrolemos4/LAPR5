@@ -11,10 +11,11 @@ namespace DDDSample1.Domain.Missoes
         private readonly IMissaoRepository _repo;
         private readonly IJogadorRepository _repoJog;
 
-        public MissaoService(IUnitOfWork unitOfWork, IMissaoRepository repo)
+        public MissaoService(IUnitOfWork unitOfWork, IMissaoRepository repo, IJogadorRepository _repoJog1)
         {
             this._unitOfWork = unitOfWork;
             this._repo = repo;
+            this._repoJog = _repoJog1;
         }
 
         public async Task<List<MissaoDto>> GetAllAsync()

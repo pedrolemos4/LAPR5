@@ -22,8 +22,11 @@ namespace DDDSample1.Domain.Introducoes
             this.Active = true;
         }
 
-        public Introducao(/*string code, */Jogador jog_inicial, Jogador jog_introdutor, Jogador jog_objetivo, string estado)
+        public Introducao(Jogador jog_inicial, Jogador jog_introdutor, Jogador jog_objetivo, string estado)
         {
+            if(jog_inicial == null || jog_introdutor == null || jog_objetivo == null){
+                throw new BusinessRuleValidationException("It is not possible to create an introduction with a player null.");
+            }
             this.Id = new IntroducaoId(Guid.NewGuid());
             this.JogadorInicial = jog_inicial;
             this.JogadorIntrodutor = jog_introdutor;

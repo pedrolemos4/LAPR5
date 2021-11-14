@@ -40,9 +40,10 @@ namespace DDDSample1.Domain.Jogadores
             this.Active = true;
         }
 
-        public Jogador(Perfil perfil)
-        {
-            //this.Id = new JogadorId(code);
+        public Jogador(Perfil perfil) {
+            if(perfil == null){
+                throw new BusinessRuleValidationException("It is not possible to create a player without his profile.");
+            }
             this.Id = new JogadorId(Guid.NewGuid());
             this.Pontuacao = new Pontuacao(0);
             this.ListaMissoes = new List<Missao>();
@@ -52,17 +53,17 @@ namespace DDDSample1.Domain.Jogadores
             this.perfil = perfil;
         }
 
-        private void adicionaMissao(Missao missao)
+        public void adicionaMissao(Missao missao)
         {
             this.ListaMissoes.Add(missao);
         }
 
-        private void adicionaRelacao(Relacao relacao)
+        public void adicionaRelacao(Relacao relacao)
         {
             this.ListaRelacoes.Add(relacao);
         }
 
-        private void adicionaPost(Post post)
+        public void adicionaPost(Post post)
         {
             this.ListaPosts.Add(post);
         }
