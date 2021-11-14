@@ -14,14 +14,12 @@ namespace DDDSample1.Controllers
     [ApiController]
     public class JogadoresController : ControllerBase
     {
-        private readonly DDDSample1DbContext _context;
         private readonly IJogadorService _serviceJog;
 
         private readonly IPerfilService _servicePer;
 
-        public JogadoresController(DDDSample1DbContext context, IJogadorService serviceJog, IPerfilService servicePer)
+        public JogadoresController(IJogadorService serviceJog, IPerfilService servicePer)
         {
-            _context = context;
             _serviceJog = serviceJog;
             _servicePer = servicePer;
         }
@@ -151,11 +149,6 @@ namespace DDDSample1.Controllers
             {
                return BadRequest(new {Message = ex.Message});
             }
-        }
-
-        private bool JogadorExists(JogadorId id)
-        {
-            return _context.Jogadores.Any(e => e.Id == id);
         }
 
 

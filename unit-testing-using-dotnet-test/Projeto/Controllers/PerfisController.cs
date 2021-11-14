@@ -14,12 +14,10 @@ namespace DDDSample1.Controllers
     [ApiController]
     public class PerfisController : ControllerBase
     {
-        private readonly DDDSample1DbContext _context;
         private readonly IPerfilService _servicePerfil;
 
-        public PerfisController(DDDSample1DbContext context, IPerfilService service)
+        public PerfisController(IPerfilService service)
         {
-            _context = context;
             _servicePerfil = service;
         }
 
@@ -139,7 +137,7 @@ namespace DDDSample1.Controllers
         // POST: api/Perfis/8
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Perfil>> PostPerfil(CreatingPerfilDto perfilDto)
+        public async Task<ActionResult<PerfilDto>> PostPerfil(CreatingPerfilDto perfilDto)
         {
             try
             {
@@ -170,10 +168,6 @@ namespace DDDSample1.Controllers
             {
                 return BadRequest(new { Message = ex.Message });
             }
-        }
-        private bool PerfilExists(PerfilId id)
-        {
-            return _context.Perfis.Any(e => e.Id == id);
         }
     }
 }

@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Missoes;
 using DDDSample1.Infrastructure;
 using DDDSample1.Domain.Shared;
@@ -15,13 +13,11 @@ namespace DDDSample1.Controllers
     [ApiController]
     public class MissoesController : ControllerBase
     {
-        private readonly DDDSample1DbContext _context;
 
         private readonly IMissaoService _service;
 
-        public MissoesController(DDDSample1DbContext context, IMissaoService service)
+        public MissoesController(IMissaoService service)
         {
-            _context = context;
             _service = service;
         }
 
@@ -80,11 +76,6 @@ namespace DDDSample1.Controllers
             {
                return BadRequest(new {Message = ex.Message});
             }
-        }
-
-        private bool MissaoExists(MissaoId id)
-        {
-            return _context.Missoes.Any(e => e.Id == id);
         }
     }
 }

@@ -22,6 +22,9 @@ namespace DDDSample1.Domain.Missoes
 
         public Missao(int dificuldade, string data, Jogador jog)
         {
+            if(jog == null){
+                throw new BusinessRuleValidationException("It is not possible to change the mission without a player.");
+            }
             this.Id = new MissaoId(Guid.NewGuid());
             this.Dificuldade = new Dificuldade(dificuldade);
             this.Data = new Data(data);

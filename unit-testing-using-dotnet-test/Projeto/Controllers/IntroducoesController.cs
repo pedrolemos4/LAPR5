@@ -15,15 +15,12 @@ namespace DDDSample1.Controllers
     [ApiController]
     public class IntroducoesController : ControllerBase
     {
-        private readonly DDDSample1DbContext _context;
-
         private readonly IRelacaoService _serviceRel;
 
         private readonly IIntroducaoService _serviceIntro;
 
-        public IntroducoesController(DDDSample1DbContext context, IRelacaoService serviceRel, IIntroducaoService serviceIntro)
+        public IntroducoesController(IRelacaoService serviceRel, IIntroducaoService serviceIntro)
         {
-            _context = context;
             _serviceRel = serviceRel;
             _serviceIntro = serviceIntro;
         }

@@ -19,6 +19,9 @@ namespace DDDSample1.Domain.Jogadores
 
         public Pontuacao(int pontos)
         {
+            if(pontos < 0){
+                throw new BusinessRuleValidationException("It is not possible to have negative points.");
+            }
             this.Pontos = pontos;
             this.Active = true;
         }

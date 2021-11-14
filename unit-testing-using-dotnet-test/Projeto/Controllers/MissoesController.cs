@@ -15,13 +15,11 @@ namespace DDDSample1.Controllers
     [ApiController]
     public class MissoesController : ControllerBase
     {
-        private readonly DDDSample1DbContext _context;
 
         private readonly IMissaoService _service;
 
-        public MissoesController(DDDSample1DbContext context, IMissaoService service)
+        public MissoesController(IMissaoService service)
         {
-            _context = context;
             _service = service;
         }
 
@@ -82,9 +80,5 @@ namespace DDDSample1.Controllers
             }
         }
 
-        private bool MissaoExists(MissaoId id)
-        {
-            return _context.Missoes.Any(e => e.Id == id);
-        }
     }
 }

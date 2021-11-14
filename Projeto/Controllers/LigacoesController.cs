@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Jogadores;
 using DDDSample1.Domain.Ligacoes;
 using DDDSample1.Infrastructure;
@@ -15,13 +14,10 @@ namespace DDDSample1.Controllers
     [ApiController]
     public class LigacoesController : ControllerBase
     {
-        private readonly DDDSample1DbContext _context;
-
         private readonly ILigacaoService _service;
 
-        public LigacoesController(DDDSample1DbContext context, ILigacaoService service)
+        public LigacoesController(ILigacaoService service)
         {
-            _context = context;
             _service = service;
         }
 
@@ -133,11 +129,6 @@ namespace DDDSample1.Controllers
             {
                return BadRequest(new {Message = ex.Message});
             }
-        }
-
-        private bool LigacaoExists(LigacaoId id)
-        {
-            return _context.Ligacoes.Any(e => e.Id == id);
         }
     }
 }

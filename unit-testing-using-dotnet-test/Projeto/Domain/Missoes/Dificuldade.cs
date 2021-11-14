@@ -17,6 +17,9 @@ namespace DDDSample1.Domain.Missoes
 
         public Dificuldade(int dificuldade)
         {
+            if(dificuldade <= 0){
+                throw new BusinessRuleValidationException("It is not possible to create a negative difficulty.");
+            }
             this.GrauDificuldade = dificuldade;
             this.Active = true;
         }
