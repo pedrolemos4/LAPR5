@@ -12,26 +12,33 @@ namespace Name
 {
     public class PerfilControllerTest
     {
-        // [Fact]
-        // public async Task PostPerfil()
-        // {
-        //     CreatingPerfilDto request = new CreatingPerfilDto("Beatriz", "beatriz@gmail.com", 351258963147, new List<string> { "tag1", "tag2" }, "2021/05/05",
-        //     "Angry", "B+kasnda21", "en-PT", "Viseu1", "perfilfb1", "perfilli1");
+        [Fact]
+        public async Task PostPerfil()
+        {
+            CreatingPerfilDto request = new CreatingPerfilDto("Beatriz", "beatriz@gmail.com", 351258963147, new List<string> { "tag1", "tag2" }, "2000/05/05",
+            "Angry", "B+kasnda21", "en-PT", "Viseu1", "perfilfb1", "perfilli1");
 
-        //     var mock = new Mock<IPerfilService>();
+            Perfil perfil = new Perfil("Beatriz", "beatriz@gmail.com", 351258963147, new List<string> { "tag1", "tag2" }, "2000/05/05",
+             "Angry", "B+kasnda21", "en-PT", "Viseu1", "perfilfb1", "perfilli1");
 
-        //     PerfilDto perfilDto = new PerfilDto { Nome = request.nome, Email = request.email, EstadoHumor = request.estadoHumor, Pais = request.pais };
+            PerfilDto perfilDto = new PerfilDto { Nome = request.nome, Email = request.email, EstadoHumor = request.estadoHumor, Pais = request.pais };
 
-        //     mock.Setup(service => service.AddAsync(It.IsAny<CreatingPerfilDto>())).Returns(Task.FromResult(perfilDto));
-        //     PerfisController controller = new PerfisController(mock.Object);
+            var mockRep = new Mock<IPerfilRepository>();
 
-        //     var result = await controller.PostPerfil(request);
+            mockRep.Setup(service => service.AddAsync(It.IsAny<Perfil>())).Returns(Task.FromResult(perfil));
 
-        //     mock.Verify(service => service.AddAsync(It.IsAny<CreatingPerfilDto>()), Times.AtLeastOnce());
-        //     ActionResult<PerfilDto> PerfilDto = perfilDto;
-        //     Assert.IsType<ActionResult<PerfilDto>>(result);
+            var mockUnit = new Mock<IUnitOfWork>();
 
-        // }
+            PerfilService perfilService = new PerfilService(mockUnit.Object, mockRep.Object);
+            PerfisController perfisController = new PerfisController(perfilService);
+
+            var result = await perfisController.PostPerfil(request);
+
+            mockRep.Verify(repository => repository.AddAsync(It.IsAny<Perfil>()), Times.AtLeastOnce());
+            mockUnit.Verify(unit => unit.CommitAsync(), Times.AtLeastOnce());
+            Assert.IsType<ActionResult<PerfilDto>>(result);
+
+        }
 
         [Fact]
         public async Task GetPerfis()
@@ -87,7 +94,8 @@ namespace Name
         }
 
         [Fact]
-        public async Task GetPerfilByEmail(){
+        public async Task GetPerfilByEmail()
+        {
             var mockRepository = new Mock<IPerfilRepository>();
             mockRepository.Setup(repository => repository.GetPerfilByEmail(It.IsAny<string>()));
 
@@ -103,7 +111,8 @@ namespace Name
         }
 
         [Fact]
-        public async Task GetPerfilByPais(){
+        public async Task GetPerfilByPais()
+        {
             var mockRepository = new Mock<IPerfilRepository>();
             mockRepository.Setup(repository => repository.GetAllAsync()).Returns(Task.FromResult(new List<Perfil>()));
 
@@ -117,6 +126,46 @@ namespace Name
             mockRepository.Verify(repository => repository.GetPerfilByPais("en-PT"), Times.AtLeastOnce());
             Assert.IsType<ActionResult<List<PerfilDto>>>(result);
         }
+
+        // [Fact]
+        // public async Task PutPerfil()
+        // {
+        //     Guid id = new Guid();
+
+        //     PerfilDto perfil = new PerfilDto { Nome = "Beatriz", Email = "beatriz@gmail.com", EstadoHumor = "Angry", Pais = "en-PT" };
+
+        //     var mock = new Mock<IPerfilService>();
+
+        //     mock.Setup(service => service.UpdateAsync(It.IsAny<PerfilDto>()));
+
+        //     PerfisController controller = new PerfisController(mock.Object);
+
+        //     var result = await controller.PutPerfil(id, perfil);
+
+        //     mock.Verify(service => service.UpdateAsync(It.IsAny<PerfilDto>()), Times.AtLeastOnce());
+
+        //     Assert.IsType(typeof(ActionResult<PerfilDto>), result);
+        // }
+
+        // [Fact]
+        // public async Task PatchPerfil()
+        // {
+        //     Guid id = new Guid();
+
+        //     PerfilDto perfil = new PerfilDto { Nome = "Beatriz", Email = "beatriz@gmail.com", EstadoHumor = "Angry", Pais = "en-PT" };
+
+        //     var mock = new Mock<IPerfilService>();
+
+        //     mock.Setup(service => service.PatchEstadoHumor(It.IsAny<PerfilDto>()));
+
+        //     PerfisController controller = new PerfisController(mock.Object);
+
+        //     var result = await controller.PatchPerfil(id, perfil);
+
+        //     mock.Verify(service => service.PatchEstadoHumor(It.IsAny<PerfilDto>()), Times.AtLeastOnce());
+
+        //     Assert.IsType(typeof(ActionResult<PerfilDto>), result);
+        // }
 
     }
 }
