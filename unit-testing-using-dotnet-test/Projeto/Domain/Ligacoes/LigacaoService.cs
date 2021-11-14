@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.Jogadores;
+using System;
 
 namespace DDDSample1.Domain.Ligacoes
 {
@@ -28,7 +29,7 @@ namespace DDDSample1.Domain.Ligacoes
             return listDto;
         }
 
-        public async Task<List<LigacaoDto>> GetLigacaoPendente(JogadorId id)
+        public async Task<List<LigacaoDto>> GetLigacaoPendente(LigacaoId id)
         {
             var list = await this._repo.GetLigacaoPendente(id);
 
