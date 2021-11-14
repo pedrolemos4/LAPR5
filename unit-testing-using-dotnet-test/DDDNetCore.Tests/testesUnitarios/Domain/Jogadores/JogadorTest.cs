@@ -33,12 +33,12 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Jogadores
         }
 
         [Fact]
-        public void VerfificaPerfilNull() {
+        public void VerificaPerfilNull() {
             Assert.Throws<BusinessRuleValidationException>(() => new Jogador(null));
         }
 
         [Fact]
-        public void VerfificaAdicionaMissoes() {
+        public void VerificaAdicionaMissoes() {
             string nome = "Beatriz";
             string email = "beatriz.vaz2001@gmail.com";
             long telefone = 351915246058;
@@ -79,7 +79,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Jogadores
         }
 
         [Fact]
-        public void VerfificaAdicionaRelacoes() {
+        public void VerificaAdicionaRelacoes() {
             string nome = "Beatriz";
             string email = "beatriz.vaz2001@gmail.com";
             long telefone = 351915246058;
@@ -120,7 +120,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Jogadores
         }
 
         [Fact]
-        public void VerfificaAdicionaPosts() {
+        public void VerificaAdicionaPosts() {
             string nome = "Beatriz";
             string email = "beatriz.vaz2001@gmail.com";
             long telefone = 351915246058;
@@ -164,7 +164,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Jogadores
         }
 
         [Fact]
-        public void VerfificaChangePosts() {
+        public void VerificaChangePosts() {
             string nome = "Beatriz";
             string email = "beatriz.vaz2001@gmail.com";
             long telefone = 351915246058;
@@ -208,7 +208,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Jogadores
         }
 
         [Fact]
-        public void VerfificaChangeMissoes() {
+        public void VerificaChangeMissoes() {
             string nome = "Beatriz";
             string email = "beatriz.vaz2001@gmail.com";
             long telefone = 351915246058;
@@ -249,7 +249,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Jogadores
         }
 
         [Fact]
-        public void VerfificaChangeRelacoes() {
+        public void VerificaChangeRelacoes() {
             string nome = "Beatriz";
             string email = "beatriz.vaz2001@gmail.com";
             long telefone = 351915246058;
@@ -290,7 +290,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Jogadores
         }
 
         [Fact]
-        public void VerfificaChangePostsInvalido() {
+        public void VerificaChangePostsInvalido() {
             string nome = "Beatriz";
             string email = "beatriz.vaz2001@gmail.com";
             long telefone = 351915246058;
@@ -336,7 +336,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Jogadores
         }
 
         [Fact]
-        public void VerfificaChangeMissoesInvalido() {
+        public void VerificaChangeMissoesInvalido() {
             string nome = "Beatriz";
             string email = "beatriz.vaz2001@gmail.com";
             long telefone = 351915246058;
@@ -380,7 +380,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Jogadores
         }
 
         [Fact]
-        public void VerfificaChangeRelacoesInvalido() {
+        public void VerificaChangeRelacoesInvalido() {
             string nome = "Beatriz";
             string email = "beatriz.vaz2001@gmail.com";
             long telefone = 351915246058;
@@ -418,6 +418,28 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Jogadores
             jogador.MarkAsInative();
             
             Action act = () => jogador.ChangeRelacoes(lista);
+
+            Assert.Throws<BusinessRuleValidationException>(act);
+        }
+
+        [Fact]
+        public void VerificaJogadorcomPontosNegativos() {
+            string nome = "Beatriz";
+            string email = "beatriz.vaz2001@gmail.com";
+            long telefone = 351915246058;
+            List<string> tag =  new List<string>();
+            tag.Add("musica");
+            string data = "2000/08/15";
+            string estado = "Disappointed";
+            string password = "Q178oAX.qw@";
+            string pais = "en-PT";
+            string cidade = "Porto1";
+            string perfilFB = "perfilFb";
+            string perfilLI = "perfilLin";
+            Perfil per = new Perfil(nome, email, telefone, tag, data, estado, password, pais, cidade, perfilFB, perfilLI);
+            Jogador jogador = new Jogador(per);
+
+            Action act = () => jogador.ChangePontuacao(-9);
 
             Assert.Throws<BusinessRuleValidationException>(act);
         }

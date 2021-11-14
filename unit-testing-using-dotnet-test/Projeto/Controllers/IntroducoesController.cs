@@ -15,13 +15,11 @@ namespace DDDSample1.Controllers
     [ApiController]
     public class IntroducoesController : ControllerBase
     {
-        private readonly IRelacaoService _serviceRel;
 
         private readonly IIntroducaoService _serviceIntro;
 
-        public IntroducoesController(IRelacaoService serviceRel, IIntroducaoService serviceIntro)
+        public IntroducoesController(IIntroducaoService serviceIntro)
         {
-            _serviceRel = serviceRel;
             _serviceIntro = serviceIntro;
         }
 
@@ -46,11 +44,11 @@ namespace DDDSample1.Controllers
             return introducao;
         }
 
-        // GET: api/Introducoes/5
+        // GET: api/Introducoes/2
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<IntroducaoDto>>> GetIntroducoesPorAprovar(JogadorId id)
+        public async Task<ActionResult<List<IntroducaoDto>>> GetIntroducoesPorAprovar(Guid id)
         {
-            return await _serviceIntro.GetIntroducoesPorAprovar(id);
+            return await _serviceIntro.GetIntroducoesPorAprovar(new JogadorId(id));
         }
 
         // PUT: api/Introducoes
@@ -102,7 +100,7 @@ namespace DDDSample1.Controllers
         // POST: api/Introducoes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Introducao>> PostIntroducao(CreatingIntroducaoDto introducao) {
+        public async Task<ActionResult<IntroducaoDto>> PostIntroducao(CreatingIntroducaoDto introducao) {
             try {
                 var intro = await _serviceIntro.AddAsync(introducao);
 
