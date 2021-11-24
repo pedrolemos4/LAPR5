@@ -1,32 +1,30 @@
-.w3-display-container {
-    height: 100%;
-    margin: 0;
-}
+  #wer{
+      margin-left: 17%;
+      padding: 1px 16px;
+      height: 745px;
+      width: 89%;
+      background-color: rgb(135, 212, 243);
+      display: inline-block;
+      vertical-align: top;
+  }
+  
+  ul{
+      list-style: none;
+  }
 
-.bgimg-1 {
-    background-position: center;
-    background-color: #000000;
-    background-size: cover;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("./imagens/social-network.jpg");
-    background-repeat: no-repeat;
-    min-height: 100%;
-    position: relative;
-}
+  ul li:hover {
+      background: #555;
+  }
 
-.w3-button {
-    padding: 16px;
-}
+  li{
+      background-color: yellow;
+      color: white;
+      padding: 10px;
+      font-size: 18px;
+      font-family: 'Helvetica', sans-serif;
+  }
 
-.w3-display-left{
-    height: 100%;
-    padding:48px
-}
-
-.w3-jumbo{
-    text-align: center;
-    padding: 16px;
-}
-
-.w3-display-bottomleft {
-    padding:24px 48px;
-}
+  a{
+      color: black;
+      text-decoration: none;
+  }

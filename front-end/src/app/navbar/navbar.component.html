@@ -3,26 +3,45 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-route.min.js"></script>
 <!-- NavBar On Top -->
-<div class="w3-top">
-    <div class="w3-bar w3-white w3-card" id="myNavbar">
-        <a href="#home" class="w3-bar-item w3-button w3-wide">LOGO</a>
-        <div class="w3-right w3-hide-small">
-            <a href="#about" class="w3-bar-item w3-button">About</a>
-            <a href="#team" class="w3-bar-item w3-button">Team</a>
-            <a href="#login" class="w3-bar-item w3-button">Login</a>
-        </div>
-        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
-            <i class="fa fa-bars"></i>
-        </a>
+<body>
+  <div id="nav">
+    <a href="#!">Home</a>
+    <div class="dropdown">
+      <a style="text-align: center;">Perfil</a>
+      <div class="dropdown-content">
+        <a href="#!perfil" routerLink="/perfil">Editar Perfil</a>
+      </div>
     </div>
-</div>
+    <div class="dropdown">
+      <a style="text-align: center;">Rede</a>
+      <div class="dropdown-content">
+          <a href="#!rede">Visualizar Rede</a>
+          <a href="#!rede">Calcular Tamanho Rede</a>
+      </div>
+    </div> 
+    <div class="dropdown">
+        <a style="text-align: center;">Amigos</a>
+        <div class="dropdown-content">
+            <a href="#!rede">Pedidos Introdução</a>
+            <a href="#!rede">Pedir Introdução</a>
+        </div>
+      </div>
+    <a href="#!projects">Logout</a>
+  </div>
 
-<!-- Sidebar on small screens when clicking the menu icon -->
-<nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
-    <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
-    <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">About</a>
-    <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button">Team</a>
-    <a href="#login" onclick="w3_close()" class="w3-bar-item w3-button">Login</a>
-  </nav>
+  <div ng-view=""></div>
+  <script>
+    var app = angular.module("mApp", ["ngRoute"]);
+    app.config(function($routeProvider){
+        $routeProvider
+        .when("/", {templateUrl:"<p>Welcome to my website.</p>"})
+        .when("/perfil", {template: '<app-perfil></app-perfil>'})
+        .when("/rede", {templateUrl:"<p>XP_Points++</p>"})
+        .when("/projects", {templateUrl:"<p>Well, they're websites as well.</p>"})
+        });
+  </script>
+</body>
   
