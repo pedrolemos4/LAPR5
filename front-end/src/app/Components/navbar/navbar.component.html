@@ -1,0 +1,37 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-route.min.js"></script>
+
+<body>
+  <div id="nav">
+    <a href="#!">Home</a>
+    <div class="dropdown">
+      <a style="text-align: center;">Perfil</a>
+      <div class="dropdown-content">
+        <a href="/perfil" routerLink="/perfil">Editar Perfil</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <a style="text-align: center;">Rede</a>
+      <div class="dropdown-content">
+          <a href="/rede">Visualizar Rede</a>
+          <a href="/rede">Calcular Tamanho Rede</a>
+      </div>
+    </div> 
+    <div class="dropdown">
+        <a style="text-align: center;">Amigos</a>
+        <div class="dropdown-content">
+            <a href="/amigos">Pedidos Introdução</a>
+            <a href="/amigos">Pedir Introdução</a>
+        </div>
+      </div>
+    <a href="#!projects">Logout</a>
+  </div>
+
+  <div ng-view=""></div>
+</body>
+  
