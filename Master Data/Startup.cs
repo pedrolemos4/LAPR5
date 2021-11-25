@@ -42,16 +42,16 @@ namespace DDDSample1
 
             services.AddDbContext<DDDSample1DbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
-                .ReplaceService<IValueConverterSelector, StronglyEntityIdValueConverterSelector>()); 
-                
+                .ReplaceService<IValueConverterSelector, StronglyEntityIdValueConverterSelector>());
+
 
             ConfigureMyServices(services);
 
 
-             services.AddControllers().AddNewtonsoftJson();
+            services.AddControllers().AddNewtonsoftJson();
+            services.AddCors(opt =>{opt.AddPolicy("IT3Client",b => b.WithOrigins("http://localhost:4200"));});
 
-
-           // services.AddDataBaseDeveloperPageExceptionFilter();
+            // services.AddDataBaseDeveloperPageExceptionFilter();
             //services.AddControllersWithViews();
 
         }
@@ -68,7 +68,7 @@ namespace DDDSample1
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            app.UseCors("IT3Client");
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -103,7 +103,7 @@ namespace DDDSample1
             services.AddTransient<IMissaoRepository, MissaoRepository>();
             services.AddTransient<IMissaoService, MissaoService>();
             services.AddTransient<IPerfilRepository, PerfilRepository>();
-            services.AddTransient<IPerfilService,PerfilService>();
+            services.AddTransient<IPerfilService, PerfilService>();
             services.AddTransient<IPostRepository, PostRepository>();
             services.AddTransient<IPostService, PostService>();
             services.AddTransient<IRelacaoRepository, RelacaoRepository>();
