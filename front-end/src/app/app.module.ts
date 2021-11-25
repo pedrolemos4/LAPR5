@@ -11,6 +11,7 @@ import { NavBarComponent } from './Components/navbar/navbar.component';
 import { PerfilComponent } from './Components/perfil/perfil.component';
 import { RedeComponent } from './Components/rede/rede.component';
 import { AmigosComponent } from './Components/amigos/amigos.component';
+import { HeaderComponent } from './Components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AmigosComponent } from './Components/amigos/amigos.component';
     RegistoComponent,
     PerfilComponent,
     RedeComponent,
-    AmigosComponent
+    AmigosComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
