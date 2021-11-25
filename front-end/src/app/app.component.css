@@ -6,25 +6,5 @@
       background-color: rgb(135, 212, 243);
       display: inline-block;
       vertical-align: top;
-  }
-  
-  ul{
-      list-style: none;
-  }
-
-  ul li:hover {
-      background: #555;
-  }
-
-  li{
-      background-color: yellow;
-      color: white;
-      padding: 10px;
-      font-size: 18px;
-      font-family: 'Helvetica', sans-serif;
-  }
-
-  a{
-      color: black;
-      text-decoration: none;
+      position: absolute;
   }
