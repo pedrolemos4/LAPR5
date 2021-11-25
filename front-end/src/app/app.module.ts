@@ -13,6 +13,7 @@ import { RedeComponent } from './Components/rede/rede.component';
 import { AmigosComponent } from './Components/amigos/amigos.component';
 import { NavbarhomeComponent } from './Components/navbarhome/navbarhome.component';
 import { ToastrModule } from 'ngx-toastr';
+import { HeaderComponent } from './Components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ToastrModule } from 'ngx-toastr';
     PerfilComponent,
     RedeComponent,
     AmigosComponent,
-    NavbarhomeComponent
+    NavbarhomeComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
