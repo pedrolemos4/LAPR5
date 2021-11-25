@@ -1,0 +1,172 @@
+.fundo {
+    /* The image used */
+    background-image: url("../imagens/social-network.jpg");
+  
+    /* Control the height of the image */
+    min-height: 750px;
+  
+    /* Center and scale the image nicely */
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: contain;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    position: absolute;
+  }
+
+/* Add padding to containers */
+.card {
+  padding: 17px;
+  text-align: center;
+  width: 42%;
+  background-color: #f2f2f2e7;
+  border-radius: 5px;
+  justify-content: center;
+  margin-left: 38%;
+  margin-top: 1%;
+  position: relative;
+}
+
+
+/* Full-width input fields */
+input[type=email], input[type=password], input[type=text] {
+  width: 100%;
+  padding: 3px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #ffffff;
+}
+
+input[type=email]:focus, input[type=password], input[type=text]:focus {
+background-color: #ffffff;
+  outline: none;
+}
+
+
+/* Set a style for the submit/register button */
+.btn-primary {
+  background-color: #04AA6D;
+  color: white;
+  padding: 10px 20px;
+  margin-left: -15%;
+  margin-right: 25%;
+  border: none;
+  cursor: pointer;
+  width: 35%;
+  opacity: 0.9;
+}
+
+.btn-primary:hover {
+  opacity:1;
+}
+
+.btn-link{
+  background-color: #8f9794a6;
+  color: white;
+  padding: 10px 20px;
+  margin-right: -10%;
+  border: none;
+  cursor: pointer;
+  width: 35%;
+  opacity: 0.9;
+}
+
+.card-header{
+    font-weight: bold;
+    padding-bottom: 0%;
+}
+
+/* Floating column for labels: 25% width */
+.col-25 {
+  float: left;
+  width: 40%;
+  margin-top: 2px;
+}
+
+.col-75 {
+  float: left;
+  width: 50%;
+  margin-top: 5px;
+  margin-left: 5%;
+}
+
+/* Clear floats after the columns */
+.form-group:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.col-xs-2{
+  width: 100%;
+  display: inline-flex;
+  margin-right: 100%;
+}
+
+.coluna-menor{
+  width: 80%;
+  margin-right: 5%;
+}
+
+.coluna{
+  width: 100%;
+  margin-right: -10%;
+}
+
+.coluna1-menor{
+  float: right;
+  width: 80%;
+  margin-top: 5px;
+  margin-right: 10%;
+}
+
+.label-maior{
+  margin-right: 0%;
+  width: 80%;
+}
+
+.label1-maior{
+  margin-left: 0%;
+  width: 50%;
+}
+
+/* Style the label to display next to the inputs */
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+.custom-select mr-sm-2{
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Style the form - display items horizontally */
+.form-inline {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+/* Add some margins for each label */
+.form-inline label {
+  margin: 5px 10px 5px 0;
+}
+
+/* Style the input fields */
+.form-inline input {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.form-inline {
+  flex-direction: column;
+  align-items: stretch;
+}

@@ -1,0 +1,67 @@
+.fundo {
+    /* The image used */
+    background-image: url("../imagens/social-network.jpg");
+  
+    /* Control the height of the image */
+    min-height: 750px;
+  
+    /* Center and scale the image nicely */
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: contain;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    position: absolute;
+  }
+
+/* Add padding to containers */
+.card {
+  padding: 17px;
+  text-align: center;
+  width: 35%;
+  background-color: #f2f2f2e7;
+  border-radius: 5px;
+  justify-content: center;
+  margin-left: 38%;
+  margin-top: 12%;
+  position: relative;
+}
+
+/* Full-width input fields */
+input[type=email], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #ffffff;
+}
+
+input[type=email]:focus, input[type=password]:focus {
+background-color: #ffffff;
+  outline: none;
+}
+
+
+/* Set a style for the submit/register button */
+.btn-primary {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.btn-primary:hover {
+  opacity:1;
+}
+
+.card-header{
+    font-weight: bold;
+    padding-bottom: 5%;
+}
