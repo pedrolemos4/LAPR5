@@ -1,11 +1,17 @@
-#texto{
-    margin-top: 90px;
+#texto {
     margin-left: 17%;
     padding: 1px 16px;
-    height: 655px;
+    height: 70px;
     width: 89%;
     background-color: rgb(135, 212, 243);
     display: inline-block;
     vertical-align: top;
     position: absolute;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }

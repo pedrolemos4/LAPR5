@@ -26,6 +26,7 @@ namespace DDDSample1.Controllers
 
         // GET: api/Jogadores
         [HttpGet]
+        [EnableCors("IT3Client")]
         public async Task<ActionResult<List<JogadorDto>>> GetJogadores()
         {
             return await _serviceJog.GetAllAsync();
