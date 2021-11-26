@@ -11,44 +11,54 @@
             </div>
         </div>
     </div>
-    <div class="card1">
+   <div class="card1">
         <h4 class="card-header">Editar Perfil Próprio</h4>
         <div class="card-body">
-            <div class="row">
-                <div class="col-25">
-                    <label for="nome">Nome</label>
+            <form [formGroup]="editarPerfilForm" (ngSubmit)="onSubmit()">
+                <div class = "form-group">
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="nome">Nome</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="nome" placeholder="Insira o nome" formControlName="nome" class="form-control" />
+                        </div>
+                    </div>
                 </div>
-                <div class="col-75">
-                    <input type="nome" placeholder="Insira o nome" formControlName="nome" class="form-control" />
+                <div class = "form-group">
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="email" placeholder="Insira o email" formControlName="email" class="form-control" />
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-25">
-                    <label for="email">Email</label>
+                <div class = "form-group">
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="pais">País</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="pais" placeholder="Insira o país" formControlName="pais" class="form-control" />
+                        </div>
+                    </div>
                 </div>
-                <div class="col-75">
-                    <input type="email" placeholder="Insira o email" formControlName="email" class="form-control" />
+                <div class = "form-group">
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="estadodehumor">Estado de Humor</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="estadodehumor" placeholder="Insira o estado de humor" formControlName="estadodehumor" class="form-control" />
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-25">
-                    <label for="pais">País</label>
+                <div class="form-group">
+                    <button type="submit" id="submit" class="btn-primary">Editar</button>
                 </div>
-                <div class="col-75">
-                    <input type="pais" placeholder="Insira o país" formControlName="país" class="form-control" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-25">
-                    <label for="estadodehumor">Estado de Humor</label>
-                </div>
-                <div class="col-75">
-                    <input type="estadodehumor" placeholder="Insira o estado de humor" formControlName="estadodehumor" class="form-control" />
-                </div>
-            </div>
-            <div class="form-group">
-                <button type="submit" id="submit" class="btn-primary">Editar</button>
-            </div>
+            </form>
         </div>
     </div>
 </div>

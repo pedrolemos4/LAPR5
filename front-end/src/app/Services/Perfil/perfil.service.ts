@@ -12,6 +12,6 @@ export class PerfilService {
   }
 
   editarPerfil(formData: any) {
-    return this.http.put(this.perfilUrl + 'perfil',formData);
+    return this.http.put(this.perfilUrl + 'perfis',formData);
   }
 }
