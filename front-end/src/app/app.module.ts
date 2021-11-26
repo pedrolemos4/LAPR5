@@ -14,6 +14,7 @@ import { AmigosComponent } from './Components/amigos/amigos.component';
 import { NavbarhomeComponent } from './Components/navbarhome/navbarhome.component';
 import { ToastrModule } from 'ngx-toastr';
 import { HeaderComponent } from './Components/header/header.component';
+import { IntroducaoComponent } from './Components/introducao/introducao.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { HeaderComponent } from './Components/header/header.component';
     RedeComponent,
     AmigosComponent,
     NavbarhomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    IntroducaoComponent
   ],
   imports: [
     BrowserModule,

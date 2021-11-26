@@ -5,13 +5,15 @@ import { RegistoComponent } from './Components/registo/registo.component';
 import { AmigosComponent } from './Components/amigos/amigos.component';
 import { PerfilComponent } from './Components/perfil/perfil.component';
 import { RedeComponent } from './Components/rede/rede.component';
+import { IntroducaoComponent } from './Components/introducao/introducao.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'registo', component: RegistoComponent },
   { path: 'perfil', component: PerfilComponent }, 
   { path: 'rede', component: RedeComponent}, 
-  { path: 'amigos', component: AmigosComponent}
+  { path: 'amigos', component: AmigosComponent},
+  { path: 'introducao', component: IntroducaoComponent}
 ];
 
 

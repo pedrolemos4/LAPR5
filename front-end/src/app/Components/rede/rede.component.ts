@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { RedeService } from 'src/app/Services/Rede/rede.service';
+//import { RedeService } from 'src/app/Services/Rede/rede.service';
 import { Jogador } from 'src/app/Models/Jogador';
-import Graph from 'graphology';
+//import Graph from 'graphology';
 
-const graph = new Graph();
+//const graph = new Graph();
 
 @Component({
   selector: 'app-rede',
@@ -14,13 +14,13 @@ export class RedeComponent implements OnInit {
 
   jogadores: Jogador[] = [];
 
-  constructor(private redeService: RedeService) { }
+  //constructor(private redeService: RedeService) { }
 
   ngOnInit(): void {
-    this.setJogadores();
+    //this.setJogadores();
   }
 
-  setJogadores(): void {
+  /*setJogadores(): void {
     this.redeService.getJogadores().subscribe(jogadores => this.jogadores = jogadores);
   }
 
@@ -40,6 +40,6 @@ export class RedeComponent implements OnInit {
 
   getGraph(): Graph{
     return graph;
-  }
+  }*/
 
 }

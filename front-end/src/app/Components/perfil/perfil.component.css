@@ -21,7 +21,6 @@
     left: 0;
     right: 0;
     bottom: 0;
-    position: absolute;
 }
 
 
@@ -36,7 +35,7 @@
     justify-content: center;
     margin-left: 42%;
     margin-top: 12%;
-    position: relative;
+    position: absolute;
 }
 
 
