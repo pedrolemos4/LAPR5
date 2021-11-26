@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegistoService } from '../Services/Registo/registo.service';
+import { RegistoService } from '../../Services/Registo/registo.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: '/registo',
+  selector: 'app-registo',
   templateUrl: './registo.component.html',
   styleUrls: ['./registo.component.css']
 })

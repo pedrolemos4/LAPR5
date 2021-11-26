@@ -12,6 +12,6 @@ export interface Jogador{
     perfilFacebook : string;
     perfilLinkedin : string;
     listaMissoes : any;
-    listaRelacoes : any;
+    listaRelacoes : string [];
     listaPosts : any
 }

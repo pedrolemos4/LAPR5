@@ -8,11 +8,10 @@
 
 <body>
   <div id="nav">
-    <a href="#!">Home</a>
     <div class="dropdown">
       <a style="text-align: center;">Perfil</a>
       <div class="dropdown-content">
-        <a href="/perfil" routerLink="/perfil">Editar Perfil</a>
+        <a href="/perfil">Editar Perfil</a>
       </div>
     </div>
     <div class="dropdown">
@@ -20,6 +19,9 @@
       <div class="dropdown-content">
           <a href="/rede">Visualizar Rede</a>
           <a href="/rede">Calcular Tamanho Rede</a>
+          <a href="/rede">Caminho Mais Forte</a>
+          <a href="/rede">Caminho Mais Curto</a>
+          <a href="/rede">Caminho Mais Seguro</a>
       </div>
     </div> 
     <div class="dropdown">
@@ -29,7 +31,7 @@
             <a href="/amigos">Pedir Introdução</a>
         </div>
       </div>
-    <a href="#!projects">Logout</a>
+      <a href="/leaderboard">Leaderboard</a>
   </div>
 
   <div ng-view=""></div>
