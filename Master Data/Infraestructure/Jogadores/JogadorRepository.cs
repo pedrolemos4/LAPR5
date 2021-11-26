@@ -18,7 +18,7 @@ namespace DDDSample1.Infrastructure.Jogadores
         }
 
         public async Task<Jogador> GetJogadorByPerfil(PerfilId perfil) {
-            return await this._context.Jogadores.Where(x => perfil.Equals(x.perfil.Id)).FirstOrDefaultAsync();
+            return await this._context.Jogadores.Where(x => perfil.Equals(x.Perfil)).FirstOrDefaultAsync();
         }
 
         public async Task<List<JogadorId>> GetAmigosEmComum(JogadorId jogadorId, JogadorId jogObjId)

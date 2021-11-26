@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DDDNetCore.Migrations
 {
     [DbContext(typeof(DDDSample1DbContext))]
-    [Migration("20211113230637_mig1")]
+    [Migration("20211126180628_mig1")]
     partial class mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,12 +60,10 @@ namespace DDDNetCore.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
-                    b.Property<string>("perfilId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("Perfil")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("perfilId");
 
                     b.ToTable("Jogadores");
                 });
@@ -81,17 +79,13 @@ namespace DDDNetCore.Migrations
                     b.Property<int>("EstadoLigacao")
                         .HasColumnType("int");
 
-                    b.Property<string>("Jogador1Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("Jogador1")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Jogador2Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("Jogador2")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Jogador1Id");
-
-                    b.HasIndex("Jogador2Id");
 
                     b.ToTable("Ligacoes");
                 });
@@ -121,9 +115,6 @@ namespace DDDNetCore.Migrations
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
-
-                    b.Property<int>("estadoHumor")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -195,10 +186,6 @@ namespace DDDNetCore.Migrations
 
             modelBuilder.Entity("DDDSample1.Domain.Jogadores.Jogador", b =>
                 {
-                    b.HasOne("DDDSample1.Domain.Perfis.Perfil", "perfil")
-                        .WithMany()
-                        .HasForeignKey("perfilId");
-
                     b.OwnsOne("DDDSample1.Domain.Jogadores.Pontuacao", "Pontuacao", b1 =>
                         {
                             b1.Property<string>("JogadorId")
@@ -218,21 +205,11 @@ namespace DDDNetCore.Migrations
                                 .HasForeignKey("JogadorId");
                         });
 
-                    b.Navigation("perfil");
-
                     b.Navigation("Pontuacao");
                 });
 
             modelBuilder.Entity("DDDSample1.Domain.Ligacoes.Ligacao", b =>
                 {
-                    b.HasOne("DDDSample1.Domain.Jogadores.Jogador", "Jogador1")
-                        .WithMany()
-                        .HasForeignKey("Jogador1Id");
-
-                    b.HasOne("DDDSample1.Domain.Jogadores.Jogador", "Jogador2")
-                        .WithMany()
-                        .HasForeignKey("Jogador2Id");
-
                     b.OwnsOne("DDDSample1.Domain.Ligacoes.TextoLigacao", "TextoLigacao", b1 =>
                         {
                             b1.Property<string>("LigacaoId")
@@ -251,10 +228,6 @@ namespace DDDNetCore.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("LigacaoId");
                         });
-
-                    b.Navigation("Jogador1");
-
-                    b.Navigation("Jogador2");
 
                     b.Navigation("TextoLigacao");
                 });
@@ -359,6 +332,25 @@ namespace DDDNetCore.Migrations
                                 .HasColumnType("bit");
 
                             b1.Property<string>("EnderecoEmail")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("PerfilId");
+
+                            b1.ToTable("Perfis");
+
+                            b1.WithOwner()
+                                .HasForeignKey("PerfilId");
+                        });
+
+                    b.OwnsOne("DDDSample1.Domain.Perfis.EstadoHumor", "estadoHumor", b1 =>
+                        {
+                            b1.Property<string>("PerfilId")
+                                .HasColumnType("nvarchar(450)");
+
+                            b1.Property<bool>("Active")
+                                .HasColumnType("bit");
+
+                            b1.Property<string>("Estado")
                                 .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("PerfilId");
@@ -512,6 +504,8 @@ namespace DDDNetCore.Migrations
                     b.Navigation("dataNascimento");
 
                     b.Navigation("email");
+
+                    b.Navigation("estadoHumor");
 
                     b.Navigation("nome");
 

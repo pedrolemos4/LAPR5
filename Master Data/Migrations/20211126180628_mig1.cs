@@ -8,6 +8,38 @@ namespace DDDNetCore.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Jogadores",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Pontuacao_Pontos = table.Column<int>(type: "int", nullable: true),
+                    Pontuacao_Active = table.Column<bool>(type: "bit", nullable: true),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
+                    Perfil = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Jogadores", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Ligacoes",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TextoLigacao_Texto = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TextoLigacao_Active = table.Column<bool>(type: "bit", nullable: true),
+                    EstadoLigacao = table.Column<int>(type: "int", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
+                    Jogador1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Jogador2 = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ligacoes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Perfis",
                 columns: table => new
                 {
@@ -24,7 +56,8 @@ namespace DDDNetCore.Migrations
                     cidade_Active = table.Column<bool>(type: "bit", nullable: true),
                     dataNascimento_DataNasc = table.Column<DateTime>(type: "datetime2", nullable: true),
                     dataNascimento_Active = table.Column<bool>(type: "bit", nullable: true),
-                    estadoHumor = table.Column<int>(type: "int", nullable: false),
+                    estadoHumor_Estado = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    estadoHumor_Active = table.Column<bool>(type: "bit", nullable: true),
                     password_password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     password_Active = table.Column<bool>(type: "bit", nullable: true),
                     perfilFacebook_PerfilFace = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -36,48 +69,6 @@ namespace DDDNetCore.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Perfis", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Jogadores",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Pontuacao_Pontos = table.Column<int>(type: "int", nullable: true),
-                    Pontuacao_Active = table.Column<bool>(type: "bit", nullable: true),
-                    Active = table.Column<bool>(type: "bit", nullable: false),
-                    perfilId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Jogadores", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Jogadores_Perfis_perfilId",
-                        column: x => x.perfilId,
-                        principalTable: "Perfis",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Perfis_tags",
-                columns: table => new
-                {
-                    PerfilId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Active = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Perfis_tags", x => new { x.PerfilId, x.Id });
-                    table.ForeignKey(
-                        name: "FK_Perfis_tags_Perfis_PerfilId",
-                        column: x => x.PerfilId,
-                        principalTable: "Perfis",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -109,35 +100,6 @@ namespace DDDNetCore.Migrations
                     table.ForeignKey(
                         name: "FK_Introducoes_Jogadores_JogadorObjetivoId",
                         column: x => x.JogadorObjetivoId,
-                        principalTable: "Jogadores",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Ligacoes",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    TextoLigacao_Texto = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TextoLigacao_Active = table.Column<bool>(type: "bit", nullable: true),
-                    EstadoLigacao = table.Column<int>(type: "int", nullable: false),
-                    Active = table.Column<bool>(type: "bit", nullable: false),
-                    Jogador1Id = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Jogador2Id = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Ligacoes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Ligacoes_Jogadores_Jogador1Id",
-                        column: x => x.Jogador1Id,
-                        principalTable: "Jogadores",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Ligacoes_Jogadores_Jogador2Id",
-                        column: x => x.Jogador2Id,
                         principalTable: "Jogadores",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -212,6 +174,27 @@ namespace DDDNetCore.Migrations
                         principalTable: "Jogadores",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Perfis_tags",
+                columns: table => new
+                {
+                    PerfilId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Active = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Perfis_tags", x => new { x.PerfilId, x.Id });
+                    table.ForeignKey(
+                        name: "FK_Perfis_tags_Perfis_PerfilId",
+                        column: x => x.PerfilId,
+                        principalTable: "Perfis",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -293,21 +276,6 @@ namespace DDDNetCore.Migrations
                 column: "JogadorObjetivoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Jogadores_perfilId",
-                table: "Jogadores",
-                column: "perfilId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Ligacoes_Jogador1Id",
-                table: "Ligacoes",
-                column: "Jogador1Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Ligacoes_Jogador2Id",
-                table: "Ligacoes",
-                column: "Jogador2Id");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Missoes_JogadorObjetivoId",
                 table: "Missoes",
                 column: "JogadorObjetivoId");
@@ -347,6 +315,9 @@ namespace DDDNetCore.Migrations
                 name: "Relacoes_Tags");
 
             migrationBuilder.DropTable(
+                name: "Perfis");
+
+            migrationBuilder.DropTable(
                 name: "Posts");
 
             migrationBuilder.DropTable(
@@ -354,9 +325,6 @@ namespace DDDNetCore.Migrations
 
             migrationBuilder.DropTable(
                 name: "Jogadores");
-
-            migrationBuilder.DropTable(
-                name: "Perfis");
         }
     }
 }

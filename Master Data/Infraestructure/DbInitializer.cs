@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using DDDSample1.Domain.Ligacoes;
 
 namespace DDDSample1.Infrastructure
 {
@@ -40,27 +41,31 @@ namespace DDDSample1.Infrastructure
             Perfil p1 = new Perfil(/*"codPerfil",*/ "Carlos", "carlos@gmail.com", 351936825014, listaTags, "2000/05/20", "Joyful", "carlos_Sport7", "en-PT", "Porto", "perfilFB", "perfilLink");
             Perfil p2 = new Perfil(/*"codPerfil2", */ "Fiona", "fiona@gmail.com", 351936825014, listaTags2, "2003/10/07", "Disappointed", "super+Fifi48", "en-US", "Lisboa", "perfilFB2", "perfilLink2");
 
-            var perfis = new Jogador[] { new Jogador(p1), new Jogador(p2) };
-
             context.Perfis.Add(p1);
             context.Perfis.Add(p2);
 
             context.SaveChanges();
+            if(p1==null){
+                //entra aqui
+            }
+            var jogadores = new Jogador[] { new Jogador(p1.Id), new Jogador(p2.Id) };
 
             if (context.Jogadores.Any())
             {
                 return;
             }
 
-            foreach (Jogador j in perfis)
+            foreach (Jogador j in jogadores)
             {
                 context.Jogadores.Add(j);
             }
 
             context.SaveChanges();
 
-            Relacao relacao = new Relacao(perfis[0].Id,perfis[1].Id,listaTags,5,80);
+            Relacao relacao = new Relacao(jogadores[0].Id,jogadores[1].Id,listaTags,5,80);
+            Ligacao ligacao = new Ligacao("texto","Pendente",jogadores[0].Id,jogadores[1].Id);
             context.Relacoes.Add(relacao);
+            context.Ligacoes.Add(ligacao);
             context.SaveChanges();
         }
     }

@@ -11,15 +11,15 @@ namespace DDDSample1.Domain.Ligacoes
         public TextoLigacao TextoLigacao { get;  private set; }
         public Estado EstadoLigacao { get;  private set; }
         public bool Active{ get;  private set; }
-        public Jogador Jogador1 { get; private set; }
-        public Jogador Jogador2 { get; private set; }
+        public JogadorId Jogador1 { get; private set; }
+        public JogadorId Jogador2 { get; private set; }
 
         private Ligacao()
         {
             this.Active = true;
         }
 
-        public Ligacao(/*string code, */string texto, string estado, Jogador jogador1, Jogador jogador2)
+        public Ligacao(/*string code, */string texto, string estado, JogadorId jogador1, JogadorId jogador2)
         {
             if(jogador1 == null || jogador2 == null){
                 throw new BusinessRuleValidationException("It is not possible to create an introduction with a player null.");
@@ -60,7 +60,7 @@ namespace DDDSample1.Domain.Ligacoes
             setEstado(estado);
         }
 
-        public void ChangeJogador2(Jogador jog) {
+        public void ChangeJogador2(JogadorId jog) {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change Jogador2 to an inactive connection.");
             this.Jogador2 = jog;

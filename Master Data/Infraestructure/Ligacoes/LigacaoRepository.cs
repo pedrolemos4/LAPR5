@@ -19,7 +19,7 @@ namespace DDDSample1.Infrastructure.Ligacoes
 
         public async Task<List<Ligacao>> GetLigacaoPendente(JogadorId id)
         {
-            return await _context.Ligacoes.Where(r => (r.Jogador1.Id.Equals(id) && (r.EstadoLigacao.Equals("Pendente")))  ).ToListAsync();
+            return await _context.Ligacoes.Where(r => (r.Jogador1.Equals(id) && (r.EstadoLigacao.Equals("Pendente")))  ).ToListAsync();
         }
     }
 }

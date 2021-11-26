@@ -12,6 +12,7 @@ namespace DDDSample1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    // [EnableCors("IT3Client")]
     public class JogadoresController : ControllerBase
     {
         private readonly IJogadorService _serviceJog;
@@ -26,11 +27,8 @@ namespace DDDSample1.Controllers
 
         // GET: api/Jogadores
         [HttpGet]
-        [EnableCors("IT3Client")]
-        public async Task<ActionResult<List<JogadorDto>>> GetJogadores()
-        {
-            return await _serviceJog.GetAllAsync();
-        }
+        //[EnableCors("IT3Client")]
+        public async Task<ActionResult<List<JogadorDto>>> GetJogadores() => await _serviceJog.GetAllAsync();
 
         // GET: api/Jogadores/5
         [HttpGet("{id}")]
