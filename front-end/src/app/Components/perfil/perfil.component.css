@@ -69,7 +69,7 @@ label {
 
 input[type=nome],
 input[type=email],
-input[type=país],
+input[type=pais],
 input[type=estadodehumor] {
     width: 60%;
     padding: 15px;
@@ -82,7 +82,7 @@ input[type=estadodehumor] {
 
 input[type=nome]:focus,
 input[type=email]:focus,
-input[type=país]:focus {
+input[type=pais]:focus {
     background-color: #ffffff;
     outline: none;
 }
