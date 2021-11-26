@@ -1,4 +1,4 @@
-#texto{
+#texto {
     margin-left: 17%;
     padding: 1px 16px;
     height: 745px;
@@ -7,4 +7,104 @@
     display: inline-block;
     vertical-align: top;
     position: absolute;
+}
+
+.fundo {
+    /* Control the height of the image */
+    min-height: 500px;
+    /* Center and scale the image nicely */
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: contain;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+}
+
+
+/* Add padding to containers */
+
+.card1 {
+    padding: 17px;
+    text-align: center;
+    width: 35%;
+    background-color: #f2f2f2e7;
+    border-radius: 5px;
+    justify-content: center;
+    margin-left: 42%;
+    margin-top: 12%;
+    position: relative;
+}
+
+
+/* Full-width input fields */
+
+label {
+    padding: 12px 12px 12px 12px;
+    display: inline-block;
+    /*float: left;
+    /*margin-right: 10px;*/
+}
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+input[type=nome],
+input[type=email],
+input[type=país],
+input[type=estadodehumor] {
+    width: 60%;
+    padding: 15px;
+    margin: 5px 0 22px;
+    display: inline-block;
+    border: none;
+    float: right;
+    background: #ffffff;
+}
+
+input[type=nome]:focus,
+input[type=email]:focus,
+input[type=país]:focus {
+    background-color: #ffffff;
+    outline: none;
+}
+
+
+/* Set a style for the submit/register button */
+
+.btn-primary {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
+.btn-primary:hover {
+    opacity: 1;
+}
+
+.card-header {
+    font-weight: bold;
+    padding-bottom: 7%;
 }
