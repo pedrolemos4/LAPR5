@@ -15,6 +15,12 @@ import { NavbarhomeComponent } from './Components/navbarhome/navbarhome.componen
 import { ToastrModule } from 'ngx-toastr';
 import { HeaderComponent } from './Components/header/header.component';
 import { IntroducaoComponent } from './Components/introducao/introducao.component';
+import { TamRedeComponent } from './Components/tam-rede/tam-rede.component';
+import { CamForteComponent } from './Components/cam-forte/cam-forte.component';
+import { CamCurtoComponent } from './Components/cam-curto/cam-curto.component';
+import { CamSeguroComponent } from './Components/cam-seguro/cam-seguro.component';
+import { PedidoComponent } from './Components/pedido/pedido.component';
+import { PedirIntroducaoComponent } from './Components/pedir-introducao/pedir-introducao.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +33,13 @@ import { IntroducaoComponent } from './Components/introducao/introducao.componen
     AmigosComponent,
     NavbarhomeComponent,
     HeaderComponent,
-    IntroducaoComponent
+    IntroducaoComponent,
+    TamRedeComponent,
+    CamForteComponent,
+    CamCurtoComponent,
+    CamSeguroComponent,
+    PedidoComponent,
+    PedirIntroducaoComponent
   ],
   imports: [
     BrowserModule,

@@ -14,4 +14,11 @@ export class IntroducaoComponent implements OnInit {
     this.introducaoService.getIntroducoesPendentes(/*id do user atual*/);
   }
 
+  onSubmit(){
+    if(document.activeElement?.className == "aceitar") {
+      //this.introducaoService.aceitarIntroducao(relacao1, relacao2, "Aceite");
+    } else if(document.activeElement?.className == "rejeitar") {
+      //this.introducaoService.rejeitarIntroducao("Recusado");
+    }
+  }
 }
