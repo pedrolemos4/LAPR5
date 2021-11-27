@@ -3,12 +3,13 @@
     <div id="container">
         <div class="form-data">
             <label for="jogador">Jogador Objetivo:</label>
-            <select class="selector" style="margin: 20px;" placeholder="Escolha um jogador">
+            <select class="selector" style="margin: 20px;" placeholder="Escolha um jogador" (change)="selectChangeHandler($event)">
                 <option>Jogador1</option>
                 <option>Jogador2</option>
                 <option>Jogador3</option>
             </select>
         </div>
-        <button type="submit" class="submit"> Pedir Introdução</button>
+         <p><span>You selected: </span><b>{{selectedPlayer}}</b></p>
+        <button type="submit" id="submit" class="submit"> Pedir Introdução</button>
     </div>
 </div>

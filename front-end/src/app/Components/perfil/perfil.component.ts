@@ -12,13 +12,14 @@ export class PerfilComponent implements OnInit {
 
   /*username: string ="";
   email: string = "";*/
-  perfilForm: FormGroup;
+  editarPerfilForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,private perfilService: PerfilService,private router:Router) { 
-    this.perfilForm=this.formBuilder.group({
+    this.editarPerfilForm=this.formBuilder.group({
       nome:['',Validators.required],
       email:['',Validators.required],
-      pais:['',Validators.required]
+      pais:['',Validators.required],
+      estadodehumor:['',Validators.required]
     });
   }
 
@@ -26,10 +27,14 @@ export class PerfilComponent implements OnInit {
   }
 
   onSubmit() {
-    this.perfilService.editarPerfil(this.perfilForm.value).subscribe({
+    this.perfilService.editarPerfil(this.editarPerfilForm.value).subscribe({
       next:() =>{
         this.router.navigateByUrl('/homejogadores');
       }
     })
   }
+
+  /*editarPerfil(nome: string, email: string, pais: string, estadodehumor: string){
+     
+  }*/
 }
