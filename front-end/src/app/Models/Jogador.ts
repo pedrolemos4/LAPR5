@@ -1,17 +1,7 @@
 export interface Jogador{
     pontuacao : number;
-    nome : string;
-    email : string;
-    telefone : number;
-    pais : string;
-    cidade : string;
-    dataNascimento : string;
-    estadoHumor : string;
-    password : string;
-    tags : string | any;
-    perfilFacebook : string;
-    perfilLinkedin : string;
-    listaMissoes : any;
+    perfilId : any;
     listaRelacoes : string [];
-    listaPosts : any
+    listaMissoes : string [];
+    listaPosts : string []
 }

@@ -176,11 +176,11 @@ namespace DDDSample1.Domain.Jogadores
             return new JogadorDto
             {
                 Id = jog.Id.AsGuid(),
-                //Pontuacao = jog.Pontuacao.Pontos,
-             //   PerfilId = jog.perfil.Id.AsGuid()
-                /*Missao = converteParaListaGuidMissao(jog.ListaMissoes),
+                Pontuacao = jog.Pontuacao.Pontos,
+                PerfilId = jog.Perfil.AsGuid(),
+                Missao = converteParaListaGuidMissao(jog.ListaMissoes),
                 Relacao = converteParaListaGuidRelacao(jog.ListaRelacoes),
-                Post = converteParaListaGuidPost(jog.ListaPosts)*/
+                Post = converteParaListaGuidPost(jog.ListaPosts)
             };
         }
 

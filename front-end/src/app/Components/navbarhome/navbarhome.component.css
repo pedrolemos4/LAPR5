@@ -1,18 +1,4 @@
-.fundo {
-  /* The image used */
-  background-image: url("../imagens/social-network.jpg");
-
-  /* Control the height of the image */
-  min-height: 500px;
-
-  /* Center and scale the image nicely */
-  background-position: right;
-  background-repeat: no-repeat;
-  background-size: contain;
-  position: relative;
-}
-
-#nav{
+.navbar{
   height: 100%;
   width: 17%;
   position: fixed;
@@ -24,7 +10,7 @@
   padding-top: 20px;
 }
 
-#nav a {
+.navbar a {
   display: block;
   color: black;
   padding: 16px;
@@ -32,7 +18,7 @@
   text-align: center;
 }
 
-#nav a:hover {
+.navbar a:hover {
   color: white;
   background-color: rgb(90, 90, 218);
 }
@@ -54,3 +40,11 @@ a{
 }
 
 
+.sticky {
+  z-index: 100;
+   position: -webkit-sticky;
+   background-color: white;
+   border: 1;
+   position: sticky;
+   top: 0;
+ }

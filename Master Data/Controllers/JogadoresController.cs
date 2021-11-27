@@ -25,6 +25,22 @@ namespace DDDSample1.Controllers
             _servicePer = servicePer;
         }
 
+        // GET: api/Jogadores/email/password/{email/password}
+        [HttpGet("email/password/{email,password}")]
+        public async Task<ActionResult<JogadorDto>> GetJogadorByEmailPassword(string email,string password)
+        {
+            var perfil = await _servicePer.GetPerfilByEmailPassword(email,password);
+            
+            if (perfil == null) {
+                return NotFound();
+            }
+
+            var jogador = await _serviceJog.GetJogadorByPerfil(new PerfilId(perfil.Id));
+            
+
+            return jogador;
+        }
+
         // GET: api/Jogadores
         [HttpGet]
         //[EnableCors("IT3Client")]
@@ -113,21 +129,21 @@ namespace DDDSample1.Controllers
             }
         }
 
-        // POST: api/Jogadores
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<JogadorDto>> PostJogador(CreatingJogadorDto jogadorDto)
-        {
+         // POST: api/Jogadores/10
+         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+         [HttpPost]
+         public async Task<ActionResult<JogadorDto>> PostJogador(CreatingJogadorDto jogadorDto)
+         {
 
-            try {
-                var jog = await _serviceJog.AddAsync(jogadorDto);
+             try {
+                 var jog = await _serviceJog.AddAsync(jogadorDto);
 
-                return CreatedAtAction(nameof(GetJogador), new { id = jog.Id }, jog);
-            }
-            catch(BusinessRuleValidationException ex) {
-                return BadRequest(new {Message = ex.Message});
-            }
-        }
+                 return CreatedAtAction(nameof(GetJogador), new { id = jog.Id }, jog);
+             }
+             catch(BusinessRuleValidationException ex) {
+                 return BadRequest(new {Message = ex.Message});
+             }
+         }
 
         // DELETE: api/Jogadores/5
         [HttpDelete("{id}")]

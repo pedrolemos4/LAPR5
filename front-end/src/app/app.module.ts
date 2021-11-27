@@ -21,6 +21,7 @@ import { CamCurtoComponent } from './Components/cam-curto/cam-curto.component';
 import { CamSeguroComponent } from './Components/cam-seguro/cam-seguro.component';
 import { PedidoComponent } from './Components/pedido/pedido.component';
 import { PedirIntroducaoComponent } from './Components/pedir-introducao/pedir-introducao.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { PedirIntroducaoComponent } from './Components/pedir-introducao/pedir-in
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

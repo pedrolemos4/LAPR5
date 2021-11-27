@@ -37,7 +37,7 @@ namespace DDDSample1.Domain.Perfis
             {
                 if (dateOut.Year >= 16)
                 {*/
-            string[] vs = data.Split("/");
+            string[] vs = data.Split("-");
             DateTime dateTime = new DateTime(Int32.Parse(vs[0]), Int32.Parse(vs[1]), Int32.Parse(vs[2]));
             Console.WriteLine(dateTime);
             if (2021 - dateTime.Year >= 16)

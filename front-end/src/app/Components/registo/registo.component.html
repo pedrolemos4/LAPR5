@@ -69,7 +69,7 @@
                         <label for="colFormLabel" class="col-sm-2 col-form-label">Mood</label>
                     </div>
                     <div class="custom-select mr-sm-2">
-                        <select name="estadoHumor">
+                        <select (change)="selectChangeHandler($event)">
                             <option selected>Choose...</option>
                             <option value="joyful">Joyful</option>
                             <option value="distressed">Distressed</option>
@@ -82,7 +82,7 @@
                             <option value="grateful">Grateful</option>
                             <option value="angry">Angry</option>
                         </select>
-                        <input type="submit">
+                        <p><span>You selected: </span><b>{{selected}}</b></p>
                     </div>
                 </div>
                 <div class="col-xs-2">
@@ -91,7 +91,7 @@
                             them)</label>
                     </div>
                     <div class="coluna">
-                        <input ng-model="tags" ng-list />
+                        <input type="text" formControlName="tags" class="form-control" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -120,14 +120,6 @@
                     </div>
                     <div class="col-75">
                         <input type="password" formControlName="password" class="form-control" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-25">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">Confirm Password</label>
-                    </div>
-                    <div class="col-75">
-                        <input type="password" formControlName="checkpassword" class="form-control" />
                     </div>
                 </div>
                 <div class="form-group">

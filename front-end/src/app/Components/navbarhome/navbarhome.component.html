@@ -6,12 +6,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-route.min.js"></script>
 
-<body>
-  <div id="nav">
-    <a href="#!">Home</a>
-      <a href="/login" style="text-align: center;">Login</a>
-      <a href="/registo" style="text-align: center;">Register</a>
+<!-- nav -->
+<nav class="navbar">
+  <div class="navbar-nav">
+      <a class="nav-item nav-link" routerLink="/home">Home</a>
+      <a class="nav-item nav-link" routerLink="/login">Login</a>
+      <a class="nav-item nav-link" routerLink="/registo">Register</a>
   </div>
-
-  <div ng-view=""></div>
-</body>
+</nav>
