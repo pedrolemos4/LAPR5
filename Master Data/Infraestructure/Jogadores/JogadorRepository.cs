@@ -44,7 +44,8 @@ namespace DDDSample1.Infrastructure.Jogadores
 
         public async Task<List<JogadorId>> GetPossiveisAmigos(JogadorId jogadorId)
         {
-            //var players =  this.GetAllAsync;
+            var players =  this.GetAllAsync(); 
+            // List<JogadorId> amigos = this.GetAmigos(jogadorId);
             return null;
         }
     }

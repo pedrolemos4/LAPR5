@@ -107,9 +107,9 @@ namespace DDDSample1.Controllers
 
         public async Task<ActionResult<List<JogadorDto>>> GetPossiveisAmigos(Guid idJog)
         {
-            // return await _serviceJog.GetPossiveisAmigos(idJog);
-            return null;
+            return await _serviceJog.GetPossiveisAmigos(new JogadorId(idJog));
         }
+        
         // PUT: api/Jogadores/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
