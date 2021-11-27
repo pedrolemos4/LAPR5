@@ -25,6 +25,22 @@ namespace DDDSample1.Controllers
             _servicePer = servicePer;
         }
 
+        // GET: api/Jogadores/email/password/{email/password}
+        [HttpGet("email/password/{email,password}")]
+        public async Task<ActionResult<JogadorDto>> GetJogadorByEmailPassword(string email, string password)
+        {
+            var perfil = await _servicePer.GetPerfilByEmailPassword(email, password);
+
+            if (perfil == null) {
+                return NotFound();
+            }
+
+            var jogador = await _serviceJog.GetJogadorByPerfil(new PerfilId(perfil.Id));
+
+
+            return jogador;
+        }
+        
         // GET: api/Jogadores
         [HttpGet]
         //[EnableCors("IT3Client")]
@@ -62,7 +78,7 @@ namespace DDDSample1.Controllers
         }
 
         // GET: api/Perfis/7
-        [HttpGet("{perfil}")]
+        [HttpGet("/perfil/{perfil}")]
         public async Task<ActionResult<JogadorDto>> GetJogadorByPerfil(Guid perfilId)
         {
             var jogador = await _serviceJog.GetJogadorByPerfil(new PerfilId(perfilId));
@@ -74,42 +90,49 @@ namespace DDDSample1.Controllers
 
             return jogador;
         }
-        
+
         // GET: api/Jogadores/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<JogadorDto>>> GetAmigosEmComum([FromRoute]Guid idJog, [FromBody]Guid idObj)
+        public async Task<ActionResult<List<JogadorDto>>> GetAmigosEmComum([FromRoute] Guid idJog, [FromBody] Guid idObj)
         {
             return await _serviceJog.GetAmigosEmComum(new JogadorId(idJog), new JogadorId(idObj));
         }
 
         // GET: api/Jogadores/6
-        [HttpGet("{id}")]
+        //        [HttpGet("{id}")]
         public async Task<ActionResult<List<JogadorDto>>> GetAmigos(Guid idJog)
         {
             return await _serviceJog.GetAmigos(new JogadorId(idJog));
         }
 
+        public async Task<ActionResult<List<JogadorDto>>> GetPossiveisAmigos(Guid idJog)
+        {
+            // return await _serviceJog.GetPossiveisAmigos(idJog);
+            return null;
+        }
         // PUT: api/Jogadores/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ActionResult> PutJogador([FromRoute]Guid id,[FromBody] JogadorDto jogador)
+        public async Task<ActionResult> PutJogador([FromRoute] Guid id, [FromBody] JogadorDto jogador)
         {
-            if (id != jogador.Id) {
+            if (id != jogador.Id)
+            {
                 return BadRequest();
             }
 
-            try {
+            try
+            {
                 var cat = await _serviceJog.UpdateAsync(jogador);
-                
+
                 if (cat == null)
                 {
                     return NotFound();
                 }
                 return Ok(cat);
             }
-            catch(BusinessRuleValidationException ex)
+            catch (BusinessRuleValidationException ex)
             {
-                return BadRequest(new {Message = ex.Message});
+                return BadRequest(new { Message = ex.Message });
             }
         }
 
@@ -119,13 +142,15 @@ namespace DDDSample1.Controllers
         public async Task<ActionResult<JogadorDto>> PostJogador(CreatingJogadorDto jogadorDto)
         {
 
-            try {
+            try
+            {
                 var jog = await _serviceJog.AddAsync(jogadorDto);
 
                 return CreatedAtAction(nameof(GetJogador), new { id = jog.Id }, jog);
             }
-            catch(BusinessRuleValidationException ex) {
-                return BadRequest(new {Message = ex.Message});
+            catch (BusinessRuleValidationException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
             }
         }
 
@@ -144,9 +169,9 @@ namespace DDDSample1.Controllers
 
                 return Ok(intro);
             }
-            catch(BusinessRuleValidationException ex)
+            catch (BusinessRuleValidationException ex)
             {
-               return BadRequest(new {Message = ex.Message});
+                return BadRequest(new { Message = ex.Message });
             }
         }
 

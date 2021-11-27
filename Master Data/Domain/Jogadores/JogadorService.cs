@@ -164,6 +164,10 @@ namespace DDDSample1.Domain.Jogadores
             return jogadors;
         }
 
+        public async Task<List<JogadorDto>> GetPossiveisAmigos(JogadorId idJog){
+           var listPossiveisAmigos = await this._repo.GetPossiveisAmigos(idJog);
+           return null;
+        }
         public async Task<JogadorDto> AddAsync(CreatingJogadorDto jogadorDto)
         {
             var perfil = await _repoPer.GetByIdAsync(new PerfilId(jogadorDto.perfilId));
