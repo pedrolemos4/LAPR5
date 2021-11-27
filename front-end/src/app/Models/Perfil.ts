@@ -1,4 +1,5 @@
 export interface Perfil{
+    id : any;
     nome : string;
     email : string;
     telefone : number;
@@ -7,7 +8,7 @@ export interface Perfil{
     dataNascimento : string;
     estadoHumor : string;
     password : string;
-    tags : string | any;
+    tags : string [];
     perfilFacebook : string;
     perfilLinkedin : string;
 }

@@ -38,16 +38,14 @@ namespace DDDSample1.Infrastructure
             }
             List<string> listaTags = new List<string>() { "Porto", "University", "Sports" };
             List<string> listaTags2 = new List<string>() { "Valongo", "Ballet" };
-            Perfil p1 = new Perfil(/*"codPerfil",*/ "Carlos", "carlos@gmail.com", 351936825014, listaTags, "2000/05/20", "Joyful", "carlos_Sport7", "en-PT", "Porto", "perfilFB", "perfilLink");
-            Perfil p2 = new Perfil(/*"codPerfil2", */ "Fiona", "fiona@gmail.com", 351936825014, listaTags2, "2003/10/07", "Disappointed", "super+Fifi48", "en-US", "Lisboa", "perfilFB2", "perfilLink2");
+            Perfil p1 = new Perfil("Carlos", "carlos@gmail.com", 351936825014, listaTags, "2000-05-20", "Joyful", "carlos_Sport7", "en-PT", "Porto", "perfilFB", "perfilLink");
+            Perfil p2 = new Perfil("Fiona", "fiona@gmail.com", 351936825014, listaTags2, "2003-10-07", "Disappointed", "super+Fifi48", "en-US", "Lisboa", "perfilFB2", "perfilLink2");
 
             context.Perfis.Add(p1);
             context.Perfis.Add(p2);
 
             context.SaveChanges();
-            if(p1==null){
-                //entra aqui
-            }
+
             var jogadores = new Jogador[] { new Jogador(p1.Id), new Jogador(p2.Id) };
 
             if (context.Jogadores.Any())

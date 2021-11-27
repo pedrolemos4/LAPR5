@@ -24,14 +24,16 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // // convenience getter for easy access to form fields
-  // get f() { return this.loginForm.controls; }
+  // convenience getter for easy access to form fields
+  get f() { return this.loginForm.controls; }
 
   onSubmit() {
-    this.loginService.login(this.loginForm.value).subscribe({
+    const { email, password } = this.loginForm.value;
+    this.loginService.login(email, password).subscribe({
       next: () => {
+        (e: any) => console.log(e);
         this.toastr.success('Logged In', 'Login Successfull');
-        this.router.navigateByUrl('/homejogadores');
+        this.router.navigateByUrl('/perfil');
       },
       error: error => {
         if (error.status == 400) {

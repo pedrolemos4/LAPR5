@@ -17,6 +17,16 @@ namespace DDDSample1.Domain.Perfis
             this._repo = repo;
         }
 
+        public async Task<PerfilDto> GetPerfilByEmailPassword(string email, string password) {
+            var per = await this._repo.GetPerfilByEmailPassword(email,password);
+
+            if (per == null)
+                return null;
+
+            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, Email = per.email.EnderecoEmail, EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country };
+        
+        }
+
         public async Task<List<PerfilDto>> GetAllAsync()
         {
             var list = await this._repo.GetAllAsync();

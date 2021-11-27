@@ -1,10 +1,14 @@
 <div id="texto">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <h2>Calcular caminho mais seguro</h2>
     <div id="container">
-        <form>
+        <form [formGroup]="camSeguroForm" (ngSubmit)="onSubmit()">
             <div class="form-data">
                 <label for="jogador">Jogador Objetivo:</label>
-                <select class="selector" style="margin: 20px;" placeholder="Escolha um jogador">
+                <select class="selector" style="margin: 20px;" placeholder="Escolha um jogador" (change)="selectChangeHandler($event)">
                     <option>Jogador1</option>
                     <option>Jogador2</option>
                     <option>Jogador3</option>
@@ -13,6 +17,7 @@
             <div class="form-data">
                 <label for="forca">Força Minima:</label>
                 <input style="margin: 20px;" type="forca" placeholder="Insira o valor da força" formControlName="forca"/>
+                <div *ngIf="camSeguroForm.controls['forca'].touched && camSeguroForm.controls['forca'].errors?.['required']"><i class="fa fa-warning"></i> Insira um valor!</div>
             </div>
             <button type="submit" class="submit"> Calcular Caminho</button>
         </form>

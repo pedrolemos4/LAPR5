@@ -21,8 +21,10 @@ namespace DDDSample1.Domain.Posts
             return text;
         }
         override
-        public String AsString(){
-            return (String) base.Value;
+        public String AsString()
+        {
+            Guid obj = (Guid)base.ObjValue;
+            return obj.ToString();
         }
 
         public Guid AsGuid(){
