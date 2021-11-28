@@ -29,7 +29,8 @@ namespace DDDSample1.Controllers
         }
 
         // GET: api/Ligacoes/5
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id}")]
         public async Task<ActionResult<LigacaoDto>> GetLigacao(Guid id)
         {
             var ligacao = await _service.GetByIdAsync(new LigacaoId(id));
@@ -40,7 +41,9 @@ namespace DDDSample1.Controllers
 
             return ligacao;
         }
-
+        
+        [HttpGet]
+        [Route("[action]/{id}")]
         public async Task<ActionResult<List<LigacaoDto>>> GetLigacaoPendente(Guid id)
         {
             return await _service.GetLigacaoPendente(new JogadorId(id));

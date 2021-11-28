@@ -1,9 +1,8 @@
-import { Jogador } from "./Jogador";
-
 export interface Relacao{
-    jogador1 : string;
-    jogador2 : string;
+    id : any;
+    jogador1 : any;
+    jogador2 : any;
     listaTags : string[];
-    forcaRelacao : string;
-    forcaLigacao : string;
+    forcaRelacao : number;
+    forcaLigacao : number;
 }

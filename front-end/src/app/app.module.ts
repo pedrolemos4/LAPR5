@@ -22,6 +22,7 @@ import { CamSeguroComponent } from './Components/cam-seguro/cam-seguro.component
 import { PedidoComponent } from './Components/pedido/pedido.component';
 import { PedirIntroducaoComponent } from './Components/pedir-introducao/pedir-introducao.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RelacaoComponent } from './Components/relacao/relacao.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CamCurtoComponent,
     CamSeguroComponent,
     PedidoComponent,
-    PedirIntroducaoComponent
+    PedirIntroducaoComponent,
+    RelacaoComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../Services/Login/login.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { Jogador } from 'src/app/Models/Jogador';
 
 @Component({
   selector: 'app-login',
@@ -30,19 +31,26 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     const { email, password } = this.loginForm.value;
     this.loginService.login(email, password).subscribe({
-      next: () => {
+      next: (res: any) => {
         (e: any) => console.log(e);
+        this.saveCurrentUser(this.f['email'].value);
+        const userStr = localStorage.getItem('currentUser');
+        //console.log(userStr);
         this.toastr.success('Logged In', 'Login Successfull');
-        this.router.navigateByUrl('/perfil');
+        this.router.navigateByUrl('/relacao');
       },
       error: error => {
-        if (error.status == 400) {
+        if (error.status == 404) {
           this.toastr.error('Email or Password incorrect.', 'Authentication failed.');
         } else {
           console.log(error);
         }
       }
     });
+  }
+
+  saveCurrentUser(email: string): void {
+    localStorage.setItem('currentUser', JSON.stringify(email));
   }
 
 }

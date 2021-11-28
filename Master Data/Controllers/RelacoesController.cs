@@ -27,7 +27,8 @@ namespace DDDSample1.Controllers
         }
 
         // GET: api/Relacoes/5
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id}")]
         public async Task<ActionResult<RelacaoDto>> GetRelacao(Guid id)
         {
             var relacao = await _service.GetByIdAsync(new RelacaoId(id));
@@ -40,6 +41,9 @@ namespace DDDSample1.Controllers
             return relacao;
         }
 
+        // GET: api/Relacoes/7
+        [HttpGet]
+        [Route("[action]/{jog}")]
         public async Task<ActionResult<List<RelacaoDto>>> GetRelacoesDoJogador(Guid jog)
         {
             var relacao = await this._service.GetRelacoesDoJogador(new JogadorId(jog));
@@ -78,7 +82,7 @@ namespace DDDSample1.Controllers
         }
 
         // PATCH: api/Relacoes/6
-        [HttpPut("{relacao}")]
+        [HttpPatch("{relacao}")]
         public async Task<ActionResult<RelacaoDto>> PatchRelacao([FromRoute] Guid id, [FromBody] RelacaoDto dto)
         {
 
@@ -142,7 +146,8 @@ namespace DDDSample1.Controllers
 
 
         // GET: api/Jogadores/5
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id}/{n}")]
         public async Task<List<RelacaoDto>> GetRedeJogador(Guid id, int n)
         {
             return await _service.GetRedeJogador(new JogadorId(id), n);

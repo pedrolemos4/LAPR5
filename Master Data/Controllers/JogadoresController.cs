@@ -1,10 +1,8 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DDDSample1.Domain.Jogadores;
 using DDDSample1.Domain.Perfis;
-using DDDSample1.Infrastructure;
 using System;
 using DDDSample1.Domain.Shared;
 
@@ -12,7 +10,6 @@ namespace DDDSample1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    // [EnableCors("IT3Client")]
     public class JogadoresController : ControllerBase
     {
         private readonly IJogadorService _serviceJog;
@@ -25,8 +22,8 @@ namespace DDDSample1.Controllers
             _servicePer = servicePer;
         }
 
-        // GET: api/Jogadores/email/password/{email/password}
-        [HttpGet("email/password/{email,password}")]
+        // GET: api/Jogadores/{email/password}
+        [HttpGet("{email}/{password}")]
         public async Task<ActionResult<JogadorDto>> GetJogadorByEmailPassword(string email,string password)
         {
             var perfil = await _servicePer.GetPerfilByEmailPassword(email,password);
@@ -43,11 +40,11 @@ namespace DDDSample1.Controllers
 
         // GET: api/Jogadores
         [HttpGet]
-        //[EnableCors("IT3Client")]
         public async Task<ActionResult<List<JogadorDto>>> GetJogadores() => await _serviceJog.GetAllAsync();
 
         // GET: api/Jogadores/5
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id}")]
         public async Task<ActionResult<JogadorDto>> GetJogador(Guid id)
         {
             //var jogador = await _context.Jogadores.FindAsync(id);
@@ -61,8 +58,9 @@ namespace DDDSample1.Controllers
             return jogador;
         }
 
-        // GET: api/Perfis/5
-        [HttpGet("{id}")]
+        // GET: api/Jogadores/5
+        [HttpGet]
+        [Route("[action]/{id}")]
         public async Task<ActionResult<PerfilDto>> GetPerfilJogador(Guid id)
         {
             JogadorDto jogadorDto = await _serviceJog.GetByIdAsync(new JogadorId(id));
@@ -72,13 +70,14 @@ namespace DDDSample1.Controllers
                 return NotFound();
             }
 
-            var perfil = await _servicePer.GetByIdAsync(new PerfilId(jogadorDto.Id));
+            var perfil = await _servicePer.GetByIdAsync(new PerfilId(jogadorDto.PerfilId));
 
             return perfil;
         }
 
-        // GET: api/Perfis/7
-        [HttpGet("{perfil}")]
+        // GET: api/Jogadores/7
+        [HttpGet]
+        [Route("[action]/{perfilId}")]
         public async Task<ActionResult<JogadorDto>> GetJogadorByPerfil(Guid perfilId)
         {
             var jogador = await _serviceJog.GetJogadorByPerfil(new PerfilId(perfilId));
@@ -92,14 +91,16 @@ namespace DDDSample1.Controllers
         }
         
         // GET: api/Jogadores/5
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{idJog}/{idObj}")]
         public async Task<ActionResult<List<JogadorDto>>> GetAmigosEmComum([FromRoute]Guid idJog, [FromBody]Guid idObj)
         {
             return await _serviceJog.GetAmigosEmComum(new JogadorId(idJog), new JogadorId(idObj));
         }
 
         // GET: api/Jogadores/6
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{idJog}")]
         public async Task<ActionResult<List<JogadorDto>>> GetAmigos(Guid idJog)
         {
             return await _serviceJog.GetAmigos(new JogadorId(idJog));

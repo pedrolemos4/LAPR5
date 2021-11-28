@@ -29,7 +29,8 @@ namespace DDDSample1.Controllers
         }
 
         // GET: api/Missoes/5
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id}")]
         public async Task<ActionResult<MissaoDto>> GetMissao(Guid id)
         {
             var missao = await _service.GetByIdAsync(new MissaoId(id));

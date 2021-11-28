@@ -61,47 +61,9 @@ export class RegistoComponent implements OnInit {
     this.f['estadoHumor'].setValue(this.estado);
     console.log(this.registoForm.controls['dataNascimento']);
 
-    // forkJoin([
-    //   this.registoService.registoPerfil(this.registoForm.value),
-    //   this.registoService.registoJogador({pontuacao: this.pontos,
-    //     nome: this.f['nome'],
-    //     email: this.f['email'],
-    //     telefone: this.f['telefone'],
-    //     pais: this.f['pais'],
-    //     cidade: this.f['cidade'],
-    //     dataNascimento: this.f['dataNascimento'],
-    //     estadoHumor: this.f['estadoHumor'],
-    //     tags: this.listaTags,
-    //     password: this.f['password'],
-    //     perfilFb: this.f['perfilFb'],
-    //     perfilL: this.f['perfilL'],
-    //     listaRelacoes: this.listavazia,
-    //     listaMissoes: this.listavazia,
-    //     listaPosts: this.listavazia
-    //   } as unknown as Jogador).pipe(tap((data: any) => { console.log(data) }))
-    // ])
-
-
-
-    /*this.registoService.registoJogador(this.registoForm.value,{pontuacao: this.pontos,
-           perfilId : this.perfil,
-           listaRelacoes: this.listavazia,
-           listaMissoes: this.listavazia,
-           listaPosts: this.listavazia
-         } as Jogador)*/
-
-
-    /*const perfil1 = this.registoService.registoPerfil(this.registoForm.value);
-    const jogador1 = this.registoService.registoJogador({pontuacao: this.pontos,
-      perfilId : this.perfil,
-      listaRelacoes: this.listavazia,
-      listaMissoes: this.listavazia,
-      listaPosts: this.listavazia
-    } as Jogador);*/
-    //const perfil = this.registoService.registoPerfil(this.registoForm.value);
-
     this.registoService.registoPerfil(this.registoForm.value).pipe(
       mergeMap((res: any) => this.registoService.registoJogador({
+        id : '',
         pontuacao: this.pontos,
         perfilId: res.id,
         listaRelacoes: this.listavazia,
@@ -120,18 +82,3 @@ export class RegistoComponent implements OnInit {
       });
   }
 }
-
-/*next: () => {
-  this.toastr.success('Player successfully created!');
-  this.router.navigateByUrl('/login');
-},
-
-error: () => {
-  this.toastr.error("Error: Service Unavailable");
-}
-});
-
-}
-
-}*/
-

@@ -12,6 +12,7 @@ import { CamSeguroComponent } from './Components/cam-seguro/cam-seguro.component
 import { IntroducaoComponent } from './Components/introducao/introducao.component';
 import { PedidoComponent } from './Components/pedido/pedido.component';
 import { PedirIntroducaoComponent } from './Components/pedir-introducao/pedir-introducao.component';
+import { RelacaoComponent } from './Components/relacao/relacao.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -25,7 +26,8 @@ const routes: Routes = [
   { path: 'amigos', component: AmigosComponent},
   { path: 'introducao', component: IntroducaoComponent},
   { path: 'pedido', component: PedidoComponent},
-  { path: 'pedir_introducao', component: PedirIntroducaoComponent}
+  { path: 'pedir_introducao', component: PedirIntroducaoComponent},
+  { path: 'relacao', component: RelacaoComponent}
 ];
 
 

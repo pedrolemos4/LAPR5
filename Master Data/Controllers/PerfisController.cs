@@ -27,7 +27,8 @@ namespace DDDSample1.Controllers
         }
 
         // GET: api/Perfis/5
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id}")]
         public async Task<ActionResult<PerfilDto>> GetPerfil(Guid id)
         {
             var perfil = await _servicePerfil.GetByIdAsync(new PerfilId(id));
@@ -41,7 +42,8 @@ namespace DDDSample1.Controllers
         }
 
         // GET: api/Perfis/6
-        [HttpGet("{nome}")]
+        [HttpGet]
+        [Route("[action]/{nome}")]
         public async Task<ActionResult<PerfilDto>> GetPerfilByNome(string nome)
         {
             var perfil = await _servicePerfil.getPerfilByNome(nome);
@@ -55,7 +57,8 @@ namespace DDDSample1.Controllers
         }
 
         // GET: api/Perfis/7
-        [HttpGet("{email}")]
+        [HttpGet]
+        [Route("[action]/{email}")]
         public async Task<ActionResult<PerfilDto>> GetPerfilByEmail(string email)
         {
             var perfil = await _servicePerfil.GetPerfilByEmail(email);
@@ -69,7 +72,8 @@ namespace DDDSample1.Controllers
         }
 
         // GET: api/Perfis/8
-        [HttpGet("{pais}")]
+        [HttpGet]
+        [Route("[action]/{pais}")]
         public async Task<ActionResult<List<PerfilDto>>> GetPerfilByPais(string pais)
         {
             List<PerfilDto> listaPerfil = await _servicePerfil.GetPerfilByPais(pais);
@@ -108,7 +112,7 @@ namespace DDDSample1.Controllers
         }
 
         // PATCH: api/Perfis/5
-        [HttpPut("{perfil}")]
+        [HttpPatch("{perfil}")]
         public async Task<ActionResult<PerfilDto>> PatchPerfil([FromRoute] Guid id, [FromBody] PerfilDto dto)
         {
             if (id != dto.Id)

@@ -61,8 +61,10 @@ namespace DDDSample1.Infrastructure
             context.SaveChanges();
 
             Relacao relacao = new Relacao(jogadores[0].Id,jogadores[1].Id,listaTags,5,80);
+            Relacao relacao1 = new Relacao(jogadores[1].Id,jogadores[0].Id,listaTags,5,10);
             Ligacao ligacao = new Ligacao("texto","Pendente",jogadores[0].Id,jogadores[1].Id);
             context.Relacoes.Add(relacao);
+            context.Relacoes.Add(relacao1);
             context.Ligacoes.Add(ligacao);
             context.SaveChanges();
         }

@@ -18,7 +18,7 @@ namespace DDDSample1.Infrastructure.Perfis
         }
 
         public async Task<Perfil> GetPerfilByEmailPassword(string email, string password){
-            return await this._context.Perfis.Where(x => (email.Equals(x.email.EnderecoEmail)&& password.Equals(x.password.password))).FirstOrDefaultAsync();
+            return await this._context.Perfis.Where(x => ((email.Equals(x.email.EnderecoEmail) && password.Equals(x.password.password)))).FirstOrDefaultAsync();
         }
 
         public async Task<Perfil> GetPerfilByEmail(string email)

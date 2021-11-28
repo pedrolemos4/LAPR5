@@ -57,30 +57,38 @@ namespace DDDSample1.Domain.Jogadores
                 Id = jog.Id.AsGuid(),
                 Pontuacao = jog.Pontuacao.Pontos,
                 PerfilId = jog.Perfil.AsGuid(),
-              /*  Missao = converteParaListaGuidMissao(jog.ListaMissoes),
-                Relacao = converteParaListaGuidRelacao(jog.ListaRelacoes),
-                Post = converteParaListaGuidPost(jog.ListaPosts)*/
-              });
+                /*  Missao = converteParaListaGuidMissao(jog.ListaMissoes),
+                  Relacao = converteParaListaGuidRelacao(jog.ListaRelacoes),
+                  Post = converteParaListaGuidPost(jog.ListaPosts)*/
+            });
 
-              return listDto;
+            return listDto;
         }
 
         public static List<Guid> converteParaListaGuidMissao(List<Missao> lista)
         {
             List<Guid> ls = new List<Guid>();
-            foreach (Missao missao in lista)
+            if (lista != null)
             {
-                ls.Add(missao.Id.AsGuid());
+                
+                foreach (Missao missao in lista)
+                {
+                    ls.Add(missao.Id.AsGuid());
+                }
             }
+
             return ls;
         }
 
         public static HashSet<Guid> converteParaListaGuidRelacao(HashSet<Relacao> lista)
         {
             HashSet<Guid> ls = new HashSet<Guid>();
+            if (lista != null)
+            {
             foreach (Relacao r in lista)
             {
                 ls.Add(r.Id.AsGuid());
+            }
             }
             return ls;
         }
@@ -88,9 +96,12 @@ namespace DDDSample1.Domain.Jogadores
         public static List<Guid> converteParaListaGuidPost(List<Post> lista)
         {
             List<Guid> ls = new List<Guid>();
+            if (lista != null)
+            {
             foreach (Post p in lista)
             {
                 ls.Add(p.Id.AsGuid());
+            }
             }
             return ls;
         }
@@ -105,11 +116,11 @@ namespace DDDSample1.Domain.Jogadores
             return new JogadorDto
             {
                 Id = jog.Id.AsGuid(),
-                //  Pontuacao = jog.Pontuacao.Pontos,
-             //   PerfilId = jog.perfil.Id.AsGuid()
-                /*                Missao = converteParaListaGuidMissao(jog.ListaMissoes),
+                  Pontuacao = jog.Pontuacao.Pontos,
+                   PerfilId = jog.Perfil.AsGuid(),
+                                Missao = converteParaListaGuidMissao(jog.ListaMissoes),
                                 Relacao = converteParaListaGuidRelacao(jog.ListaRelacoes),
-                                Post = converteParaListaGuidPost(jog.ListaPosts)*/
+                                Post = converteParaListaGuidPost(jog.ListaPosts)
             };
         }
 
@@ -148,7 +159,7 @@ namespace DDDSample1.Domain.Jogadores
                 {
                     Id = jog.Id.AsGuid(),
                     //    Pontuacao = jog.Pontuacao.Pontos,
-             //       PerfilId = jog.perfil.Id.AsGuid(),
+                    //       PerfilId = jog.perfil.Id.AsGuid(),
                     /*  Missao = converteParaListaGuidMissao(jog.ListaMissoes),
                       Relacao = converteParaListaGuidRelacao(jog.ListaRelacoes),
                       Post = converteParaListaGuidPost(jog.ListaPosts)*/
@@ -194,11 +205,11 @@ namespace DDDSample1.Domain.Jogadores
             return new JogadorDto
             {
                 Id = jog.Id.AsGuid(),
-                //Pontuacao = jog.Pontuacao.Pontos,
-                //PerfilId = jog.perfil.Id.AsGuid()
-                /*Missao = converteParaListaGuidMissao(jog.ListaMissoes),
+                Pontuacao = jog.Pontuacao.Pontos,
+                PerfilId = jog.Perfil.AsGuid(),
+                Missao = converteParaListaGuidMissao(jog.ListaMissoes),
                 Relacao = converteParaListaGuidRelacao(jog.ListaRelacoes),
-                Post = converteParaListaGuidPost(jog.ListaPosts)*/
+                Post = converteParaListaGuidPost(jog.ListaPosts)
             };
         }
 
@@ -231,7 +242,7 @@ namespace DDDSample1.Domain.Jogadores
               // change all field
               jog.ChangePontuacao(dto.Pontuacao);*/
             jog.ChangeMissoes(ls);
-         //   jog.ChangePerfil(perfil);
+            //   jog.ChangePerfil(perfil);
             jog.ChangePosts(lpost);
             jog.ChangeRelacoes(lrel);
 
@@ -308,7 +319,7 @@ namespace DDDSample1.Domain.Jogadores
             {
                 Id = jog.Id.AsGuid(),
                 //               Pontuacao = jog.Pontuacao.Pontos,
-             //   PerfilId = jog.perfil.Id.AsGuid()
+                //   PerfilId = jog.perfil.Id.AsGuid()
                 /*                Missao = converteParaListaGuidMissao(jog.ListaMissoes),
                                 Relacao = converteParaListaGuidRelacao(jog.ListaRelacoes),
                                 Post = converteParaListaGuidPost(jog.ListaPosts)*/
