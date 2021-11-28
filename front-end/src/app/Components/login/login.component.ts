@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginService } from '../../Services/Login/login.service';
+import { LoginService } from '../../services/Login/login.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
       next: () => {
         (e: any) => console.log(e);
         this.toastr.success('Logged In', 'Login Successfull');
-        this.router.navigateByUrl('/perfil');
+        this.router.navigateByUrl('/home');
       },
       error: error => {
         if (error.status == 400) {
