@@ -49,6 +49,14 @@ namespace DDDSample1.Controllers
             return await _serviceIntro.GetIntroducoesPorAprovar(new JogadorId(id));
         }
 
+        // GET: api/Introducoes/2
+        [HttpGet]
+        [Route("[action]/{id}")]
+        public async Task<ActionResult<List<IntroducaoDto>>> GetIntroducoesAprovarRejeitar(Guid id)
+        {
+            return await _serviceIntro.GetIntroducoesAprovarRejeitar(new JogadorId(id));
+        }
+
         // PUT: api/Introducoes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

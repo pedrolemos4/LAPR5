@@ -9,5 +9,6 @@ namespace DDDSample1.Domain.Introducoes
     public interface IIntroducaoRepository:IRepository<Introducao,IntroducaoId>
     {
          Task<List<Introducao>> GetIntroducoesPorAprovar(JogadorId idJog);
+         Task<List<Introducao>> GetIntroducoesAprovarRejeitar(JogadorId idJog);
     }
 }

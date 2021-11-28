@@ -1,38 +1,39 @@
 .fundo {
-    /* The image used */
-    background-image: url("../imagens/social-network.jpg");
-  
-    /* Control the height of the image */
-    min-height: 750px;
-  
-    /* Center and scale the image nicely */
-    background-position: right;
-    background-repeat: no-repeat;
-    background-size: contain;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    position: absolute;
-  }
+  /* The image used */
+  background-image: url("../imagens/social-network.jpg");
+  margin-top: 80px;
+  /* Control the height of the image */
+  min-height: 600px;
+  width: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: left;
+  background-repeat: no-repeat;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  overflow-x: hidden;
+  position: absolute;
+}
 
 /* Add padding to containers */
 .card {
-  padding: 17px;
-  text-align: center;
-  width: 42%;
-  background-color: #f2f2f2e7;
-  border-radius: 5px;
-  justify-content: center;
-  margin-left: 38%;
-  margin-top: 1%;
-  position: relative;
+padding: 17px;
+text-align: center;
+width: 40%;
+background-color: #f2f2f2e7;
+border-radius: 5px;
+justify-content: center;
+margin-left: 30%;
+margin-top: 8px;
+position: relative;
 }
 
 
 /* Full-width input fields */
 input[type=email], input[type=password], input[type=text] {
-  width: 100%;
+  width: 90%;
   padding: 3px;
   margin: 5px 0 22px 0;
   display: inline-block;

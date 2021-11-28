@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginService } from '../../Services/Login/login.service';
+import { LoginService } from '../../services/Login/login.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { Jogador } from 'src/app/Models/Jogador';
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
         const userStr = localStorage.getItem('currentUser');
         //console.log(userStr);
         this.toastr.success('Logged In', 'Login Successfull');
-        this.router.navigateByUrl('/relacao');
+        this.router.navigateByUrl('/home');
       },
       error: error => {
         if (error.status == 404) {

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,7 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Social Network';
-  p1 = 'O Jogo simula uma rede social e o jogador tem por objetivo expandir a sua rede social, com o objetivo último de ter a maior e mais forte rede social possível. O jogo desenrola-se numa série de missões em que o jogador terá que avançar e aumentar a sua rede para subir no leader board. Um utilizador pode iniciar um jogo/missão em qualquer momento escolhendo o nível de dificuldade pretendido.';
+  showMenu:boolean = false;
 
+  constructor(router:Router) {
+    router.events.forEach((event) => {
+        if(event instanceof NavigationStart) {
+            this.showMenu = event.url !== "/home" && event.url !== "/perfil" && event.url !== "/rede"
+            && event.url !== "/tam_rede" && event.url !== "/cam_curto" && event.url !== "/cam_forte" && event.url !== "/cam_seguro"
+            && event.url !== "/introducao" && event.url !== "/pedir_introducao" && event.url !== "/pedido"
+        }
+      });
+    }
 }

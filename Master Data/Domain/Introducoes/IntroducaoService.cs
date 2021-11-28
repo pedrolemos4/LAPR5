@@ -97,6 +97,21 @@ namespace DDDSample1.Domain.Introducoes
             });
             return listIntro;
         }
+
+        public async Task<List<IntroducaoDto>> GetIntroducoesAprovarRejeitar(JogadorId idJog)
+        {
+            var list = await this._repo.GetIntroducoesAprovarRejeitar(idJog);
+            List<IntroducaoDto> listIntro = list.ConvertAll<IntroducaoDto>(intro => new IntroducaoDto
+            {
+                JogadorInicial = intro.JogadorInicial.Id.AsGuid(),
+                JogadorIntrodutor = intro.JogadorIntrodutor.Id.AsGuid(),
+                JogadorObjetivo = intro.JogadorObjetivo.Id.AsGuid(),
+                Id = intro.Id.AsGuid(),
+                EstadoIntroducao = intro.EstadoIntroducao.ToString()
+            });
+            return listIntro;
+        }
+
         public async Task<IntroducaoDto> DeleteAsync(IntroducaoId id)
         {
             var intro = await this._repo.GetByIdAsync(id);

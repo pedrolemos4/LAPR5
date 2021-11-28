@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PerfilService } from 'src/app/Services/Perfil/perfil.service';
+import { PerfilService } from 'src/app/services/Perfil/perfil.service';
 import { Router } from '@angular/router';
 
 @Component({

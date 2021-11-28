@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PedirIntroducaoService } from 'src/app/Services/PedirIntroducao/pedir-introducao.service';
+import { PedirIntroducaoService } from 'src/app/services/PedirIntroducao/pedir-introducao.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Jogador } from 'src/app/Models/Jogador';
 @Component({
   selector: 'app-pedir-introducao',
   templateUrl: './pedir-introducao.component.html',
@@ -9,22 +11,42 @@ import { PedirIntroducaoService } from 'src/app/Services/PedirIntroducao/pedir-i
 export class PedirIntroducaoComponent implements OnInit {
 
   selectedPlayer: string = '';
+  pedirIntroForm: FormGroup;
+  // public li: any;
+  // public lis = [];
+  playersList: Jogador[] = [];
 
-  constructor(private pedirIntroducaoService : PedirIntroducaoService,private router:Router) {
 
-   }
-
-  ngOnInit(): void {
+  constructor(private formBuilder: FormBuilder, private pedirIntroducaoService: PedirIntroducaoService, private router: Router) {
+    this.pedirIntroForm = this.formBuilder.group({
+      player: ''
+    })
   }
 
-  selectChangeHandler (event: any) {
+  ngOnInit(): void {
+
+    this.pedirIntroducaoService.getJogadores().subscribe(Response => {
+      /* if (Response) {
+         hideloader();
+       }*/
+
+      console.log(Response);
+      this.playersList = Response;
+    });
+    /* function hideloader() {
+       //document.getElementById('loading').style.display ='none';
+     }*/
+  }
+
+
+  selectChangeHandler(event: any) {
     //update the ui
     this.selectedPlayer = event.target.value;
   }
 
-  onSubmit(){
+  onSubmit() {
     this.pedirIntroducaoService.pedirIntroducao(this.selectedPlayer).subscribe({
-      next:() =>{
+      next: () => {
         this.router.navigateByUrl('/homejogadores');
       }
     })

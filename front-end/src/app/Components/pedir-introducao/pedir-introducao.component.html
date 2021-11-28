@@ -1,15 +1,18 @@
+<app-header></app-header>
+<app-navbar></app-navbar>
 <div id="texto">
     <h2>Pedir uma introdução</h2>
     <div id="container">
+    <form [formGroup]="pedirIntroForm" (ngSubmit)="onSubmit()">
         <div class="form-data">
             <label for="jogador">Jogador Objetivo:</label>
-            <select class="selector" style="margin: 20px;" placeholder="Escolha um jogador" (change)="selectChangeHandler($event)">
-                <option>Jogador1</option>
-                <option>Jogador2</option>
-                <option>Jogador3</option>
-            </select>
+            <select class="selector" style="margin: 20px;">
+                <option *ngFor="let eachVal of playersList">
+                    {{eachVal.perfilId}}
+                </option>
+              </select>
         </div>
          <p><span>You selected: </span><b>{{selectedPlayer}}</b></p>
         <button type="submit" id="submit" class="submit"> Pedir Introdução</button>
-    </div>
+    </form>
 </div>

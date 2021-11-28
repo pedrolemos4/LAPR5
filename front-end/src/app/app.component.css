@@ -1,11 +1,36 @@
-  #wer{
-      margin-top: 90px;
-      margin-left: 17%;
-      padding: 1px 16px;
-      height: 655px;
-      width: 89%;
-      background-color: rgb(135, 212, 243);
-      display: inline-block;
-      vertical-align: top;
-      position: absolute;
-  }
+.fundo {
+  /* The image used */
+  background-image: url("./Components/imagens/social-network.jpg");
+  margin-top: 80px;
+  /* Control the height of the image */
+  min-height: 650px;
+  width: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: left;
+  background-repeat: no-repeat;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  overflow-x: hidden;
+  position: absolute;
+}
+
+.botao {
+  text-decoration: none;
+  background-color: #04AA6D;
+  font-size: 20px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  color: white;
+  margin-left: 50px;
+  padding: 18px 20px;
+  border: none;
+  cursor: pointer;
+  width: 20%;
+  opacity: 0.9;
+}
+
+.botao:hover {
+  background-color: #017e50;
+}

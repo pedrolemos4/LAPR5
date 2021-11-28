@@ -89,7 +89,7 @@ namespace DDDSample1.Controllers
 
             return jogador;
         }
-        
+
         // GET: api/Jogadores/5
         [HttpGet]
         [Route("[action]/{idJog}/{idObj}")]
@@ -106,27 +106,36 @@ namespace DDDSample1.Controllers
             return await _serviceJog.GetAmigos(new JogadorId(idJog));
         }
 
+        [HttpGet]
+        [Route("[action]/{idJog}")]
+        public async Task<ActionResult<List<JogadorDto>>> GetPossiveisAmigos(Guid idJog)
+        {
+            return await _serviceJog.GetPossiveisAmigos(new JogadorId(idJog));
+        }
+        
         // PUT: api/Jogadores/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ActionResult> PutJogador([FromRoute]Guid id,[FromBody] JogadorDto jogador)
+        public async Task<ActionResult> PutJogador([FromRoute] Guid id, [FromBody] JogadorDto jogador)
         {
-            if (id != jogador.Id) {
+            if (id != jogador.Id)
+            {
                 return BadRequest();
             }
 
-            try {
+            try
+            {
                 var cat = await _serviceJog.UpdateAsync(jogador);
-                
+
                 if (cat == null)
                 {
                     return NotFound();
                 }
                 return Ok(cat);
             }
-            catch(BusinessRuleValidationException ex)
+            catch (BusinessRuleValidationException ex)
             {
-                return BadRequest(new {Message = ex.Message});
+                return BadRequest(new { Message = ex.Message });
             }
         }
 
@@ -161,9 +170,9 @@ namespace DDDSample1.Controllers
 
                 return Ok(intro);
             }
-            catch(BusinessRuleValidationException ex)
+            catch (BusinessRuleValidationException ex)
             {
-               return BadRequest(new {Message = ex.Message});
+                return BadRequest(new { Message = ex.Message });
             }
         }
 

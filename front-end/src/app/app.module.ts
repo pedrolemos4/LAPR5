@@ -10,8 +10,6 @@ import { RegistoComponent } from './Components/registo/registo.component';
 import { NavBarComponent } from './Components/navbar/navbar.component';
 import { PerfilComponent } from './Components/perfil/perfil.component';
 import { RedeComponent } from './Components/rede/rede.component';
-import { AmigosComponent } from './Components/amigos/amigos.component';
-import { NavbarhomeComponent } from './Components/navbarhome/navbarhome.component';
 import { ToastrModule } from 'ngx-toastr';
 import { HeaderComponent } from './Components/header/header.component';
 import { IntroducaoComponent } from './Components/introducao/introducao.component';
@@ -23,6 +21,8 @@ import { PedidoComponent } from './Components/pedido/pedido.component';
 import { PedirIntroducaoComponent } from './Components/pedir-introducao/pedir-introducao.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RelacaoComponent } from './Components/relacao/relacao.component';
+import { HeaderhomeComponent } from './Components/headerhome/headerhome.component';
+import { HomeComponent } from './Components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -32,8 +32,6 @@ import { RelacaoComponent } from './Components/relacao/relacao.component';
     RegistoComponent,
     PerfilComponent,
     RedeComponent,
-    AmigosComponent,
-    NavbarhomeComponent,
     HeaderComponent,
     IntroducaoComponent,
     TamRedeComponent,
@@ -42,7 +40,9 @@ import { RelacaoComponent } from './Components/relacao/relacao.component';
     CamSeguroComponent,
     PedidoComponent,
     PedirIntroducaoComponent,
-    RelacaoComponent
+    RelacaoComponent,
+    HeaderhomeComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

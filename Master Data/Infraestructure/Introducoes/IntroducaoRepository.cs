@@ -23,5 +23,12 @@ namespace DDDSample1.Infrastructure.Introducoes
             return introducoes;   
         }
 
+        public async Task<List<Introducao>> GetIntroducoesAprovarRejeitar(JogadorId idJog)
+        {
+            var introducoes = await _context.Introducoes
+            .Where(i => (i.JogadorObjetivo.Id.Equals(idJog)) && (i.EstadoIntroducao.Equals("Pendente"))).ToListAsync();
+            return introducoes;   
+        }
+
     }
 }

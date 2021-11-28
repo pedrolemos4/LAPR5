@@ -11,13 +11,14 @@ namespace DDDSample1.Infrastructure.Jogadores
     public class JogadorRepository : BaseRepository<Jogador, JogadorId>, IJogadorRepository
     {
         private readonly DDDSample1DbContext _context;
-        
+
         public JogadorRepository(DDDSample1DbContext context) : base(context.Jogadores)
         {
             _context = context;
         }
 
-        public async Task<Jogador> GetJogadorByPerfil(PerfilId perfil) {
+        public async Task<Jogador> GetJogadorByPerfil(PerfilId perfil)
+        {
             return await this._context.Jogadores.Where(x => perfil.Equals(x.Perfil)).FirstOrDefaultAsync();
         }
 
@@ -39,6 +40,13 @@ namespace DDDSample1.Infrastructure.Jogadores
                 .Where(r => (r.Jogador1.Equals(jogadorId))).ToListAsync();
             List<JogadorId> amigos = amigosJog.Select(r => !r.Jogador1.Equals(jogadorId) ? r.Jogador1 : r.Jogador2).ToList();
             return amigos.ToList();
+        }
+
+        public async Task<List<JogadorId>> GetPossiveisAmigos(JogadorId jogadorId)
+        {
+            var players =  this.GetAllAsync(); 
+            // List<JogadorId> amigos = this.GetAmigos(jogadorId);
+            return null;
         }
     }
 }
