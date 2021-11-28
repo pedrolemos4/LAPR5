@@ -105,6 +105,7 @@ namespace DDDSample1.Controllers
             return await _serviceJog.GetAmigos(new JogadorId(idJog));
         }
 
+        [HttpGet("/possiveis_amigos/{id}")]
         public async Task<ActionResult<List<JogadorDto>>> GetPossiveisAmigos(Guid idJog)
         {
             return await _serviceJog.GetPossiveisAmigos(new JogadorId(idJog));

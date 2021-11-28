@@ -1,18 +1,19 @@
 .fundo {
     /* The image used */
     background-image: url("../imagens/social-network.jpg");
-  
+    margin-top: 80px;
     /* Control the height of the image */
-    min-height: 750px;
+    min-height: 600px;
+    width: 100%;
   
     /* Center and scale the image nicely */
-    background-position: right;
+    background-position: left;
     background-repeat: no-repeat;
-    background-size: contain;
     top:0;
     left:0;
     right:0;
     bottom:0;
+    overflow-x: hidden;
     position: absolute;
   }
 
@@ -20,18 +21,18 @@
 .card {
   padding: 17px;
   text-align: center;
-  width: 35%;
+  width: 40%;
   background-color: #f2f2f2e7;
   border-radius: 5px;
   justify-content: center;
-  margin-left: 38%;
-  margin-top: 12%;
+  margin-left: 30%;
+  margin-top: 7%;
   position: relative;
 }
 
 /* Full-width input fields */
 input[type=email], input[type=password] {
-  width: 100%;
+  width: 90%;
   padding: 15px;
   margin: 5px 0 22px 0;
   display: inline-block;

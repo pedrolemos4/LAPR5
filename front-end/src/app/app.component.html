@@ -1,3 +1,7 @@
-<app-header></app-header>
-<app-navbarhome></app-navbarhome>
+<app-headerhome *ngIf="showMenu">
+</app-headerhome>
+<div class="fundo">
+    <h1 style="color: black; text-align: left; margin-top: 5%; margin-left: 35px;">Social Network Game</h1><br>
+    <a routerLink="/registo" class="botao">Faz o registo agora!</a>
+</div>
 <router-outlet></router-outlet>
