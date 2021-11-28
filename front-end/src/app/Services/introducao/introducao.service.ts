@@ -16,8 +16,7 @@ export class IntroducaoService {
   constructor(private http: HttpClient) { }
 
   getIntroducoesPendentes(/*id do user atual*/): Observable<Introducao[]> {
-    //ir buscar os jogadores e as relacoes ao master data
-    return this.http.get<Introducao[]>(this.url + '/aprovar/' /* + id do user atual */).pipe(
+    return this.http.get<Introducao[]>(this.url + '/aprovar_introducao/' /* + id do user atual */).pipe(
         map((res:any) => res.id)
     );
   }

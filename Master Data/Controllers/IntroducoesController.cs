@@ -42,10 +42,17 @@ namespace DDDSample1.Controllers
         }
 
         // GET: api/Introducoes/2
-        [HttpGet("/aprovar/{id}")]
+        [HttpGet("/aprovar_pedido/{id}")]
         public async Task<ActionResult<List<IntroducaoDto>>> GetIntroducoesPorAprovar(Guid id)
         {
             return await _serviceIntro.GetIntroducoesPorAprovar(new JogadorId(id));
+        }
+
+        // GET: api/Introducoes/2
+        [HttpGet("/aprovar_introducao/{id}")]
+        public async Task<ActionResult<List<IntroducaoDto>>> GetIntroducoesAprovarRejeitar(Guid id)
+        {
+            return await _serviceIntro.GetIntroducoesAprovarRejeitar(new JogadorId(id));
         }
 
         // PUT: api/Introducoes
