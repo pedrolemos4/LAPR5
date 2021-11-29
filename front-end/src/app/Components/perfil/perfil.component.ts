@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PerfilService } from 'src/app/services/Perfil/perfil.service';
+import { PerfilService } from 'src/app/Services/Perfil/perfil.service';
 import { Router } from '@angular/router';
+import { Perfil } from 'src/app/Models/Perfil';
 
 @Component({
   selector: 'app-perfil',
@@ -13,6 +14,9 @@ export class PerfilComponent implements OnInit {
   /*username: string ="";
   email: string = "";*/
   editarPerfilForm: FormGroup;
+  emailUser: string | undefined = '';
+  id: any;
+  Perfil!: Perfil;
 
   constructor(private formBuilder: FormBuilder,private perfilService: PerfilService,private router:Router) { 
     this.editarPerfilForm=this.formBuilder.group({
@@ -24,11 +28,33 @@ export class PerfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const currentUser = localStorage.getItem('currentUser');
+    this.emailUser = currentUser?.replace(/\"/g, "");
+    this.perfilService.getPerfilAtual(this.emailUser).subscribe(Perfil => {
+      this.id = Perfil.id;
+      console.log(this.id);
+      this.Perfil = Perfil;
+    })
+    
   }
 
   onSubmit() {
-    this.perfilService.editarPerfil(this.editarPerfilForm.value).subscribe({
+    this.perfilService.editarPerfil(this.id,{
+      id : this.Perfil.id,
+      nome: this.editarPerfilForm.controls['nome'].value,
+      email: this.editarPerfilForm.controls['email'].value,
+      telefone : this.Perfil.telefone,
+      pais : this.editarPerfilForm.controls['pais'].value,
+      cidade : this.Perfil.cidade,
+      dataNascimento : this.Perfil.dataNascimento,
+      estadoHumor : this.editarPerfilForm.controls['estadodehumor'].value,
+      password : this.Perfil.password,
+      tags: this.Perfil.tags,
+      perfilFacebook: this.Perfil.perfilFacebook,
+      perfilLinkedin : this.Perfil.perfilLinkedin
+    }).subscribe({
       next:() =>{
+        //console.log("SUCESSO!")
         this.router.navigateByUrl('/homejogadores');
       }
     })

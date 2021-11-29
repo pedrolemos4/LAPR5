@@ -89,13 +89,12 @@ namespace DDDSample1.Controllers
         // PUT: api/Perfis/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ActionResult<PerfilDto>> PutPerfil([FromRoute] Guid id, [FromBody] PerfilDto perfil)
+        public async Task<ActionResult<PerfilDto>> PutPerfil([FromRoute] Guid id,[FromBody] PerfilDto perfil)
         {
             if (id != perfil.Id)
             {
                 return BadRequest();
             }
-
             try
             {
                 var per = await _servicePerfil.UpdateAsync(perfil);
