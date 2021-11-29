@@ -15,9 +15,12 @@ import { RelacaoService } from 'src/app/Services/Relacao/relacao.service';
 export class RelacaoComponent implements OnInit {
   relacaoForm: FormGroup;
   combobox: FormGroup;
-  listaPerfis: Perfil [] = [];
+  listaPerfis: Perfil[] = [];
   selected: string = '';
   email: string | undefined = '';
+  id: any = '';
+  listaTags: string[] = new Array<string>();
+  listaStringTags: string = '';
 
 
   constructor(private formBuilder: FormBuilder, private relacaoService: RelacaoService, private toastr: ToastrService, private router: Router) {
@@ -28,9 +31,9 @@ export class RelacaoComponent implements OnInit {
     this.combobox = this.formBuilder.group({
       relacao: '',
     });
-   }
+  }
 
-   selectChangeHandler(event: any) {
+  selectChangeHandler(event: any) {
     //update the ui
     this.selected = event.target.value;
   }
@@ -47,14 +50,16 @@ export class RelacaoComponent implements OnInit {
     this.relacaoService.getPerfilAtual(this.email).pipe(
       mergeMap((res: any) => this.relacaoService.getJogadorAtual(res.id))).pipe(
         mergeMap((res1: any) => this.relacaoService.getListRelacoes(res1.id))).pipe(
-          mergeMap((res2: any) => res2.forEach((element:any) => {
+          mergeMap((res2: any) => res2.forEach((element: any) => {
             console.log(element.jogador2),
-            this.relacaoService.getPerfilById(element.jogador2).subscribe(
-            (r:any) =>{ 
-              console.log(r.nome),
-              this.listaPerfis.push(r),
-            console.log(this.listaPerfis)})})))
-            .subscribe({
+              this.relacaoService.getPerfilById(element.jogador2).subscribe(
+                (r: any) => {
+                  console.log(r.nome),
+                    this.listaPerfis.push(r),
+                    console.log(this.listaPerfis)
+                })
+          })))
+      .subscribe({
         next: (res3: any) => {
           console.log(res3);
           console.log(this.listaPerfis);
@@ -65,13 +70,38 @@ export class RelacaoComponent implements OnInit {
       });
   }
 
-  onSubmit(){
-    // this.relacaoService.getPerfilAtual(this.email).pipe(
-    //   mergeMap((res: any) => this.relacaoService.getJogadorAtual(res.id))).subscribe(
-    //     (res: any) =>{
-    //       localStorage.setItem('idInicial', JSON.stringify(res.Id));
-    //     }
-    //   );
+  onSubmit() {
+    this.relacaoService.getPerfilAtual(this.email).pipe(
+      mergeMap((res: any) => this.relacaoService.getJogadorAtual(res.id))).subscribe(
+        (r: any) => {
+          this.relacaoService.getPerfilAtual(this.selected).pipe(
+            mergeMap((res1: any) => this.relacaoService.getJogadorAtual(res1.id))).pipe(
+              mergeMap((res: any) => this.relacaoService.getRelacao(r.id, res.id))).subscribe(
+                (res2: any) => {
+                  console.log(res2.id);
+                  this.listaStringTags = this.f['listaTags'].value;
+                  this.listaTags = this.listaStringTags.toString().split(",");
+                  this.f['listaTags'].setValue(this.listaTags);
+                  console.log(this.f['listaTags'].value);
+                  this.relacaoService.patchRelacao(res2.id, {
+                    id: res2.id,
+                    jogador1: res2.jogador1,
+                    jogador2: res2.jogador2,
+                    listaTags: this.f['listaTags'].value,
+                    forcaRelacao: res2.forcaRelacao,
+                    forcaLigacao: this.f['forcaLigacao'].value
+                  } as Relacao).subscribe({
+                    next: (res3: any) => {
+                      console.log(res3);
+                    },
+                    error: () => {
+                      this.toastr.error("Error: Service Unavailable");
+                    }
+                  });
+
+                });
+        });
+
 
     // this.relacaoService.getPerfilAtual(this.selected).pipe(
     //   mergeMap((res1: any) => this.relacaoService.getJogadorAtual(res1.id))).pipe(
@@ -86,5 +116,6 @@ export class RelacaoComponent implements OnInit {
     //         this.toastr.error("Error: Service Unavailable");
     //       }
     //     }); 
+
   }
 }

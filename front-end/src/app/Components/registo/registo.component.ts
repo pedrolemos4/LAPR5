@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegistoService } from '../../services/Registo/registo.service';
+import { RegistoService } from '../../Services/Registo/registo.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { Jogador } from 'src/app/Models/Jogador';
@@ -14,9 +14,9 @@ import { forkJoin, mergeMap, tap } from 'rxjs';
 export class RegistoComponent implements OnInit {
   registoForm: FormGroup;
   pontos: number = 0;
-  listavazia: string[] = [];
+  listavazia: string[] = new Array<string>();
   selected: string = '';
-  listaTags: string[] = [];
+  listaTags: string[] = new Array<string>();
   listaStringTags: string = '';
   estado: string = '';
   perfil: string = '';

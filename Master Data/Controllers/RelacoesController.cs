@@ -56,6 +56,21 @@ namespace DDDSample1.Controllers
             return relacao;
         }
 
+        // GET: api/Relacoes/8
+        [HttpGet]
+        [Route("[action]/{jog}/{jog2}")]
+        public async Task<ActionResult<RelacaoDto>> GetRelacaoComDoisIds(Guid jog, Guid jog2)
+        {
+            var relacao = await this._service.GetRelacaoComDoisIds(new JogadorId(jog), new JogadorId(jog2));
+
+            if (relacao == null)
+            {
+                return NotFound();
+            }
+
+            return relacao;
+        }
+
         // PUT: api/Relacoes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -82,7 +97,7 @@ namespace DDDSample1.Controllers
         }
 
         // PATCH: api/Relacoes/6
-        [HttpPatch("{relacao}")]
+        [HttpPatch("{id}")]
         public async Task<ActionResult<RelacaoDto>> PatchRelacao([FromRoute] Guid id, [FromBody] RelacaoDto dto)
         {
 
