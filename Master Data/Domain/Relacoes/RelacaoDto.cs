@@ -1,6 +1,4 @@
 using System;
-using DDDSample1.Domain.Jogadores;
-using DDDSample1.Domain.SharedValueObjects;
 using System.Collections.Generic;
 
 namespace DDDSample1.Domain.Relacoes

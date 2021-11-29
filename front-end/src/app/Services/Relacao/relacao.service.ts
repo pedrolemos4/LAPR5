@@ -13,7 +13,7 @@ export class RelacaoService {
   
   private readonly relacoesUrl = environment.apiUrl + 'Relacoes/'; // URL to web api
   private readonly perfilUrl = environment.apiUrl + 'Perfis/';
-  private readonly jogadorUrl = environment.apiUrl + 'Jogadores/';
+  private readonly jogadorUrl = environment.apiUrl + 'Jogadores';
 
   constructor(private http: HttpClient) { }
 
@@ -22,7 +22,7 @@ export class RelacaoService {
   }
 
   getJogadorAtual(perfil: any): Observable<Jogador>{
-    return this.http.get<Jogador>(this.jogadorUrl + 'GetJogadorByPerfil/' + perfil);
+    return this.http.get<Jogador>(this.jogadorUrl + '/GetJogadorByPerfil/' + perfil);
   }
 
   getListRelacoes(currentUser: any) : Observable<Relacao[]>{
@@ -30,7 +30,7 @@ export class RelacaoService {
   }
 
   getPerfilById(jogador2: any): Observable<Perfil> {
-    return this.http.get<Perfil>(this.jogadorUrl + 'GetPerfilJogador/' + jogador2);
+    return this.http.get<Perfil>(this.jogadorUrl + '/GetPerfilJogador/' + jogador2);
   }
 
   getRelacao(arg0: string | null, id: any): Observable<Relacao> {
@@ -41,8 +41,8 @@ export class RelacaoService {
     return this.http.get<Relacao>(this.relacoesUrl + 'GetRelacao/' + relId)
   }
 
-  patchRelacao(id: any, selected: Relacao) {
-    this.http.patch(this.relacoesUrl , id + '/' + selected);
+  patchRelacao(id: any, selected: Relacao): Observable<Relacao> {
+    return this.http.patch<Relacao>(this.relacoesUrl + id , selected);
   }
 
 }

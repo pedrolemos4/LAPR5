@@ -146,5 +146,16 @@ namespace DDDSample1.Domain.Relacoes
 
             return redeAmigos;
         }
+
+        public async Task<RelacaoDto> GetRelacaoComDoisIds(JogadorId jogadorId1, JogadorId jogadorId2)
+        {
+            var relacao = await this._repo.GetRelacaoComDoisIds(jogadorId1, jogadorId2);
+
+            if (relacao == null)
+                return null;
+
+            return new RelacaoDto { Id = relacao.Id.AsGuid(), Jogador1 = relacao.Jogador1.AsGuid(), Jogador2 = relacao.Jogador2.AsGuid(), Tags = converteParaListaString(relacao.Tags), ForcaRelacao = relacao.ForcaRelacao.Valor, ForcaLigacao = relacao.ForcaLigacao.Valor };
+
+        }
     }
 }
