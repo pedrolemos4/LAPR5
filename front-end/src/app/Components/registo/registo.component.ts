@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegistoService } from '../../services/Registo/registo.service';
+import { RegistoService } from '../../Services/Registo/registo.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { Jogador } from 'src/app/Models/Jogador';

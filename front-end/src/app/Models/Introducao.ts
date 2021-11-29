@@ -2,8 +2,8 @@ import { Jogador } from "./Jogador";
 
 export interface Introducao{
     id : any;
-    jogadorInicial : string;
-    jogadorIntrodutor : string;
-    jogadorObjetivo : string;
+    jogadorInicial : string|any;
+    jogadorIntrodutor : string|any;
+    jogadorObjetivo : string|any;
     estado : string;
 }
