@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { forkJoin, map, mergeMap, tap } from 'rxjs';
+import { forkJoin, map, merge, mergeMap, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { IntroducaoService } from 'src/app/services/Introducao/introducao.service';
+import { IntroducaoService } from 'src/app/Services/Introducao/introducao.service';
 import { Relacao } from 'src/app/Models/Relacao';
+import { Introducao } from 'src/app/Models/Introducao';
+import { Jogador } from 'src/app/Models/Jogador';
 
 @Component({
   selector: 'app-introducao',
@@ -11,39 +13,43 @@ import { Relacao } from 'src/app/Models/Relacao';
   styleUrls: ['./introducao.component.css']
 })
 export class IntroducaoComponent implements OnInit {
-  currentUser = localStorage.getItem('currentUser');
-
+  listIntroducoes: Introducao[] = [];
   id: string = '';
   listavazia: string[] = [];
-  selected: string = '';
-  estado: string = '';
+  selectedUser: string = '';
   forcaRelacao: number = 0;
   forcaLigacao: number = 0;
 
+  emailUser: string|any = '';
+  perfilId: string = '';
+  jogadorId: string = '';
   constructor(private router: Router, private toastr: ToastrService, private introducaoService: IntroducaoService) { 
   }
 
   ngOnInit(): void {
-    this.introducaoService.getIntroducoesPendentes(/*id do user atual*/)
+    const currentUser = localStorage.getItem('currentUser');
+    this.emailUser = currentUser?.replace(/\"/g, "");
+    console.log(this.emailUser);
+
+    this.introducaoService.getPerfilByEmail(this.emailUser).pipe(
+    mergeMap((result: any) => this.introducaoService.getJogadorByPerfil(result.id))).pipe(
+      mergeMap((result2: any) => this.introducaoService.getIntroducoesAprovarRejeitar(result2.id))).subscribe(introsPendentes => {
+      this.listIntroducoes = introsPendentes;
+      console.log(this.listIntroducoes.length);
+    });
   }
 
-  onSubmit(){
-    if(document.activeElement?.className == "aceitar") {
-      this.introducaoService.aceitarIntroducao("Aceite");
-    } else if(document.activeElement?.className == "rejeitar") {
-      this.introducaoService.rejeitarIntroducao("Recusado");
-    }
-
-    this.introducaoService.aceitarIntroducao(this.estado).pipe(
+  aceitar() {
+    this.introducaoService.aceitarIntroducao('Aceite').pipe(
       mergeMap((res: any) => this.introducaoService.criarRelacao1({
-        jogador1: this.currentUser,
-        jogador2: this.selected,
+        //jogador1: this.jogadorId,
+        jogador2: this.selectedUser,
         listaTags: this.listavazia,
         forcaRelacao: this.forcaRelacao,
         forcaLigacao: this.forcaLigacao
       } as Relacao).pipe(mergeMap((res2: any) => this.introducaoService.criarRelacao2({
-        jogador1: this.selected,
-        jogador2: this.currentUser,
+        jogador1: this.selectedUser,
+        //jogador2: this.jogadorId,
         listaTags: this.listavazia,
         forcaRelacao: this.forcaRelacao,
         forcaLigacao: this.forcaLigacao
@@ -58,4 +64,9 @@ export class IntroducaoComponent implements OnInit {
         }
       });
   }
+
+  rejeitar() {
+    this.introducaoService.rejeitarIntroducao('Recusado');
+  }
+
 }

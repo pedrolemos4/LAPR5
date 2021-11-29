@@ -3,15 +3,13 @@
 <div id="texto">
     <h2>Lista de introduções pendentes:</h2>
     <div id="container">
+        <div *ngFor="let intro of listIntroducoes">
+            <!--<p>O jogador {{intro.jogadorIntrodutor.perfilId.nome}} quer introduzi-lo ao jogador {{intro.jogadorInicial.perfilId.nome}}</p>-->
+            <p>Quer aceitar a introdução e criar uma ligação?</p>
+            <button type="submit" class="aceitar" (click)="aceitar()"><i class="fa fa-check"></i> Aceitar</button>
+            <button type="submit" class="rejeitar" (click)="rejeitar()"><i class="fa fa-times"></i> Rejeitar</button>
+        </div>
         <p>Introdução A</p>
-        <button type="submit" class="aceitar"><i class="fa fa-check"></i> Aceitar</button>
-        <button type="submit" class="rejeitar"><i class="fa fa-times"></i> Rejeitar</button>
-        <p>Introdução B</p>
-        <button type="submit" class="aceitar"><i class="fa fa-check"></i> Aceitar</button>
-        <button type="submit" class="rejeitar"><i class="fa fa-times"></i> Rejeitar</button>
-        <p>Introdução C</p>
-        <button type="submit" class="aceitar"><i class="fa fa-check"></i> Aceitar</button>
-        <button type="submit" class="rejeitar"><i class="fa fa-times"></i> Rejeitar</button>
     </div>
 </div>
 

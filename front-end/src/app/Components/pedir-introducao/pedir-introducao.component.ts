@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PedirIntroducaoService } from 'src/app/services/PedirIntroducao/pedir-introducao.service';
+import { PedirIntroducaoService } from 'src/app/Services/PedirIntroducao/pedir-introducao.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Jogador } from 'src/app/Models/Jogador';
 @Component({
