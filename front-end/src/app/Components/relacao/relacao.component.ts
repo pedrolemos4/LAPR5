@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { mergeMap, Observable } from 'rxjs';
+import { mergeMap } from 'rxjs';
 import { Perfil } from 'src/app/Models/Perfil';
 import { Relacao } from 'src/app/Models/Relacao';
 import { RelacaoService } from 'src/app/Services/Relacao/relacao.service';
@@ -14,9 +14,12 @@ import { RelacaoService } from 'src/app/Services/Relacao/relacao.service';
 })
 export class RelacaoComponent implements OnInit {
   relacaoForm: FormGroup;
-  combobox: FormGroup;
   listaPerfis: Perfil[] = [];
   selected: string = '';
+  test: string = '';
+  final: string = '';
+  final1: string = '';
+  array: string [] = [];
   email: string | undefined = '';
   id: any = '';
   listaTags: string[] = new Array<string>();
@@ -25,22 +28,17 @@ export class RelacaoComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private relacaoService: RelacaoService, private toastr: ToastrService, private router: Router) {
     this.relacaoForm = this.formBuilder.group({
-      listaTags: ['', Validators.required],
+      Tags: ['', Validators.required],
       forcaLigacao: ['', Validators.required],
-    });
-    this.combobox = this.formBuilder.group({
-      relacao: '',
     });
   }
 
   selectChangeHandler(event: any) {
-    //update the ui
     this.selected = event.target.value;
   }
 
   // convenience getter for easy access to form fields
   get f() { return this.relacaoForm.controls; }
-  get f1() { return this.combobox.controls; }
 
   ngOnInit(): void {
     const currentUser = localStorage.getItem('currentUser');
@@ -71,51 +69,43 @@ export class RelacaoComponent implements OnInit {
   }
 
   onSubmit() {
+
+    this.test = this.selected.replace("Nome: ", "");
+    this.final = this.test.replace("Email: ", "");
+    this.final1 = this.final.replace(" ", "");
+    console.log(this.final1);
+    this.array = this.final1.split(",");
+    console.log(this.array[1]);
+
     this.relacaoService.getPerfilAtual(this.email).pipe(
       mergeMap((res: any) => this.relacaoService.getJogadorAtual(res.id))).subscribe(
         (r: any) => {
-          this.relacaoService.getPerfilAtual(this.selected).pipe(
+          this.relacaoService.getPerfilAtual(this.array[1]).pipe(
             mergeMap((res1: any) => this.relacaoService.getJogadorAtual(res1.id))).pipe(
               mergeMap((res: any) => this.relacaoService.getRelacao(r.id, res.id))).subscribe(
                 (res2: any) => {
                   console.log(res2.id);
-                  this.listaStringTags = this.f['listaTags'].value;
+                  this.listaStringTags = this.f['Tags'].value;
                   this.listaTags = this.listaStringTags.toString().split(",");
-                  this.f['listaTags'].setValue(this.listaTags);
-                  console.log(this.f['listaTags'].value);
+                  this.f['Tags'].setValue(this.listaTags);
+                  console.log(this.f['Tags'].value);
                   this.relacaoService.patchRelacao(res2.id, {
                     id: res2.id,
                     jogador1: res2.jogador1,
                     jogador2: res2.jogador2,
-                    listaTags: this.f['listaTags'].value,
+                    Tags: this.f['Tags'].value,
                     forcaRelacao: res2.forcaRelacao,
                     forcaLigacao: this.f['forcaLigacao'].value
                   } as Relacao).subscribe({
                     next: (res3: any) => {
                       console.log(res3);
+                      this.toastr.success('Alteração realizada com sucesso!');
                     },
                     error: () => {
-                      this.toastr.error("Error: Service Unavailable");
+                      this.toastr.error("Erro: Serviço Não Disponível");
                     }
                   });
-
                 });
         });
-
-
-    // this.relacaoService.getPerfilAtual(this.selected).pipe(
-    //   mergeMap((res1: any) => this.relacaoService.getJogadorAtual(res1.id))).pipe(
-    //     mergeMap((res: any) => this.relacaoService.getRelacao(localStorage.getItem('idInicial'),res.id))).subscribe({
-    //       next: (res1: any) => {
-    //         res1.forcaLigacao = this.f['forcaLigacao'].value;
-    //         res1.listaTags = this.f['listaTags'].value;
-    //         //this.f1['relacao'].setValue(res1);
-    //         this.relacaoService.patchRelacao(res1.id, res1);
-    //       },
-    //       error: () => {
-    //         this.toastr.error("Error: Service Unavailable");
-    //       }
-    //     }); 
-
   }
 }

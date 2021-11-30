@@ -3,16 +3,14 @@
     <div class="card1">
         <h4 class="card-header">Lista de Relações</h4>
         <div class="card-body">
-            <form [formGroup]="combobox">
-                <div class="form-data">
-                    <select (change)="selectChangeHandler($event)">
-                        <option selected>Escolha...</option>
-                        <option *ngFor="let perfil of listaPerfis">
-                            {{perfil.email}} </option>
-                    </select>
-                    <p><span>Relação Selecionada: </span><b>{{selected}}</b></p>
-                </div>
-            </form>
+            <div class="form-data">
+                <select (change)="selectChangeHandler($event)">
+                    <option selected>Escolha...</option>
+                    <option *ngFor="let perfil of listaPerfis">
+                        Nome: {{perfil.nome}}, Email: {{perfil.email}} </option>
+                </select>
+                <p><span>Relação Selecionada:</span><br><b>{{selected}}</b></p>
+            </div>
         </div>
     </div>
     <div class="card">
@@ -20,13 +18,15 @@
         <div class="card-body">
             <form [formGroup]="relacaoForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
-                    <label for="listaTags">Tags</label>
-                    <input type="text" placeholder="Insira Tags..." formControlName="listaTags" class="form-control"
+                    <label for="Tags">Tags</label>
+                    <input type="text" placeholder="Insira Tags..." formControlName="Tags" class="form-control"
                         required />
                 </div>
-                <div class="form-group">
+                <div class="slider">
                     <label for="forcaLigacao" class="form-label">Força de Ligação</label>
-                    <input type="range" class="form-range" min="1" max="100" step="1" formControlName="forcaLigacao">
+                    <input type="range" class="form-range" min="1" max="100" step="1" value="0"
+                        formControlName="forcaLigacao" oninput="rangeValue.innerText = this.value">
+                    <p>Valor: <span id="rangeValue">0</span></p>
                 </div>
                 <div class="form-group">
                     <button type="submit" id="submit" class="btn-primary">Guardar Alterações</button>

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Jogador } from 'src/app/Models/Jogador';
@@ -16,10 +16,22 @@ export class RegistoService {
   constructor(private httpClient: HttpClient) { }
 
    registoPerfil(perfil: Perfil): Observable<Perfil> {
-     return this.httpClient.post<Perfil>(this.urlPerfil, perfil);
+    let bodystr = JSON.stringify(perfil);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',        
+      })
+    };
+     return this.httpClient.post<Perfil>(this.urlPerfil, bodystr, httpOptions);
    }
 
   registoJogador(jog:Jogador): Observable<Jogador> {
-    return this.httpClient.post<Jogador>(this.urlJogador, jog);
+    let bodystr = JSON.stringify(jog);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',        
+      })
+    };
+    return this.httpClient.post<Jogador>(this.urlJogador, bodystr, httpOptions);
   }
 }

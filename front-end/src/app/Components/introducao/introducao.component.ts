@@ -44,13 +44,13 @@ export class IntroducaoComponent implements OnInit {
       mergeMap((res: any) => this.introducaoService.criarRelacao1({
         //jogador1: this.jogadorId,
         jogador2: this.selectedUser,
-        listaTags: this.listavazia,
+        Tags: this.listavazia,
         forcaRelacao: this.forcaRelacao,
         forcaLigacao: this.forcaLigacao
       } as Relacao).pipe(mergeMap((res2: any) => this.introducaoService.criarRelacao2({
         jogador1: this.selectedUser,
         //jogador2: this.jogadorId,
-        listaTags: this.listavazia,
+        Tags: this.listavazia,
         forcaRelacao: this.forcaRelacao,
         forcaLigacao: this.forcaLigacao
       } as Relacao)))))
