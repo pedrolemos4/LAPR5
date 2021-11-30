@@ -26,7 +26,7 @@ export class RelacaoComponent implements OnInit {
   listaStringTags: string = '';
 
 
-  constructor(private formBuilder: FormBuilder, private relacaoService: RelacaoService, private toastr: ToastrService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private relacaoService: RelacaoService, private toastr: ToastrService) {
     this.relacaoForm = this.formBuilder.group({
       Tags: ['', Validators.required],
       forcaLigacao: ['', Validators.required],

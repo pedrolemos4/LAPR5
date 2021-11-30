@@ -1,0 +1,28 @@
+.botao {
+    text-decoration: none;
+    background-color: #04AA6D;
+    font-size: 20px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    color: white;
+    margin-left: 50px;
+    padding: 18px 20px;
+    border: none;
+    cursor: pointer;
+    width: 20%;
+    opacity: 0.9;
+  }
+  
+  .botao:hover {
+    background-color: #017e50;
+  }
+
+.texto {
+    color: black;
+     text-align: left;
+      margin-top: 10%;
+       margin-left: 0px;
+       position: absolute;
+}
+.texto h1{
+    color: black;
+}

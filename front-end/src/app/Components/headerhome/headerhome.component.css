@@ -1,18 +1,40 @@
 #cabecalho {
-    padding: 1px 16px;
-    height: 40px;
-    width: 95%;
+    height: 80px;
+    width: 100%;
     display: inline-block;
     position: absolute;
+    background-color: rgb(255, 255, 255);
+    margin-top: -3%;
+    margin-left: -2.1%;
 }
+  /* .imagem {
+    /* The image used 
+    background-color: black;
+    /* background-image: url("../imagens/dei.png"); 
+    width: 100%;
+  max-width: 400px;
+  height: auto;
 
+  } */
+  #nav img {
+    float: left;
+    width: 100px;
+    height: 100px;
+    background: #555;
+    
+  }
+  
+.nav {
+    display: inline;
+}
 #menu {
     height: 30px;
-    margin: 1px;
+    margin: 35px;
     text-align: right;
 }
 
 #menu a {
+    margin-bottom: 0%;
     color: black;
     font-size: 15px;
     padding: 15px;
@@ -23,10 +45,4 @@
 #menu a:hover {
     color: white;
     background-color: rgb(12, 12, 7);
-  }
-
-  #imagem {
-      position: absolute;
-      margin-top: 5px;
-      margin-left: 5px;
   }

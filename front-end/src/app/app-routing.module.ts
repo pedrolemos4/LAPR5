@@ -13,6 +13,8 @@ import { PedidoComponent } from './Components/pedido/pedido.component';
 import { PedirIntroducaoComponent } from './Components/pedir-introducao/pedir-introducao.component';
 import { RelacaoComponent } from './Components/relacao/relacao.component';
 import { HomeComponent } from './Components/home/home.component';
+import { LigacaoComponent } from './Components/ligacao/ligacao.component';
+import { HomeInicialComponent } from './Components/home-inicial/home-inicial.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -27,7 +29,9 @@ const routes: Routes = [
   { path: 'pedido', component: PedidoComponent},
   { path: 'pedir_introducao', component: PedirIntroducaoComponent},
   { path: 'relacao', component: RelacaoComponent},
-  { path: 'home', component: HomeComponent}
+  { path: 'home', component: HomeComponent},
+  { path: 'homePrincipal', component: HomeInicialComponent},
+  { path: 'ligacao', component: LigacaoComponent}
 ];
 
 

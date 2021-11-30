@@ -1,13 +1,14 @@
-.fundo {
+.content {
   /* The image used */
+  /*background-color: black;*/
   background-image: url("./Components/imagens/social-network.jpg");
-  margin-top: 80px;
+  margin-top: 60px;
   /* Control the height of the image */
-  min-height: 650px;
+  min-height: 500px;
   width: 100%;
 
   /* Center and scale the image nicely */
-  background-position: left;
+  background-position: center;
   background-repeat: no-repeat;
   top:0;
   left:0;
@@ -15,22 +16,4 @@
   bottom:0;
   overflow-x: hidden;
   position: absolute;
-}
-
-.botao {
-  text-decoration: none;
-  background-color: #04AA6D;
-  font-size: 20px;
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
-  color: white;
-  margin-left: 50px;
-  padding: 18px 20px;
-  border: none;
-  cursor: pointer;
-  width: 20%;
-  opacity: 0.9;
-}
-
-.botao:hover {
-  background-color: #017e50;
 }

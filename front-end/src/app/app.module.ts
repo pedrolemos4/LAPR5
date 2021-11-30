@@ -23,6 +23,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RelacaoComponent } from './Components/relacao/relacao.component';
 import { HeaderhomeComponent } from './Components/headerhome/headerhome.component';
 import { HomeComponent } from './Components/home/home.component';
+import { LigacaoComponent } from './Components/ligacao/ligacao.component';
+import { HomeInicialComponent } from './Components/home-inicial/home-inicial.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { HomeComponent } from './Components/home/home.component';
     PedirIntroducaoComponent,
     RelacaoComponent,
     HeaderhomeComponent,
-    HomeComponent
+    HomeComponent,
+    LigacaoComponent,
+    HomeInicialComponent
   ],
   imports: [
     BrowserModule,

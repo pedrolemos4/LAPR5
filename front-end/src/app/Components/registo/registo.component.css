@@ -1,21 +1,3 @@
-.fundo {
-  /* The image used */
-  background-image: url("../imagens/social-network.jpg");
-  margin-top: 80px;
-  /* Control the height of the image */
-  min-height: 600px;
-  width: 100%;
-
-  /* Center and scale the image nicely */
-  background-position: left;
-  background-repeat: no-repeat;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  overflow-x: hidden;
-  position: absolute;
-}
 
 /* Add padding to containers */
 .card {
@@ -26,8 +8,8 @@ background-color: #f2f2f2e7;
 border-radius: 5px;
 justify-content: center;
 margin-left: 30%;
-margin-top: 8px;
-position: relative;
+margin-top: 45px;
+position: fixed;
 }
 
 
