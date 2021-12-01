@@ -1,14 +1,21 @@
 <app-header></app-header>
 <app-navbar></app-navbar>
 <div id="texto">
-    <h2>Lista de introduções pendentes:</h2>
     <div id="container">
-        <div *ngFor="let intro of listIntroducoes">
-            <p>O jogador {{intro.jogadorIntrodutor}} quer introduzi-lo ao jogador {{intro.jogadorInicial}}</p>
-            <p>Quer aceitar a introdução e criar uma ligação?</p>
-            <button type="submit" class="aceitar" (click)="aceitar(intro)"><i class="fa fa-check"></i> Aceitar</button>
-            <button type="submit" class="rejeitar" (click)="rejeitar(intro)"><i class="fa fa-times"></i> Rejeitar</button>
-        </div>
+        <h2>Lista de introduções pendentes:</h2>
+            <table style="width: 500px;">
+                <tr>
+                    <td *ngFor="let perfil of perfilIntrodutoresList">Introdutor: {{perfil}}</td>
+                </tr>
+                <tr>
+                    <td *ngFor="let perfil of perfilIniciaisList">Inicial: {{perfil}}</td>
+                </tr>
+                <tr>
+                    <td *ngFor="let intro of listIntroducoes">
+                        <button type="submit" class="aceitar" (click)="aceitar(intro)"><i class="fa fa-check"></i> Aceitar</button>
+                        <button type="submit" class="rejeitar" (click)="rejeitar(intro)"><i class="fa fa-times"></i> Rejeitar</button>
+                    </td>
+                </tr>
+              </table>
     </div>
 </div>
-

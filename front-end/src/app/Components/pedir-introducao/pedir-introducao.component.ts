@@ -125,7 +125,7 @@ export class PedirIntroducaoComponent implements OnInit {
       jogadorInicial: this.idCurrentUser, //id do jogador logado 
       jogadorIntrodutor: this.idJogIntrodutorio, //id do amigoemcomum
       jogadorObjetivo : this.idJogObjetivo,  //id do this.selectedJogadorObjetivo
-      estado: this.estadoIntro,
+      estadoIntroducao: this.estadoIntro,
       textoIntroducao: this.pedirIntroForm.controls['mensagem'].value// mensagem da ui
      } as Introducao).subscribe({
         next: () => {

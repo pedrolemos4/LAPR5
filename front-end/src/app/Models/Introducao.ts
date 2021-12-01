@@ -3,6 +3,6 @@ export interface Introducao {
     jogadorInicial: any;
     jogadorIntrodutor: any;
     jogadorObjetivo: any;
-    estado: string;
+    estadoIntroducao: string;
     textoIntroducao: string;
 }

@@ -6,6 +6,7 @@ import { IntroducaoService } from 'src/app/Services/Introducao/introducao.servic
 import { Relacao } from 'src/app/Models/Relacao';
 import { Introducao } from 'src/app/Models/Introducao';
 import { Jogador } from 'src/app/Models/Jogador';
+import { Perfil } from 'src/app/Models/Perfil';
 
 @Component({
   selector: 'app-introducao',
@@ -20,22 +21,46 @@ export class IntroducaoComponent implements OnInit {
   forcaRelacao: number = 1;
   forcaLigacao: number = 1;
 
-  emailUser: string|any = '';
-  perfilId: string = '';
-  jogadorId: string = '';
+  emailUser: string = '';
+  perfilUser!: Perfil;
+  idPerfilUser: string = '';
+  currentUser!: Jogador;
+  idCurrentUser: string = '';
+  perfilList: Perfil[] = [];
+  emailList: string[] = [];
+
+  perfilIntrodutoresList: string[] = [];
+  perfilIniciaisList: string[] = [];
   constructor(private router: Router, private toastr: ToastrService, private introducaoService: IntroducaoService) { 
   }
 
   ngOnInit(): void {
     const currentUser = localStorage.getItem('currentUser');
     this.emailUser = currentUser?.replace(/\"/g, "");
-    console.log(this.emailUser);
+    this.introducaoService.getPerfilByEmail(this.emailUser).subscribe(Perfil => {
+      this.perfilUser = Perfil;
+      this.idPerfilUser = Perfil.id;
+      console.log(this.idPerfilUser);
+      this.introducaoService.getJogadorByPerfil(this.idPerfilUser).subscribe(Response => {
+        this.currentUser = Response;
+        this.idCurrentUser = this.currentUser.id;
+        console.log(this.idCurrentUser);
+        this.introducaoService.getIntroducoesAprovarRejeitar(this.idCurrentUser).subscribe(Response => {
+          this.listIntroducoes = Response;
+          this.idCurrentUser = this.currentUser.id;
+          console.log(this.idCurrentUser);
 
-    this.introducaoService.getPerfilByEmail(this.emailUser).pipe(
-    mergeMap((result: any) => this.introducaoService.getJogadorByPerfil(result.id))).pipe(
-      mergeMap((result2: any) => this.introducaoService.getIntroducoesAprovarRejeitar(result2.id))).subscribe(introsPendentes => {
-      this.listIntroducoes = introsPendentes;
-      console.log(this.listIntroducoes.length);
+          this.listIntroducoes.forEach((introducao: any) => {
+            this.introducaoService.getPerfilJogador(introducao.jogadorIntrodutor).subscribe(Perfil => {
+              console.log(Perfil.email);
+              this.perfilIntrodutoresList.push(Perfil.email);
+            })
+            this.introducaoService.getPerfilJogador(introducao.jogadorInicial).subscribe(Perfil => {
+              this.perfilIniciaisList.push(Perfil.email);
+            })
+          });
+        });
+      });
     });
   }
 
@@ -45,8 +70,8 @@ export class IntroducaoComponent implements OnInit {
       jogadorInicial: intro.jogadorInicial,
       jogadorIntrodutor: intro.jogadorIntrodutor,
       jogadorObjetivo: intro.jogadorObjetivo,
-      estado: 'Aceite',
-      textoIntroducao: 'Mensagem'
+      estadoIntroducao: "Aceite",
+      textoIntroducao: "Mensagem"
     } as Introducao).pipe(
       mergeMap((res: any) => 
       this.introducaoService.criarRelacao1({
@@ -82,8 +107,8 @@ export class IntroducaoComponent implements OnInit {
       jogadorInicial: intro.jogadorInicial,
       jogadorIntrodutor: intro.jogadorIntrodutor,
       jogadorObjetivo: intro.jogadorObjetivo,
-      estado: 'Recusado',
-      textoIntroducao: 'Mensagem'
+      estadoIntroducao: "Recusado",
+      textoIntroducao: "Mensagem"
     } as Introducao).subscribe({
       next: (result: any) => {
         console.log(result);
