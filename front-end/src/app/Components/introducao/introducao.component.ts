@@ -46,7 +46,7 @@ export class IntroducaoComponent implements OnInit {
       jogadorIntrodutor: intro.jogadorIntrodutor,
       jogadorObjetivo: intro.jogadorObjetivo,
       estado: 'Aceite',
-      mensagem: 'Mensagem'
+      textoIntroducao: 'Mensagem'
     } as Introducao).pipe(
       mergeMap((res: any) => 
       this.introducaoService.criarRelacao1({
@@ -82,8 +82,8 @@ export class IntroducaoComponent implements OnInit {
       jogadorInicial: intro.jogadorInicial,
       jogadorIntrodutor: intro.jogadorIntrodutor,
       jogadorObjetivo: intro.jogadorObjetivo,
-      estado: "Recusado",
-      mensagem: "Mensagem"
+      estado: 'Recusado',
+      textoIntroducao: 'Mensagem'
     } as Introducao).subscribe({
       next: (result: any) => {
         console.log(result);

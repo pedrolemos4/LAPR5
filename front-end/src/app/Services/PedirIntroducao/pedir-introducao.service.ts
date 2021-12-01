@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Jogador } from 'src/app/Models/Jogador';
 import { Perfil } from 'src/app/Models/Perfil';
+import { Introducao } from 'src/app/Models/Introducao';
 import { environment } from 'src/environments/environment';
 
 
@@ -38,8 +39,8 @@ export class PedirIntroducaoService {
   getAmigosEmComum(id: string, idObj: string): Observable<Jogador[]> {
     return this.http.get<Jogador[]>(this.pedirIntroducaoUrl + 'jogadores/GetAmigosEmComum/' + id + '/' + idObj);
   }
-  pedirIntroducao(player: string) {
-    console.log(player);
-    return this.http.post(this.pedirIntroducaoUrl + 'introducoes', player);
+
+  pedirIntroducao(intro: Introducao): Observable<Introducao> {
+    return this.http.post<Introducao>(this.pedirIntroducaoUrl + 'introducoes', intro);
   }
 }

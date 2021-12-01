@@ -4,5 +4,5 @@ export interface Introducao {
     jogadorIntrodutor: any;
     jogadorObjetivo: any;
     estado: string;
-    mensagem: string;
+    textoIntroducao: string;
 }
