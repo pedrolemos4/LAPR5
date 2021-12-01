@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.Jogadores;
+using DDDSample1.Domain.SharedValueObjects;
 
 namespace DDDSample1.Domain.Introducoes
 {
@@ -86,7 +87,8 @@ namespace DDDSample1.Domain.Introducoes
 
         public async Task<List<IntroducaoDto>> GetIntroducoesPorAprovar(JogadorId idJog)
         {
-            var list = await this._repo.GetIntroducoesPorAprovar(idJog);
+            Estado estado = Estado.Pendente;
+            var list = await this._repo.GetIntroducoesPorAprovar(idJog, estado);
             List<IntroducaoDto> listIntro = list.ConvertAll<IntroducaoDto>(intro => new IntroducaoDto
             {
                 JogadorInicial = intro.JogadorInicial.AsGuid(),
@@ -100,7 +102,8 @@ namespace DDDSample1.Domain.Introducoes
 
         public async Task<List<IntroducaoDto>> GetIntroducoesAprovarRejeitar(JogadorId idJog)
         {
-            var list = await this._repo.GetIntroducoesAprovarRejeitar(idJog);
+            Estado estado = Estado.Pendente;
+            var list = await this._repo.GetIntroducoesAprovarRejeitar(idJog, estado);
             List<IntroducaoDto> listIntro = list.ConvertAll<IntroducaoDto>(intro => new IntroducaoDto
             {
                 JogadorInicial = intro.JogadorInicial.AsGuid(),

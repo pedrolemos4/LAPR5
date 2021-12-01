@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Introducao } from 'src/app/Models/Introducao';
@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 })
 export class IntroducaoService {
 
-  private readonly url = environment.apiUrl + 'Introducoes';
+  private readonly url = environment.apiUrl + 'Introducoes/';
   private readonly urlPer = environment.apiUrl + 'Perfis';
   private readonly urlJog = environment.apiUrl + 'Jogadores';
   private readonly urlRel = environment.apiUrl + 'Relacoes';
@@ -27,22 +27,39 @@ export class IntroducaoService {
   }
 
   getIntroducoesAprovarRejeitar(jogadorId:any): Observable<Introducao[]> {
-    return this.http.get<Introducao[]>(this.url + '/GetIntroducoesAprovarRejeitar/' + jogadorId);
+    return this.http.get<Introducao[]>(this.url + 'GetIntroducoesAprovarRejeitar/' + jogadorId);
   }
 
-  aceitarIntroducao(estado:string): Observable<any> {
-    return this.http.patch(this.url + '/patch/', estado);  
-  }
-
-  criarRelacao1(relacao:Relacao): Observable<Relacao> {
-    return this.http.post<Relacao>(this.urlRel, relacao);
+  criarRelacao1(relacao:Relacao): Observable<Relacao>{
+    let bodystr = JSON.stringify(relacao);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+      })
+    };
+    console.log(bodystr);
+    return this.http.post<Relacao>(this.urlRel, bodystr, httpOptions);
   }
 
   criarRelacao2(relacao:Relacao): Observable<Relacao> {
-    return this.http.post<Relacao>(this.urlRel, relacao);
+    let bodystr = JSON.stringify(relacao);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+      })
+    };
+    return this.http.post<Relacao>(this.urlRel, bodystr, httpOptions);
   }
 
-  rejeitarIntroducao(estado:string): Observable<any> {
-    return this.http.patch(this.url + '/patch/', estado);
+  patchIntroducao(introId:string, intro:Introducao): Observable<Introducao> {
+    let bodystr = JSON.stringify(intro);
+    console.log(intro);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',        
+      })
+    };
+    console.log(introId);
+    return this.http.patch<Introducao>(this.url + introId, bodystr, httpOptions);
   }
 }

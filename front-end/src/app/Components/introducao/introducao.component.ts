@@ -17,8 +17,8 @@ export class IntroducaoComponent implements OnInit {
   id: string = '';
   listavazia: string[] = [];
   selectedUser: string = '';
-  forcaRelacao: number = 0;
-  forcaLigacao: number = 0;
+  forcaRelacao: number = 1;
+  forcaLigacao: number = 1;
 
   emailUser: string|any = '';
   perfilId: string = '';
@@ -39,24 +39,33 @@ export class IntroducaoComponent implements OnInit {
     });
   }
 
-  aceitar() {
-    this.introducaoService.aceitarIntroducao('Aceite').pipe(
-      mergeMap((res: any) => this.introducaoService.criarRelacao1({
-        //jogador1: this.jogadorId,
-        jogador2: this.selectedUser,
+  aceitar(intro:Introducao) {
+    this.introducaoService.patchIntroducao(intro.id, {
+      id: intro.id,
+      jogadorInicial: intro.jogadorInicial,
+      jogadorIntrodutor: intro.jogadorIntrodutor,
+      jogadorObjetivo: intro.jogadorObjetivo,
+      estadoIntroducao: 'Aceite'
+    } as Introducao).pipe(
+      mergeMap((res: any) => 
+      this.introducaoService.criarRelacao1({
+        id: '',
+        jogador1: intro.jogadorInicial,
+        jogador2: intro.jogadorObjetivo,
         Tags: this.listavazia,
         forcaRelacao: this.forcaRelacao,
         forcaLigacao: this.forcaLigacao
-      } as Relacao).pipe(mergeMap((res2: any) => this.introducaoService.criarRelacao2({
-        jogador1: this.selectedUser,
-        //jogador2: this.jogadorId,
+      } as Relacao))).pipe(mergeMap((res: any) => this.introducaoService.criarRelacao2({
+        id: '',
+        jogador1: intro.jogadorObjetivo,
+        jogador2: intro.jogadorInicial,
         Tags: this.listavazia,
         forcaRelacao: this.forcaRelacao,
         forcaLigacao: this.forcaLigacao
-      } as Relacao)))))
+      } as Relacao)))
       .subscribe({
         next: () => {
-          this.toastr.success('Introdução realizada com sucesso!');
+          this.toastr.success('Introdução aceite com sucesso!');
           this.router.navigateByUrl('/introducao');
         },
         error: () => {
@@ -65,8 +74,24 @@ export class IntroducaoComponent implements OnInit {
       });
   }
 
-  rejeitar() {
-    this.introducaoService.rejeitarIntroducao('Recusado');
+  rejeitar(intro:Introducao) {
+    console.log(intro);
+    this.introducaoService.patchIntroducao(intro.id, {
+      id: intro.id,
+      jogadorInicial: intro.jogadorInicial,
+      jogadorIntrodutor: intro.jogadorIntrodutor,
+      jogadorObjetivo: intro.jogadorObjetivo,
+      estadoIntroducao: 'Recusado'
+    } as Introducao).subscribe({
+      next: (result: any) => {
+        console.log(result);
+        this.toastr.success('Introdução rejeitada com sucesso!');
+        this.router.navigateByUrl('/introducao');
+      },
+      error: () => {
+        this.toastr.error("Error: Service Unavailable");
+      }
+    });
   }
 
 }

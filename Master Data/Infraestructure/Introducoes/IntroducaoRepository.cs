@@ -16,17 +16,17 @@ namespace DDDSample1.Infrastructure.Introducoes
             _context = context;
         }
 
-        public async Task<List<Introducao>> GetIntroducoesPorAprovar(JogadorId idJog)
+        public async Task<List<Introducao>> GetIntroducoesPorAprovar(JogadorId idJog, Domain.SharedValueObjects.Estado estado)
         {
             var introducoes = await _context.Introducoes
-            .Where(i => (i.JogadorIntrodutor.Equals(idJog)) && (i.EstadoIntroducao.Equals("Pendente"))).ToListAsync();
+            .Where(i => (i.JogadorIntrodutor.Equals(idJog)) && (i.EstadoIntroducao.Equals(estado))).ToListAsync();
             return introducoes;   
         }
 
-        public async Task<List<Introducao>> GetIntroducoesAprovarRejeitar(JogadorId idJog)
+        public async Task<List<Introducao>> GetIntroducoesAprovarRejeitar(JogadorId idJog, Domain.SharedValueObjects.Estado estado)
         {
             var introducoes = await _context.Introducoes
-            .Where(i => (i.JogadorObjetivo.Equals(idJog)) && (i.EstadoIntroducao.Equals("Pendente"))).ToListAsync();
+            .Where(i => (i.JogadorObjetivo.Equals(idJog)) && (i.EstadoIntroducao.Equals(estado))).ToListAsync();
             return introducoes;   
         }
 
