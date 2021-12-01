@@ -56,7 +56,7 @@ namespace DDDSample1.Infrastructure
             {
                 return;
             }
-
+ 
             foreach (Jogador j in jogadores)
             {
                 context.Jogadores.Add(j);
@@ -64,9 +64,9 @@ namespace DDDSample1.Infrastructure
 
             context.SaveChanges();
 
-            Relacao relacao = new Relacao(jogadores[0].Id,jogadores[1].Id,listaTags,5,80);
+            Relacao relacao = new Relacao(jogadores[0].Id,jogadores[1].Id,listaTags,10,80);
             Relacao relacao1 = new Relacao(jogadores[1].Id,jogadores[0].Id,listaTags,5,10);
-            Relacao relacao2 = new Relacao(jogadores[1].Id,jogadores[2].Id,listaTags,5,20);
+            Relacao relacao2 = new Relacao(jogadores[1].Id,jogadores[2].Id,listaTags,10,20);
             Relacao relacao3 = new Relacao(jogadores[2].Id,jogadores[1].Id,listaTags,5,40);
             Ligacao ligacao = new Ligacao("texto","Pendente",jogadores[0].Id,jogadores[1].Id);
             Ligacao ligacao1 = new Ligacao("texto","Pendente",jogadores[1].Id,jogadores[2].Id);

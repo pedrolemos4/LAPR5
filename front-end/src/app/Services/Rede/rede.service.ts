@@ -30,15 +30,11 @@ export class RedeService {
     return this.http.get<Jogador>(this.jogadorUrl + 'GetJogadorByPerfil/' + perfil);
   }
 
-  getAmigosJogador(id: any): Observable<Jogador[]> {
-    return this.http.get<Jogador[]>(this.jogadorUrl + 'GetAmigos/' + id);
-  }
-
   getPerfil(id: any): Observable<Perfil> {
-    return this.http.get<Perfil>(this.perfilUrl + 'GetPerfil/' + id)
+    return this.http.get<Perfil>(this.jogadorUrl + 'GetPerfilJogador/' + id)
   }
 
-  getRelacao(id1: any, id2: any): Observable<Relacao> {
-    return this.http.get<Relacao>(this.relacaoUrl + 'GetRelacaoComDoisIds/' + id1 + id2);
+  getRelacao(id: any): Observable<Relacao []> {
+    return this.http.get<Relacao []>(this.relacaoUrl + 'GetRelacoesDoJogador/' + id);
   }
 }
