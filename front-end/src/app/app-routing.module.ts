@@ -17,6 +17,7 @@ import { LigacaoComponent } from './Components/ligacao/ligacao.component';
 import { HomeInicialComponent } from './Components/home-inicial/home-inicial.component';
 
 const routes: Routes = [
+  {path: '', component: HomeInicialComponent},
   { path: 'login', component: LoginComponent },
   { path: 'registo', component: RegistoComponent },
   { path: 'perfil', component: PerfilComponent }, 
