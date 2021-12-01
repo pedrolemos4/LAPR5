@@ -82,7 +82,7 @@ namespace DDDSample1.Infrastructure
             context.Ligacoes.Add(ligacao1);
             context.SaveChanges();
 
-            Introducao intro = new Introducao(jogadores[2].Id,jogadores[1].Id,jogadores[0].Id,"Pendente","Mensagem Introdutoria");
+            Introducao intro = new Introducao(jogadores[2].Id,jogadores[1].Id,jogadores[0].Id,"Pendente","Introducao Exemplo");
             context.Introducoes.Add(intro);
             context.SaveChanges();
         }

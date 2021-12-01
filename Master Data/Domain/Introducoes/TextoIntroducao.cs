@@ -10,8 +10,12 @@ namespace DDDSample1.Domain.Introducoes
 
         public bool Active { get; private set; }
 
-        private TextoIntroducao() { }
-        
+        private TextoIntroducao()
+        {
+            this.Texto = "";
+            this.Active = true;
+        }
+
         public TextoIntroducao(string texto)
         {
             this.Texto = texto;

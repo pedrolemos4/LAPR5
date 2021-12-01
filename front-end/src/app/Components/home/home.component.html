@@ -1,6 +1,12 @@
 <main>
 <app-header></app-header>
 <app-navbar></app-navbar>
-<div class="content"></div>
+<div class="content">
+    <div id="texto">
+        <div *ngFor="let nomeUser of nomes" id="container">
+            <h2>Olá {{nomeUser}}!</h2>
+        </div>
+    </div>
+</div>
 <router-outlet></router-outlet>
 </main>

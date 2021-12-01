@@ -5,15 +5,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <h2>Calcular caminho mais seguro</h2>
     <div id="container">
+        <h2>Calcular caminho mais seguro</h2>
         <form [formGroup]="camSeguroForm" (ngSubmit)="onSubmit()">
             <div class="form-data">
                 <label for="jogador">Jogador Objetivo:</label>
                 <select class="selector" style="margin: 20px;" placeholder="Escolha um jogador" (change)="selectChangeHandler($event)">
-                    <option>Jogador1</option>
-                    <option>Jogador2</option>
-                    <option>Jogador3</option>
+                    <option selected disabled="disabled"> Selecione um jogador</option>
+                    <option *ngFor="let eachVal of emailList" [ngValue] = "eachVal">
+                        {{eachVal}}
+                    </option>
                 </select>
             </div>
             <div class="form-data">
