@@ -1,10 +1,8 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DDDSample1.Domain.Jogadores;
 using DDDSample1.Domain.Ligacoes;
-using DDDSample1.Infrastructure;
 using DDDSample1.Domain.Shared;
 using System;
 
@@ -97,7 +95,7 @@ namespace DDDSample1.Controllers
             }
         }
 
-        // POST: api/Ligacoes/6
+        // POST: api/Ligacoes/11
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<LigacaoDto>> PostLigacao(CreatingLigacaoDto ligacaoDto)
