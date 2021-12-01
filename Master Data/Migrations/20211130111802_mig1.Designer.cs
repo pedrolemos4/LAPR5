@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DDDNetCore.Migrations
 {
     [DbContext(typeof(DDDSample1DbContext))]
-    [Migration("20211126180628_mig1")]
+    [Migration("20211130111802_mig1")]
     partial class mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,22 +32,16 @@ namespace DDDNetCore.Migrations
                     b.Property<int>("EstadoIntroducao")
                         .HasColumnType("int");
 
-                    b.Property<string>("JogadorInicialId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("JogadorInicial")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("JogadorIntrodutorId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("JogadorIntrodutor")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("JogadorObjetivoId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("JogadorObjetivo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("JogadorInicialId");
-
-                    b.HasIndex("JogadorIntrodutorId");
-
-                    b.HasIndex("JogadorObjetivoId");
 
                     b.ToTable("Introducoes");
                 });
@@ -165,23 +159,26 @@ namespace DDDNetCore.Migrations
 
             modelBuilder.Entity("DDDSample1.Domain.Introducoes.Introducao", b =>
                 {
-                    b.HasOne("DDDSample1.Domain.Jogadores.Jogador", "JogadorInicial")
-                        .WithMany()
-                        .HasForeignKey("JogadorInicialId");
+                    b.OwnsOne("DDDSample1.Domain.Introducoes.TextoIntroducao", "TextoIntroducao", b1 =>
+                        {
+                            b1.Property<string>("IntroducaoId")
+                                .HasColumnType("nvarchar(450)");
 
-                    b.HasOne("DDDSample1.Domain.Jogadores.Jogador", "JogadorIntrodutor")
-                        .WithMany()
-                        .HasForeignKey("JogadorIntrodutorId");
+                            b1.Property<bool>("Active")
+                                .HasColumnType("bit");
 
-                    b.HasOne("DDDSample1.Domain.Jogadores.Jogador", "JogadorObjetivo")
-                        .WithMany()
-                        .HasForeignKey("JogadorObjetivoId");
+                            b1.Property<string>("Texto")
+                                .HasColumnType("nvarchar(max)");
 
-                    b.Navigation("JogadorInicial");
+                            b1.HasKey("IntroducaoId");
 
-                    b.Navigation("JogadorIntrodutor");
+                            b1.ToTable("Introducoes");
 
-                    b.Navigation("JogadorObjetivo");
+                            b1.WithOwner()
+                                .HasForeignKey("IntroducaoId");
+                        });
+
+                    b.Navigation("TextoIntroducao");
                 });
 
             modelBuilder.Entity("DDDSample1.Domain.Jogadores.Jogador", b =>

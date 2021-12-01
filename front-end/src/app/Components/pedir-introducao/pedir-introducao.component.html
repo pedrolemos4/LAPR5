@@ -4,15 +4,45 @@
     <h2>Pedir uma introdução</h2>
     <div id="container">
     <form [formGroup]="pedirIntroForm" (ngSubmit)="onSubmit()">
-        <div class="form-data">
-            <label for="jogador">Jogador Objetivo:</label>
-            <select class="selector" style="margin: 20px;">
-                <option *ngFor="let eachVal of playersList">
-                    {{eachVal.perfilId}}
-                </option>
-              </select>
+        <div class="form-group">
+            <div class = "row">
+                <div class="col-25">
+                    <label for="jogadorObjetivo">Jogador Objetivo:</label>
+                </div>
+                <div class ="col-75">
+                    <select class="selector" style="margin: 20px;" (change) ="selectJogadorObjetivo($event)">
+                        <option key="-1" ngValue = {undefined}> Selecione um jogador</option>
+                        <option *ngFor="let eachVal of emailList" [ngValue] = "eachVal">
+                            {{eachVal}}
+                        </option>
+                    </select>
+                </div>
+            </div>
         </div>
-         <p><span>You selected: </span><b>{{selectedPlayer}}</b></p>
+         <p><span>You selected: </span><b>{{selectedJogadorObjetivo}}</b></p>
+        <div class="form-group">
+            <div class = "row">
+                <div class ="col-25">
+                    <label for="jogadorIntrodutorio"> Amigos em Comum:</label>
+                </div>
+                <div class ="col-75">
+                    <select class="selector" style="margin: 20px;" (change) ="selectJogadorIntrodutorio($event)">
+                        <option value = "undefined" disabled> Selecione um jogador</option>
+                        <option *ngFor="let eachVal of emailAmigosEmComum">
+                            {{eachVal}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class = "row">
+                <div class = "col-25">
+                    <label for="mensagemIntrodutoria"> Mensagem: </label>
+                </div>
+                <div class ="col-75">
+                    <input type="mensagemIntrodutoria" placeholder="Insira a mensagem introdutória" formControlName ="mensagem" class ="form-control"/>
+                </div>
+            </div>
+        </div>    
         <button type="submit" id="submit" class="submit"> Pedir Introdução</button>
     </form>
 </div>

@@ -71,7 +71,7 @@ namespace DDDSample1.Domain.Jogadores
             List<Guid> ls = new List<Guid>();
             if (lista != null)
             {
-                
+
                 foreach (Missao missao in lista)
                 {
                     ls.Add(missao.Id.AsGuid());
@@ -86,10 +86,10 @@ namespace DDDSample1.Domain.Jogadores
             HashSet<Guid> ls = new HashSet<Guid>();
             if (lista != null)
             {
-            foreach (Relacao r in lista)
-            {
-                ls.Add(r.Id.AsGuid());
-            }
+                foreach (Relacao r in lista)
+                {
+                    ls.Add(r.Id.AsGuid());
+                }
             }
             return ls;
         }
@@ -99,10 +99,10 @@ namespace DDDSample1.Domain.Jogadores
             List<Guid> ls = new List<Guid>();
             if (lista != null)
             {
-            foreach (Post p in lista)
-            {
-                ls.Add(p.Id.AsGuid());
-            }
+                foreach (Post p in lista)
+                {
+                    ls.Add(p.Id.AsGuid());
+                }
             }
             return ls;
         }
@@ -117,11 +117,11 @@ namespace DDDSample1.Domain.Jogadores
             return new JogadorDto
             {
                 Id = jog.Id.AsGuid(),
-                  Pontuacao = jog.Pontuacao.Pontos,
-                   PerfilId = jog.Perfil.AsGuid(),
-                                Missao = converteParaListaGuidMissao(jog.ListaMissoes),
-                                Relacao = converteParaListaGuidRelacao(jog.ListaRelacoes),
-                                Post = converteParaListaGuidPost(jog.ListaPosts)
+                Pontuacao = jog.Pontuacao.Pontos,
+                PerfilId = jog.Perfil.AsGuid(),
+                Missao = converteParaListaGuidMissao(jog.ListaMissoes),
+                Relacao = converteParaListaGuidRelacao(jog.ListaRelacoes),
+                Post = converteParaListaGuidPost(jog.ListaPosts)
             };
         }
 
@@ -178,32 +178,19 @@ namespace DDDSample1.Domain.Jogadores
 
         public async Task<List<JogadorDto>> GetPossiveisAmigos(JogadorId idJog)
         {
-            var list = await this._repo.GetAllAsync();
-            List<JogadorDto> listJog = list.ConvertAll<JogadorDto>(jog => new JogadorDto
-            {
-                Id = jog.Id.AsGuid(),
-                Pontuacao = jog.Pontuacao.Pontos,
-                PerfilId = jog.Perfil.AsGuid(),
-                /*  Missao = converteParaListaGuidMissao(jog.ListaMissoes),
-                  Relacao = converteParaListaGuidRelacao(jog.ListaRelacoes),
-                  Post = converteParaListaGuidPost(jog.ListaPosts)*/
-            });
-            var listAmigos = await this._repo.GetAmigos(idJog);
-            List<JogadorDto> amigos = new List<JogadorDto>();
-            foreach (JogadorId id in listAmigos)
+            var listAux = await this._repo.GetPossiveisAmigos(idJog);
+            List<JogadorDto> jogadors = new List<JogadorDto>();
+            foreach (JogadorId id in listAux)
             {
                 var jog = await this._repo.GetByIdAsync(id);
-                amigos.Add(new JogadorDto
+                jogadors.Add(new JogadorDto
                 {
                     Id = jog.Id.AsGuid(),
-                    //    Pontuacao = jog.Pontuacao.Pontos,
-                    //       PerfilId = jog.perfil.Id.AsGuid(),
-                    /*  Missao = converteParaListaGuidMissao(jog.ListaMissoes),
-                      Relacao = converteParaListaGuidRelacao(jog.ListaRelacoes),
-                      Post = converteParaListaGuidPost(jog.ListaPosts)*/
+                    Pontuacao = jog.Pontuacao.Pontos,
+                    PerfilId = jog.Perfil.AsGuid()
                 });
             }
-            return listJog.Except(amigos).ToList();
+            return jogadors;   
         }
         public async Task<JogadorDto> AddAsync(CreatingJogadorDto jogadorDto)
         {

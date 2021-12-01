@@ -8,6 +8,24 @@ namespace DDDNetCore.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Introducoes",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    JogadorInicial = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    JogadorIntrodutor = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    JogadorObjetivo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EstadoIntroducao = table.Column<int>(type: "int", nullable: false),
+                    TextoIntroducao_Texto = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TextoIntroducao_Active = table.Column<bool>(type: "bit", nullable: true),
+                    Active = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Introducoes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Jogadores",
                 columns: table => new
                 {
@@ -69,40 +87,6 @@ namespace DDDNetCore.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Perfis", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Introducoes",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    JogadorInicialId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    JogadorIntrodutorId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    JogadorObjetivoId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    EstadoIntroducao = table.Column<int>(type: "int", nullable: false),
-                    Active = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Introducoes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Introducoes_Jogadores_JogadorInicialId",
-                        column: x => x.JogadorInicialId,
-                        principalTable: "Jogadores",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Introducoes_Jogadores_JogadorIntrodutorId",
-                        column: x => x.JogadorIntrodutorId,
-                        principalTable: "Jogadores",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Introducoes_Jogadores_JogadorObjetivoId",
-                        column: x => x.JogadorObjetivoId,
-                        principalTable: "Jogadores",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -259,21 +243,6 @@ namespace DDDNetCore.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Introducoes_JogadorInicialId",
-                table: "Introducoes",
-                column: "JogadorInicialId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Introducoes_JogadorIntrodutorId",
-                table: "Introducoes",
-                column: "JogadorIntrodutorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Introducoes_JogadorObjetivoId",
-                table: "Introducoes",
-                column: "JogadorObjetivoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Missoes_JogadorObjetivoId",

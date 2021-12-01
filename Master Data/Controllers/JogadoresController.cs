@@ -40,7 +40,7 @@ namespace DDDSample1.Controllers
 
         // GET: api/Jogadores
         [HttpGet]
-        public async Task<ActionResult<List<JogadorDto>>> GetJogadores() => await _serviceJog.GetAllAsync();
+        public async Task<ActionResult<List<JogadorDto>>>  GetJogadores() => await _serviceJog.GetAllAsync();
 
         // GET: api/Jogadores/5
         [HttpGet]
@@ -93,8 +93,10 @@ namespace DDDSample1.Controllers
         // GET: api/Jogadores/5
         [HttpGet]
         [Route("[action]/{idJog}/{idObj}")]
-        public async Task<ActionResult<List<JogadorDto>>> GetAmigosEmComum([FromRoute]Guid idJog, [FromBody]Guid idObj)
+        public async Task<ActionResult<List<JogadorDto>>> GetAmigosEmComum(Guid idJog, Guid idObj)
         {
+            Console.WriteLine("\n\nId Jog: " + idJog);
+            Console.WriteLine("\n\nId Obj: " + idObj);
             return await _serviceJog.GetAmigosEmComum(new JogadorId(idJog), new JogadorId(idObj));
         }
 
