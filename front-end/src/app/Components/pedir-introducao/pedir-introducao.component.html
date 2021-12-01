@@ -11,7 +11,7 @@
                 </div>
                 <div class ="col-75">
                     <select class="selector" style="margin: 20px;" (change) ="selectJogadorObjetivo($event)">
-                        <option key="-1" ngValue = {undefined}> Selecione um jogador</option>
+                        <option selected disabled="disabled"> Selecione um jogador</option>
                         <option *ngFor="let eachVal of emailList" [ngValue] = "eachVal">
                             {{eachVal}}
                         </option>
@@ -27,13 +27,14 @@
                 </div>
                 <div class ="col-75">
                     <select class="selector" style="margin: 20px;" (change) ="selectJogadorIntrodutorio($event)">
-                        <option value = "undefined" disabled> Selecione um jogador</option>
+                        <option selected disabled="disabled"> Selecione um jogador</option>
                         <option *ngFor="let eachVal of emailAmigosEmComum">
                             {{eachVal}}
                         </option>
                     </select>
                 </div>
             </div>
+            <p><span>You selected: </span><b>{{selectedJogadorIntrodutorio}}</b></p>
             <div class = "row">
                 <div class = "col-25">
                     <label for="mensagemIntrodutoria"> Mensagem: </label>

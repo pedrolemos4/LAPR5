@@ -86,6 +86,8 @@ namespace DDDSample1.Controllers
         // PATCH: api/Introducoes/5
         [HttpPatch("{id}")]
         public async Task<ActionResult<IntroducaoDto>> PatchIntroducao([FromRoute] Guid id, [FromBody] IntroducaoDto dto) {
+            Console.WriteLine("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:" + id);
+            Console.WriteLine("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb:" + dto.EstadoIntroducao);
             if (id != dto.Id)  {
                 return BadRequest();
             }

@@ -4,11 +4,11 @@ namespace DDDSample1.Domain.Ligacoes
 {
     public class CreatingLigacaoDto
     {
-        public string TextoLigacao { get;  private set; }
-        public string EstadoLigacao { get;  private set; }
-        public Guid Jogador1 { get; private set; }
+        public string TextoLigacao { get ; set; }
+        public string EstadoLigacao { get ; set; }
+        public Guid Jogador1 { get ; set; }
 
-        public Guid Jogador2 { get; private set; }
+        public Guid Jogador2 { get ; set; }
 
         public CreatingLigacaoDto(string texto, string estado, Guid jogador1, Guid jogador2)
         {

@@ -4,6 +4,7 @@ import { PedirIntroducaoService } from 'src/app/Services/PedirIntroducao/pedir-i
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Jogador } from 'src/app/Models/Jogador';
 import { Perfil } from 'src/app/Models/Perfil';
+import { Introducao } from 'src/app/Models/Introducao';
 @Component({
   selector: 'app-pedir-introducao',
   templateUrl: './pedir-introducao.component.html',
@@ -14,8 +15,6 @@ export class PedirIntroducaoComponent implements OnInit {
   selectedJogadorObjetivo: string = '';
   selectedJogadorIntrodutorio: string = '';
   pedirIntroForm: FormGroup;
-  // public li: any;
-  // public lis = [];
   playersList: Jogador[] = [];
   perfilList: Perfil[] = [];
   amigosEmComumPerfilList: Perfil[] = [];
@@ -28,10 +27,13 @@ export class PedirIntroducaoComponent implements OnInit {
   perfilCurrentUser!: Perfil;
   idPerfilCurrentUser: string = '';
   currentUser!: Jogador;
-  idCurrentUser: string = '';
+  idCurrentUser: any = '';
   idPerfilJogObjetivo: any;
-  idJogObjetivo: string = '';
+  idJogObjetivo: any = '';
+  idPerfilJogIntro: any = '';
+  idJogIntrodutorio: any = '';
   amigosEmComumIdList: string[] = [];
+  estadoIntro : string = 'Pendente';
 
   constructor(private formBuilder: FormBuilder, private pedirIntroducaoService: PedirIntroducaoService, private router: Router) {
     this.pedirIntroForm = this.formBuilder.group({
@@ -93,14 +95,6 @@ export class PedirIntroducaoComponent implements OnInit {
               this.amigosEmComumPerfilList.push(Perfil.id);
               this.emailAmigosEmComum.push(Perfil.email);
             });
-            // console.log("99: " + this.amigosEmComumPerfilList.length);
-            // this.amigosEmComumPerfilList.forEach((id: any) => {
-            //   this.pedirIntroducaoService.getPerfil(id).subscribe(Perfil => {
-            //     console.log(Perfil.email)
-            //     this.emailAmigosEmComum.push(Perfil.email);
-            //   });
-            //   console.log("104: " + this.emailAmigosEmComum.length);
-            // });
             console.log(this.emailAmigosEmComum);
           });
         });
@@ -113,29 +107,30 @@ export class PedirIntroducaoComponent implements OnInit {
   }
 
   selectJogadorIntrodutorio(event: any) {
-    this.selectJogadorIntrodutorio = event.target.value;
-  }
-
-  getAmigosEmComum(selectedJogadorObjetivo: string) {
-    //ir buscar o perfil através do email, ir buscar o id do jogObj e com o id do user logado ir buscar os amigos em comum
-    //apresentar esses amigos na combo box
+    this.selectedJogadorIntrodutorio = event.target.value;
+    this.pedirIntroducaoService.getPerfilAtual(this.selectedJogadorIntrodutorio).subscribe(Response => {
+      this.idPerfilJogIntro = Response.id;
+      this.pedirIntroducaoService.getJogador(this.idPerfilJogIntro).subscribe(Jogador => {
+        this.idJogIntrodutorio = Jogador.id;
+        console.log(this.idJogIntrodutorio);
+      });
+    });
   }
 
   onSubmit() {
     console.log("Linha 54" + this.emailList);
     console.log(this.selectedJogadorObjetivo);
-    this.pedirIntroducaoService.pedirIntroducao(/*{
-      id : '',
-      jogadorInicial : //id do jogador logado 
-      jogadorIntrodutor : //id do amigoemcomum
-      jogadorObjetivo :  //id do this.selectedJogadorObjetivo
-      estado : this.estado
-      mensagem : // mensagem da ui
-     }*/this.email).subscribe({
-      next: () => {
-        console.log("SUCESSO");
-        this.router.navigateByUrl('/homejogadores');
-      }
-    })
+    this.pedirIntroducaoService.pedirIntroducao({
+      id: '',
+      jogadorInicial: this.idCurrentUser, //id do jogador logado 
+      jogadorIntrodutor: this.idJogIntrodutorio, //id do amigoemcomum
+      jogadorObjetivo : this.idJogObjetivo,  //id do this.selectedJogadorObjetivo
+      estadoIntroducao: this.estadoIntro,
+      textoIntroducao: this.pedirIntroForm.controls['mensagem'].value// mensagem da ui
+     } as Introducao).subscribe({
+        next: () => {
+          this.router.navigateByUrl('/perfil');
+        }
+      })
   }
 }

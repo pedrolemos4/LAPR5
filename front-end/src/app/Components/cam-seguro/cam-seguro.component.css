@@ -1,10 +1,8 @@
 #texto{
-    margin-top: 80px;
     margin-left: 17%;
     padding: 1px 16px;
     height: 665px;
     width: 89%;
-    background-color: rgb(135, 212, 243);
     display: inline-block;
     vertical-align: top;
     position: absolute;
@@ -15,11 +13,11 @@
     background-color: #f2f2f2e7;
     padding: 15px;
     padding-top: 2px;
-    width: 30%;
+    width: 35%;
 }
 
 .form-data{
-    text-align: right;
+    text-align: left;
     margin-right: 20px;
 }
 

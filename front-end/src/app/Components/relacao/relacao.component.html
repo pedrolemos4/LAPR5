@@ -5,7 +5,7 @@
         <div class="card-body">
             <div class="form-data">
                 <select (change)="selectChangeHandler($event)">
-                    <option selected>Escolha...</option>
+                    <option selected disabled="disabled">Escolha...</option>
                     <option *ngFor="let perfil of listaPerfis">
                         Nome: {{perfil.nome}}, Email: {{perfil.email}} </option>
                 </select>

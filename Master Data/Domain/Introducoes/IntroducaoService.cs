@@ -31,7 +31,7 @@ namespace DDDSample1.Domain.Introducoes
                 JogadorIntrodutor = intro.JogadorIntrodutor.AsGuid(),
                 JogadorObjetivo = intro.JogadorObjetivo.AsGuid(),
                 EstadoIntroducao = intro.EstadoIntroducao.ToString(),
-                TextoIntroducao = intro.TextoIntroducao.ToString()
+                TextoIntroducao = intro.TextoIntroducao.Texto
             });
 
             return listDto;
@@ -51,7 +51,7 @@ namespace DDDSample1.Domain.Introducoes
                 JogadorIntrodutor = intro.JogadorIntrodutor.AsGuid(),
                 JogadorObjetivo = intro.JogadorObjetivo.AsGuid(),
                 EstadoIntroducao = intro.EstadoIntroducao.ToString(),
-                TextoIntroducao = intro.TextoIntroducao.ToString(),
+                TextoIntroducao = intro.TextoIntroducao.Texto,
             };
         }
 
@@ -61,7 +61,7 @@ namespace DDDSample1.Domain.Introducoes
             var jogadorObj = await _repoJog.GetByIdAsync(new JogadorId(introducao.JogadorObjetivo));
             var jogadorIntr = await _repoJog.GetByIdAsync(new JogadorId(introducao.JogadorIntrodutor));
 
-            var intro = new Introducao(jogadorIn.Id, jogadorIntr.Id, jogadorObj.Id, introducao.EstadoIntroducao.ToString(), introducao.TextoIntroducao.ToString());
+            var intro = new Introducao(jogadorIn.Id, jogadorIntr.Id, jogadorObj.Id, introducao.EstadoIntroducao.ToString(), introducao.TextoIntroducao);
 
             await this._repo.AddAsync(intro);
 
@@ -74,7 +74,7 @@ namespace DDDSample1.Domain.Introducoes
                 JogadorIntrodutor = intro.JogadorIntrodutor.AsGuid(),
                 JogadorObjetivo = intro.JogadorObjetivo.AsGuid(),
                 EstadoIntroducao = intro.EstadoIntroducao.ToString(),
-                TextoIntroducao = intro.TextoIntroducao.ToString()
+                TextoIntroducao = intro.TextoIntroducao.Texto
             };
 
         }
@@ -98,7 +98,7 @@ namespace DDDSample1.Domain.Introducoes
                 JogadorIntrodutor = intro.JogadorIntrodutor.AsGuid(),
                 JogadorObjetivo = intro.JogadorObjetivo.AsGuid(),
                 EstadoIntroducao = intro.EstadoIntroducao.ToString(),
-                TextoIntroducao = intro.TextoIntroducao.ToString()
+                TextoIntroducao = intro.TextoIntroducao.Texto
             };
         }
 
@@ -121,7 +121,7 @@ namespace DDDSample1.Domain.Introducoes
                 JogadorIntrodutor = intro.JogadorIntrodutor.AsGuid(),
                 JogadorObjetivo = intro.JogadorObjetivo.AsGuid(),
                 EstadoIntroducao = intro.EstadoIntroducao.ToString(),
-                TextoIntroducao = intro.TextoIntroducao.ToString()
+                TextoIntroducao = intro.TextoIntroducao.Texto
             };
         }
 
@@ -136,7 +136,7 @@ namespace DDDSample1.Domain.Introducoes
                 JogadorObjetivo = intro.JogadorObjetivo.AsGuid(),
                 Id = intro.Id.AsGuid(),
                 EstadoIntroducao = intro.EstadoIntroducao.ToString(),
-                TextoIntroducao = intro.TextoIntroducao.ToString()
+                TextoIntroducao = intro.TextoIntroducao.Texto
             });
             return listIntro;
         }
@@ -152,7 +152,7 @@ namespace DDDSample1.Domain.Introducoes
                 JogadorObjetivo = intro.JogadorObjetivo.AsGuid(),
                 Id = intro.Id.AsGuid(),
                 EstadoIntroducao = intro.EstadoIntroducao.ToString(),
-                TextoIntroducao = intro.TextoIntroducao.ToString()
+                TextoIntroducao = intro.TextoIntroducao.Texto
             });
             return listIntro;
         }
@@ -177,7 +177,7 @@ namespace DDDSample1.Domain.Introducoes
                 JogadorIntrodutor = intro.JogadorIntrodutor.AsGuid(),
                 JogadorObjetivo = intro.JogadorObjetivo.AsGuid(),
                 EstadoIntroducao = intro.EstadoIntroducao.ToString(),
-                TextoIntroducao = intro.TextoIntroducao.ToString()
+                TextoIntroducao = intro.TextoIntroducao.Texto
             };
         }
 
@@ -204,7 +204,7 @@ namespace DDDSample1.Domain.Introducoes
                 JogadorIntrodutor = intro.JogadorIntrodutor.AsGuid(),
                 JogadorObjetivo = intro.JogadorObjetivo.AsGuid(),
                 EstadoIntroducao = intro.EstadoIntroducao.ToString(),
-                TextoIntroducao = intro.TextoIntroducao.ToString()
+                TextoIntroducao = intro.TextoIntroducao.Texto
             };
         }
     }

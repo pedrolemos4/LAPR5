@@ -1,14 +1,14 @@
 
 /* Add padding to containers */
 .card {
-  padding: 17px;
+  padding: 37px;
   text-align: center;
   width: 30%;
   background-color: #f2f2f2e7;
   border-radius: 5px;
   justify-content: center;
-  margin-left: 60%;
-  margin-top: 15%;
+  margin-left: 63%;
+  margin-top: 14%;
   position: absolute;
 }
 
@@ -21,7 +21,7 @@
   border-radius: 5px;
   justify-content: center;
   margin-left: 23%;
-  margin-top: 20%;
+  margin-top: 14%;
   position: absolute;
 }
 
@@ -34,7 +34,20 @@
   border-radius: 5px;
   justify-content: center;
   margin-left: 23%;
-  margin-top: 5%;
+  margin-top: 2%;
+  position: absolute;
+}
+
+/* Add padding to containers */
+.card3 {
+  padding: 10px;
+  text-align: left;
+  width: 70%;
+  background-color: #f2f2f2e7;
+  border-radius: 5px;
+  justify-content: center;
+  margin-left: 23%;
+  margin-top: 31%;
   position: absolute;
 }
 
@@ -110,10 +123,37 @@ background-color: #ffffff;
   opacity: 0.9;
 }
 
+/* Set a style for the submit/register button */
+.btn3-primary {
+  background-color: #04AA6D;
+  color: white;
+  padding: 10px 20px;
+  margin-right: 0%;
+  margin-top: 0%;
+  border: none;
+  cursor: pointer;
+  width: 70%;
+  opacity: 0.9;
+}
+
+/* Set a style for the submit/register button */
+.btn4-primary {
+  background-color: #04AA6D;
+  color: white;
+  padding: 10px 20px;
+  margin-right: 0%;
+  margin-top: 0%;
+  border: none;
+  cursor: pointer;
+  width: 30%;
+  opacity: 0.9;
+}
+
 
 .card-header{
     font-weight: bold;
     padding-bottom: 0%;
+    margin-left: 2%;
 }
 
 .label1-maior{
@@ -121,9 +161,68 @@ background-color: #ffffff;
   width: 50%;
 }
 
+.label-maior{
+  margin-left: 2%;
+  width: 80%;
+}
+
 .coluna1-menor{
   float: right;
-  width: 80%;
+  width: 40%;
+  margin-top: -7%;
+  margin-right: 5%;
+}
+
+.coluna-menor{
+  float: right;
+  width: 60%;
   margin-top: 5px;
-  margin-right: 10%;
+  margin-right: 38%;
+}
+
+.botao{
+  float: right;
+  width: 60%;
+  margin-top: -20px;
+  margin-right: -100%;
+}
+
+.botao1{
+  float: right;
+  width: 90%;
+  margin-top: 0%;
+  margin-right: 65%;
+}
+
+/* Style the form - display items horizontally */
+.form-inline {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+/* Add some margins for each label */
+.form-inline label {
+  margin: 5px 10px 5px 0;
+}
+
+/* Style the input fields */
+.form-inline input {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.form-inline {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Clear floats after the columns */
+.form-group:after {
+  content: "";
+  display: table;
+  clear: both;
 }

@@ -56,15 +56,9 @@ export class RelacaoComponent implements OnInit {
                     this.listaPerfis.push(r),
                     console.log(this.listaPerfis)
                 })
-          })))
-      .subscribe({
-        next: (res3: any) => {
+          }))).subscribe( (res3: any) => {
           console.log(res3);
           console.log(this.listaPerfis);
-        },
-        error: () => {
-          this.toastr.error("Error: Service Unavailable");
-        }
       });
   }
 

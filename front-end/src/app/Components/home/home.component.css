@@ -17,3 +17,22 @@
     overflow-x: hidden;
     position: fixed;
   }
+
+  #texto{
+    margin-left: 17%;
+    padding: 1px 16px;
+    height: 665px;
+    width: 89%;
+    display: inline-block;
+    vertical-align: top;
+    position: absolute;
+}
+
+#container{
+  margin-top: 18px;
+    border-radius: 8px;
+    background-color: #f2f2f2e7;
+    padding: 15px;
+    padding-top: 2px;
+    width: 70%;
+}
