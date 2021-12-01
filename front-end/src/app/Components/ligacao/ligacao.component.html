@@ -1,19 +1,31 @@
 <app-header></app-header>
 <app-navbar></app-navbar>
-    <div class="card1">
-        <h4 class="card-header">Lista de Relações</h4>
-        <div class="card-body">
-            <div class="form-data">
-                <select (change)="selectChangeHandler($event)">
-                    <option selected>Escolha...</option>
-                    <option *ngFor="let perfil of listaPerfis">
-                        Nome: {{perfil.nome}}, Email: {{perfil.email}} </option>
-                </select>
-                <p><span>Relação Selecionada:</span><br><b>{{selected}}</b></p>
+
+<div class="card2">
+    <h4 class="card-header">Pesquisar Jogadores</h4>
+    <div class="card-body">
+        <div class="form-group">
+            <button type="submit" id="submit" class="btn-primary" (click)="peloNome()">Por Nome</button>
+            <button type="submit" id="submit1" class="btn1-primary" (click)="peloEmail()">Por Email</button>
+            <button type="submit" id="submit2" class="btn2-primary" (click)="peloPais()">Por Pais</button>
+        </div>
+    </div>
+</div>
+<div class="card1">
+    <h4 class="card-header">Pesquisa...</h4>
+    <div class="card-body">
+        <div class="form-group">
+            <div class="label1-maior">
+                <label for="Tags">Parametro para pesquisa: </label>
+            </div>
+            <div class="coluna1-menor">
+                <input type="text" placeholder="Insira parametro..." formControlName="Tags" class="form-control"
+                    required />
             </div>
         </div>
     </div>
-    <div class="card">
+</div>
+<!-- <div class="card">
         <h4 class="card-header">Editar Relação</h4>
         <div class="card-body">
             <form [formGroup]="relacaoForm" (ngSubmit)="onSubmit()">
@@ -32,5 +44,5 @@
                     <button type="submit" id="submit" class="btn-primary">Guardar Alterações</button>
                 </div>
             </form>
-        </div>
-    </div>
+        </div> -->
+<!-- </div> -->

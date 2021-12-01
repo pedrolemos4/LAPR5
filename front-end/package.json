@@ -18,10 +18,12 @@
     "@angular/platform-browser": "~13.0.0",
     "@angular/platform-browser-dynamic": "~13.0.0",
     "@angular/router": "~13.0.0",
+    "@types/three": "^0.134.0",
     "cors": "^2.8.5",
     "graphology": "^0.23.1",
     "ngx-toastr": "^14.2.1",
     "rxjs": "~7.4.0",
+    "three": "^0.135.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

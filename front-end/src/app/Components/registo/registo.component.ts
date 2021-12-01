@@ -4,7 +4,7 @@ import { RegistoService } from '../../Services/Registo/registo.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { Jogador } from 'src/app/Models/Jogador';
-import { forkJoin, mergeMap, tap } from 'rxjs';
+import { mergeMap } from 'rxjs';
 
 @Component({
   selector: 'app-registo',
@@ -72,12 +72,12 @@ export class RegistoComponent implements OnInit {
       } as Jogador)))
       .subscribe({
         next: () => {
-          this.toastr.success('Player successfully created!');
+          this.toastr.success('Jogador foi criado com sucesso!');
           this.router.navigateByUrl('/login');
         },
 
         error: () => {
-          this.toastr.error("Error: Service Unavailable");
+          this.toastr.error("Erro: Serviço Não Disponível");
         }
       });
   }
