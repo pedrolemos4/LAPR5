@@ -1,130 +1,131 @@
-    <div class="card">
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<app-headerhome></app-headerhome>
+<div class="card">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <h4 class="card-header">Register</h4>
-        <div class="card-body">
-            <form [formGroup]="registoForm" (ngSubmit)="onSubmit()">
-                <div class="form-group">
-                    <div class="col-xs-2">
-                        <div class="label1-maior">
-                            <label for="colFormLabel">Name</label>
-                        </div>
-                        <div class="coluna1-menor">
-                            <input type="text" name="nome" class="form-control" formControlName="nome" />
-                            <div *ngIf="registoForm.controls['nome'].touched && registoForm.controls['nome'].errors?.['required']"
-                                class="alert alert-danger"> Name is required</div>
-                        </div>
-                        <div class="label-maior">
-                            <label for="colFormLabel">Phone Number</label>
-                        </div>
-                        <div class="coluna-menor">
-                            <input type="text" name="telefone" formControlName="telefone" class="form-control" />
-                            <div *ngIf="registoForm.controls['telefone'].touched && registoForm.controls['telefone'].errors?.['required']"
-                                class="alert alert-danger"> Phone Number is required</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-xs-2">
-                        <div class="label1-maior">
-                            <label for="colFormLabel">Country</label>
-                        </div>
-                        <div class="coluna1-menor">
-                            <input type="text" formControlName="pais" class="form-control" />
-                            <div *ngIf="registoForm.controls['pais'].touched && registoForm.controls['pais'].errors?.['required']"
-                                class="alert alert-danger">Country is required</div>
-                        </div>
-                        <div class="label-maior">
-                            <label for="colFormLabel" class="col-sm-2 col-form-label">City</label>
-                        </div>
-                        <div class="coluna-menor">
-                            <input type="text" formControlName="cidade" class="form-control" />
-                            <div *ngIf="registoForm.controls['cidade'].touched && registoForm.controls['cidade'].errors?.['required']"
-                                class="alert alert-danger">City is required</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-25">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">Email</label>
-                    </div>
-                    <div class="col-75">
-                        <input type="email" formControlName="email" class="form-control" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-25">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">Birthday</label>
-                    </div>
-                    <div class="col-75">
-                        <input type="date" formControlName="dataNascimento" class="form-control" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-25">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">Mood</label>
-                    </div>
-                    <div class="custom-select mr-sm-2">
-                        <select (change)="selectChangeHandler($event)">
-                            <option selected>Choose...</option>
-                            <option value="joyful">Joyful</option>
-                            <option value="distressed">Distressed</option>
-                            <option value="hopeful">Hopeful</option>
-                            <option value="fearful">Fearful</option>
-                            <option value="relieve">Relieve</option>
-                            <option value="disappointed">Disappointed</option>
-                            <option value="proud">Proud</option>
-                            <option value="remorseful">Remorseful</option>
-                            <option value="grateful">Grateful</option>
-                            <option value="angry">Angry</option>
-                        </select>
-                        <p><span>You selected: </span><b>{{selected}}</b></p>
-                    </div>
-                </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <h4 class="card-header">Register</h4>
+    <div class="card-body">
+        <form [formGroup]="registoForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
                 <div class="col-xs-2">
+                    <div class="label1-maior">
+                        <label for="colFormLabel">Name</label>
+                    </div>
+                    <div class="coluna1-menor">
+                        <input type="text" name="nome" class="form-control" formControlName="nome" />
+                        <div *ngIf="registoForm.controls['nome'].touched && registoForm.controls['nome'].errors?.['required']"
+                            class="alert alert-danger"> Name is required</div>
+                    </div>
                     <div class="label-maior">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">Tags (use a comma to separate
-                            them)</label>
+                        <label for="colFormLabel">Phone Number</label>
                     </div>
-                    <div class="coluna">
-                        <input type="text" formControlName="tags" class="form-control" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-25">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">Facebook Profile</label>
-                    </div>
-                    <div class="col-75">
-                        <input type="text" formControlName="perfilFb" class="form-control" />
-                    </div>
-                    <div *ngIf="registoForm.controls['perfilFb'].touched && registoForm.controls['perfilFb'].errors?.['required']"
-                        class="alert alert-danger">Facebook Profile is required</div>
-                </div>
-                <div class="form-group">
-                    <div class="col-25">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">Profile Linkedin</label>
-                    </div>
-                    <div class="col-75">
-                        <input type="text" formControlName="perfilL" class="form-control" />
-                    </div>
-                    <div *ngIf="registoForm.controls['perfilL'].touched && registoForm.controls['perfilL'].errors?.['required']"
-                        class="alert alert-danger">Linkedin Profile is required</div>
-                </div>
-                <div class="form-group">
-                    <div class="col-25">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">Password</label>
-                    </div>
-                    <div class="col-75">
-                        <input type="password" formControlName="password" class="form-control" />
+                    <div class="coluna-menor">
+                        <input type="text" name="telefone" formControlName="telefone" class="form-control" />
+                        <div *ngIf="registoForm.controls['telefone'].touched && registoForm.controls['telefone'].errors?.['required']"
+                            class="alert alert-danger"> Phone Number is required</div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <button type="submit" id="submit" class="btn-primary">Register</button>
-                    <a routerLink="../" class="btn-link">Cancel</a>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2">
+                    <div class="label1-maior">
+                        <label for="colFormLabel">Country</label>
+                    </div>
+                    <div class="coluna1-menor">
+                        <input type="text" formControlName="pais" class="form-control" />
+                        <div *ngIf="registoForm.controls['pais'].touched && registoForm.controls['pais'].errors?.['required']"
+                            class="alert alert-danger">Country is required</div>
+                    </div>
+                    <div class="label-maior">
+                        <label for="colFormLabel" class="col-sm-2 col-form-label">City</label>
+                    </div>
+                    <div class="coluna-menor">
+                        <input type="text" formControlName="cidade" class="form-control" />
+                        <div *ngIf="registoForm.controls['cidade'].touched && registoForm.controls['cidade'].errors?.['required']"
+                            class="alert alert-danger">City is required</div>
+                    </div>
                 </div>
+            </div>
+            <div class="form-group">
+                <div class="col-25">
+                    <label for="colFormLabel" class="col-sm-2 col-form-label">Email</label>
+                </div>
+                <div class="col-75">
+                    <input type="email" formControlName="email" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-25">
+                    <label for="colFormLabel" class="col-sm-2 col-form-label">Birthday</label>
+                </div>
+                <div class="col-75">
+                    <input type="date" formControlName="dataNascimento" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-25">
+                    <label for="colFormLabel" class="col-sm-2 col-form-label">Mood</label>
+                </div>
+                <div class="custom-select mr-sm-2">
+                    <select (change)="selectChangeHandler($event)">
+                        <option selected>Choose...</option>
+                        <option value="joyful">Joyful</option>
+                        <option value="distressed">Distressed</option>
+                        <option value="hopeful">Hopeful</option>
+                        <option value="fearful">Fearful</option>
+                        <option value="relieve">Relieve</option>
+                        <option value="disappointed">Disappointed</option>
+                        <option value="proud">Proud</option>
+                        <option value="remorseful">Remorseful</option>
+                        <option value="grateful">Grateful</option>
+                        <option value="angry">Angry</option>
+                    </select>
+                    <p><span>You selected: </span><b>{{selected}}</b></p>
+                </div>
+            </div>
+            <div class="col-xs-2">
+                <div class="label-maior">
+                    <label for="colFormLabel" class="col-sm-2 col-form-label">Tags (use a comma to separate
+                        them)</label>
+                </div>
+                <div class="coluna">
+                    <input type="text" formControlName="tags" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-25">
+                    <label for="colFormLabel" class="col-sm-2 col-form-label">Facebook Profile</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" formControlName="perfilFb" class="form-control" />
+                </div>
+                <div *ngIf="registoForm.controls['perfilFb'].touched && registoForm.controls['perfilFb'].errors?.['required']"
+                    class="alert alert-danger">Facebook Profile is required</div>
+            </div>
+            <div class="form-group">
+                <div class="col-25">
+                    <label for="colFormLabel" class="col-sm-2 col-form-label">Profile Linkedin</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" formControlName="perfilL" class="form-control" />
+                </div>
+                <div *ngIf="registoForm.controls['perfilL'].touched && registoForm.controls['perfilL'].errors?.['required']"
+                    class="alert alert-danger">Linkedin Profile is required</div>
+            </div>
+            <div class="form-group">
+                <div class="col-25">
+                    <label for="colFormLabel" class="col-sm-2 col-form-label">Password</label>
+                </div>
+                <div class="col-75">
+                    <input type="password" formControlName="password" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" id="submit" class="btn-primary">Register</button>
+                <a routerLink="../" class="btn-link">Cancel</a>
+            </div>
 
-            </form>
-        </div>
+        </form>
     </div>
+</div>
