@@ -45,16 +45,17 @@ namespace DDDSample1.Infrastructure
             Perfil p2 = new Perfil("Fiona", "fiona@gmail.com", 351936825014, listaTags2, "2003-10-07", "Disappointed", "super+Fifi48", "en-US", "Lisboa", "perfilFB2", "perfilLink2");
             Perfil p3 = new Perfil("Joaquim", "joaquim@gmail.com", 351936825014, listaTags3, "2004-11-08", "Disappointed", "joq_Joquim12", "en-PT", "Porto", "perfilFB3", "perfilLink3");
             Perfil p4 = new Perfil("Rui", "rui@gmail.com", 351935682105, listaTags4, "2001-06-02", "Disappointed", "Qwerty123+", "en-PT", "Porto", "perfilFB4", "perfilLink4");
-
+            Perfil p5 = new Perfil("Joana", "joana@gmail.com", 351935644105, listaTags4, "2002-02-12", "Joyful", "Qwerty122223+", "en-PT", "Lisboa", "perfilFB5", "perfilLink5");
 
             context.Perfis.Add(p1);
             context.Perfis.Add(p2);
             context.Perfis.Add(p3);
             context.Perfis.Add(p4);
+            context.Perfis.Add(p5);
 
             context.SaveChanges();
 
-            var jogadores = new Jogador[] { new Jogador(p1.Id), new Jogador(p2.Id), new Jogador(p3.Id), new Jogador(p4.Id) };
+            var jogadores = new Jogador[] { new Jogador(p1.Id), new Jogador(p2.Id), new Jogador(p3.Id), new Jogador(p4.Id), new Jogador(p5.Id) };
 
             if (context.Jogadores.Any())
             {
@@ -72,12 +73,20 @@ namespace DDDSample1.Infrastructure
             Relacao relacao1 = new Relacao(jogadores[1].Id,jogadores[0].Id,listaTags,5,10);
             Relacao relacao2 = new Relacao(jogadores[1].Id,jogadores[2].Id,listaTags,10,20);
             Relacao relacao3 = new Relacao(jogadores[2].Id,jogadores[1].Id,listaTags,5,40);
+            Relacao relacao4 = new Relacao(jogadores[1].Id,jogadores[3].Id,listaTags,5,40);
+            Relacao relacao5 = new Relacao(jogadores[3].Id,jogadores[1].Id,listaTags,5,40);
+            Relacao relacao6 = new Relacao(jogadores[3].Id,jogadores[4].Id,listaTags,5,40);
+            Relacao relacao7 = new Relacao(jogadores[4].Id,jogadores[3].Id,listaTags,5,40);
             Ligacao ligacao = new Ligacao("texto","Pendente",jogadores[0].Id,jogadores[1].Id);
             Ligacao ligacao1 = new Ligacao("texto","Pendente",jogadores[1].Id,jogadores[2].Id);
             context.Relacoes.Add(relacao);
             context.Relacoes.Add(relacao1);
             context.Relacoes.Add(relacao2);
             context.Relacoes.Add(relacao3);
+            context.Relacoes.Add(relacao4);
+            context.Relacoes.Add(relacao5);
+            context.Relacoes.Add(relacao6);
+            context.Relacoes.Add(relacao7);
             context.Ligacoes.Add(ligacao);
             context.Ligacoes.Add(ligacao1);
             context.SaveChanges();
