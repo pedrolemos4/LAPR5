@@ -1,16 +1,61 @@
 <app-header></app-header>
 <app-navbar></app-navbar>
 <div id="texto">
-    <h2>Lista de pedidos de introdução pendentes:</h2>
     <div id="container">
-        <p>Pedido A</p>
-        <button type="submit" class="aceitar"><i class="fa fa-check"></i> Aceitar</button>
-        <button type="submit" class="rejeitar"><i class="fa fa-times"></i> Rejeitar</button>
-        <p>Pedido B</p>
-        <button type="submit" class="aceitar"><i class="fa fa-check"></i> Aceitar</button>
-        <button type="submit" class="rejeitar"><i class="fa fa-times"></i> Rejeitar</button>
-        <p>Pedido C</p>
-        <button type="submit" class="aceitar"><i class="fa fa-check"></i> Aceitar</button>
-        <button type="submit" class="rejeitar"><i class="fa fa-times"></i> Rejeitar</button>
+        <h2>Lista de pedidos de introdução:</h2>
+        <table style="width: 500px;">
+            <tr>
+                <td *ngFor="let perfil of perfilIniciaisList">Inicial: {{perfil}}</td>
+            </tr>
+            <tr>
+                <td *ngFor="let perfil of perfilObjetivosList">Objetivo: {{perfil}}</td>
+            </tr>
+            <tr>
+                <td *ngFor="let intro of listIntroducoes">
+                    <button type="submit" class="aceitar" (click)="aceitar(intro)"><i class="fa fa-check"></i> Aceitar</button>
+                    <button type="submit" class="rejeitar" (click)="rejeitar(intro)"><i class="fa fa-times"></i> Rejeitar</button>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
+<!--<div id="texto">
+    <h2>Lista de pedidos de introdução pendentes:</h2>
+    <div id="container">
+    <form [formGroup]="introPendForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <div class = "row">
+                <div class="col-25">
+                    <label for="jogadorInicial">Jogador Inicial:</label>
+                </div>
+                <div class ="col-75">
+                    <select class="selector" style="margin: 20px;" (change)="selectJogadorInicial($event)">
+                        <option selected disabled="disabled"> Selecione um jogador</option>
+                        <option *ngFor ="let eachVal of emailList" [ngValue] ="eachVal">
+                            {{eachVal}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <p><span>You selected: </span><b>{{selectedJogadorInicial}}</b></p>
+        <div class="form-group">
+            <div class = "row">
+                <div class ="col-25">
+                    <label for="jogadorObjetivo"> Jogador Objetivo:</label>
+                </div>
+                <div class ="col-75">
+                    <select class="selector" style="margin: 20px;" (change) ="selectJogadorObjetivo($event)">
+                        <option selected disabled="disabled"> Selecione um jogador</option>
+                        <option *ngFor="let eachVal of jogadoresObjetivo">
+                             {{eachVal}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <p><span>You selected: </span><b>{{selectedJogadorObjetivo}}</b></p>
+        </div>
+        <button type="submit" class="aceitar"><i class="fa fa-check"></i> Aceitar</button>
+        <button type="submit" class="rejeitar"><i class="fa fa-times"></i> Rejeitar</button>
+    </form>
+</div>-->

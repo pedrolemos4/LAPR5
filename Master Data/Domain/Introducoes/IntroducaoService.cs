@@ -127,7 +127,7 @@ namespace DDDSample1.Domain.Introducoes
 
         public async Task<List<IntroducaoDto>> GetIntroducoesPorAprovar(JogadorId idJog)
         {
-            Estado estado = Estado.Pendente;
+            Estado estado = Estado.Em_Aprovacao;
             var list = await this._repo.GetIntroducoesPorAprovar(idJog, estado);
             List<IntroducaoDto> listIntro = list.ConvertAll<IntroducaoDto>(intro => new IntroducaoDto
             {

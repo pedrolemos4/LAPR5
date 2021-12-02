@@ -4,7 +4,7 @@ namespace DDDSample1.Domain.SharedValueObjects
 {
     public enum Estado
     {
-        Aceite, Recusado, Pendente
+        Aceite, Recusado, Pendente, Em_Aprovacao
 
     };
 }

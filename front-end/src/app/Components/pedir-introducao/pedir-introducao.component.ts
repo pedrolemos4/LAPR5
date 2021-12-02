@@ -33,7 +33,7 @@ export class PedirIntroducaoComponent implements OnInit {
   idPerfilJogIntro: any = '';
   idJogIntrodutorio: any = '';
   amigosEmComumIdList: string[] = [];
-  estadoIntro : string = 'Pendente';
+  estadoIntro : string = 'Em_Aprovacao';
 
   constructor(private formBuilder: FormBuilder, private pedirIntroducaoService: PedirIntroducaoService, private router: Router) {
     this.pedirIntroForm = this.formBuilder.group({
@@ -131,6 +131,6 @@ export class PedirIntroducaoComponent implements OnInit {
         next: () => {
           this.router.navigateByUrl('/perfil');
         }
-      })
+      });
   }
 }

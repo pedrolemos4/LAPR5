@@ -1,4 +1,4 @@
-#texto{
+#texto {
     margin-top: 80px;
     margin-left: 17%;
     padding: 1px 16px;
@@ -10,7 +10,7 @@
     position: absolute;
 }
 
-#container{
+#container {
     border-radius: 8px;
     background-color: #f2f2f2e7;
     padding: 15px;
@@ -18,7 +18,7 @@
     width: 50%;
 }
 
-.aceitar{
+.aceitar {
     background-color: rgb(16, 219, 60);
     color: white;
     border: none;
@@ -26,11 +26,11 @@
     cursor: pointer;
 }
 
-.aceitar:hover{
+.aceitar:hover {
     background-color: rgb(21, 161, 52);
 }
 
-.rejeitar{
+.rejeitar {
     background-color: red;
     color: white;
     border: none;
@@ -39,6 +39,24 @@
     cursor: pointer;
 }
 
-.rejeitar:hover{
+.rejeitar:hover {
     background-color: rgb(172, 0, 0);
+}
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
 }
