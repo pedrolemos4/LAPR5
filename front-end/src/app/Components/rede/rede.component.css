@@ -1,11 +1,5 @@
-.card {
-    padding: 250px;
-    text-align: center;
-    width: 60%;
-    background-color: #f2f2f2e7;
-    border-radius: 5px;
-    justify-content: center;
-    margin-left: 35%;
-    margin-top: 5%;
-    position: fixed;
-  }
+#canvas {
+  position: absolute;
+  overflow: hidden;
+  margin-left: 32.5%;
+}

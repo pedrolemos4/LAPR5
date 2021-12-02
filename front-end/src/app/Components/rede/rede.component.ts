@@ -26,6 +26,7 @@ export class RedeComponent implements OnInit {
   relacao!: Relacao;
   relacaoAux!: Relacao;
   listaRelacao: Relacao[] = [];
+  container:any;
 
   constructor(private redeService: RedeService) { }
 
@@ -63,7 +64,7 @@ export class RedeComponent implements OnInit {
     playerDiv.style.fontSize = '12px';
 
     let playerLabel = new CSS2DObject(playerDiv);
-    playerLabel.position.setY(-0.35);
+    //playerLabel.position.setY(-0.35);
     player.add(playerLabel);
     this.scene.add(player);
   }
@@ -182,19 +183,22 @@ export class RedeComponent implements OnInit {
   }
 
   windowResize() {
-    this.camera.aspect = window.innerWidth / window.innerHeight;
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    let WIDTH = 700;
+    let HEIGHT = 700;
+    this.camera.aspect = WIDTH / HEIGHT;
+    this.renderer.setSize(WIDTH, HEIGHT);
   }
 
   async initialize() {
-
+    let WIDTH = 700;
+    let HEIGHT = 700;
 
     // Create a scene
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0x999999);
 
     // Create an perspective camera
-    const aspectRatio = window.innerWidth / window.innerHeight;
+    const aspectRatio = WIDTH / HEIGHT;
     this.camera = new THREE.PerspectiveCamera(70, aspectRatio, 0.1, 5000);
     this.camera.position.z = 2.5;
 
@@ -205,15 +209,19 @@ export class RedeComponent implements OnInit {
 
     // Create a renderer
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setSize(WIDTH, HEIGHT);
     document.body.appendChild(this.renderer.domElement);
 
     //Create label render
     this.labelRenderer = new CSS2DRenderer();
-    this.labelRenderer.setSize(window.innerWidth, window.innerHeight);
+    this.labelRenderer.setSize(WIDTH, HEIGHT);
     this.labelRenderer.domElement.style.position = 'absolute';
     this.labelRenderer.domElement.style.top = '0px';
     document.body.appendChild(this.labelRenderer.domElement);
+
+    this.container = document.getElementById("canvas");
+    this.container.appendChild(this.renderer.domElement);
+    this.container.appendChild(this.labelRenderer.domElement);
 
     window.addEventListener('resize', this.windowResize.bind(this));
 
@@ -221,7 +229,7 @@ export class RedeComponent implements OnInit {
 
     //Active player´s position, center
     const posicaoCentral = new THREE.Vector3(0, 0, 0);
-    this.createPlayer(this.nome, this.email, posicaoCentral.x, posicaoCentral.y, posicaoCentral.z, radiusCircle, 'brown');
+    this.createPlayer(this.nome, this.email, posicaoCentral.x, posicaoCentral.y, posicaoCentral.z, radiusCircle, 'white');
 
     //Vai buscar lista de relacoes
     await this.getRelacao(this.activePlayerObject.id);
@@ -241,6 +249,7 @@ export class RedeComponent implements OnInit {
     for (var i = 0; i < this.listaRelacao.length; i++) {
 
       angulo = THREE.MathUtils.degToRad(anguloFixo * i);
+
       if (angulo == Math.PI) {
         angulo = 14 * Math.PI / 11;
       }
@@ -251,7 +260,7 @@ export class RedeComponent implements OnInit {
 
       await this.getPerfil(this.relacao.jogador2);
 
-      this.createPlayer(this.perfilByJogador.nome, this.perfilByJogador.email, pos.x, pos.y, pos.z, radiusCircle, 'green');
+      this.createPlayer(this.perfilByJogador.nome, this.perfilByJogador.email, pos.x, pos.y, pos.z, radiusCircle, 'skyblue');
 
       var auxiliar = [pos.x, pos.y, pos.z];
 
@@ -277,7 +286,12 @@ export class RedeComponent implements OnInit {
           this.relacao = this.listaRelacao[l];
 
           if (!mapNodePosicao.has(this.relacao.jogador2)) {
+
             angulo = THREE.MathUtils.degToRad(anguloAtual * l);
+
+            if (angulo == Math.PI) {
+              angulo = 14 * Math.PI / 11;
+            }
 
             let pos2 = new THREE.Vector3((radius + cont) * Math.cos(angulo), (radius + cont) * Math.sin(angulo), 0);
 
