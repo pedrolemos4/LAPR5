@@ -3,15 +3,17 @@
 <div id="texto">
     <div id="container">
         <h2>Lista de introduções pendentes:</h2>
+        <div *ngIf="!listIntroducoes.length">Não tem introduções pendentes!</div>
             <table style="width: 500px;">
                 <tr>
                     <td *ngFor="let perfil of perfilIntrodutoresList">Introdutor: {{perfil}}</td>
                 </tr>
                 <tr>
-                    <td *ngFor="let perfil of perfilIniciaisList">Inicial: {{perfil}}</td>
+                    <td *ngFor="let perfil of perfilIniciaisList">Solicitante: {{perfil}}</td>
                 </tr>
                 <tr>
                     <td *ngFor="let intro of listIntroducoes">
+                        <p>{{intro.textoIntroducao}}</p>
                         <button type="submit" class="aceitar" (click)="aceitar(intro)"><i class="fa fa-check"></i> Aceitar</button>
                         <button type="submit" class="rejeitar" (click)="rejeitar(intro)"><i class="fa fa-times"></i> Rejeitar</button>
                     </td>

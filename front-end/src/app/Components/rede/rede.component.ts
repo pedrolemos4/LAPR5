@@ -4,7 +4,9 @@ import { Jogador } from 'src/app/Models/Jogador';
 import { Perfil } from 'src/app/Models/Perfil';
 import * as THREE from 'three/build/three.module.js';
 import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Relacao } from 'src/app/Models/Relacao';
+import { Vector3 } from 'three';
 
 @Component({
   selector: 'app-rede',
@@ -27,6 +29,9 @@ export class RedeComponent implements OnInit {
   relacaoAux!: Relacao;
   listaRelacao: Relacao[] = [];
   container:any;
+
+  dragX?: any;
+  dragY?: any;
 
   constructor(private redeService: RedeService) { }
 
@@ -190,8 +195,8 @@ export class RedeComponent implements OnInit {
   }
 
   async initialize() {
-    let WIDTH = 700;
-    let HEIGHT = 700;
+    let WIDTH = 820;
+    let HEIGHT = 600;
 
     // Create a scene
     this.scene = new THREE.Scene();
@@ -201,6 +206,11 @@ export class RedeComponent implements OnInit {
     const aspectRatio = WIDTH / HEIGHT;
     this.camera = new THREE.PerspectiveCamera(70, aspectRatio, 0.1, 5000);
     this.camera.position.z = 2.5;
+
+    //Create panning and zoom controls
+    window.addEventListener('mousedown', event => this.mouseDown(event));
+    window.addEventListener('mouseup', event => this.mouseUp(event));
+    window.addEventListener('wheel', event => this.mouseWheel(event));
 
     //Create light
     const light = new THREE.DirectionalLight(0xFFFFFF, 1);
@@ -335,7 +345,40 @@ export class RedeComponent implements OnInit {
 
       this.createRelationship(forca12, forca21, anguloEntreCirculos, pontoIntermedio.x, pontoIntermedio.y, pontoIntermedio.z, hipotenusa - (2 * radiusCircle));
     }
+  }
 
+  mouseUp = (event: MouseEvent) => {
+
+    if (event.clientX < this.dragX) {
+        this.camera.position.x = this.camera.position.x + 0.4;
+    } else {
+        this.camera.position.x = this.camera.position.x - 0.4;
+    }
+
+    if (event.clientY < this.dragY) {
+        this.camera.position.y = this.camera.position.y - 0.4;
+    } else {
+        this.camera.position.y = this.camera.position.y + 0.4;
+    }
+    this.renderer.render(this.scene, this.camera);
+    this.labelRenderer.render(this.scene, this.camera);
+  }
+
+  mouseDown = (event: MouseEvent) => {
+      this.dragX = event.clientX;
+      this.dragY = event.clientY;
+  }
+
+  mouseWheel = (event: WheelEvent) => {
+    event.preventDefault();
+
+    if (event.deltaY < 0) {
+        this.camera.position.z = this.camera.position.z - 1;
+    } else if (event.deltaY > 0) {
+      this.camera.position.z = this.camera.position.z + 1;
+    }
+    this.renderer.render(this.scene, this.camera);
+    this.labelRenderer.render(this.scene, this.camera);
   }
 
 }
