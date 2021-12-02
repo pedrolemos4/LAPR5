@@ -350,16 +350,17 @@ export class RedeComponent implements OnInit {
   mouseUp = (event: MouseEvent) => {
 
     if (event.clientX < this.dragX) {
-        this.camera.position.x = this.camera.position.x + 0.4;
+        this.camera.position.x = this.camera.position.x + 0.5;
     } else {
-        this.camera.position.x = this.camera.position.x - 0.4;
+        this.camera.position.x = this.camera.position.x - 0.5;
     }
 
     if (event.clientY < this.dragY) {
-        this.camera.position.y = this.camera.position.y - 0.4;
+        this.camera.position.y = this.camera.position.y - 0.5;
     } else {
-        this.camera.position.y = this.camera.position.y + 0.4;
+        this.camera.position.y = this.camera.position.y + 0.5;
     }
+
     this.renderer.render(this.scene, this.camera);
     this.labelRenderer.render(this.scene, this.camera);
   }
@@ -372,7 +373,7 @@ export class RedeComponent implements OnInit {
   mouseWheel = (event: WheelEvent) => {
     event.preventDefault();
 
-    if (event.deltaY < 0) {
+    if (event.deltaY < 0 && this.camera.position.z > 1.1) {
         this.camera.position.z = this.camera.position.z - 1;
     } else if (event.deltaY > 0) {
       this.camera.position.z = this.camera.position.z + 1;
