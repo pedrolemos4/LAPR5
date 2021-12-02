@@ -15,6 +15,7 @@ import { RelacaoComponent } from './Components/relacao/relacao.component';
 import { HomeComponent } from './Components/home/home.component';
 import { LigacaoComponent } from './Components/ligacao/ligacao.component';
 import { HomeInicialComponent } from './Components/home-inicial/home-inicial.component';
+import { RedeNivelComponent } from './Components/rede-nivel/rede-nivel.component';
 
 const routes: Routes = [
   {path: '', component: HomeInicialComponent},
@@ -32,7 +33,8 @@ const routes: Routes = [
   { path: 'relacao', component: RelacaoComponent},
   { path: 'home', component: HomeComponent},
   { path: 'homePrincipal', component: HomeInicialComponent},
-  { path: 'ligacao', component: LigacaoComponent}
+  { path: 'ligacao', component: LigacaoComponent},
+  { path: 'rede_nivel', component: RedeNivelComponent}
 ];
 
 

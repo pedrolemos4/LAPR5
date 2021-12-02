@@ -7,13 +7,15 @@ import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRe
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Relacao } from 'src/app/Models/Relacao';
 import { Vector3 } from 'three';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-rede',
-  templateUrl: './rede.component.html',
-  styleUrls: ['./rede.component.css']
+  selector: 'app-rede-nivel',
+  templateUrl: './rede-nivel.component.html',
+  styleUrls: ['./rede-nivel.component.css']
 })
-export class RedeComponent implements OnInit {
+export class RedeNivelComponent implements OnInit {
+  redeForm: FormGroup;
 
   email: string | undefined = '';
   idPerfilAtual: string | undefined = '';
@@ -29,11 +31,16 @@ export class RedeComponent implements OnInit {
   relacaoAux!: Relacao;
   listaRelacao: Relacao[] = [];
   container:any;
+  nivel: number = 0;
 
   dragX?: any;
   dragY?: any;
 
-  constructor(private redeService: RedeService) { }
+  constructor(private formBuilder: FormBuilder, private redeService: RedeService) { 
+    this.redeForm = this.formBuilder.group({
+      nivel: ['', Validators.required],
+    });
+  }
 
   ngOnInit(): void {
     const currentUser = localStorage.getItem('currentUser');
@@ -45,12 +52,19 @@ export class RedeComponent implements OnInit {
         console.log(this.activePlayerObject.id);
         this.redeService.getPerfilAtual(this.email).subscribe(Perfil => {
           this.nome = Perfil.nome;
-          this.initialize();
-          this.animate();
         });
       });
     });
 
+  }
+
+  get f() { return this.redeForm.controls; }
+
+  onSubmit(){
+    this.nivel = this.redeForm.controls['nivel'].value;
+    console.log(this.nivel);
+    this.initialize(this.nivel);
+    this.animate();
   }
 
   createPlayer(playerName, email, centerx, centery, centerz, radiusCircle, color) {
@@ -194,7 +208,7 @@ export class RedeComponent implements OnInit {
     this.renderer.setSize(WIDTH, HEIGHT);
   }
 
-  async initialize() {
+  async initialize(nivel: number) {
     let WIDTH = 820;
     let HEIGHT = 600;
 
@@ -279,46 +293,51 @@ export class RedeComponent implements OnInit {
       mapRelacao.push(this.relacao);
     }
 
-
     var cont = 0.2, f = -1;     //aumenta sucessivamente para aumentar o raio
     var color = ['green', 'yellow', 'red', 'skyblue', 'purple'];
-
-    for (var key of mapNodePosicao.keys()) {
-      f++;
-      await this.getRelacao(key);
-
-      if (key != this.activePlayerObject.id && this.listaRelacao.length > 0) {
-
-        let anguloAtual = 360 / this.listaRelacao.length;
-
-        for (var l = 0; l < this.listaRelacao.length; l++) {
-
-          this.relacao = this.listaRelacao[l];
-
-          if (!mapNodePosicao.has(this.relacao.jogador2)) {
-
-            angulo = THREE.MathUtils.degToRad(anguloAtual * l);
-
-            if (angulo == Math.PI) {
-              angulo = 14 * Math.PI / 11;
+    
+    if(nivel != 1) {
+      for (var key of mapNodePosicao.keys()) {
+        if(nivel >= 0) {
+          nivel = nivel - 1;
+          f++;
+          await this.getRelacao(key);
+    
+          if (key != this.activePlayerObject.id && this.listaRelacao.length > 0) {
+            let anguloAtual = 360 / this.listaRelacao.length;
+    
+            for (var l = 0; l < this.listaRelacao.length; l++) {
+  
+              this.relacao = this.listaRelacao[l];
+  
+              if (!mapNodePosicao.has(this.relacao.jogador2)) {
+    
+                angulo = THREE.MathUtils.degToRad(anguloAtual * l);
+    
+                if (angulo == Math.PI) {
+                  angulo = 14 * Math.PI / 11;
+                }
+    
+                let pos2 = new THREE.Vector3((radius + cont) * Math.cos(angulo), (radius + cont) * Math.sin(angulo), 0);
+    
+                await this.getPerfil(this.relacao.jogador2);
+    
+                this.createPlayer(this.perfilByJogador.nome, this.perfilByJogador.email, pos2.x, pos2.y, pos2.z, radiusCircle, color[f]);
+    
+                var auxiliar12 = [pos2.x, pos2.y, pos2.z];
+    
+                mapNodePosicao.set(this.relacao.jogador2, auxiliar12);
+              }
+              mapRelacao.push(this.relacao);
+  
             }
-
-            let pos2 = new THREE.Vector3((radius + cont) * Math.cos(angulo), (radius + cont) * Math.sin(angulo), 0);
-
-            await this.getPerfil(this.relacao.jogador2);
-
-            this.createPlayer(this.perfilByJogador.nome, this.perfilByJogador.email, pos2.x, pos2.y, pos2.z, radiusCircle, color[f]);
-
-            var auxiliar12 = [pos2.x, pos2.y, pos2.z];
-
-            mapNodePosicao.set(this.relacao.jogador2, auxiliar12);
           }
-          mapRelacao.push(this.relacao);
-
+          cont = cont + 0.2;
         }
+        
       }
-      cont = cont + 0.2;
     }
+    
 
     for (var k = 0; k < mapRelacao.length; k++) {
 
@@ -360,7 +379,6 @@ export class RedeComponent implements OnInit {
     } else {
         this.camera.position.y = this.camera.position.y + 0.5;
     }
-
     this.renderer.render(this.scene, this.camera);
     this.labelRenderer.render(this.scene, this.camera);
   }
