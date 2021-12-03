@@ -22,13 +22,16 @@ export class RedeComponent implements OnInit {
   renderer!: any;
   labelRenderer!: any;
   camera!: THREE.PerspectiveCamera;
+  miniMapCamera!: THREE.OrthographicCamera;
   arrayAmigos: Jogador[] = new Array<Jogador>();;
   nome: string | undefined = '';
   perfilByJogador!: Perfil;
   relacao!: Relacao;
   relacaoAux!: Relacao;
   listaRelacao: Relacao[] = [];
-  container:any;
+  container: any;
+  insetWidth: any;
+  insetHeight: any;
 
   dragX?: any;
   dragY?: any;
@@ -69,7 +72,7 @@ export class RedeComponent implements OnInit {
     playerDiv.style.fontSize = '12px';
 
     let playerLabel = new CSS2DObject(playerDiv);
-    //playerLabel.position.setY(-0.35);
+    //playerLabel.position.setZ(-0.35);
     player.add(playerLabel);
     this.scene.add(player);
   }
@@ -182,30 +185,78 @@ export class RedeComponent implements OnInit {
   }
 
   animate() {
+    let WIDTH = 1275;
+    let HEIGHT = 693;
     requestAnimationFrame(this.animate.bind(this));
+    this.renderer.setClearColor(0x000000);
+
+    this.renderer.setViewport(0, 0, WIDTH, HEIGHT);
     this.renderer.render(this.scene, this.camera);
     this.labelRenderer.render(this.scene, this.camera);
+
+    this.renderer.setClearColor(0x333333);
+
+    this.renderer.clearDepth();
+
+    this.renderer.setScissorTest(true);
+
+    this.renderer.setScissor(1070, window.innerHeight - this.insetHeight - 550, this.insetWidth, this.insetHeight - 60);
+    this.renderer.setViewport(1070, window.innerHeight - this.insetHeight - 550, this.insetWidth, this.insetHeight - 60);
+
+    this.renderer.render(this.scene, this.miniMapCamera);
+
+    this.renderer.setScissorTest(false);
+
+
+
   }
 
   windowResize() {
-    let WIDTH = 700;
-    let HEIGHT = 700;
+    let WIDTH = 1275;
+    let HEIGHT = 693;
     this.camera.aspect = WIDTH / HEIGHT;
     this.renderer.setSize(WIDTH, HEIGHT);
+    this.camera.updateProjectionMatrix();
+
+    this.renderer.setSize(WIDTH, HEIGHT);
+
+    this.insetWidth = window.innerHeight / 4;
+    this.insetHeight = window.innerHeight / 4;
+
+    this.miniMapCamera.aspect = this.insetWidth / this.insetHeight;
+    this.miniMapCamera.updateProjectionMatrix();
   }
 
   async initialize() {
-    let WIDTH = 820;
-    let HEIGHT = 600;
-
-    // Create a scene
-    this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0x999999);
+    let WIDTH = 1275;
+    let HEIGHT = 693;
 
     // Create an perspective camera
     const aspectRatio = WIDTH / HEIGHT;
-    this.camera = new THREE.PerspectiveCamera(70, aspectRatio, 0.1, 5000);
+    this.camera = new THREE.PerspectiveCamera(70, aspectRatio, 0.01, 1000);
     this.camera.position.z = 2.5;
+
+    this.miniMapCamera = new THREE.OrthographicCamera(- 2, 2, 2, -2, 0.01, 1000);
+    this.camera.add(this.miniMapCamera);
+
+    // Create a renderer
+    this.renderer = new THREE.WebGLRenderer({ antialias: true });
+    this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer.setSize(WIDTH, HEIGHT);
+    document.body.appendChild(this.renderer.domElement);
+
+    //Create label render
+    this.labelRenderer = new CSS2DRenderer();
+    this.labelRenderer.setSize(WIDTH, HEIGHT);
+    this.labelRenderer.domElement.style.position = 'absolute';
+    this.labelRenderer.domElement.style.top = '0px';
+
+    this.labelRenderer.domElement.style.pointerEvents = 'none'
+    document.body.appendChild(this.labelRenderer.domElement);
+
+    // Create a scene
+    this.scene = new THREE.Scene();
+    this.scene.add(this.camera);
 
     //Create panning and zoom controls
     window.addEventListener('mousedown', event => this.mouseDown(event));
@@ -217,23 +268,12 @@ export class RedeComponent implements OnInit {
     light.position.set(-1, 2, 4);
     this.scene.add(light);
 
-    // Create a renderer
-    this.renderer = new THREE.WebGLRenderer({ antialias: true });
-    this.renderer.setSize(WIDTH, HEIGHT);
-    document.body.appendChild(this.renderer.domElement);
-
-    //Create label render
-    this.labelRenderer = new CSS2DRenderer();
-    this.labelRenderer.setSize(WIDTH, HEIGHT);
-    this.labelRenderer.domElement.style.position = 'absolute';
-    this.labelRenderer.domElement.style.top = '0px';
-    document.body.appendChild(this.labelRenderer.domElement);
-
     this.container = document.getElementById("canvas");
     this.container.appendChild(this.renderer.domElement);
     this.container.appendChild(this.labelRenderer.domElement);
 
-    window.addEventListener('resize', this.windowResize.bind(this));
+    window.addEventListener('resize', this.windowResize, false);
+    this.windowResize();
 
     const radiusCircle = 0.15;
 
@@ -350,15 +390,19 @@ export class RedeComponent implements OnInit {
   mouseUp = (event: MouseEvent) => {
 
     if (event.clientX < this.dragX) {
-        this.camera.position.x = this.camera.position.x + 0.5;
+      this.camera.position.x = this.camera.position.x + 0.5;
+      this.miniMapCamera.position.x = this.miniMapCamera.position.x - 0.5;
     } else {
-        this.camera.position.x = this.camera.position.x - 0.5;
+      this.camera.position.x = this.camera.position.x - 0.5;
+      this.miniMapCamera.position.x = this.miniMapCamera.position.x + 0.5;
     }
 
     if (event.clientY < this.dragY) {
-        this.camera.position.y = this.camera.position.y - 0.5;
+      this.camera.position.y = this.camera.position.y - 0.5;
+      this.miniMapCamera.position.y = this.miniMapCamera.position.y + 0.5;
     } else {
-        this.camera.position.y = this.camera.position.y + 0.5;
+      this.camera.position.y = this.camera.position.y + 0.5;
+      this.miniMapCamera.position.y = this.miniMapCamera.position.y - 0.5;
     }
 
     this.renderer.render(this.scene, this.camera);
@@ -366,15 +410,15 @@ export class RedeComponent implements OnInit {
   }
 
   mouseDown = (event: MouseEvent) => {
-      this.dragX = event.clientX;
-      this.dragY = event.clientY;
+    this.dragX = event.clientX;
+    this.dragY = event.clientY;
   }
 
   mouseWheel = (event: WheelEvent) => {
     event.preventDefault();
 
     if (event.deltaY < 0 && this.camera.position.z > 1.1) {
-        this.camera.position.z = this.camera.position.z - 1;
+      this.camera.position.z = this.camera.position.z - 1;
     } else if (event.deltaY > 0) {
       this.camera.position.z = this.camera.position.z + 1;
     }
