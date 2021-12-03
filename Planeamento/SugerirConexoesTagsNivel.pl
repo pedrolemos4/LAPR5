@@ -3,7 +3,7 @@ lista_todos_utilizadores(NUtilizador,ListaTodos),
 lista_utilizadores_sem_ligacao(NUtilizador,[],ListaTodos,ListaFinal),
 lista_tags_utilizador(ListaFinal,ListaTags,[],ListaResTags),
 percorre_niveis(NUtilizador,[NUtilizador|[]],0,Nivel,[],[],ListaNUtilizadores),
-intersecção(ListaNUtilizadores,ListaResTags,ListaSemVerCaminho),
+interseccao(ListaNUtilizadores,ListaResTags,ListaSemVerCaminho),
 ver_caminhos(NUtilizador,ListaSemVerCaminho,ListaTags,[],ListaFinal1).
 
 
@@ -27,7 +27,7 @@ lista_utilizadores_sem_ligacao(NUtilizador,ListaUtilizadores,[NX|ListaTodos],Lis
 % o 3º argumento corresponde à lista auxiliar onde vamos adicionar os utilizadores sem ligacao ao nosso utilizador inicial que tenham pelo menos 1 tag em comum
 % o 4º argumento corresponde à lista que retorna completa com todos os utilizadores que o utilizador inicial nao tem ligacao e que tenha 1 tag em comum da base de conhecimento
 lista_tags_utilizador([],_,ListaFinalUtilizadores,Lista):- reverse(ListaFinalUtilizadores,Lista).
-lista_tags_utilizador([Utilizador|ListaUtilizadores],ListaTags,ListaFinalUtilizadores,Lista):-no(Utilizador,_,Lista2), intersecção(ListaTags,Lista2,ListaTagsRes), ((ListaTagsRes\==[], lista_tags_utilizador(ListaUtilizadores,ListaTags,[Utilizador|ListaFinalUtilizadores],Lista)); lista_tags_utilizador(ListaUtilizadores,ListaTags,ListaFinalUtilizadores,Lista)).
+lista_tags_utilizador([Utilizador|ListaUtilizadores],ListaTags,ListaFinalUtilizadores,Lista):-no(Utilizador,_,Lista2), interseccao(ListaTags,Lista2,ListaTagsRes), ((ListaTagsRes\==[], lista_tags_utilizador(ListaUtilizadores,ListaTags,[Utilizador|ListaFinalUtilizadores],Lista)); lista_tags_utilizador(ListaUtilizadores,ListaTags,ListaFinalUtilizadores,Lista)).
 
 
 % retorna numero dos utilizadores que se encontram até um determinado nivel
@@ -56,7 +56,7 @@ dfs2(NAct,Dest,LA,Cam):-(ligacao(NAct,NX,_,_);ligacao(NX,NAct,_,_)),\+ member(NX
 % o 3º argumento corresponde à lista auxiliar para guardar os jogadores que queremos retornar
 % o 4º argumento corresponde à lista que retorna completa com os jogadores
 ver_caminhos(_,[],_,ListaAPreencher,ListaFinalResultante):-ListaFinalResultante = ListaAPreencher.
-ver_caminhos(NUtilizador,[NX|ListaSemVerCaminho],ListaTags,ListaAPreencher,ListaFinalResultante):- no(NX,_,Lista), intersecção(Lista,ListaTags,ListaTagsRes),findall(Cam,dfs(NX,NUtilizador,Cam),LCam), ver_caminhos2(LCam,NX,ListaTagsRes,[],ListaFinal1), ((ListaFinal1\==[], ver_caminhos(NUtilizador,ListaSemVerCaminho,ListaTags,[NX|ListaAPreencher],ListaFinalResultante));ver_caminhos(NUtilizador,ListaSemVerCaminho,ListaTags,ListaAPreencher,ListaFinalResultante)).
+ver_caminhos(NUtilizador,[NX|ListaSemVerCaminho],ListaTags,ListaAPreencher,ListaFinalResultante):- no(NX,_,Lista), interseccao(Lista,ListaTags,ListaTagsRes),findall(Cam,dfs(NX,NUtilizador,Cam),LCam), ver_caminhos2(LCam,NX,ListaTagsRes,[],ListaFinal1), ((ListaFinal1\==[], ver_caminhos(NUtilizador,ListaSemVerCaminho,ListaTags,[NX|ListaAPreencher],ListaFinalResultante));ver_caminhos(NUtilizador,ListaSemVerCaminho,ListaTags,ListaAPreencher,ListaFinalResultante)).
 
 
 % de forma a percorrer cada lista da lista de caminhos possiveis entre o jogador inicial e objetivo
@@ -66,10 +66,10 @@ ver_caminhos2([Lista|LCam],NX,ListaTagsRes,ListaAPreencher,ListaFinal1):- ver_ca
 
 % de forma a percorrer uma lista de caminhos para verificar se todos os elementos da lista, que corresponde ao caminho encontrado, têm as tags encontradas em comum do jogador objetivo
 ver_caminhos_aux([],_,ListaAPreencher,ListaFinal1):- ListaFinal1 = ListaAPreencher.
-ver_caminhos_aux([NX|Lista],ListaTagsRes,ListaAPreencher,ListaFinal1):- no(NX,_,ListaTags), intersecção(ListaTagsRes,ListaTags,ListaRes), ((ListaRes==ListaTagsRes, ver_caminhos_aux(Lista,ListaTagsRes,[NX|ListaAPreencher],ListaFinal1));(ListaFinal1=[],!)).
+ver_caminhos_aux([NX|Lista],ListaTagsRes,ListaAPreencher,ListaFinal1):- no(NX,_,ListaTags), interseccao(ListaTagsRes,ListaTags,ListaRes), ((ListaRes==ListaTagsRes, ver_caminhos_aux(Lista,ListaTagsRes,[NX|ListaAPreencher],ListaFinal1));(ListaFinal1=[],!)).
 
 
 % permite intersetar duas listas
-intersecção([ ],_,[ ]).
-intersecção([X|L1],L2,[X|LI]):-member(X,L2),!,intersecção(L1,L2,LI).
-intersecção([_|L1],L2, LI):- intersecção(L1,L2,LI).
+interseccao([ ],_,[ ]).
+interseccao([X|L1],L2,[X|LI]):-member(X,L2),!,interseccao(L1,L2,LI).
+interseccao([_|L1],L2, LI):- interseccao(L1,L2,LI).
