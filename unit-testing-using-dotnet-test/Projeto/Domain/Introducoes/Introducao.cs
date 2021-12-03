@@ -7,24 +7,27 @@ namespace DDDSample1.Domain.Introducoes
 {
     public class Introducao : Entity<IntroducaoId>, IAggregateRoot
     {
-        public Jogador JogadorInicial { get;  private set; }
+        public JogadorId JogadorInicial { get; private set; }
 
-        public Jogador JogadorIntrodutor { get;  private set; }
+        public JogadorId JogadorIntrodutor { get; private set; }
 
-        public Jogador JogadorObjetivo { get;  private set; }
+        public JogadorId JogadorObjetivo { get; private set; }
 
-        public Estado EstadoIntroducao { get;  private set; }
+        public Estado EstadoIntroducao { get; private set; }
 
-        public bool Active{ get;  private set; }
+        public TextoIntroducao TextoIntroducao { get; private set; }
+
+        public bool Active { get; private set; }
 
         private Introducao()
         {
             this.Active = true;
         }
 
-        public Introducao(Jogador jog_inicial, Jogador jog_introdutor, Jogador jog_objetivo, string estado)
+        public Introducao(JogadorId jog_inicial, JogadorId jog_introdutor, JogadorId jog_objetivo, string estado, string texto)
         {
-            if(jog_inicial == null || jog_introdutor == null || jog_objetivo == null){
+            if (jog_inicial == null || jog_introdutor == null || jog_objetivo == null)
+            {
                 throw new BusinessRuleValidationException("It is not possible to create an introduction with a player null.");
             }
             this.Id = new IntroducaoId(Guid.NewGuid());
@@ -32,6 +35,7 @@ namespace DDDSample1.Domain.Introducoes
             this.JogadorIntrodutor = jog_introdutor;
             this.JogadorObjetivo = jog_objetivo;
             setEstado(estado);
+            this.TextoIntroducao = new TextoIntroducao(texto);
             this.Active = true;
         }
 
@@ -56,14 +60,14 @@ namespace DDDSample1.Domain.Introducoes
             }
         }
 
-        public void ChangeJogadorIntrodutor(Jogador jog)
+        public void ChangeJogadorIntrodutor(JogadorId jog)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the jogadorIntrodutor to an inactive introducao.");
             this.JogadorIntrodutor = jog;
         }
 
-        public void ChangeJogadorObjetivo(Jogador jog)
+        public void ChangeJogadorObjetivo(JogadorId jog)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the jogadorObjetivo to an inactive introducao.");

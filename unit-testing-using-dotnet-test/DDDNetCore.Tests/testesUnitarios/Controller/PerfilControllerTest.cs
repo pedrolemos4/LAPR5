@@ -13,7 +13,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
     public class PerfilControllerTest
     {
         [Fact]
-        public async Task PostPerfil()
+        public async Task PostPerfilTest()
         {
             CreatingPerfilDto request = new CreatingPerfilDto("Beatriz", "beatriz@gmail.com", 351258963147, new List<string> { "tag1", "tag2" }, "2021/05/05",
             "Angry", "B+kasnda21", "en-PT", "Viseu1", "perfilfb1", "perfilli1");
@@ -34,7 +34,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
         }
 
         [Fact]
-        public async Task GetPerfis()
+        public async Task GetPerfisTest()
         {
             var mock = new Mock<IPerfilService>();
             PerfisController controller = new PerfisController(mock.Object);
@@ -45,7 +45,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
         }
 
         [Fact]
-        public async Task GetPerfil()
+        public async Task GetPerfilTest()
         {
             Guid id = new Guid();
             var mock = new Mock<IPerfilService>();
@@ -57,7 +57,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
         }
 
         [Fact]
-        public async Task GetPerfilByNome()
+        public async Task GetPerfilByNomeTest()
         {
             string id = "Beatriz";
             var mock = new Mock<IPerfilService>();
@@ -69,7 +69,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
         }
 
         [Fact]
-        public async Task GetPerfilByEmail()
+        public async Task GetPerfilByEmailTest()
         {
             string id = "beatriz@gmail.com";
             var mock = new Mock<IPerfilService>();
@@ -81,7 +81,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
         }
 
         [Fact]
-        public async Task GetPerfilByPais()
+        public async Task GetPerfilByPaisTest()
         {
             string id = "en-PT";
             var mock = new Mock<IPerfilService>();
@@ -93,7 +93,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
         }
 
         [Fact]
-        public async Task PutPerfil()
+        public async Task PutPerfilTest()
         {
             Guid id = new Guid();
 
@@ -113,7 +113,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
         }
 
         [Fact]
-        public async Task PatchPerfil()
+        public async Task PatchPerfilTest()
         {
             Guid id = new Guid();
 

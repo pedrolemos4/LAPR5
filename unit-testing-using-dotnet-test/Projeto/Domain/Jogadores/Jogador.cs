@@ -17,7 +17,7 @@ namespace DDDSample1.Domain.Jogadores
 
         public List<Missao> ListaMissoes { get; private set; }
 
-        public Perfil perfil { get; private set; }
+        public PerfilId Perfil { get; private set; }
 
         public HashSet<Relacao> ListaRelacoes { get; private set; }
 
@@ -40,7 +40,7 @@ namespace DDDSample1.Domain.Jogadores
             this.Active = true;
         }
 
-        public Jogador(Perfil perfil) {
+        public Jogador(PerfilId perfil) {
             if(perfil == null){
                 throw new BusinessRuleValidationException("It is not possible to create a player without his profile.");
             }
@@ -50,7 +50,7 @@ namespace DDDSample1.Domain.Jogadores
             this.ListaRelacoes = new HashSet<Relacao>();
             this.ListaPosts = new List<Post>();
             this.Active = true;
-            this.perfil = perfil;
+            this.Perfil = perfil;
         }
 
         public void adicionaMissao(Missao missao)
@@ -76,12 +76,12 @@ namespace DDDSample1.Domain.Jogadores
             this.Pontuacao = new Pontuacao(pontos);
         }
 
-        public void ChangePerfil(Perfil perfil)
+        /*public void ChangePerfil(Perfil perfil)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to add more points to an inactive player.");
             this.perfil = perfil;
-        }
+        }*/
 
         public void ChangeMissoes(List<Missao> missoes)
         {
@@ -106,6 +106,10 @@ namespace DDDSample1.Domain.Jogadores
         public void MarkAsInative()
         {
             this.Active = false;
+        }
+
+        public void toString(){
+             Console.WriteLine("Id: " + this.Id.AsGuid() + "\nIdPerfil: " + this.Perfil.AsGuid());
         }
     }
 }

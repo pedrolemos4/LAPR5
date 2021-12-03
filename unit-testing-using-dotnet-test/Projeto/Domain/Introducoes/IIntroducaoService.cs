@@ -10,6 +10,7 @@ namespace DDDSample1.Domain.Introducoes
         Task<IntroducaoDto> AddAsync(CreatingIntroducaoDto intro);
         Task<IntroducaoDto> PatchEstadoIntroducao(IntroducaoDto dto);
         Task<List<IntroducaoDto>> GetIntroducoesPorAprovar(JogadorId idJog);
+        Task<List<IntroducaoDto>> GetIntroducoesAprovarRejeitar(JogadorId idJog);
         Task<IntroducaoDto> UpdateAsync(IntroducaoDto introducao);
         Task<List<IntroducaoDto>> GetAllAsync();
         Task<IntroducaoDto> GetByIdAsync(IntroducaoId id);

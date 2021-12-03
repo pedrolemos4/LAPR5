@@ -14,7 +14,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Jogadores
             long telefone = 351915246058;
             List<string> tag =  new List<string>();
             tag.Add("musica");
-            string data = "2000/08/15";
+            string data = "2000-08-15";
             string estado = "Disappointed";
             string password = "Q178oAX.qw@";
             string pais = "en-PT";
@@ -22,7 +22,11 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Jogadores
             string perfilFB = "perfilFb";
             string perfilLI = "perfilLin";
             Perfil per = new Perfil(nome, email, telefone, tag, data, estado, password, pais, cidade, perfilFB, perfilLI);
-            CreatingJogadorDto jogador = new CreatingJogadorDto(per.Id.AsGuid());
+
+            List<string> listRelacoes = new List<string>();
+            List<string> listMissoes = new List<string>();
+            List<string> listPosts = new List<string>();
+            CreatingJogadorDto jogador = new CreatingJogadorDto(10, per.Id.AsGuid(), listRelacoes, listMissoes, listPosts);
 
             Assert.Equal(per.Id.AsGuid(), jogador.perfilId);
         }

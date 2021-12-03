@@ -33,7 +33,7 @@ namespace DDDNetCore.Tests.testesIntegracao.Controller
 
         [Fact]
         public async Task GetRelacaoTest() {
-            Guid ligacaoId = new Guid();
+            Guid relacaoId = new Guid();
 
             var mockRel = new Mock<IRelacaoRepository>();
             mockRel.Setup(repository => repository.GetAllAsync()).Returns(Task.FromResult(new List<Relacao>()));
@@ -43,9 +43,28 @@ namespace DDDNetCore.Tests.testesIntegracao.Controller
             RelacaoService service = new RelacaoService(mockUnit.Object, mockRel.Object);
             RelacoesController controller = new RelacoesController(service);
 
-            var result = await controller.GetRelacao(ligacaoId);
+            var result = await controller.GetRelacao(relacaoId);
 
             mockRel.Verify(service => service.GetByIdAsync(It.IsAny<RelacaoId>()), Times.AtLeastOnce());
+            Assert.IsType<ActionResult<RelacaoDto>>(result);
+        }
+
+        [Fact]
+        public async Task GetRelacaoComDoisIdsTest() {
+            Guid jog1Id = new Guid();
+            Guid jog2Id = new Guid();
+
+            var mockRel = new Mock<IRelacaoRepository>();
+            mockRel.Setup(repository => repository.GetAllAsync()).Returns(Task.FromResult(new List<Relacao>()));
+
+            var mockUnit = new Mock<IUnitOfWork>();
+
+            RelacaoService service = new RelacaoService(mockUnit.Object, mockRel.Object);
+            RelacoesController controller = new RelacoesController(service);
+
+            var result = await controller.GetRelacaoComDoisIds(jog1Id, jog2Id);
+
+            mockRel.Verify(service => service.GetRelacaoComDoisIds(It.IsAny<JogadorId>(),It.IsAny<JogadorId>()), Times.AtLeastOnce());
             Assert.IsType<ActionResult<RelacaoDto>>(result);
         }
 

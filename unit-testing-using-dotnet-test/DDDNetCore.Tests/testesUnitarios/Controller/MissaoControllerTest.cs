@@ -14,7 +14,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
     public class MissoesControllerTest
     {
         [Fact]
-        public async Task GetMissoes() {
+        public async Task GetMissoesTest() {
             var mock = new Mock<IMissaoService>();
             MissoesController controller = new MissoesController(mock.Object);
 
@@ -25,7 +25,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
         }
 
         [Fact]
-        public async Task GetMissaoById() {
+        public async Task GetMissaoByIdTest() {
             Guid missaoId = new Guid();
 
             var mock = new Mock<IMissaoService>();
@@ -39,13 +39,13 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
         }
 
         [Fact]
-        public async Task PostMissao(){
+        public async Task PostMissaoTest(){
             string nome = "Beatriz";
             string email = "beatriz.vaz2001@gmail.com";
             long telefone = 351915246058;
             List<string> tag = new List<string>();
             tag.Add("musica");
-            string data = "2000/08/15";
+            string data = "2000-08-15";
             string estado = "Disappointed";
             string password = "Q178oAX.qw@";
             string pais = "en-PT";
@@ -53,10 +53,10 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
             string perfilFB = "perfilFb";
             string perfilLI = "perfilLin";
             Perfil per = new Perfil(nome, email, telefone, tag, data, estado, password, pais, cidade, perfilFB, perfilLI);
-            Jogador jogador = new Jogador(per);
+            Jogador jogador = new Jogador(per.Id);
 
             int dificuldade = 2;
-            string dataMissao = "2020/05/12";
+            string dataMissao = "2020-05-12";
 
             CreatingMissaoDto missao = new CreatingMissaoDto(dificuldade, dataMissao, jogador.Id.AsGuid());
 

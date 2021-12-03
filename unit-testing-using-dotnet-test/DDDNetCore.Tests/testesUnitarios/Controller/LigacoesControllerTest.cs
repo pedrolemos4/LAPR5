@@ -4,6 +4,7 @@ using Moq;
 using Xunit;
 using System;
 using DDDSample1.Domain.Ligacoes;
+using DDDSample1.Domain.Jogadores;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DDDNetCore.Tests.testesUnitarios.Controller
@@ -11,7 +12,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
     public class LigacoesControllerTest
     {
         [Fact]
-        public async Task GetLigacoes() {
+        public async Task GetLigacoesTest() {
             var mockLig = new Mock<ILigacaoService>();
             LigacoesController controller = new LigacoesController(mockLig.Object);
 
@@ -21,7 +22,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
         }
 
         [Fact]
-        public async Task GetLigacao() {
+        public async Task GetLigacaoTest() {
             Guid ligacaoId = new Guid();
 
             var mockLig = new Mock<ILigacaoService>();
@@ -34,16 +35,16 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
         }
 
         [Fact]
-        public async Task GetLigacaoPendente() {
+        public async Task GetLigacaoPendenteTest() {
             Guid jogadorId = new Guid();
 
             var mockLig = new Mock<ILigacaoService>();
-            mockLig.Setup(service => service.GetLigacaoPendente(It.IsAny<LigacaoId>()));
+            mockLig.Setup(service => service.GetLigacaoPendente(It.IsAny<JogadorId>()));
             LigacoesController controller = new LigacoesController(mockLig.Object);
 
             var result = await controller.GetLigacaoPendente(jogadorId);
 
-            mockLig.Verify(service => service.GetLigacaoPendente(It.IsAny<LigacaoId>()), Times.AtLeastOnce());
+            mockLig.Verify(service => service.GetLigacaoPendente(It.IsAny<JogadorId>()), Times.AtLeastOnce());
         }
 
         [Fact]

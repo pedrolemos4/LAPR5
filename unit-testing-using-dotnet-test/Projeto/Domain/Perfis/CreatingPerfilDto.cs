@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using DDDSample1.Domain.Shared;
-using DDDSample1.Domain.SharedValueObjects;
 
 namespace DDDSample1.Domain.Perfis
 {

@@ -18,7 +18,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Perfis
             long telefone = 351915246058;
             List<string> tags =  new List<string>();
             tags.Add("musica");
-            string data = "2000/08/15";
+            string data = "2000-08-15";
             string estado = "Disappointed";
             string password = "Q178oAX.qw@";
             string pais = "en-PT";
@@ -57,7 +57,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Perfis
             long telefone = 351915246058;
             List<string> tags =  new List<string>();
             tags.Add("musica");
-            string data = "2000/08/15";
+            string data = "2000-08-15";
             string estado = "Disappointed";
             string password = "Q178oAX.qw@";
             string pais = "en-PT";
@@ -77,7 +77,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Perfis
             long telefone = 351915246058;
             List<string> tags =  new List<string>();
             tags.Add("musica");
-            string data = "2000/08/15";
+            string data = "2000-08-15";
             string estado = "Disappointed";
             string password = "Q178oAX.qw@";
             string pais = "en-PT";
@@ -97,7 +97,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Perfis
             long telefone = 12345;
             List<string> tags =  new List<string>();
             tags.Add("musica");
-            string data = "2000/08/15";
+            string data = "2000-08-15";
             string estado = "Disappointed";
             string password = "Q178oAX.qw@";
             string pais = "en-PT";
@@ -117,7 +117,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Perfis
             long telefone = 123456789123;
             List<string> tags =  new List<string>();
             tags.Add("musica");
-            string data = "2000/18/35";
+            string data = "2000-18-35";
             string estado = "Disappointed";
             string password = "Q178oAX.qw@";
             string pais = "en-PT";
@@ -137,7 +137,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Perfis
             long telefone = 123456789123;
             List<string> tags =  new List<string>();
             tags.Add("musica");
-            string data = "2000/08/15";
+            string data = "2000-08-15";
             string estado = "Estado";
             string password = "Q178oAX.qw@";
             string pais = "en-PT";
@@ -157,8 +157,8 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Perfis
             long telefone = 123456789123;
             List<string> tags =  new List<string>();
             tags.Add("musica");
-            string data = "2000/08/15";
-            string estado = "Estado";
+            string data = "2000-08-15";
+            string estado = "Disappointed";
             string password = "Q178oAX.qw@";
             string pais = "pais";
             string cidade = "Porto1";
@@ -174,18 +174,18 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Perfis
         {
             string nome = "Beatriz";
             string email = "beatriz.vaz2001@gmail.com";
-            long telefone = 123456789123;
+            long telefone = 12345678911123;
             List<string> tags =  new List<string>();
             tags.Add("musica");
-            string data = "2000/18/35";
-            string estado = "Estado";
+            string data = "2000-10-15";
+            string estado = "Disappointed";
             string password = "Q178oAX.qw@";
             string pais = "en-PT";
-            string cidade = "cidade";
+            string cidade = "123421";
             string perfilFB = "perfilFb";
             string perfilLI = "perfilLin";
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => new Perfil(nome, email, telefone, tags, data, estado, password, pais, cidade, perfilFB, perfilLI));
+            Assert.Throws<BusinessRuleValidationException>(() => new Perfil(nome, email, telefone, tags, data, estado, password, pais, cidade, perfilFB, perfilLI));
 
         }
 
@@ -197,7 +197,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Perfis
             long telefone = 123456789123;
             List<string> tags =  new List<string>();
             tags.Add("musica");
-            string data = "2000/08/15";
+            string data = "2000-08-15";
             string estado = "Joyful";
             string password = "Q178oAX.qw@";
             string pais = "en-PT";
@@ -222,7 +222,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Perfis
             long telefone = 123456789123;
             List<string> tags =  new List<string>();
             tags.Add("musica");
-            string data = "2000/08/15";
+            string data = "2000-08-15";
             string estado = "Joyful";
             string password = "Q178oAX.qw@";
             string pais = "en-PT";
@@ -247,7 +247,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Perfis
             long telefone = 123456789123;
             List<string> tags =  new List<string>();
             tags.Add("musica");
-            string data = "2000/08/15";
+            string data = "2000-08-15";
             string estado = "Joyful";
             string password = "Q178oAX.qw@";
             string pais = "en-PT";
@@ -272,7 +272,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Perfis
             long telefone = 123456789123;
             List<string> tags =  new List<string>();
             tags.Add("musica");
-            string data = "2000/08/15";
+            string data = "2000-08-15";
             string estado = "Joyful";
             string password = "Q178oAX.qw@";
             string pais = "en-PT";
@@ -282,7 +282,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Perfis
 
             Perfil perfil = new Perfil(nome, email, telefone, tags, data, estado, password, pais, cidade, perfilFB, perfilLI);
 
-            string novaData = "2000/08/17";
+            string novaData = "2000-08-17";
             perfil.ChangedataNascimento(novaData);
             string dataformatada = "17/08/2000 00:00:00";
             Assert.Equal(dataformatada, perfil.dataNascimento.DataNasc.ToString());
@@ -297,7 +297,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Perfis
             long telefone = 123456789123;
             List<string> tags =  new List<string>();
             tags.Add("musica");
-            string data = "2000/08/15";
+            string data = "2000-08-15";
             string estado = "Joyful";
             string password = "Q178oAX.qw@";
             string pais = "en-PT";
@@ -322,7 +322,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Perfis
             long telefone = 123456789123;
             List<string> tags =  new List<string>();
             tags.Add("musica");
-            string data = "2000/08/15";
+            string data = "2000-08-15";
             string estado = "Joyful";
             string password = "Q178oAX.qw@";
             string pais = "en-PT";
@@ -347,7 +347,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Perfis
             long telefone = 123456789123;
             List<string> tags =  new List<string>();
             tags.Add("musica");
-            string data = "2000/08/15";
+            string data = "2000-08-15";
             string estado = "Joyful";
             string password = "Q178oAX.qw@";
             string pais = "en-PT";

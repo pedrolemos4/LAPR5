@@ -23,7 +23,7 @@ namespace DDDSample1.Domain.Posts
             this.Active = true;
         }
 
-        public Post(string texto, List<string> tags, List<string> comentario, string likeDislike, int forca)
+        public Post(string texto, List<string> tags, List<string> comentario, string likeDislike)
         {
             this.Id = new PostId(Guid.NewGuid());
             this.Texto = new Texto(texto);

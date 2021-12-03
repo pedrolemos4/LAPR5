@@ -3,7 +3,6 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DDDSample1.Domain.Relacoes;
-using DDDSample1.Infrastructure;
 using DDDSample1.Domain.Jogadores;
 using DDDSample1.Domain.Shared;
 
@@ -13,7 +12,6 @@ namespace DDDSample1.Controllers
     [ApiController]
     public class RelacoesController : ControllerBase
     {
-
         private readonly IRelacaoService _service;
 
         public RelacoesController(IRelacaoService service)
@@ -29,7 +27,8 @@ namespace DDDSample1.Controllers
         }
 
         // GET: api/Relacoes/5
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id}")]
         public async Task<ActionResult<RelacaoDto>> GetRelacao(Guid id)
         {
             var relacao = await _service.GetByIdAsync(new RelacaoId(id));
@@ -42,9 +41,27 @@ namespace DDDSample1.Controllers
             return relacao;
         }
 
+        // GET: api/Relacoes/7
+        [HttpGet]
+        [Route("[action]/{jog}")]
         public async Task<ActionResult<List<RelacaoDto>>> GetRelacoesDoJogador(Guid jog)
         {
             var relacao = await this._service.GetRelacoesDoJogador(new JogadorId(jog));
+
+            if (relacao == null)
+            {
+                return NotFound();
+            }
+
+            return relacao;
+        }
+
+        // GET: api/Relacoes/8
+        [HttpGet]
+        [Route("[action]/{jog}/{jog2}")]
+        public async Task<ActionResult<RelacaoDto>> GetRelacaoComDoisIds(Guid jog, Guid jog2)
+        {
+            var relacao = await this._service.GetRelacaoComDoisIds(new JogadorId(jog), new JogadorId(jog2));
 
             if (relacao == null)
             {
@@ -80,7 +97,7 @@ namespace DDDSample1.Controllers
         }
 
         // PATCH: api/Relacoes/6
-        [HttpPut("{relacao}")]
+        [HttpPatch("{id}")]
         public async Task<ActionResult<RelacaoDto>> PatchRelacao([FromRoute] Guid id, [FromBody] RelacaoDto dto)
         {
 
@@ -144,7 +161,8 @@ namespace DDDSample1.Controllers
 
 
         // GET: api/Jogadores/5
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id}/{n}")]
         public async Task<List<RelacaoDto>> GetRedeJogador(Guid id, int n)
         {
             return await _service.GetRedeJogador(new JogadorId(id), n);

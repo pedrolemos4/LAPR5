@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.Jogadores;
-using System;
 
 namespace DDDSample1.Domain.Ligacoes
 {
@@ -24,16 +23,16 @@ namespace DDDSample1.Domain.Ligacoes
         {
             var list = await this._repo.GetAllAsync();
 
-            List<LigacaoDto> listDto = list.ConvertAll<LigacaoDto>(lig => new LigacaoDto { Id = lig.Id.AsGuid(), TextoLigacao = lig.TextoLigacao.Texto, Estado = lig.EstadoLigacao.ToString(), Jogador1 = lig.Jogador1.Id.AsGuid(), Jogador2 = lig.Jogador2.Id.AsGuid() });
+            List<LigacaoDto> listDto = list.ConvertAll<LigacaoDto>(lig => new LigacaoDto { Id = lig.Id.AsGuid(), TextoLigacao = lig.TextoLigacao.Texto, Estado = lig.EstadoLigacao.ToString(), Jogador1 = lig.Jogador1.AsGuid(), Jogador2 = lig.Jogador2.AsGuid() });
 
             return listDto;
         }
 
-        public async Task<List<LigacaoDto>> GetLigacaoPendente(LigacaoId id)
+        public async Task<List<LigacaoDto>> GetLigacaoPendente(JogadorId id)
         {
             var list = await this._repo.GetLigacaoPendente(id);
 
-            List<LigacaoDto> listDto = list.ConvertAll<LigacaoDto>(lig => new LigacaoDto { Id = lig.Id.AsGuid(), TextoLigacao = lig.TextoLigacao.Texto, Estado = lig.EstadoLigacao.ToString(), Jogador1 = lig.Jogador1.Id.AsGuid(), Jogador2 = lig.Jogador2.Id.AsGuid() });
+            List<LigacaoDto> listDto = list.ConvertAll<LigacaoDto>(lig => new LigacaoDto { Id = lig.Id.AsGuid(), TextoLigacao = lig.TextoLigacao.Texto, Estado = lig.EstadoLigacao.ToString(), Jogador1 = lig.Jogador1.AsGuid(), Jogador2 = lig.Jogador2.AsGuid() });
 
             return listDto;
         }
@@ -45,7 +44,7 @@ namespace DDDSample1.Domain.Ligacoes
             if (lig == null)
                 return null;
 
-            return new LigacaoDto { Id = lig.Id.AsGuid(), TextoLigacao = lig.TextoLigacao.Texto, Estado = lig.EstadoLigacao.ToString(), Jogador1 = lig.Jogador1.Id.AsGuid(), Jogador2 = lig.Jogador2.Id.AsGuid() };
+            return new LigacaoDto { Id = lig.Id.AsGuid(), TextoLigacao = lig.TextoLigacao.Texto, Estado = lig.EstadoLigacao.ToString(), Jogador1 = lig.Jogador1.AsGuid(), Jogador2 = lig.Jogador2.AsGuid() };
         }
 
         public async Task<LigacaoDto> AddAsync(CreatingLigacaoDto dto)
@@ -53,13 +52,13 @@ namespace DDDSample1.Domain.Ligacoes
             var jog1 = await this._repoJog.GetByIdAsync(new JogadorId(dto.Jogador1));
             var jog2 = await this._repoJog.GetByIdAsync(new JogadorId(dto.Jogador2));
 
-            var ligacao = new Ligacao(dto.TextoLigacao, dto.EstadoLigacao.ToString(), jog1, jog2);
+            var ligacao = new Ligacao(dto.TextoLigacao, dto.EstadoLigacao.ToString(), jog1.Id, jog2.Id);
 
             await this._repo.AddAsync(ligacao);
 
             await this._unitOfWork.CommitAsync();
 
-            return new LigacaoDto { Id = ligacao.Id.AsGuid(), TextoLigacao = ligacao.TextoLigacao.Texto, Estado = ligacao.EstadoLigacao.ToString(), Jogador1 = ligacao.Jogador1.Id.AsGuid(), Jogador2 = ligacao.Jogador2.Id.AsGuid() };
+            return new LigacaoDto { Id = ligacao.Id.AsGuid(), TextoLigacao = ligacao.TextoLigacao.Texto, Estado = ligacao.EstadoLigacao.ToString(), Jogador1 = ligacao.Jogador1.AsGuid(), Jogador2 = ligacao.Jogador2.AsGuid() };
         }
 
         public async Task<LigacaoDto> PatchEstadoLigacao(LigacaoDto dto)
@@ -73,7 +72,7 @@ namespace DDDSample1.Domain.Ligacoes
 
             await this._unitOfWork.CommitAsync();
 
-            return new LigacaoDto { Id = lig.Id.AsGuid(), TextoLigacao = lig.TextoLigacao.Texto, Estado = lig.EstadoLigacao.ToString(), Jogador1 = lig.Jogador1.Id.AsGuid(), Jogador2 = lig.Jogador2.Id.AsGuid() };
+            return new LigacaoDto { Id = lig.Id.AsGuid(), TextoLigacao = lig.TextoLigacao.Texto, Estado = lig.EstadoLigacao.ToString(), Jogador1 = lig.Jogador1.AsGuid(), Jogador2 = lig.Jogador2.AsGuid() };
         }
 
         public async Task<LigacaoDto> UpdateAsync(LigacaoDto dto)
@@ -86,11 +85,11 @@ namespace DDDSample1.Domain.Ligacoes
             // change all field
             ligacao.ChangeEstado(dto.Estado.ToString());
             ligacao.ChangeTextoLigacao(dto.TextoLigacao);
-            ligacao.ChangeJogador2(jog);
+            ligacao.ChangeJogador2(jog.Id);
 
             await this._unitOfWork.CommitAsync();
 
-            return new LigacaoDto { Id = ligacao.Id.AsGuid(), TextoLigacao = ligacao.TextoLigacao.Texto, Estado = ligacao.EstadoLigacao.ToString(), Jogador1 = ligacao.Jogador1.Id.AsGuid(), Jogador2 = ligacao.Jogador2.Id.AsGuid() };
+            return new LigacaoDto { Id = ligacao.Id.AsGuid(), TextoLigacao = ligacao.TextoLigacao.Texto, Estado = ligacao.EstadoLigacao.ToString(), Jogador1 = ligacao.Jogador1.AsGuid(), Jogador2 = ligacao.Jogador2.AsGuid() };
         }
 
         /*public async Task<LigacaoDto> InactivateAsync(LigacaoId id)
@@ -121,7 +120,7 @@ namespace DDDSample1.Domain.Ligacoes
             this._repo.Remove(ligacao);
             await this._unitOfWork.CommitAsync();
 
-            return new LigacaoDto { Id = ligacao.Id.AsGuid(), TextoLigacao = ligacao.TextoLigacao.Texto, Estado = ligacao.EstadoLigacao.ToString(), Jogador1 = ligacao.Jogador1.Id.AsGuid(), Jogador2 = ligacao.Jogador2.Id.AsGuid() };
+            return new LigacaoDto { Id = ligacao.Id.AsGuid(), TextoLigacao = ligacao.TextoLigacao.Texto, Estado = ligacao.EstadoLigacao.ToString(), Jogador1 = ligacao.Jogador1.AsGuid(), Jogador2 = ligacao.Jogador2.AsGuid() };
         }
     }
 }

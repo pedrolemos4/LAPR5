@@ -1,10 +1,8 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DDDSample1.Domain.Jogadores;
 using DDDSample1.Domain.Perfis;
-using DDDSample1.Infrastructure;
 using System;
 using DDDSample1.Domain.Shared;
 
@@ -24,15 +22,29 @@ namespace DDDSample1.Controllers
             _servicePer = servicePer;
         }
 
-        // GET: api/Jogadores
-        [HttpGet]
-        public async Task<ActionResult<List<JogadorDto>>> GetJogadores()
+        // GET: api/Jogadores/{email/password}
+        [HttpGet("{email}/{password}")]
+        public async Task<ActionResult<JogadorDto>> GetJogadorByEmailPassword(string email,string password)
         {
-            return await _serviceJog.GetAllAsync();
+            var perfil = await _servicePer.GetPerfilByEmailPassword(email,password);
+            
+            if (perfil == null) {
+                return NotFound();
+            }
+
+            var jogador = await _serviceJog.GetJogadorByPerfil(new PerfilId(perfil.Id));
+            
+
+            return jogador;
         }
 
+        // GET: api/Jogadores
+        [HttpGet]
+        public async Task<ActionResult<List<JogadorDto>>>  GetJogadores() => await _serviceJog.GetAllAsync();
+
         // GET: api/Jogadores/5
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id}")]
         public async Task<ActionResult<JogadorDto>> GetJogador(Guid id)
         {
             //var jogador = await _context.Jogadores.FindAsync(id);
@@ -46,8 +58,9 @@ namespace DDDSample1.Controllers
             return jogador;
         }
 
-        // GET: api/Perfis/5
-        [HttpGet("{id}")]
+        // GET: api/Jogadores/5
+        [HttpGet]
+        [Route("[action]/{id}")]
         public async Task<ActionResult<PerfilDto>> GetPerfilJogador(Guid id)
         {
             JogadorDto jogadorDto = await _serviceJog.GetByIdAsync(new JogadorId(id));
@@ -57,13 +70,14 @@ namespace DDDSample1.Controllers
                 return NotFound();
             }
 
-            var perfil = await _servicePer.GetByIdAsync(new PerfilId(jogadorDto.Id));
+            var perfil = await _servicePer.GetByIdAsync(new PerfilId(jogadorDto.PerfilId));
 
             return perfil;
         }
 
-        // GET: api/Perfis/7
-        [HttpGet("{perfil}")]
+        // GET: api/Jogadores/7
+        [HttpGet]
+        [Route("[action]/{perfilId}")]
         public async Task<ActionResult<JogadorDto>> GetJogadorByPerfil(Guid perfilId)
         {
             var jogador = await _serviceJog.GetJogadorByPerfil(new PerfilId(perfilId));
@@ -75,60 +89,73 @@ namespace DDDSample1.Controllers
 
             return jogador;
         }
-        
+
         // GET: api/Jogadores/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<List<JogadorDto>>> GetAmigosEmComum([FromRoute]Guid idJog, [FromBody]Guid idObj)
+        [HttpGet]
+        [Route("[action]/{idJog}/{idObj}")]
+        public async Task<ActionResult<List<JogadorDto>>> GetAmigosEmComum(Guid idJog, Guid idObj)
         {
+            Console.WriteLine("\n\nId Jog: " + idJog);
+            Console.WriteLine("\n\nId Obj: " + idObj);
             return await _serviceJog.GetAmigosEmComum(new JogadorId(idJog), new JogadorId(idObj));
         }
 
         // GET: api/Jogadores/6
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{idJog}")]
         public async Task<ActionResult<List<JogadorDto>>> GetAmigos(Guid idJog)
         {
             return await _serviceJog.GetAmigos(new JogadorId(idJog));
         }
 
+        [HttpGet]
+        [Route("[action]/{idJog}")]
+        public async Task<ActionResult<List<JogadorDto>>> GetPossiveisAmigos(Guid idJog)
+        {
+            return await _serviceJog.GetPossiveisAmigos(new JogadorId(idJog));
+        }
+        
         // PUT: api/Jogadores/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ActionResult> PutJogador([FromRoute]Guid id,[FromBody] JogadorDto jogador)
+        public async Task<ActionResult> PutJogador([FromRoute] Guid id, [FromBody] JogadorDto jogador)
         {
-            if (id != jogador.Id) {
+            if (id != jogador.Id)
+            {
                 return BadRequest();
             }
 
-            try {
+            try
+            {
                 var cat = await _serviceJog.UpdateAsync(jogador);
-                
+
                 if (cat == null)
                 {
                     return NotFound();
                 }
                 return Ok(cat);
             }
-            catch(BusinessRuleValidationException ex)
+            catch (BusinessRuleValidationException ex)
             {
-                return BadRequest(new {Message = ex.Message});
+                return BadRequest(new { Message = ex.Message });
             }
         }
 
-        // POST: api/Jogadores
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<JogadorDto>> PostJogador(CreatingJogadorDto jogadorDto)
-        {
+         // POST: api/Jogadores/10
+         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+         [HttpPost]
+         public async Task<ActionResult<JogadorDto>> PostJogador(CreatingJogadorDto jogadorDto)
+         {
 
-            try {
-                var jog = await _serviceJog.AddAsync(jogadorDto);
+             try {
+                 var jog = await _serviceJog.AddAsync(jogadorDto);
 
-                return CreatedAtAction(nameof(GetJogador), new { id = jog.Id }, jog);
-            }
-            catch(BusinessRuleValidationException ex) {
-                return BadRequest(new {Message = ex.Message});
-            }
-        }
+                 return CreatedAtAction(nameof(GetJogador), new { id = jog.Id }, jog);
+             }
+             catch(BusinessRuleValidationException ex) {
+                 return BadRequest(new {Message = ex.Message});
+             }
+         }
 
         // DELETE: api/Jogadores/5
         [HttpDelete("{id}")]
@@ -145,11 +172,12 @@ namespace DDDSample1.Controllers
 
                 return Ok(intro);
             }
-            catch(BusinessRuleValidationException ex)
+            catch (BusinessRuleValidationException ex)
             {
-               return BadRequest(new {Message = ex.Message});
+                return BadRequest(new { Message = ex.Message });
             }
         }
+
 
     }
 }

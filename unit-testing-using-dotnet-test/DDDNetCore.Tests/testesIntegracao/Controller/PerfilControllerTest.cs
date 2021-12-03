@@ -8,17 +8,17 @@ using Xunit;
 using Moq;
 using DDDSample1.Domain.Shared;
 
-namespace Name
+namespace DDDNetCore.Tests.testesIntegracao.Controller
 {
     public class PerfilControllerTest
     {
         [Fact]
-        public async Task PostPerfil()
+        public async Task PostPerfilTest()
         {
-            CreatingPerfilDto request = new CreatingPerfilDto("Beatriz", "beatriz@gmail.com", 351258963147, new List<string> { "tag1", "tag2" }, "2000/05/05",
+            CreatingPerfilDto request = new CreatingPerfilDto("Beatriz", "beatriz@gmail.com", 351258963147, new List<string> { "tag1", "tag2" }, "2000-05-05",
             "Angry", "B+kasnda21", "en-PT", "Viseu1", "perfilfb1", "perfilli1");
 
-            Perfil perfil = new Perfil("Beatriz", "beatriz@gmail.com", 351258963147, new List<string> { "tag1", "tag2" }, "2000/05/05",
+            Perfil perfil = new Perfil("Beatriz", "beatriz@gmail.com", 351258963147, new List<string> { "tag1", "tag2" }, "2000-05-05",
              "Angry", "B+kasnda21", "en-PT", "Viseu1", "perfilfb1", "perfilli1");
 
             PerfilDto perfilDto = new PerfilDto { Nome = request.nome, Email = request.email, EstadoHumor = request.estadoHumor, Pais = request.pais };
@@ -37,11 +37,10 @@ namespace Name
             mockRep.Verify(repository => repository.AddAsync(It.IsAny<Perfil>()), Times.AtLeastOnce());
             mockUnit.Verify(unit => unit.CommitAsync(), Times.AtLeastOnce());
             Assert.IsType<ActionResult<PerfilDto>>(result);
-
         }
 
         [Fact]
-        public async Task GetPerfis()
+        public async Task GetPerfisTest()
         {
             var mockRepository = new Mock<IPerfilRepository>();
             mockRepository.Setup(repository => repository.GetAllAsync()).Returns(Task.FromResult(new List<Perfil>()));
@@ -58,7 +57,7 @@ namespace Name
         }
 
         [Fact]
-        public async Task GetPerfil()
+        public async Task GetPerfilTest()
         {
             Guid id = new Guid();
 
@@ -77,7 +76,7 @@ namespace Name
         }
 
         [Fact]
-        public async Task GetPerfilByNome()
+        public async Task GetPerfilByNomeTest()
         {
             var mockRepository = new Mock<IPerfilRepository>();
             mockRepository.Setup(repository => repository.getPerfilByNome(It.IsAny<string>()));
@@ -94,7 +93,7 @@ namespace Name
         }
 
         [Fact]
-        public async Task GetPerfilByEmail()
+        public async Task GetPerfilByEmailTest()
         {
             var mockRepository = new Mock<IPerfilRepository>();
             mockRepository.Setup(repository => repository.GetPerfilByEmail(It.IsAny<string>()));
@@ -111,7 +110,7 @@ namespace Name
         }
 
         [Fact]
-        public async Task GetPerfilByPais()
+        public async Task GetPerfilByPaisTest()
         {
             var mockRepository = new Mock<IPerfilRepository>();
             mockRepository.Setup(repository => repository.GetAllAsync()).Returns(Task.FromResult(new List<Perfil>()));

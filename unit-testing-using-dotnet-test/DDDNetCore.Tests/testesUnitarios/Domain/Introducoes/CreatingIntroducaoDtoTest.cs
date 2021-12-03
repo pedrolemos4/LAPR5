@@ -14,7 +14,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Introducoes
             Guid jogObj = new Guid();
 
             string estadoIntro = "Pendente";
-            CreatingIntroducaoDto intro = new CreatingIntroducaoDto(jogInicial,jogIntro,jogObj, estadoIntro);
+            CreatingIntroducaoDto intro = new CreatingIntroducaoDto(jogInicial,jogIntro,jogObj, estadoIntro, "Texto");
             Assert.Equal(jogInicial, intro.JogadorInicial);
             Assert.Equal(jogIntro, intro.JogadorIntrodutor);
             Assert.Equal(jogObj, intro.JogadorObjetivo);

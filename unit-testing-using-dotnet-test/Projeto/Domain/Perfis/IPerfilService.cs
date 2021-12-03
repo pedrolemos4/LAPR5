@@ -6,6 +6,7 @@ namespace DDDSample1.Domain.Perfis
 {
     public interface IPerfilService
     {
+        Task<PerfilDto> GetPerfilByEmailPassword(string email, string password);
         Task<PerfilDto> getPerfilByNome(string nome);
         Task<PerfilDto> GetPerfilByEmail(string email);
         Task<List<PerfilDto>> GetPerfilByPais(string pais);

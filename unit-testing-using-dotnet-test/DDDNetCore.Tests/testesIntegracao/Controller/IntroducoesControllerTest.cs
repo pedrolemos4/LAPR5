@@ -15,7 +15,7 @@ namespace DDDNetCore.Tests.testesIntegracao.Controller
     public class IntroducoesControllerTest
     {
         [Fact]
-        public async Task GetIntroducoes() {
+        public async Task GetIntroducoesTest() {
             
             var mockIntro = new Mock<IIntroducaoRepository>();
             var mockJog = new Mock<IJogadorRepository>();
@@ -34,7 +34,7 @@ namespace DDDNetCore.Tests.testesIntegracao.Controller
         }
 
         [Fact]
-        public async Task GetIntroducaoById() {
+        public async Task GetIntroducaoByIdTest() {
             Guid introducaoId = new Guid();
 
             var mockIntro = new Mock<IIntroducaoRepository>();

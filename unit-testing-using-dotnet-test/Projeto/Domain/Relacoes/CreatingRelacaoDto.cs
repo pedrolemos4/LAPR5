@@ -8,11 +8,11 @@ namespace DDDSample1.Domain.Relacoes
     public class CreatingRelacaoDto
     {
 
-        public Guid Jogador1 { get;  private set; }
-        public Guid Jogador2 { get;  private set; }
-        public List<string> Tags { get;  private set; }
-        public int ForcaRelacao { get;  private set; }
-        public int ForcaLigacao { get;  private set; }
+        public Guid Jogador1 { get;  set; }
+        public Guid Jogador2 { get;  set; }
+        public List<string> Tags { get;  set; }
+        public int ForcaRelacao { get;  set; }
+        public int ForcaLigacao { get;  set; }
 
         public CreatingRelacaoDto(Guid jog1, Guid jog2, List<string> tags, int fr, int fl)
         {

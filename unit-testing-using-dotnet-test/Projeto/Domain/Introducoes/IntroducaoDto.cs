@@ -16,5 +16,7 @@ namespace DDDSample1.Domain.Introducoes
         public Guid Id { get; set; }
 
         public string EstadoIntroducao { get; set; }
+
+        public string TextoIntroducao { get; set; }
     }
 }

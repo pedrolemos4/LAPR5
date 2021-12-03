@@ -18,9 +18,8 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Posts
             tags.Add("tag2");
             comentarios.Add("comentario1");
             comentarios.Add("comentario2");
-            int forca = 5;
 
-            Post post = new Post(texto, tags, comentarios, likeDislike, forca);
+            Post post = new Post(texto, tags, comentarios, likeDislike);
 
             List<string> tags2 = new List<string>();
             foreach(Tag tag in post.Tags){

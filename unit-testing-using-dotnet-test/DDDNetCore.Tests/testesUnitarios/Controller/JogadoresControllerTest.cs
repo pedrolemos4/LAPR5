@@ -39,6 +39,25 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
         }
 
         [Fact]
+        public async Task GetJogadorByEmailPasswordTest()
+        {
+            Guid perfilId = new Guid();
+            string email = "email@gmail.com";
+            string pass = "password123";
+            var mockJog = new Mock<IJogadorService>();
+            var mockPer = new Mock<IPerfilService>();
+
+            mockPer.Setup(service => service.GetPerfilByEmailPassword(email, pass));
+
+            mockJog.Setup(service => service.GetJogadorByPerfil(It.IsAny<PerfilId>()));
+            JogadoresController controller = new JogadoresController(mockJog.Object, mockPer.Object);
+
+            var result = await controller.GetJogadorByPerfil(perfilId);
+        
+            mockJog.Verify(service => service.GetJogadorByPerfil(It.IsAny<PerfilId>()), Times.AtLeastOnce());
+        }
+
+        [Fact]
         public async Task GetPerfilJogadorTest()
         {
             Guid jogadorId = new Guid();
@@ -47,7 +66,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
             mockPer.Setup(service => service.GetByIdAsync(It.IsAny<PerfilId>()));
             JogadoresController controller = new JogadoresController(mockJog.Object, mockPer.Object);
             var result = await controller.GetPerfilJogador(jogadorId);
-            mockPer.Verify(service => service.GetByIdAsync(It.IsAny<PerfilId>()), Times.AtLeastOnce());
+            Assert.IsType<ActionResult<PerfilDto>>(result);
         }
 
         [Fact]
@@ -89,6 +108,18 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
         }
 
         [Fact]
+        public async Task GetPossiveisAmigosTest()
+        {
+            Guid idJog = new Guid();
+            var mockJog = new Mock<IJogadorService>();
+            var mockPer = new Mock<IPerfilService>();
+            mockJog.Setup(service => service.GetPossiveisAmigos(It.IsAny<JogadorId>()));
+            JogadoresController controller = new JogadoresController(mockJog.Object, mockPer.Object);
+            var result = await controller.GetPossiveisAmigos(idJog);
+            mockJog.Verify(service => service.GetPossiveisAmigos(It.IsAny<JogadorId>()), Times.AtLeastOnce());
+        }
+
+        [Fact]
         public async Task PutJogadorTest()
         {
             Guid id = new Guid();
@@ -109,15 +140,16 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
             var result = await controller.PutJogador(id, jog);
 
             mockJog.Verify(service => service.UpdateAsync(It.IsAny<JogadorDto>()), Times.AtLeastOnce());
-
-            Assert.IsType<ActionResult<JogadorDto>>(result);
         }
 
         [Fact]
         public async Task PostJogadorTest()
         {
             Guid idDto = new Guid();
-            CreatingJogadorDto jogador = new CreatingJogadorDto(idDto);
+            List<string> missoes = new List<string>();
+            List<string> relacoes = new List<string>();
+            List<string> posts = new List<string>();
+            CreatingJogadorDto jogador = new CreatingJogadorDto(10,idDto, relacoes, missoes, posts);
             var mockJog = new Mock<IJogadorService>();
             var mockPer = new Mock<IPerfilService>();
             Guid id = new Guid();

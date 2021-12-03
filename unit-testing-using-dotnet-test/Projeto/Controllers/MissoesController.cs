@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Missoes;
 using DDDSample1.Infrastructure;
 using DDDSample1.Domain.Shared;
@@ -31,7 +29,8 @@ namespace DDDSample1.Controllers
         }
 
         // GET: api/Missoes/5
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id}")]
         public async Task<ActionResult<MissaoDto>> GetMissao(Guid id)
         {
             var missao = await _service.GetByIdAsync(new MissaoId(id));
@@ -79,6 +78,5 @@ namespace DDDSample1.Controllers
                return BadRequest(new {Message = ex.Message});
             }
         }
-
     }
 }

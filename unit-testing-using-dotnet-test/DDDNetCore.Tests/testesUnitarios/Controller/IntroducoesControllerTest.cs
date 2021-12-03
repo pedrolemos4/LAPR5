@@ -14,7 +14,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
     public class IntroducoesControllerTest
     {
         [Fact]
-        public async Task GetIntroducoes() {
+        public async Task GetIntroducoesTest() {
             var mockIntro = new Mock<IIntroducaoService>();
             IntroducoesController controller = new IntroducoesController(mockIntro.Object);
 
@@ -25,7 +25,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
         }
 
         [Fact]
-        public async Task GetIntroducaoById() {
+        public async Task GetIntroducaoByIdTest() {
             Guid introducaoId = new Guid();
 
             var mockIntro = new Mock<IIntroducaoService>();
@@ -39,7 +39,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
         }
 
         [Fact]
-        public async Task GetIntroducoesPorAprovar() {
+        public async Task GetIntroducoesPorAprovarTest() {
             Guid jogadorId = new Guid();
 
             var mockIntro = new Mock<IIntroducaoService>();
@@ -53,13 +53,27 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
         }
 
         [Fact]
-        public async Task PostIntroducao(){
+        public async Task GetIntroducoesAprovarRejeitarTest() {
+            Guid jogadorId = new Guid();
+
+            var mockIntro = new Mock<IIntroducaoService>();
+            mockIntro.Setup(service => service.GetIntroducoesAprovarRejeitar(It.IsAny<JogadorId>()));
+            IntroducoesController controller = new IntroducoesController(mockIntro.Object);
+
+            var result = await controller.GetIntroducoesAprovarRejeitar(jogadorId);
+
+            mockIntro.Verify(service => service.GetIntroducoesAprovarRejeitar(It.IsAny<JogadorId>()), Times.AtLeastOnce());
+            Assert.IsType<ActionResult<List<IntroducaoDto>>>(result);
+        }
+
+        [Fact]
+        public async Task PostIntroducaoTest(){
             Guid jogInicial = new Guid();
             Guid jogIntro = new Guid();
             Guid jogObj = new Guid();
 
             string estadoIntro = "Pendente";
-            CreatingIntroducaoDto intro = new CreatingIntroducaoDto(jogInicial,jogIntro,jogObj, estadoIntro);
+            CreatingIntroducaoDto intro = new CreatingIntroducaoDto(jogInicial,jogIntro,jogObj, estadoIntro, "Texto");
 
             var mockIntro = new Mock<IIntroducaoService>();
 
@@ -78,7 +92,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
 
 
         [Fact]
-        public async Task PutIntroducao(){
+        public async Task PutIntroducaoTest(){
             Guid introducaoId = new Guid();
             Guid jogInicial = new Guid();
             Guid jogIntro = new Guid();
@@ -101,7 +115,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
         }
 
         [Fact]
-        public async Task PatchIntroducao(){
+        public async Task PatchIntroducaoTest(){
             Guid introducaoId = new Guid();
             Guid jogInicial = new Guid();
             Guid jogIntro = new Guid();

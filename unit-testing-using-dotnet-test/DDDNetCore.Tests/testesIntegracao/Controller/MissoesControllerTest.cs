@@ -16,7 +16,7 @@ namespace DDDNetCore.Tests.testesIntegracao.Controller
     public class MissoesControllerTest
     {
         [Fact]
-        public async Task GetMissoes() {
+        public async Task GetMissoesTest() {
             
             var mockIntro = new Mock<IMissaoRepository>();
             var mockJog = new Mock<IJogadorRepository>();
@@ -35,7 +35,7 @@ namespace DDDNetCore.Tests.testesIntegracao.Controller
         }
 
         [Fact]
-        public async Task GetMissaoById() {
+        public async Task GetMissaoByIdTest() {
             Guid missaoId = new Guid();
 
             var mockIntro = new Mock<IMissaoRepository>();

@@ -58,7 +58,7 @@ namespace DDDNetCore.Tests.testesIntegracao.Controller
 
             var mockLig = new Mock<ILigacaoRepository>();
             var mockJog = new Mock<IJogadorRepository>();
-            mockLig.Setup(repository => repository.GetLigacaoPendente(It.IsAny<LigacaoId>())).Returns(Task.FromResult(new List<Ligacao>()));
+            mockLig.Setup(repository => repository.GetLigacaoPendente(It.IsAny<JogadorId>())).Returns(Task.FromResult(new List<Ligacao>()));
 
             var mockUnit = new Mock<IUnitOfWork>();
 
@@ -67,7 +67,7 @@ namespace DDDNetCore.Tests.testesIntegracao.Controller
 
             var result = await controller.GetLigacaoPendente(jogadorId);
 
-            mockLig.Verify(service => service.GetLigacaoPendente(It.IsAny<LigacaoId>()), Times.AtLeastOnce());
+            mockLig.Verify(service => service.GetLigacaoPendente(It.IsAny<JogadorId>()), Times.AtLeastOnce());
             Assert.IsType<ActionResult<List<LigacaoDto>>>(result);
         }
     }

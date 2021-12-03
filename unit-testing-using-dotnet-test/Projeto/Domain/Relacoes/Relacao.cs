@@ -39,10 +39,11 @@ namespace DDDSample1.Domain.Relacoes
         private void setTags(List<string> tag)
         {
             List<Tag> tagsList = new List<Tag>();
+            if(tag != null){ 
             foreach (string t in tag)
             {
                 tagsList.Add(new Tag(t));
-            }
+            }}
             this.Tags = tagsList;
         }
 

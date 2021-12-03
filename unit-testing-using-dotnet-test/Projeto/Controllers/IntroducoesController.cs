@@ -1,11 +1,8 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DDDSample1.Domain.Introducoes;
 using DDDSample1.Domain.Jogadores;
-using DDDSample1.Domain.Relacoes;
-using DDDSample1.Infrastructure;
 using DDDSample1.Domain.Shared;
 using System;
 
@@ -15,7 +12,6 @@ namespace DDDSample1.Controllers
     [ApiController]
     public class IntroducoesController : ControllerBase
     {
-
         private readonly IIntroducaoService _serviceIntro;
 
         public IntroducoesController(IIntroducaoService serviceIntro)
@@ -31,7 +27,8 @@ namespace DDDSample1.Controllers
         }
 
         // GET: api/Introducoes/5
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id}")]
         public async Task<ActionResult<IntroducaoDto>> GetIntroducao(Guid id)
         {
             var introducao = await _serviceIntro.GetByIdAsync(new IntroducaoId(id));
@@ -45,10 +42,19 @@ namespace DDDSample1.Controllers
         }
 
         // GET: api/Introducoes/2
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id}")]
         public async Task<ActionResult<List<IntroducaoDto>>> GetIntroducoesPorAprovar(Guid id)
         {
             return await _serviceIntro.GetIntroducoesPorAprovar(new JogadorId(id));
+        }
+
+        // GET: api/Introducoes/2
+        [HttpGet]
+        [Route("[action]/{id}")]
+        public async Task<ActionResult<List<IntroducaoDto>>> GetIntroducoesAprovarRejeitar(Guid id)
+        {
+            return await _serviceIntro.GetIntroducoesAprovarRejeitar(new JogadorId(id));
         }
 
         // PUT: api/Introducoes
@@ -78,7 +84,7 @@ namespace DDDSample1.Controllers
         }
 
         // PATCH: api/Introducoes/5
-        [HttpPut("{introducao}")]
+        [HttpPatch("{id}")]
         public async Task<ActionResult<IntroducaoDto>> PatchIntroducao([FromRoute] Guid id, [FromBody] IntroducaoDto dto) {
             if (id != dto.Id)  {
                 return BadRequest();

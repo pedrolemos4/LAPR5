@@ -11,5 +11,7 @@ namespace DDDSample1.Domain.Jogadores
         Task<Jogador> GetJogadorByPerfil(PerfilId perfil);
         Task<List<JogadorId>> GetAmigosEmComum(JogadorId idJog, JogadorId idObj);
         Task<List<JogadorId>> GetAmigos(JogadorId idJog);
+
+        Task<List<JogadorId>> GetPossiveisAmigos(JogadorId idJog);
     }
 }

@@ -11,14 +11,15 @@ namespace DDDSample1.Infrastructure.Jogadores
     public class JogadorRepository : BaseRepository<Jogador, JogadorId>, IJogadorRepository
     {
         private readonly DDDSample1DbContext _context;
-        
+
         public JogadorRepository(DDDSample1DbContext context) : base(context.Jogadores)
         {
             _context = context;
         }
 
-        public async Task<Jogador> GetJogadorByPerfil(PerfilId perfil) {
-            return await this._context.Jogadores.Where(x => perfil.Equals(x.perfil.Id)).FirstOrDefaultAsync();
+        public async Task<Jogador> GetJogadorByPerfil(PerfilId perfil)
+        {
+            return await this._context.Jogadores.Where(x => perfil.Equals(x.Perfil)).FirstOrDefaultAsync();
         }
 
         public async Task<List<JogadorId>> GetAmigosEmComum(JogadorId jogadorId, JogadorId jogObjId)
@@ -33,6 +34,16 @@ namespace DDDSample1.Infrastructure.Jogadores
             return amigos.Intersect(amigosOj).ToList();
         }
 
+        public async Task<List<JogadorId>> GetPossiveisAmigos(JogadorId jogadorId)
+        {
+            var jogadores = await _context.Jogadores.ToListAsync();
+            var amigosJog = await _context.Relacoes
+                .Where(r => (r.Jogador1.Equals(jogadorId)) /*|| (r.Jogador2.Equals(jogadorId))*/).ToListAsync();
+            List<JogadorId> all = jogadores.Select(r => r.Id).ToList();
+            List<JogadorId> amigosOj = amigosJog.Select(r => !r.Jogador1.Equals(jogadorId) ? r.Jogador1 : r.Jogador2).ToList();
+            amigosOj.Add(jogadorId);
+            return all.Except(amigosOj).ToList();
+        }
         public async Task<List<JogadorId>> GetAmigos(JogadorId jogadorId)
         {
             var amigosJog = await _context.Relacoes

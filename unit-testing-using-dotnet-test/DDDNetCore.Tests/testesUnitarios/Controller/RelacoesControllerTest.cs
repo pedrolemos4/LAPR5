@@ -36,6 +36,20 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
         }
 
         [Fact]
+        public async Task GetRelacaoComDoisIdsTest() {
+            Guid jog1Id = new Guid();
+            Guid jog2Id = new Guid();
+
+            var mockRel = new Mock<IRelacaoService>();
+            mockRel.Setup(service => service.GetRelacaoComDoisIds(It.IsAny<JogadorId>(), It.IsAny<JogadorId>()));
+            RelacoesController controller = new RelacoesController(mockRel.Object);
+
+            var result = await controller.GetRelacaoComDoisIds(jog1Id, jog2Id);
+
+            mockRel.Verify(service => service.GetRelacaoComDoisIds(It.IsAny<JogadorId>(), It.IsAny<JogadorId>()), Times.AtLeastOnce());
+        }
+
+        [Fact]
         public async Task GetRelacoesJogadorTest() {
             Guid jogadorId = new Guid();
 

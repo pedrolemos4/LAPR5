@@ -14,5 +14,6 @@ namespace DDDSample1.Domain.Relacoes
         Task<List<RelacaoDto>> ToListAsync();
         Task<List<RelacaoDto>> GetRedeJogador(JogadorId id, int n);
         Task<RelacaoDto> AddAsync(CreatingRelacaoDto relacaoDto);
+        Task<RelacaoDto> GetRelacaoComDoisIds(JogadorId jogadorId1, JogadorId jogadorId2);
     }
 }
