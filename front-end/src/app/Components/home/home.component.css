@@ -18,11 +18,28 @@
     position: fixed;
   }
 
+  #card {
+    padding: 17px;
+    text-align: center;
+    width: 40%;
+    background-color: #f2f2f2e7;
+    border-radius: 5px;
+    justify-content: center;
+    margin-left: 30%;
+    margin-top: 10%;
+    position: fixed;
+  }
+
+  #textHello{
+    text-align: center;
+    font-size: 30px;
+    margin-top: 2.5%;
+  }
+
   #texto{
-    margin-left: 17%;
-    padding: 1px 16px;
+    margin-left: 40%;
     height: 665px;
-    width: 89%;
+    width: 50%;
     display: inline-block;
     vertical-align: top;
     position: absolute;
@@ -35,4 +52,16 @@
     padding: 15px;
     padding-top: 2px;
     width: 70%;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }

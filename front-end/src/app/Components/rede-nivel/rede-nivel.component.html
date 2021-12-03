@@ -1,0 +1,16 @@
+<app-header></app-header>
+<app-navbar></app-navbar>
+<div id="canvas"></div>
+<div id="texto">
+    <div id="container">
+        <h2>Visualizar Rede</h2>
+        <form [formGroup]="redeForm" (ngSubmit)="onSubmit()">
+            <div class="form-data">
+                <label for="nivel">Nivel:</label>
+                <input style="margin: 20px;" type="nivel" placeholder="Insira o nivel máximo a ver" formControlName="nivel"/>
+                <div *ngIf="redeForm.controls['nivel'].touched && redeForm.controls['nivel'].errors?.['required']"><i class="fa fa-warning"></i> Insira um valor!</div>
+            </div>
+            <button type="submit" class="submit"> Visualizar Rede</button>
+        </form>
+    </div>
+</div>

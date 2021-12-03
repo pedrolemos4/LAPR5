@@ -1,12 +1,28 @@
 <main>
-<app-header></app-header>
-<app-navbar></app-navbar>
-<div class="content">
-    <div id="texto">
-        <div *ngFor="let nomeUser of nomes" id="container">
-            <h2>Olá {{nomeUser}}!</h2>
+    <app-header></app-header>
+    <app-navbar></app-navbar>
+    <div class="content">
+        <div id="texto">
+            <div *ngFor="let nomeUser of nomes" id="container">
+                <div id="textHello">Olá {{nomeUser}}!</div>
+            </div>
+        </div>
+        <div id="card">
+            <form [formGroup]="pedirJogadorObjetivo">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-75">
+                            <select class="selector" style="margin: 20px;">
+                                <option selected disabled="disabled"> Selecione um jogador</option>
+                                <option *ngFor="let eachVal of showNames">
+                                    {{eachVal}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-</div>
-<router-outlet></router-outlet>
+    <router-outlet></router-outlet>
 </main>

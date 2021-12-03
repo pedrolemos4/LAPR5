@@ -25,6 +25,7 @@ import { HeaderhomeComponent } from './Components/headerhome/headerhome.componen
 import { HomeComponent } from './Components/home/home.component';
 import { LigacaoComponent } from './Components/ligacao/ligacao.component';
 import { HomeInicialComponent } from './Components/home-inicial/home-inicial.component';
+import { RedeNivelComponent } from './Components/rede-nivel/rede-nivel.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { HomeInicialComponent } from './Components/home-inicial/home-inicial.com
     HeaderhomeComponent,
     HomeComponent,
     LigacaoComponent,
-    HomeInicialComponent
+    HomeInicialComponent,
+    RedeNivelComponent
   ],
   imports: [
     BrowserModule,

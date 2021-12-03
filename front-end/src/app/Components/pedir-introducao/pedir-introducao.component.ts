@@ -33,7 +33,7 @@ export class PedirIntroducaoComponent implements OnInit {
   idPerfilJogIntro: any = '';
   idJogIntrodutorio: any = '';
   amigosEmComumIdList: string[] = [];
-  estadoIntro : string = 'Em_Aprovacao';
+  estadoIntro: string = 'Em_Aprovacao';
 
   constructor(private formBuilder: FormBuilder, private pedirIntroducaoService: PedirIntroducaoService, private router: Router) {
     this.pedirIntroForm = this.formBuilder.group({
@@ -54,7 +54,6 @@ export class PedirIntroducaoComponent implements OnInit {
 
         this.pedirIntroducaoService.getJogadores(this.idCurrentUser).subscribe(Response => {
           this.playersList = Response;
-          console.log(this.playersList);
           this.playersList.forEach((element: any) => {
             this.perfilList.push(element.perfilId);
           })
@@ -80,29 +79,18 @@ export class PedirIntroducaoComponent implements OnInit {
       this.pedirIntroducaoService.getJogador(this.idPerfilJogObjetivo).subscribe(Jogador => {
         this.idJogObjetivo = Jogador.id;
         this.pedirIntroducaoService.getAmigosEmComum(this.currentUser.id, this.idJogObjetivo).subscribe(Amigos => {
-          console.log(Amigos.length);
-          console.log(Amigos.values().next().value);
           this.amigosEmComum = Amigos;
-          console.log("Tamanho da lista de amigos: " + this.amigosEmComum.length);
           this.amigosEmComum.forEach((element: any) => {
-            console.log(element.id);
             this.amigosEmComumIdList.push(element.id);
           });
           this.amigosEmComumIdList.forEach((element: any) => {
             this.pedirIntroducaoService.getPerfilJogador(element).subscribe(Perfil => {
-              console.log(Perfil.id);
-              console.log(Perfil.email);
               this.amigosEmComumPerfilList.push(Perfil.id);
               this.emailAmigosEmComum.push(Perfil.email);
             });
-            console.log(this.emailAmigosEmComum);
           });
         });
-
       });
-
-
-
     });
   }
 
@@ -112,25 +100,22 @@ export class PedirIntroducaoComponent implements OnInit {
       this.idPerfilJogIntro = Response.id;
       this.pedirIntroducaoService.getJogador(this.idPerfilJogIntro).subscribe(Jogador => {
         this.idJogIntrodutorio = Jogador.id;
-        console.log(this.idJogIntrodutorio);
       });
     });
   }
 
   onSubmit() {
-    console.log("Linha 54" + this.emailList);
-    console.log(this.selectedJogadorObjetivo);
     this.pedirIntroducaoService.pedirIntroducao({
       id: '',
       jogadorInicial: this.idCurrentUser, //id do jogador logado 
       jogadorIntrodutor: this.idJogIntrodutorio, //id do amigoemcomum
-      jogadorObjetivo : this.idJogObjetivo,  //id do this.selectedJogadorObjetivo
+      jogadorObjetivo: this.idJogObjetivo,  //id do this.selectedJogadorObjetivo
       estadoIntroducao: this.estadoIntro,
       textoIntroducao: this.pedirIntroForm.controls['mensagem'].value// mensagem da ui
-     } as Introducao).subscribe({
-        next: () => {
-          this.router.navigateByUrl('/perfil');
-        }
-      });
+    } as Introducao).subscribe({
+      next: () => {
+        this.router.navigateByUrl('/perfil');
+      }
+    });
   }
 }
