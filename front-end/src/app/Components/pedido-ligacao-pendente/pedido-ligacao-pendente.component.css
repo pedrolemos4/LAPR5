@@ -1,0 +1,12 @@
+.card {
+    padding: 17px;
+    text-align: center;
+    width: 30%;
+    background-color: #f2f2f2e7;
+    border-radius: 5px;
+    justify-content: center;
+    margin-left: 45%;
+    margin-top: 2%;
+    position: absolute;
+  }
+  

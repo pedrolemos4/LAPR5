@@ -1,15 +1,14 @@
 #texto{
-    margin-top: 80px;
+    margin-top: 50px;
     margin-left: 17%;
     padding: 1px 16px;
     height: 665px;
     width: 89%;
-    background-color: rgb(135, 212, 243);
     display: inline-block;
     vertical-align: top;
     position: absolute;
 }
-
+ 
 #container{
     border-radius: 8px;
     background-color: #f2f2f2e7;

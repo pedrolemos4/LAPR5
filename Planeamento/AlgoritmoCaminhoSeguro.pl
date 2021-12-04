@@ -1,13 +1,16 @@
 %mais seguro sem findall
 :-dynamic melhor_sol_seguro/2.
 
-dfs_seguro(Orig,Dest,Cam,MinForca, SomatorioForca,SomaFinal):- dfs2_seguro(Orig,Dest,[Orig],Cam,MinForca, SomatorioForca,SomaFinal).
+dfs_seguro(Orig,Dest,Cam,MinForca, SomatorioForca,SomaFinal):-
+           dfs2_seguro(Orig,Dest,[Orig],Cam,MinForca, SomatorioForca,SomaFinal).
 
 dfs2_seguro(Dest,Dest,LA,Cam,_,Somatorio,SomaFinal):-!,reverse(LA,Cam), SomaFinal is Somatorio.
 
-dfs2_seguro(Act,Dest,LA,Cam,MinForca,SomatorioForca,SomaFinal):- no(NAct,Act,_),
-    ((ligacao(NAct,NX,Y,Z), Y >= MinForca, Z >= MinForca, Soma is Y+Z);(ligacao(NX,NAct,A,B), A >= MinForca, B >= MinForca), Soma is A+B), no(NX,X,_),\+ member(X,LA),SomatorioForca1 is SomatorioForca+Soma,
-    dfs2_seguro(X,Dest,[X|LA],Cam,MinForca,SomatorioForca1,SomaFinal).
+dfs2_seguro(Act,Dest,LA,Cam,MinForca,SomatorioForca,SomaFinal):-
+    ((ligacao(Act,NX,Y,Z), Y >= MinForca, Z >= MinForca, Soma is Y+Z);(ligacao(NX,Act,A,B),
+     A >= MinForca, B >= MinForca),Soma is A+B),
+     \+ member(NX,LA),SomatorioForca1 is SomatorioForca+Soma,
+    dfs2_seguro(NX,Dest,[NX|LA],Cam,MinForca,SomatorioForca1,SomaFinal).
 
 
 plan_seguro(Orig,Dest,LCaminho,MinForca):-
@@ -45,6 +48,5 @@ dfs_seguro_com_findall(Orig,Dest,Cam,MinForca):- dfs2_seguro_com_findall(Orig,De
 
 dfs2_seguro_com_findall(Dest,Dest,LA,Cam,_):-!,reverse(LA,Cam).
 
-dfs2_seguro_com_findall(Act,Dest,LA,Cam,MinForca):- no(NAct,Act,_),
-    ((ligacao(NAct,NX,Y,Z), Y >= MinForca, Z >= MinForca);(ligacao(NX,NAct,A,B), A >= MinForca, B >= MinForca)), no(NX,X,_),\+ member(X,LA),
-    dfs2_seguro_com_findall(X,Dest,[X|LA],Cam,MinForca).
+dfs2_seguro_com_findall(Act,Dest,LA,Cam,MinForca):- ((ligacao(Act,NX,Y,Z), Y >= MinForca, Z >= MinForca);(ligacao(NX,Act,A,B), A >= MinForca, B >= MinForca)),\+ member(NX,LA),
+    dfs2_seguro_com_findall(NX,Dest,[NX|LA],Cam,MinForca).

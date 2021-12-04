@@ -16,25 +16,27 @@ import { HomeComponent } from './Components/home/home.component';
 import { LigacaoComponent } from './Components/ligacao/ligacao.component';
 import { HomeInicialComponent } from './Components/home-inicial/home-inicial.component';
 import { RedeNivelComponent } from './Components/rede-nivel/rede-nivel.component';
+import { PedidoLigacaoPendenteComponent } from './Components/pedido-ligacao-pendente/pedido-ligacao-pendente.component';
 
 const routes: Routes = [
-  {path: '', component: HomeInicialComponent},
+  { path: '', component: HomeInicialComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registo', component: RegistoComponent },
-  { path: 'perfil', component: PerfilComponent }, 
-  { path: 'rede', component: RedeComponent}, 
-  { path: 'tam_rede', component: TamRedeComponent}, 
-  { path: 'cam_forte', component: CamForteComponent},
-  { path: 'cam_curto', component: CamCurtoComponent},
-  { path: 'cam_seguro', component: CamSeguroComponent}, 
-  { path: 'introducao', component: IntroducaoComponent},
-  { path: 'pedido', component: PedidoComponent},
-  { path: 'pedir_introducao', component: PedirIntroducaoComponent},
-  { path: 'relacao', component: RelacaoComponent},
-  { path: 'home', component: HomeComponent},
-  { path: 'homePrincipal', component: HomeInicialComponent},
-  { path: 'ligacao', component: LigacaoComponent},
-  { path: 'rede_nivel', component: RedeNivelComponent}
+  { path: 'perfil', component: PerfilComponent },
+  { path: 'rede', component: RedeComponent },
+  { path: 'tam_rede', component: TamRedeComponent },
+  { path: 'cam_forte', component: CamForteComponent },
+  { path: 'cam_curto', component: CamCurtoComponent },
+  { path: 'cam_seguro', component: CamSeguroComponent },
+  { path: 'introducao', component: IntroducaoComponent },
+  { path: 'pedido', component: PedidoComponent },
+  { path: 'pedir_introducao', component: PedirIntroducaoComponent },
+  { path: 'relacao', component: RelacaoComponent },
+  { path: 'home', component: HomeComponent },
+  { path: 'homePrincipal', component: HomeInicialComponent },
+  { path: 'ligacao', component: LigacaoComponent },
+  { path: 'rede_nivel', component: RedeNivelComponent },
+  { path: 'pedido_ligacao_pendente', component: PedidoLigacaoPendenteComponent }
 ];
 
 

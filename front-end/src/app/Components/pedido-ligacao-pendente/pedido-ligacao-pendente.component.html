@@ -1,0 +1,15 @@
+<main>
+    <app-header></app-header>
+    <app-navbar></app-navbar>
+    <div class="card">
+        <h4 class="card-header">Lista de Pedidos Pendentes</h4>
+        <div class="card-body">
+            <div class="form-data">
+                <ul clas="selector" style="margin: 20px; margin-left: -10px;">
+                    <li *ngFor="let args of ListaLigacoesPendentes">
+                        Nome: {{args}}</li>
+                    </ul>
+            </div>
+        </div>
+    </div>
+</main>
