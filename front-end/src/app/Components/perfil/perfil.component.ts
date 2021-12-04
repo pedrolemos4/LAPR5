@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PerfilService } from 'src/app/Services/Perfil/perfil.service';
 import { Router } from '@angular/router';
 import { Perfil } from 'src/app/Models/Perfil';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-perfil',
@@ -18,12 +20,12 @@ export class PerfilComponent implements OnInit {
   id: any;
   Perfil!: Perfil;
 
-  constructor(private formBuilder: FormBuilder,private perfilService: PerfilService,private router:Router) { 
-    this.editarPerfilForm=this.formBuilder.group({
-      nome:['',Validators.required],
-      email:['',Validators.required],
-      pais:['',Validators.required],
-      estadodehumor:['',Validators.required]
+  constructor(private formBuilder: FormBuilder, private perfilService: PerfilService, private toastr: ToastrService, private router: Router) {
+    this.editarPerfilForm = this.formBuilder.group({
+      nome: ['', Validators.required],
+      email: ['', Validators.required],
+      pais: ['', Validators.required],
+      estadodehumor: ['', Validators.required]
     });
   }
 
@@ -35,32 +37,31 @@ export class PerfilComponent implements OnInit {
       console.log(this.id);
       this.Perfil = Perfil;
     })
-    
+
   }
 
   onSubmit() {
-    this.perfilService.editarPerfil(this.id,{
-      id : this.Perfil.id,
+    this.perfilService.editarPerfil(this.id, {
+      id: this.Perfil.id,
       nome: this.editarPerfilForm.controls['nome'].value,
       email: this.editarPerfilForm.controls['email'].value,
-      telefone : this.Perfil.telefone,
-      pais : this.editarPerfilForm.controls['pais'].value,
-      cidade : this.Perfil.cidade,
-      dataNascimento : this.Perfil.dataNascimento,
-      estadoHumor : this.editarPerfilForm.controls['estadodehumor'].value,
-      password : this.Perfil.password,
+      telefone: this.Perfil.telefone,
+      pais: this.editarPerfilForm.controls['pais'].value,
+      cidade: this.Perfil.cidade,
+      dataNascimento: this.Perfil.dataNascimento,
+      estadoHumor: this.editarPerfilForm.controls['estadodehumor'].value,
+      password: this.Perfil.password,
       tags: this.Perfil.tags,
       perfilFacebook: this.Perfil.perfilFacebook,
-      perfilLinkedin : this.Perfil.perfilLinkedin
+      perfilLinkedin: this.Perfil.perfilLinkedin
     }).subscribe({
-      next:() =>{
-        //console.log("SUCESSO!")
-        this.router.navigateByUrl('/homejogadores');
+      next: () => {
+        this.toastr.success('Perfil editado com sucesso!');
+        this.router.navigateByUrl('/home');
+      },
+      error:() => {
+        this.toastr.error("Erro: Serviço Não Disponível");
       }
-    })
+    });
   }
-
-  /*editarPerfil(nome: string, email: string, pais: string, estadodehumor: string){
-     
-  }*/
 }
