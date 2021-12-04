@@ -26,6 +26,7 @@ import { HomeComponent } from './Components/home/home.component';
 import { LigacaoComponent } from './Components/ligacao/ligacao.component';
 import { HomeInicialComponent } from './Components/home-inicial/home-inicial.component';
 import { RedeNivelComponent } from './Components/rede-nivel/rede-nivel.component';
+import { PedidoLigacaoPendenteComponent } from './Components/pedido-ligacao-pendente/pedido-ligacao-pendente.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { RedeNivelComponent } from './Components/rede-nivel/rede-nivel.component
     HomeComponent,
     LigacaoComponent,
     HomeInicialComponent,
-    RedeNivelComponent
+    RedeNivelComponent,
+    PedidoLigacaoPendenteComponent
   ],
   imports: [
     BrowserModule,
