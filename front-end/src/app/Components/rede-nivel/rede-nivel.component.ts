@@ -6,7 +6,7 @@ import * as THREE from 'three/build/three.module.js';
 import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Relacao } from 'src/app/Models/Relacao';
-import { Vector3 } from 'three';
+import { Scene, Vector3 } from 'three';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -32,6 +32,7 @@ export class RedeNivelComponent implements OnInit {
   listaRelacao: Relacao[] = [];
   container:any;
   nivel: number = 0;
+  aux: number = 0;
 
   dragX?: any;
   dragY?: any;
@@ -58,13 +59,40 @@ export class RedeNivelComponent implements OnInit {
 
   }
 
+  clearThree(obj){
+    while(obj.children.length > 0){ 
+      this.clearThree(obj.children[0]);
+      obj.remove(obj.children[0]);
+    }
+    if(obj.geometry) obj.geometry.dispose();
+  
+    if(obj.material){ 
+      //in case of map, bumpMap, normalMap, envMap ...
+      Object.keys(obj.material).forEach(prop => {
+        if(!obj.material[prop])
+          return;
+        if(obj.material[prop] !== null && typeof obj.material[prop].dispose === 'function')                                  
+          obj.material[prop].dispose();                                                      
+      })
+      obj.material.dispose();
+    }
+    this.renderer.setSize(1,1);
+  }
+  
   get f() { return this.redeForm.controls; }
 
   onSubmit(){
-    this.nivel = this.redeForm.controls['nivel'].value;
-    console.log(this.nivel);
-    this.initialize(this.nivel);
-    this.animate();
+    if(this.aux == 0){
+      this.nivel = this.redeForm.controls['nivel'].value;
+      this.initialize(this.nivel);
+      this.animate();
+      this.aux++;
+    } else {
+      this.clearThree(this.scene);
+      this.nivel = this.redeForm.controls['nivel'].value;
+      this.initialize(this.nivel);
+      this.animate();
+    }
   }
 
   createPlayer(playerName, email, centerx, centery, centerz, radiusCircle, color) {
@@ -369,15 +397,15 @@ export class RedeNivelComponent implements OnInit {
   mouseUp = (event: MouseEvent) => {
 
     if (event.clientX < this.dragX) {
-        this.camera.position.x = this.camera.position.x + 0.5;
+        this.camera.position.x = this.camera.position.x + 0.4;
     } else {
-        this.camera.position.x = this.camera.position.x - 0.5;
+        this.camera.position.x = this.camera.position.x - 0.4;
     }
 
     if (event.clientY < this.dragY) {
-        this.camera.position.y = this.camera.position.y - 0.5;
+        this.camera.position.y = this.camera.position.y - 0.4;
     } else {
-        this.camera.position.y = this.camera.position.y + 0.5;
+        this.camera.position.y = this.camera.position.y + 0.4;
     }
     this.renderer.render(this.scene, this.camera);
     this.labelRenderer.render(this.scene, this.camera);
