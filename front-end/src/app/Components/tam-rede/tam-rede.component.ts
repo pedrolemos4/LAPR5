@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class TamRedeComponent implements OnInit {
   tamRedeForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private toastr: ToastrService) { 
+  constructor(private formBuilder: FormBuilder) { 
     this.tamRedeForm = this.formBuilder.group({
       nivel: ['', Validators.required],
     });

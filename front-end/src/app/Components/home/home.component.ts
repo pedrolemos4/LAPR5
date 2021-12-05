@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   showNames: string[] = [];
 
   nomes: string[] = [];
-  constructor(private formBuilder: FormBuilder, private homeService: HomeService, private toastr: ToastrService) {
+  constructor(private formBuilder: FormBuilder, private homeService: HomeService) {
     this.pedirJogadorObjetivo = this.formBuilder.group({
     });
   }

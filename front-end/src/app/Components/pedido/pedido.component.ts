@@ -71,7 +71,7 @@ export class PedidoComponent implements OnInit {
       next: (result:any)=> {
         console.log(result);
         this.toastr.success('Introdução aceite com sucesso!');
-        this.router.navigateByUrl('/perfil');
+        this.router.navigateByUrl('/home');
       },
       error:()=>{
         this.toastr.error("Error: Service Unavailable");
@@ -92,7 +92,7 @@ export class PedidoComponent implements OnInit {
       next:(result : any) => {
         console.log(result);
         this.toastr.success('Introdução rejeitada com sucesso!');
-        this.router.navigateByUrl('/introducao');
+        this.router.navigateByUrl('/home');
       },
       error: () => {
         this.toastr.error("Error: Service Unavailable");

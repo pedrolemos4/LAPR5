@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Jogador } from 'src/app/Models/Jogador';
 import { Perfil } from 'src/app/Models/Perfil';
 import { Introducao } from 'src/app/Models/Introducao';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-pedir-introducao',
   templateUrl: './pedir-introducao.component.html',
@@ -35,7 +36,7 @@ export class PedirIntroducaoComponent implements OnInit {
   amigosEmComumIdList: string[] = [];
   estadoIntro: string = 'Em_Aprovacao';
 
-  constructor(private formBuilder: FormBuilder, private pedirIntroducaoService: PedirIntroducaoService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private pedirIntroducaoService: PedirIntroducaoService, private toastr: ToastrService, private router: Router) {
     this.pedirIntroForm = this.formBuilder.group({
       player: '',
       mensagem: ['', Validators.required]
@@ -114,7 +115,8 @@ export class PedirIntroducaoComponent implements OnInit {
       textoIntroducao: this.pedirIntroForm.controls['mensagem'].value// mensagem da ui
     } as Introducao).subscribe({
       next: () => {
-        this.router.navigateByUrl('/perfil');
+        this.toastr.success('Pedido realizado com sucesso!');
+        this.router.navigateByUrl('/home');
       }
     });
   }

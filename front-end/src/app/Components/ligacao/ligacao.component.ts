@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { mergeMap } from 'rxjs';
 import { Ligacao } from 'src/app/Models/Ligacao';
@@ -28,7 +29,7 @@ export class LigacaoComponent implements OnInit {
   jogador2: any;
   listaVerfica: any[] = [];
 
-  constructor(private formBuilder: FormBuilder, private ligacaoService: LigacaoService, private toastr: ToastrService) {
+  constructor(private formBuilder: FormBuilder, private ligacaoService: LigacaoService, private toastr: ToastrService, private router: Router) {
     this.parametroForm = this.formBuilder.group({
       Parametro: ['', Validators.required],
     });
@@ -112,7 +113,6 @@ export class LigacaoComponent implements OnInit {
                   this.toastr.error("Erro: Já são amigos!");
                   this.toastr.error("Erro: Não é possível realizar um pedido de ligação!");
                 } else{
-                  console.log("aaaaaa");
                   console.log(r.id);
                   console.log(res.id);
                   this.ligacaoService.registoLigacao({
@@ -121,8 +121,10 @@ export class LigacaoComponent implements OnInit {
                     EstadoLigacao: this.estadoLigacao,
                     Jogador1: r.id,
                     Jogador2: res.id
-                  } as Ligacao).subscribe((result: any) => {console.log(result),this.toastr.success("Pedido de Ligação realizado com sucesso!")});
-                          
+                  } as Ligacao).subscribe((result: any) => {
+                    console.log(result),
+                    this.toastr.success("Pedido de Ligação realizado com sucesso!")});
+                    this.router.navigateByUrl('/home');
                 }}))});
   }
 }

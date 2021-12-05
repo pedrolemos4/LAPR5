@@ -25,7 +25,7 @@ export class CamSeguroComponent implements OnInit {
   idCurrentUser: string = '';
   perfilList: Perfil[] = [];
   emailList: string[] = [];
-  constructor(private formBuilder: FormBuilder, private router: Router, private toastr: ToastrService, private camSeguroService: CamSeguroService) { 
+  constructor(private formBuilder: FormBuilder, private camSeguroService: CamSeguroService) { 
     this.camSeguroForm = this.formBuilder.group({
       jogador: [''],
       forca: ['', Validators.required],

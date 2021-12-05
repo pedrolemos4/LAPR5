@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { PedidoLigacaoPendenteComponent } from './pedido-ligacao-pendente.component';
 
@@ -8,7 +9,8 @@ describe('PedidoLigacaoPendenteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PedidoLigacaoPendenteComponent ]
+      declarations: [ PedidoLigacaoPendenteComponent ],
+      imports: [HttpClientTestingModule]
     })
     .compileComponents();
   });
@@ -20,6 +22,6 @@ describe('PedidoLigacaoPendenteComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component).toBeDefined();
   });
 });

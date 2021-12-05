@@ -1,4 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormBuilder } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { RelacaoComponent } from './relacao.component';
 
@@ -8,7 +12,9 @@ describe('RelacaoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RelacaoComponent ]
+      declarations: [ RelacaoComponent ],
+      providers: [FormBuilder],
+      imports: [HttpClientTestingModule, RouterTestingModule, ToastrModule.forRoot()]
     })
     .compileComponents();
   });
@@ -20,6 +26,6 @@ describe('RelacaoComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component).toBeDefined();
   });
 });

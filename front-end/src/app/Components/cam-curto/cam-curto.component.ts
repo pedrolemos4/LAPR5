@@ -25,7 +25,7 @@ export class CamCurtoComponent implements OnInit {
 
 
   
-  constructor(private formBuilder: FormBuilder,private camCurtoService: CamCurtoService, private router: Router) { 
+  constructor(private formBuilder: FormBuilder,private camCurtoService: CamCurtoService) { 
     this.caminhoMaisCurtoForm = this.formBuilder.group({});
   }
 

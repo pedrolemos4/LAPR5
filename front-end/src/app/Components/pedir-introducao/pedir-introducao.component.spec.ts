@@ -1,4 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormBuilder } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { PedirIntroducaoComponent } from './pedir-introducao.component';
 
@@ -8,7 +12,9 @@ describe('PedirIntroducaoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PedirIntroducaoComponent ]
+      declarations: [ PedirIntroducaoComponent ],
+      providers: [FormBuilder],
+      imports: [HttpClientTestingModule, RouterTestingModule, ToastrModule.forRoot()]
     })
     .compileComponents();
   });
@@ -20,6 +26,6 @@ describe('PedirIntroducaoComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component).toBeDefined();
   });
 });

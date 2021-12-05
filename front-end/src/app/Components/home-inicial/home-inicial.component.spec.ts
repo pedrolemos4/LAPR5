@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { HomeInicialComponent } from './home-inicial.component';
 
@@ -8,7 +9,8 @@ describe('HomeInicialComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HomeInicialComponent ]
+      declarations: [ HomeInicialComponent ],
+      imports: [HttpClientTestingModule]
     })
     .compileComponents();
   });
@@ -20,6 +22,6 @@ describe('HomeInicialComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component).toBeDefined();
   });
 });

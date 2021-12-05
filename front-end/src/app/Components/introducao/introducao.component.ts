@@ -92,7 +92,7 @@ export class IntroducaoComponent implements OnInit {
       .subscribe({
         next: () => {
           this.toastr.success('Introdução aceite com sucesso!');
-          this.router.navigateByUrl('/introducao');
+          this.router.navigateByUrl('/home');
         },
         error: () => {
           this.toastr.error("Error: Service Unavailable");
@@ -113,7 +113,7 @@ export class IntroducaoComponent implements OnInit {
       next: (result: any) => {
         console.log(result);
         this.toastr.success('Introdução rejeitada com sucesso!');
-        this.router.navigateByUrl('/introducao');
+        this.router.navigateByUrl('/home');
       },
       error: () => {
         this.toastr.error("Error: Service Unavailable");

@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ToastrModule } from 'ngx-toastr';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { IntroducaoComponent } from './introducao.component';
 
@@ -8,7 +11,8 @@ describe('IntroducaoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IntroducaoComponent ]
+      declarations: [ IntroducaoComponent ],
+      imports: [HttpClientTestingModule, RouterTestingModule, ToastrModule.forRoot()]
     })
     .compileComponents();
   });
@@ -20,6 +24,6 @@ describe('IntroducaoComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component).toBeDefined();
   });
 });

@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ToastrModule } from 'ngx-toastr';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { PedidoComponent } from './pedido.component';
 
 describe('PedidoComponent', () => {
@@ -8,7 +10,9 @@ describe('PedidoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PedidoComponent ]
+      declarations: [ PedidoComponent ],
+      imports: [HttpClientTestingModule, RouterTestingModule, ToastrModule.forRoot()]
+
     })
     .compileComponents();
   });
@@ -20,6 +24,6 @@ describe('PedidoComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component).toBeDefined();
   });
 });

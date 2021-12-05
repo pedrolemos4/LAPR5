@@ -26,7 +26,7 @@ export class RelacaoComponent implements OnInit {
   listaStringTags: string = '';
 
 
-  constructor(private formBuilder: FormBuilder, private relacaoService: RelacaoService, private toastr: ToastrService) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private relacaoService: RelacaoService, private toastr: ToastrService) {
     this.relacaoForm = this.formBuilder.group({
       Tags: ['', Validators.required],
       forcaLigacao: ['', Validators.required],
@@ -94,6 +94,7 @@ export class RelacaoComponent implements OnInit {
                     next: (res3: any) => {
                       console.log(res3);
                       this.toastr.success('Alteração realizada com sucesso!');
+                      this.router.navigateByUrl('/home');
                     },
                     error: () => {
                       this.toastr.error("Erro: Serviço Não Disponível");

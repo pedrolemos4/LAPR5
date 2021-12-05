@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormBuilder } from '@angular/forms';
 
 import { CamCurtoComponent } from './cam-curto.component';
 
@@ -8,7 +10,9 @@ describe('CamCurtoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CamCurtoComponent ]
+      declarations: [ CamCurtoComponent ],
+      providers: [FormBuilder],
+      imports: [HttpClientTestingModule]
     })
     .compileComponents();
   });
