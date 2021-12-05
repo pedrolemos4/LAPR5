@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { forkJoin, map, merge, mergeMap, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { IntroducaoService } from 'src/app/Services/Introducao/introducao.service';
+import { IntroducaoService } from 'src/app/Services/introducao/introducao.service';
 import { Relacao } from 'src/app/Models/Relacao';
 import { Introducao } from 'src/app/Models/Introducao';
 import { Jogador } from 'src/app/Models/Jogador';
