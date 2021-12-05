@@ -9,7 +9,6 @@ import { CamForteComponent } from './Components/cam-forte/cam-forte.component';
 import { CamCurtoComponent } from './Components/cam-curto/cam-curto.component';
 import { CamSeguroComponent } from './Components/cam-seguro/cam-seguro.component';
 import { IntroducaoComponent } from './Components/introducao/introducao.component';
-import { PedidoComponent } from './Components/pedido/pedido.component';
 import { PedirIntroducaoComponent } from './Components/pedir-introducao/pedir-introducao.component';
 import { RelacaoComponent } from './Components/relacao/relacao.component';
 import { HomeComponent } from './Components/home/home.component';
@@ -29,7 +28,6 @@ const routes: Routes = [
   { path: 'cam_curto', component: CamCurtoComponent },
   { path: 'cam_seguro', component: CamSeguroComponent },
   { path: 'introducao', component: IntroducaoComponent },
-  { path: 'pedido', component: PedidoComponent },
   { path: 'pedir_introducao', component: PedirIntroducaoComponent },
   { path: 'relacao', component: RelacaoComponent },
   { path: 'home', component: HomeComponent },
