@@ -34,4 +34,12 @@ describe('Login tests', () => {
         let valLocalStorage = browser.executeScript("return window.localStorage.getItem('token');");
         expect(!valLocalStorage);
     });
+
+    it("Shouldn't login - Button not clicked", async () => {
+        await page.navigateTo();
+        await page.getEmailTextbox().sendKeys('fiona@gmail.com');
+        await page.getPasswordTextbox().sendKeys('aBcth35+65');
+        let valLocalStorage = browser.executeScript("return window.localStorage.getItem('token');");
+        expect(!valLocalStorage);
+    });
 })

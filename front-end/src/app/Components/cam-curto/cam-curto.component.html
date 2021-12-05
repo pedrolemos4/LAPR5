@@ -10,7 +10,7 @@
                         <label for="amigos">Amigos:</label>
                     </div>
                     <div class ="col-75">
-                        <select class="selector" style="margin: 20px;" (change) ="selectAmigo($event)">
+                        <select id="amigos" class="selector" style="margin: 20px;" (change) ="selectAmigo($event)">
                             <option selected disabled="disabled">Selecione um amigo</option>
                             <option *ngFor="let eachVal of emailAmigos" [ngValue]="eachVal">
                                 {{eachVal}}
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <p><span>You selected: </span><b>{{selectedAmigo}}</b></p>
-            <button type="submit" class="submit"> Calcular Caminho</button>
+            <button id="submit" type="submit" class="submit"> Calcular Caminho</button>
         </form>
     </div>
 </div>

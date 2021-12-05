@@ -20,10 +20,10 @@
                     <label for="Parametro">Parametro para pesquisa: </label>
                 </div>
                 <div class="coluna1-menor">
-                    <input type="text" placeholder="Insira parametro..." formControlName="Parametro"
+                    <input id="parametro" type="text" placeholder="Insira parametro..." formControlName="Parametro"
                         class="form-control" required />
                     <div class="botao1">
-                        <button type="submit" id="submit" class="btn3-primary">Pesquisar</button>
+                        <button type="submit" id="botao" class="btn3-primary">Pesquisar</button>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
     <h4 class="card-header">Resultados da Pesquisa:</h4>
     <div class="card-body">
         <div class="form-data">
-            <select (change)="selectChangeHandler($event)">
+            <select id="escolha" (change)="selectChangeHandler($event)">
                 <option selected disabled="disabled">Escolha...</option>
                 <option *ngFor="let perfil of listaPerfis">
                     Nome: {{perfil.nome}}, Email: {{perfil.email}} </option>
@@ -51,10 +51,10 @@
                 <label for="TextoLigacao">Texto da Ligação: </label>
             </div>
             <div class="coluna-menor">
-                <input type="text" placeholder="Insira texto de Ligação..." formControlName="TextoLigacao"
+                <input id="ligacao" type="text" placeholder="Insira texto de Ligação..." formControlName="TextoLigacao"
                     class="form-control" required />
                 <div class="botao">
-                    <button type="submit" id="submit" class="btn4-primary">Submit</button>
+                    <button type="submit" id="submit4" class="btn4-primary">Submit</button>
                 </div>
             </div>
         </form>

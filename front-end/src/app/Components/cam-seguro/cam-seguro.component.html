@@ -10,7 +10,7 @@
         <form [formGroup]="camSeguroForm" (ngSubmit)="onSubmit()">
             <div class="form-data">
                 <label for="jogador">Jogador Objetivo:</label>
-                <select class="selector" style="margin: 20px;" placeholder="Escolha um jogador" (change)="selectChangeHandler($event)">
+                <select id="amigos" class="selector" style="margin: 20px;" placeholder="Escolha um jogador" (change)="selectChangeHandler($event)">
                     <option selected disabled="disabled"> Selecione um jogador</option>
                     <option *ngFor="let eachVal of emailList" [ngValue] = "eachVal">
                         {{eachVal}}
@@ -19,10 +19,10 @@
             </div>
             <div class="form-data">
                 <label for="forca">Força Minima:</label>
-                <input style="margin: 20px;" type="forca" placeholder="Insira o valor da força" formControlName="forca"/>
+                <input id="forca" style="margin: 20px;" type="forca" placeholder="Insira o valor da força" formControlName="forca"/>
                 <div *ngIf="camSeguroForm.controls['forca'].touched && camSeguroForm.controls['forca'].errors?.['required']"><i class="fa fa-warning"></i> Insira um valor!</div>
             </div>
-            <button type="submit" class="submit"> Calcular Caminho</button>
+            <button id="submit" type="submit" class="submit"> Calcular Caminho</button>
         </form>
     </div>
 </div>

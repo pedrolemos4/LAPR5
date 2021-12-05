@@ -4,7 +4,7 @@
         <h4 class="card-header">Lista de Relações</h4>
         <div class="card-body">
             <div class="form-data">
-                <select (change)="selectChangeHandler($event)">
+                <select id="selector" (change)="selectChangeHandler($event)">
                     <option selected disabled="disabled">Escolha...</option>
                     <option *ngFor="let perfil of listaPerfis">
                         Nome: {{perfil.nome}}, Email: {{perfil.email}} </option>
@@ -19,12 +19,12 @@
             <form [formGroup]="relacaoForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
                     <label for="Tags">Tags</label>
-                    <input type="text" placeholder="Insira Tags..." formControlName="Tags" class="form-control"
+                    <input id="tags" type="text" placeholder="Insira Tags..." formControlName="Tags" class="form-control"
                         required />
                 </div>
                 <div class="slider">
                     <label for="forcaLigacao" class="form-label">Força de Ligação</label>
-                    <input type="range" class="form-range" min="1" max="100" step="1" value="0"
+                    <input id="range" type="range" class="form-range" min="1" max="100" step="1" value="0"
                         formControlName="forcaLigacao" oninput="rangeValue.innerText = this.value">
                     <p>Valor: <span id="rangeValue">0</span></p>
                 </div>

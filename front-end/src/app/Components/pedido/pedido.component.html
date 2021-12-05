@@ -12,8 +12,8 @@
             </tr>
             <tr>
                 <td *ngFor="let intro of listIntroducoes">
-                    <button type="submit" class="aceitar" (click)="aceitar(intro)"><i class="fa fa-check"></i> Aceitar</button>
-                    <button type="submit" class="rejeitar" (click)="rejeitar(intro)"><i class="fa fa-times"></i> Rejeitar</button>
+                    <button id="aceitar" type="submit" class="aceitar" (click)="aceitar(intro)"><i class="fa fa-check"></i> Aceitar</button>
+                    <button id="rejeitar" type="submit" class="rejeitar" (click)="rejeitar(intro)"><i class="fa fa-times"></i> Rejeitar</button>
                 </td>
             </tr>
         </table>

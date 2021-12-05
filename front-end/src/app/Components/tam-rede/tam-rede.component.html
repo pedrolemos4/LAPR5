@@ -6,10 +6,10 @@
         <form [formGroup]="tamRedeForm" (ngSubmit)="onSubmit()">
             <div class="form-data">
                 <label for="nivel">Nivel Máximo:</label>
-                <input style="margin: 20px;" type="nivel" placeholder="Insira o nivel máximo a ver" formControlName="nivel"/>
+                <input id="nivel" style="margin: 20px;" type="nivel" placeholder="Insira o nivel máximo a ver" formControlName="nivel"/>
                 <div *ngIf="tamRedeForm.controls['nivel'].touched && tamRedeForm.controls['nivel'].errors?.['required']"><i class="fa fa-warning"></i> Insira um valor!</div>
             </div>
-            <button type="submit" class="submit"> Calcular Tamanho</button>
+            <button id="submit" type="submit" class="submit"> Calcular Tamanho</button>
         </form>
     </div>
 </div>

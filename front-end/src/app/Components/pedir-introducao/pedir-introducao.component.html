@@ -10,7 +10,7 @@
                     <label for="jogadorObjetivo">Jogador Objetivo:</label>
                 </div>
                 <div class ="col-75">
-                    <select class="selector" style="margin: 20px;" (change) ="selectJogadorObjetivo($event)">
+                    <select id="objetivo" class="selector" style="margin: 20px;" (change) ="selectJogadorObjetivo($event)">
                         <option selected disabled="disabled"> Selecione um jogador</option>
                         <option *ngFor="let eachVal of emailList" [ngValue] = "eachVal">
                             {{eachVal}}
@@ -26,7 +26,7 @@
                     <label for="jogadorIntrodutorio"> Amigos em Comum:</label>
                 </div>
                 <div class ="col-75">
-                    <select class="selector" style="margin: 20px;" (change) ="selectJogadorIntrodutorio($event)">
+                    <select id="introdutorio" class="selector" style="margin: 20px;" (change) ="selectJogadorIntrodutorio($event)">
                         <option selected disabled="disabled"> Selecione um jogador</option>
                         <option *ngFor="let eachVal of emailAmigosEmComum">
                             {{eachVal}}
@@ -40,7 +40,7 @@
                     <label for="mensagemIntrodutoria"> Mensagem: </label>
                 </div>
                 <div class ="col-75">
-                    <input type="mensagemIntrodutoria" placeholder="Insira a mensagem introdutória" formControlName ="mensagem" class ="form-control"/>
+                    <input id="mensagem" type="mensagemIntrodutoria" placeholder="Insira a mensagem introdutória" formControlName ="mensagem" class ="form-control"/>
                 </div>
             </div>
         </div>    
