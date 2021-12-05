@@ -37,7 +37,9 @@ export class HomeComponent implements OnInit {
       this.homeService.getJogadorAtual(this.idPerfilUser).subscribe(Jogador => {
         try {
           this.homeService.getRelacoesJogador(Jogador.id).subscribe(result => {
-            document.getElementById("card").style.display = 'none';
+            if (result.length > 0) {
+              document.getElementById("card").style.display = 'none';
+            }
           });
         } catch (error) {
           //this.homeService.getJogadoresSugeridos();

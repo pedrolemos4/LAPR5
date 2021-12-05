@@ -8,11 +8,12 @@
             </div>
         </div>
         <div id="card">
+            <p>Escolha o seu primeiro jogador objetivo</p>
             <form [formGroup]="pedirJogadorObjetivo">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-75">
-                            <select class="selector" style="margin: 20px;">
+                            <select class="selector" style="margin: 20px; margin-left: 170px;">
                                 <option selected disabled="disabled"> Selecione um jogador</option>
                                 <option *ngFor="let eachVal of showNames">
                                     {{eachVal}}
