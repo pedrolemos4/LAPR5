@@ -4,11 +4,9 @@
 :- use_module(library(http/http_parameters)).
 :- use_module(library(http/http_open)).
 :- use_module(library(http/json)).
+:- use_module(library(http/http_cors)).
 
 % Relacao entre pedidos HTTP e predicados que os processam
-:- http_handler('/lapr5', responde_ola, []).
-:- http_handler('/register_user', register_user, []).
-:- http_handler('/send_file_post', send_file_post, []).
 %:- http_handler('/api/Jogadores', getJogadores, []).
 %:- http_handler('/api/Perfis', getPerfis, []).
 
@@ -18,20 +16,98 @@
 :- dynamic no/3.
 :- dynamic ligacao/4.
 
+:-ensure_loaded("./AlgoritmoCaminhoSeguro.pl").
+:-ensure_loaded("./calcular_tamanho_rede.pl").
+:-ensure_loaded("./CaminhoMaisForte.pl").
+:-ensure_loaded("./checktags.pl").
+:-ensure_loaded("./SugerirConexoesTagsNivel.pl").
+
+%Cors
+:- set_setting(http:cors, [*]).
+
 % Criacao de servidor HTTP no porto 'Port'
 server(Port) :-
         http_server(http_dispatch, [port(Port)]).
 
-% Tratamento de 'http://localhost:5000/lapr5'
-responde_ola(_Request) :-
-        format('Content-type: text/plain~n~n'),
-        format('Olá LAPR5!~n').
+stop(Port):- http_stop_server(Port,_).
 
-% MÉTODO GET: Tratamento de 'http://localhost:5000/register_user?name='José'&sex=male&birth_year=1975'
-% ou http_client:http_get('http://localhost:5000/register_user?name=\'José\'&sex=male&birth_year=1975',X,[]).
+% Handlers
+%:- http_handler('/api/AlgoritmoCaminhoSeguro', algoritmoSeguroHandler, []).
+%:- http_handler('/api/CalcularTamanhoRede', calcularRedeHandler, []).
+:- http_handler('/api/CaminhoMaisForte', caminhoForteHandler, []).
+:- http_handler('/api/CheckTags', checkTagsHandler, []).
+%:- http_handler('/api/SugerirConexoesTagsNivel', conexoesNivelHandler, []).
 
-% MÉTODO POST
-% http_client:http_post('http://localhost:5000/register_user', form_data([name='José', sex=male, birth_year=1975]), Reply, []).
+%algoritmoSeguroHandler(Request):-
+%    cors_enable,
+%    removerBaseConhecimento(),
+%    carregaDados(),
+%    http_parameters(Request,
+%        [origId(Orig,[string]),
+%         destId(Dest,[string]),
+%         minLigacao(MinLigacao,[integer,between(0,100)])] ),
+
+%    plan_seguro(Orig,Dest,LCaminho,Forca),
+%    Reply=caminho_seguro_user_json(LCaminho,Forca),
+%    prolog_to_json(Reply, JSONObject),
+%    reply_json(JSONObject,[json_object]).
+
+%calcularRedeHandler(Request):-
+%    cors_enable,
+%    removerBaseConhecimento(),
+%    carregaDados(),
+%    http_parameters(Request,
+%        [origId(Orig,[string]),
+%         destId(Dest,[string]),
+%         minLigacao(MinLigacao,[integer,between(0,100)])] ),
+
+
+%   caminho_seguro_unidirecional(Orig,Dest,MinLigacao,LCaminho,Forca),
+%    Reply=caminho_seguro_user_json(LCaminho,Forca),
+%    prolog_to_json(Reply, JSONObject),
+%    reply_json(JSONObject,[json_object]).
+
+checkTagsHandler(Request):-
+    cors_enable(Request, [methods([get])]),
+    removerBaseConhecimento(),
+    carregaDados(),
+    http_parameters(Request,
+        [nTags(NTags,[string])]),
+
+    plan_x_tags(NTags,Res),
+    %Reply=caminho_seguro_user_json(LCaminho,Forca),
+    prolog_to_json(Res, JSONObject),
+    reply_json(JSONObject,[json_object]).
+
+caminhoForteHandler(Request):-
+    cors_enable(Request, [methods([get])]),
+    removerBaseConhecimento(),
+    carregaDados(),
+    http_parameters(Request,
+        [origId(Orig,[string]),
+         destId(Dest,[string])]),
+
+
+    plan_forte(Orig,Dest,LCaminho),
+    prolog_to_json(LCaminho, JSONObject),
+    reply_json(JSONObject,[json_object]).
+
+%conexoesNivelHandler(Request):-
+%    cors_enable,
+%    removerBaseConhecimento(),
+%    carregaDados(),
+%    http_parameters(Request,
+%        [origId(Orig,[string]),
+%         destId(Dest,[string]),
+%         minLigacao(MinLigacao,[integer,between(0,100)])] ),
+
+
+%    caminho_seguro_unidirecional(Orig,Dest,MinLigacao,LCaminho,Forca),
+%    Reply=caminho_seguro_user_json(LCaminho,Forca),
+%    prolog_to_json(Reply, JSONObject),
+%    reply_json(JSONObject,[json_object]).
+
+
 obter_users_url("https://localhost:5001/api/Jogadores").
 obter_perfis_url("https://localhost:5001/api/Perfis").
 obter_relacoes_url("https://localhost:5001/api/Relacoes").
@@ -113,14 +189,3 @@ removerBaseConhecimento():-
         retractall(nova_relacao(_,_,_)),
         retractall(no(_,_,_)),
         retractall(ligacao(_,_,_,_)).
-
-
-
- %MÉTODO POST enviando um ficheiro de texto
- %http_client:http_post('http://localhost:5000/send_file_post', form_data([file=file('./teste.txt')]), Reply, []).
-
-%comentar ou descomentar send_file_post?
-send_file_post(Request) :-
-http_parameters(Request,[ file(X,[])]),
-    format('Content-type: text/plain~n~n'),
-    format('Received: ~w~n',[X]).

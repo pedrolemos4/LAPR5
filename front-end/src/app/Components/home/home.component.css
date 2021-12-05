@@ -65,3 +65,18 @@
   display: table;
   clear: both;
 }
+
+.btn-primary {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.btn-primary:hover {
+  opacity:1;
+}

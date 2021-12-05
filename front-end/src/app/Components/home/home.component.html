@@ -9,20 +9,35 @@
         </div>
         <div id="card">
             <p>Escolha o seu primeiro jogador objetivo</p>
-            <form [formGroup]="pedirJogadorObjetivo">
+            <form [formGroup]="ntagsForm" (ngSubmit)="onSubmitTags()">
+                <div class="form-group">
+                    <label for="ntags">Número de tags que pretende que estejam em comum com outros utilizadores</label>
+                    <input type="text" id="ntags" placeholder="Número inteiro menos que o seu número de tags"
+                        formControlName="ntags" class="form-control" required />
+                </div>
+            </form>
+            <div class="form-group">
+                <button type="submit" id="submit" class="btn-primary">Ok</button>
+            </div>
+            <form [formGroup]="pedirJogadorObjetivo" (ngSubmit)="onSubmitLigacao()">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-75">
-                            <select class="selector" style="margin: 20px; margin-left: 170px;">
+                            <select class="selector" style="margin: 20px; margin-left: 170px;"
+                                (change)="selectChangeHandler($event)">
                                 <option selected disabled="disabled"> Selecione um jogador</option>
                                 <option *ngFor="let eachVal of showNames">
                                     {{eachVal}}
                                 </option>
                             </select>
+                            <p><span>Pedido enviado a:</span><br><b>{{selected}}</b></p>
                         </div>
                     </div>
                 </div>
             </form>
+            <div class="form-group">
+                <button type="submit" id="submit" class="btn-primary">Ok</button>
+            </div>
         </div>
     </div>
     <router-outlet></router-outlet>

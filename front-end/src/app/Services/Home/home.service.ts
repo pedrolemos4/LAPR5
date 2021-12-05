@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 import { Jogador } from 'src/app/Models/Jogador';
 import { Relacao } from 'src/app/Models/Relacao';
 import { Perfil } from 'src/app/Models/Perfil';
+import { Ligacao } from 'src/app/Models/Ligacao';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,9 +12,11 @@ import { environment } from 'src/environments/environment';
 })
 export class HomeService {
 
+  private readonly urlPlan = 'http://localhost:4300';
   private readonly urlPer = environment.apiUrl + 'Perfis/';
   private readonly jogadorUrl = environment.apiUrl + 'Jogadores/';
   private readonly relacoesUrl = environment.apiUrl + 'Relacoes/';
+  private readonly ligacoesUrl = environment.apiUrl + 'Ligacoes'; // URL to web api
 
   constructor(private http: HttpClient) { }
 
@@ -29,7 +32,24 @@ export class HomeService {
     return this.http.get<Perfil>(this.jogadorUrl + 'GetPerfilJogador/' + id);
   }
 
-  getRelacoesJogador(id: any): Observable<Relacao []>{
-    return this.http.get<Relacao []>(this.relacoesUrl + 'GetRelacoesDoJogador/' + id);
+  getRelacoesJogador(id: any): Observable<Relacao[]> {
+    return this.http.get<Relacao[]>(this.relacoesUrl + 'GetRelacoesDoJogador/' + id);
+  }
+
+  getJogadoresSugeridos(NTags: any): Observable<string[]> {
+    const params = new HttpParams().set('NTags', NTags);   //.set('Res',Res); 
+    const urlAux = this.urlPlan+'/api/CaminhoMaisForte';
+    return this.http.get<string[]>(urlAux, { params: params });
+  }
+
+  registoLigacao(ligacao: Ligacao): Observable<Ligacao> {
+    let bodystr = JSON.stringify(ligacao);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+    console.log(bodystr);
+    return this.http.post<Ligacao>(this.ligacoesUrl, bodystr, httpOptions);
   }
 }
