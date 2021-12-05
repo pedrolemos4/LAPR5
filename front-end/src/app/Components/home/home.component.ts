@@ -44,6 +44,19 @@ export class HomeComponent implements OnInit {
       this.nomeUser = Perfil.nome;
       this.idPerfilUser = Perfil.id;
       this.nomes.push(this.nomeUser);
+      this.homeService.getJogadorAtual(Perfil.id).subscribe(Jogador => {
+        this.homeService.getRelacoesJogador(Jogador.id).subscribe(result => {
+          console.log(result.length);
+          if (result.length > 0) {
+            document.getElementById("card").style.display = 'none';
+          } else {
+            console.log('Ntags: ' + this.numeroTags);
+            this.homeService.getJogadoresSugeridos(this.numeroTags).subscribe(ListaResultante => {
+              this.showNames = ListaResultante;
+            });
+          }
+        });
+      });
     });
   }
 
