@@ -33,7 +33,7 @@
                         <label for="colFormLabel">Country</label>
                     </div>
                     <div class="coluna1-menor">
-                        <input type="text" formControlName="pais" class="form-control" />
+                        <input type="text" name="pais" formControlName="pais" class="form-control" />
                         <div *ngIf="registoForm.controls['pais'].touched && registoForm.controls['pais'].errors?.['required']"
                             class="alert alert-danger">Country is required</div>
                     </div>
@@ -41,7 +41,7 @@
                         <label for="colFormLabel" class="col-sm-2 col-form-label">City</label>
                     </div>
                     <div class="coluna-menor">
-                        <input type="text" formControlName="cidade" class="form-control" />
+                        <input type="text" name="cidade" formControlName="cidade" class="form-control" />
                         <div *ngIf="registoForm.controls['cidade'].touched && registoForm.controls['cidade'].errors?.['required']"
                             class="alert alert-danger">City is required</div>
                     </div>
@@ -52,7 +52,7 @@
                     <label for="colFormLabel" class="col-sm-2 col-form-label">Email</label>
                 </div>
                 <div class="col-75">
-                    <input type="email" formControlName="email" class="form-control" />
+                    <input type="email" name="email" formControlName="email" class="form-control" />
                 </div>
             </div>
             <div class="form-group">
@@ -60,7 +60,7 @@
                     <label for="colFormLabel" class="col-sm-2 col-form-label">Birthday</label>
                 </div>
                 <div class="col-75">
-                    <input type="date" formControlName="dataNascimento" class="form-control" />
+                    <input type="date" name="dataNascimento" formControlName="dataNascimento" class="form-control" />
                 </div>
             </div>
             <div class="form-group">
@@ -68,7 +68,7 @@
                     <label for="colFormLabel" class="col-sm-2 col-form-label">Mood</label>
                 </div>
                 <div class="custom-select mr-sm-2">
-                    <select (change)="selectChangeHandler($event)">
+                    <select name="estadoHumor" (change)="selectChangeHandler($event)">
                         <option selected disabled="disabled">Choose...</option>
                         <option value="joyful">Joyful</option>
                         <option value="distressed">Distressed</option>
@@ -90,7 +90,7 @@
                         them)</label>
                 </div>
                 <div class="coluna">
-                    <input type="text" formControlName="tags" class="form-control" />
+                    <input type="text" name="tags" formControlName="tags" class="form-control" />
                 </div>
             </div>
             <div class="form-group">
@@ -98,7 +98,7 @@
                     <label for="colFormLabel" class="col-sm-2 col-form-label">Facebook Profile</label>
                 </div>
                 <div class="col-75">
-                    <input type="text" formControlName="perfilFb" class="form-control" />
+                    <input type="text" name="perfilFb" formControlName="perfilFb" class="form-control" />
                 </div>
                 <div *ngIf="registoForm.controls['perfilFb'].touched && registoForm.controls['perfilFb'].errors?.['required']"
                     class="alert alert-danger">Facebook Profile is required</div>
@@ -108,7 +108,7 @@
                     <label for="colFormLabel" class="col-sm-2 col-form-label">Profile Linkedin</label>
                 </div>
                 <div class="col-75">
-                    <input type="text" formControlName="perfilL" class="form-control" />
+                    <input type="text" name="perfilL" formControlName="perfilL" class="form-control" />
                 </div>
                 <div *ngIf="registoForm.controls['perfilL'].touched && registoForm.controls['perfilL'].errors?.['required']"
                     class="alert alert-danger">Linkedin Profile is required</div>
@@ -118,7 +118,7 @@
                     <label for="colFormLabel" class="col-sm-2 col-form-label">Password</label>
                 </div>
                 <div class="col-75">
-                    <input type="password" formControlName="password" class="form-control" />
+                    <input type="password" name="password" formControlName="password" class="form-control" />
                 </div>
             </div>
             <div class="form-group">

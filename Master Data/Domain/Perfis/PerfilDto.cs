@@ -1,5 +1,5 @@
 using System;
-
+using System.Collections.Generic;
 
 namespace DDDSample1.Domain.Perfis
 {
@@ -16,6 +16,8 @@ namespace DDDSample1.Domain.Perfis
         public string Email{ get; set; }
 
         public string Pais { get; set; }
+
+        public List<string> Tags { get; set; } 
 
     }
 }
