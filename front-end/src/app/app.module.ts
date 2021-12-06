@@ -17,6 +17,7 @@ import { TamRedeComponent } from './Components/tam-rede/tam-rede.component';
 import { CamForteComponent } from './Components/cam-forte/cam-forte.component';
 import { CamCurtoComponent } from './Components/cam-curto/cam-curto.component';
 import { CamSeguroComponent } from './Components/cam-seguro/cam-seguro.component';
+import { PedidoComponent } from './Components/pedido/pedido.component';
 import { PedirIntroducaoComponent } from './Components/pedir-introducao/pedir-introducao.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RelacaoComponent } from './Components/relacao/relacao.component';
@@ -41,6 +42,7 @@ import { PedidoLigacaoPendenteComponent } from './Components/pedido-ligacao-pend
     CamForteComponent,
     CamCurtoComponent,
     CamSeguroComponent,
+    PedidoComponent,
     PedirIntroducaoComponent,
     RelacaoComponent,
     HeaderhomeComponent,
