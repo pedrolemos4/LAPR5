@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../Services/Login/login.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { LoginUser } from 'src/app/Models/LoginUser';
 
 @Component({
   selector: 'app-login',
@@ -28,8 +29,11 @@ export class LoginComponent implements OnInit {
   get f() { return this.loginForm.controls; }
 
   onSubmit() {
-    const { email, password } = this.loginForm.value;
-    this.loginService.login(email, password).subscribe({
+    //const { email, password } = this.loginForm.value;
+    this.loginService.login({
+      email: this.loginForm.controls['email'].value,
+      password: this.loginForm.controls['password'].value
+    } as LoginUser).subscribe({
       next: (res: any) => {
         (e: any) => console.log(e);
         this.saveCurrentUser(this.f['email'].value);

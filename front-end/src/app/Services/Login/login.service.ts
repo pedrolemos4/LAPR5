@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { map } from 'rxjs';
+import { LoginUser } from 'src/app/Models/LoginUser';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +13,9 @@ export class LoginService {
   constructor(private http: HttpClient) {
   }
 
-   login(email: string, password:string) {
-     console.log(email);
-     return this.http.get(this.loginUrl + email + '/' + password);
+   login(loginForm: LoginUser) {
+     console.log(loginForm);
+     return this.http.post(this.loginUrl + 'Login', loginForm);
    }
 
 }
