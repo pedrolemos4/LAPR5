@@ -10,9 +10,9 @@ removeRepetidos([],[]):-!.
 removeRepetidos([X|LTodosTagsRep],ListaTags):- member(X,LTodosTagsRep),!,removeRepetidos(LTodosTagsRep,ListaTags).
 removeRepetidos([X|LTodosTagsRep],[X|ListaTags]):- removeRepetidos(LTodosTagsRep,ListaTags).
 
-todas_combinacoes(X,LTags,LcombXTags):-findall(L,combinacao(X,LTags,L),LcombXTags).
-combinacao(0,_,[]):-!.
-combinacao(X,[Tag|L],[Tag|T]):-X1 is X-1, combinacao(X1,L,T).
+todas_combinacoes(X,LTags,LcombXTags):- findall(L,combinacao(X,LTags,L),LcombXTags).
+combinacao(0,_,[]):- !.
+combinacao(X,[Tag|L],[Tag|T]):- X1 is X-1, combinacao(X1,L,T).
 combinacao(X,[_|L],T):- combinacao(X,L,T).
 
 comparar([],_,_,ListaAux,ListaAux):-!.

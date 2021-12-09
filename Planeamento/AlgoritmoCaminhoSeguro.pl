@@ -1,4 +1,33 @@
 %mais seguro sem findall
+no(1,ana,[natureza,pintura,musica,sw,porto]).
+no(11,antonio,[natureza,pintura,carros,futebol,lisboa]).
+no(12,beatriz,[natureza,musica,carros,porto,moda]).
+no(13,carlos,[natureza,musica,sw,futebol,coimbra]).
+no(21,tomas,[natureza,musica,sw,futebol,coimbra]).
+no(22,pedro,[natureza,musica,sw,futebol,coimbra]).
+no(23,ze,[natureza,musica,sw,futebol,coimbra]).
+no(31,joao,[natureza,musica,sw,futebol,coimbra]).
+
+
+ligacao(1,11,10,8).
+%==========================
+ligacao(11,21,11,0).
+ligacao(11,22,0,5).
+ligacao(11,23,10,2).
+%==========================
+ligacao(12,21,10,2).
+ligacao(12,22,10,8).
+ligacao(12,23,10,5).
+%==========================
+ligacao(13,21,10,2).
+ligacao(13,22,10,8).
+ligacao(13,23,10,5).
+%==========================
+ligacao(21,31,10,0).
+ligacao(22,31,5,2).
+ligacao(23,31,4,4).
+%==========================
+
 :-dynamic melhor_sol_seguro/2.
 
 dfs_seguro(Orig,Dest,Cam,MinForca, SomatorioForca,SomaFinal):-

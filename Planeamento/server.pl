@@ -6,9 +6,14 @@
 :- use_module(library(http/json)).
 :- use_module(library(http/http_cors)).
 
-% Relacao entre pedidos HTTP e predicados que os processam
-%:- http_handler('/api/Jogadores', getJogadores, []).
-%:- http_handler('/api/Perfis', getPerfis, []).
+% Bibliotecas JSON
+:- use_module(library(http/json_convert)).
+:- use_module(library(http/http_json)).
+:- use_module(library(http/json)).
+
+%Cors
+:- set_setting(http:cors, [*]).
+
 
 :- dynamic novo_jogador/2.
 :- dynamic novo_perfil/3.
@@ -22,91 +27,41 @@
 :-ensure_loaded("./checktags.pl").
 :-ensure_loaded("./SugerirConexoesTagsNivel.pl").
 
-%Cors
-:- set_setting(http:cors, [*]).
+
+:-json_object objeto_json_tags(caminho:list(string)).
 
 % Criacao de servidor HTTP no porto 'Port'
 server(Port) :-
-        http_server(http_dispatch, [port(Port)]).
+    removerBaseConhecimento(),
+    carregaDados(),
 
-stop(Port):- http_stop_server(Port,_).
+    http_server(http_dispatch, [port(Port)]).
+
+stop(Port):-
+    http_stop_server(Port,_).
 
 % Handlers
-%:- http_handler('/api/AlgoritmoCaminhoSeguro', algoritmoSeguroHandler, []).
-%:- http_handler('/api/CalcularTamanhoRede', calcularRedeHandler, []).
 :- http_handler('/api/CaminhoMaisForte', caminhoForteHandler, []).
 :- http_handler('/api/CheckTags', checkTagsHandler, []).
-%:- http_handler('/api/SugerirConexoesTagsNivel', conexoesNivelHandler, []).
 
-%algoritmoSeguroHandler(Request):-
-%    cors_enable,
-%    removerBaseConhecimento(),
-%    carregaDados(),
-%    http_parameters(Request,
-%        [origId(Orig,[string]),
-%         destId(Dest,[string]),
-%         minLigacao(MinLigacao,[integer,between(0,100)])] ),
-
-%    plan_seguro(Orig,Dest,LCaminho,Forca),
-%    Reply=caminho_seguro_user_json(LCaminho,Forca),
-%    prolog_to_json(Reply, JSONObject),
-%    reply_json(JSONObject,[json_object]).
-
-%calcularRedeHandler(Request):-
-%    cors_enable,
-%    removerBaseConhecimento(),
-%    carregaDados(),
-%    http_parameters(Request,
-%        [origId(Orig,[string]),
-%         destId(Dest,[string]),
-%         minLigacao(MinLigacao,[integer,between(0,100)])] ),
-
-
-%   caminho_seguro_unidirecional(Orig,Dest,MinLigacao,LCaminho,Forca),
-%    Reply=caminho_seguro_user_json(LCaminho,Forca),
-%    prolog_to_json(Reply, JSONObject),
-%    reply_json(JSONObject,[json_object]).
 
 checkTagsHandler(Request):-
-    cors_enable(Request, [methods([get])]),
-    removerBaseConhecimento(),
-    carregaDados(),
+    cors_enable,
     http_parameters(Request,
-        [nTags(NTags,[string])]),
+    [nTags(NTags,[number])]),
 
     plan_x_tags(NTags,Res),
-    %Reply=caminho_seguro_user_json(LCaminho,Forca),
-    prolog_to_json(Res, JSONObject),
-    reply_json(JSONObject,[json_object]).
+    format('Content-type: text/plain~n~n'),
+    format('~w~n',[Res]).
 
 caminhoForteHandler(Request):-
-    cors_enable(Request, [methods([get])]),
-    removerBaseConhecimento(),
-    carregaDados(),
+    cors_enable,
     http_parameters(Request,
         [origId(Orig,[string]),
          destId(Dest,[string])]),
-
-
     plan_forte(Orig,Dest,LCaminho),
-    prolog_to_json(LCaminho, JSONObject),
-    reply_json(JSONObject,[json_object]).
-
-%conexoesNivelHandler(Request):-
-%    cors_enable,
-%    removerBaseConhecimento(),
-%    carregaDados(),
-%    http_parameters(Request,
-%        [origId(Orig,[string]),
-%         destId(Dest,[string]),
-%         minLigacao(MinLigacao,[integer,between(0,100)])] ),
-
-
-%    caminho_seguro_unidirecional(Orig,Dest,MinLigacao,LCaminho,Forca),
-%    Reply=caminho_seguro_user_json(LCaminho,Forca),
-%    prolog_to_json(Reply, JSONObject),
-%    reply_json(JSONObject,[json_object]).
-
+    format('Content-type: text/plain~n~n'),
+    format('~w~n',[LCaminho]).
 
 obter_users_url("https://localhost:5001/api/Jogadores").
 obter_perfis_url("https://localhost:5001/api/Perfis").
@@ -148,7 +103,6 @@ parse_perfis([H|List]):-
     asserta(novo_perfil(H.get(id),H.get(email),H.get(tags))),
     parse_perfis(List).
 
-
 adicionaRelacoes():-
     carregaRelacoes(Data),
     parse_relacoes(Data).
@@ -175,9 +129,21 @@ carregaLigacao([_|Lista]):-carregaLigacoes(Lista).
 adicionaLigacoes():- findall(Jogador1,nova_relacao(Jogador1,_,_),Lista),
                         carregaLigacao(Lista).
 
+carrega_no([]):- !.
+carrega_no([IdJ|Lista]):-novo_jogador(IdJ,IdP),
+    novo_perfil(IdP,Email,Tags),
+    asserta(no(IdJ,Email,Tags)),carrega_no(Lista).
+carrega_no([_|Lista]):-carregaLigacoes(Lista).
+
+adicionar_no():- findall(Jogador1,novo_jogador(Jogador1,_),Lista),
+                        carrega_no(Lista).
+
+
+
 carregaDados():-
     adicionaPerfis(),
     adicionaJogadores(),
+    adicionar_no(),
     adicionaRelacoes(),
     adicionaLigacoes().
 
@@ -189,3 +155,13 @@ removerBaseConhecimento():-
         retractall(nova_relacao(_,_,_)),
         retractall(no(_,_,_)),
         retractall(ligacao(_,_,_,_)).
+
+
+
+
+
+
+
+
+
+

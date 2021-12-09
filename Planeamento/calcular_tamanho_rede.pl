@@ -16,6 +16,7 @@
 % os utilizadores at� ao nivel atual
 % o 7� argumento corresponde � lista que retorna com os numeros dos
 % utilizados at� ao nivel correspondente determinado no 3� argumento
+
 rede(ID,Nivel):-percorre_niveis(ID,[ID],0,Nivel,[],[],Res),!,write(Res),nl,write('Tamanho da Rede: '),length(Res,Rede),write(Rede).
 
 percorre_niveis(ID,[],NA,N,ListUsers,ListNiveis,Rede):-sort(ListUsers,ListUsers1),append(ListUsers1,ListNiveis,ListRes),sort(ListRes,ListRes1),

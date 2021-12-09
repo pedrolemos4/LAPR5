@@ -1,4 +1,6 @@
 %Sem o findAll
+
+
 :-dynamic melhor_sol_forte/2.
 
 
