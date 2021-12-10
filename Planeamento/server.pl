@@ -32,9 +32,6 @@
 
 % Criacao de servidor HTTP no porto 'Port'
 server(Port) :-
-    removerBaseConhecimento(),
-    carregaDados(),
-
     http_server(http_dispatch, [port(Port)]).
 
 stop(Port):-
@@ -47,21 +44,28 @@ stop(Port):-
 
 checkTagsHandler(Request):-
     cors_enable,
+    removerBaseConhecimento(),!,
+    carregaDados(),!,
     http_parameters(Request,
     [nTags(NTags,[number])]),
 
     plan_x_tags(NTags,Res),
-    format('Content-type: text/plain~n~n'),
-    format('~w~n',[Res]).
+    Reply = objeto_json_tags(Res),
+    prolog_to_json(Reply,JSONObject),
+    reply_json(JSONObject,[json_object]).
 
 caminhoForteHandler(Request):-
     cors_enable,
+    removerBaseConhecimento(),!,
+    carregaDados(),!,
+
     http_parameters(Request,
         [origId(Orig,[string]),
          destId(Dest,[string])]),
     plan_forte(Orig,Dest,LCaminho),
-    format('Content-type: text/plain~n~n'),
-    format('~w~n',[LCaminho]).
+    Reply = objeto_json_tags(LCaminho),
+    prolog_to_json(Reply,JSONObject),
+    reply_json(JSONObject,[json_object]).
 
 obter_users_url("https://localhost:5001/api/Jogadores").
 obter_perfis_url("https://localhost:5001/api/Perfis").
