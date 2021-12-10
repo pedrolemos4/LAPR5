@@ -1,5 +1,4 @@
-#texto{
-    margin-top: 50px;
+#texto {
     margin-left: 17%;
     padding: 1px 16px;
     height: 665px;
@@ -8,21 +7,46 @@
     vertical-align: top;
     position: absolute;
 }
- 
-#container{
+
+#container {
     border-radius: 8px;
     background-color: #f2f2f2e7;
     padding: 15px;
     padding-top: 2px;
-    width: 30%;
+    width: 50%;
 }
 
-.form-data{
+.form-data {
     text-align: right;
     margin-right: 20px;
 }
 
-.submit{
+label {
+    padding: 12px 12px 12px 12px;
+    display: inline-block;
+    /*float: left;
+    /*margin-right: 10px;*/
+}
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.submit {
     background-color: rgb(16, 219, 60);
     color: white;
     border: none;
@@ -30,11 +54,11 @@
     cursor: pointer;
 }
 
-.submit:hover{
+.submit:hover {
     background-color: rgb(21, 161, 52);
 }
 
-.selector{
+.selector {
     width: 192px;
     height: 30px;
 }
