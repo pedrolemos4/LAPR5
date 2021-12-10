@@ -16,7 +16,7 @@ export class HomeService {
   private readonly urlPer = environment.apiUrl + 'Perfis/';
   private readonly jogadorUrl = environment.apiUrl + 'Jogadores/';
   private readonly relacoesUrl = environment.apiUrl + 'Relacoes/';
-  private readonly ligacoesUrl = environment.apiUrl + 'Ligacoes'; // URL to web api
+  private readonly ligacoesUrl = environment.apiUrl + 'Ligacoes';
 
   constructor(private http: HttpClient) { }
 
@@ -37,9 +37,8 @@ export class HomeService {
   }
 
   getJogadoresSugeridos(NTags: any): Observable<string[]> {
-    const params = new HttpParams().set('NTags', NTags);   //.set('Res',Res); 
-    const urlAux = this.urlPlan+'/api/CaminhoMaisForte';
-    return this.http.get<string[]>(urlAux, { params: params });
+    const urlAux = this.urlPlan + '/api/CheckTags?nTags=' + NTags;
+    return this.http.get<string[]>(urlAux);
   }
 
   registoLigacao(ligacao: Ligacao): Observable<Ligacao> {

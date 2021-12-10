@@ -9,7 +9,7 @@
         </div>
         <div id="card">
             <p>Escolha o seu primeiro jogador objetivo</p>
-            <form [formGroup]="ntagsForm" (ngSubmit)="onSubmitTags()">
+            <form [formGroup]="ntagsForm">
                 <div class="form-group">
                     <label for="ntags">Número de tags que pretende que estejam em comum com outros utilizadores</label>
                     <input type="text" id="ntags" placeholder="Número inteiro menos que o seu número de tags"
@@ -17,9 +17,9 @@
                 </div>
             </form>
             <div class="form-group">
-                <button type="submit" id="submit" class="btn-primary">Ok</button>
+                <button (click)="onSubmitTags()" id="submit" class="btn-primary">Ok</button>
             </div>
-            <form [formGroup]="pedirJogadorObjetivo" (ngSubmit)="onSubmitLigacao()">
+            <form [formGroup]="pedirJogadorObjetivo" >
                 <div class="form-group">
                     <div class="row">
                         <div class="col-75">
@@ -34,10 +34,11 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <button (click)="onSubmitLigacao()" id="submit" class="btn-primary">Ok</button>
+                </div>
             </form>
-            <div class="form-group">
-                <button type="submit" id="submit" class="btn-primary">Ok</button>
-            </div>
+            
         </div>
     </div>
     <router-outlet></router-outlet>
