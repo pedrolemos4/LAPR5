@@ -17,21 +17,22 @@ namespace DDDSample1.Domain.Perfis
             this._repo = repo;
         }
 
-        public async Task<PerfilDto> GetPerfilByEmailPassword(string email, string password) {
-            var per = await this._repo.GetPerfilByEmailPassword(email,password);
+        public async Task<PerfilDto> GetPerfilByEmailPassword(string email, string password)
+        {
+            var per = await this._repo.GetPerfilByEmailPassword(email, password);
 
             if (per == null)
                 return null;
 
             return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country };
-        
+
         }
 
         public async Task<List<PerfilDto>> GetAllAsync()
         {
             var list = await this._repo.GetAllAsync();
 
-            List<PerfilDto> listDto = list.ConvertAll<PerfilDto>(per => new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, dataN = per.dataNascimento.DataNasc, Email = per.email.EnderecoEmail,Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country });
+            List<PerfilDto> listDto = list.ConvertAll<PerfilDto>(per => new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, dataN = per.dataNascimento.DataNasc, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country });
 
             return listDto;
         }
@@ -43,12 +44,12 @@ namespace DDDSample1.Domain.Perfis
             if (per == null)
                 return null;
 
-            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags),EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country };
+            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country };
         }
 
         public async Task<PerfilDto> AddAsync(CreatingPerfilDto perfilC)
         {
-            
+
             var per = new Perfil(perfilC.avatar, perfilC.nome, perfilC.email, perfilC.telefone,
             /*converteParaListaString(*/perfilC.tags, perfilC.dataNascimento, perfilC.estadoHumor, perfilC.password, perfilC.pais, perfilC.cidade, perfilC.perfilFacebook, perfilC.perfilLinkedin);
 
@@ -86,7 +87,7 @@ namespace DDDSample1.Domain.Perfis
             if (per == null)
                 return null;
 
-            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country };
+            return new PerfilDto { avatar = per.avatar.avatar, Id = per.Id.AsGuid(), Nome = per.nome.Name, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country };
         }
 
         public async Task<List<PerfilDto>> GetPerfilByPais(string pais)
