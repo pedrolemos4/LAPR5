@@ -20,6 +20,10 @@ export class HomeService {
 
   constructor(private http: HttpClient) { }
 
+  getAllJogadores():Observable<Jogador[]>{
+    return this.http.get<Jogador[]>(this.jogadorUrl);
+  }
+
   getPerfilByEmail(email: string): Observable<Perfil> {
     return this.http.get<Perfil>(this.urlPer + 'GetPerfilByEmail/' + email);
   }
