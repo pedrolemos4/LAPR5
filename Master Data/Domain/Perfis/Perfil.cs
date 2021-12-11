@@ -7,6 +7,7 @@ namespace DDDSample1.Domain.Perfis
 {
     public class Perfil : Entity<PerfilId>, IAggregateRoot
     {
+        public Avatar avatar { get; private set; }
 
         public Nome nome { get; private set; }
 
@@ -37,9 +38,10 @@ namespace DDDSample1.Domain.Perfis
             this.Active = true;
         }
 
-        public Perfil(/*string code, */string nome, string email, long telefone, List<string> tag, string data, string estado, string password, string pais, string cidade, string perfilFB, string perfilLI)
+        public Perfil(string avatar, string nome, string email, long telefone, List<string> tag, string data, string estado, string password, string pais, string cidade, string perfilFB, string perfilLI)
         {
             this.Id = new PerfilId(Guid.NewGuid());
+            this.avatar = new Avatar(avatar);
             this.nome = new Nome(nome);
             this.email = new Email(email);
             this.telefone = new Telefone(telefone);

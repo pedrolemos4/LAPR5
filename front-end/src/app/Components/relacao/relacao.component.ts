@@ -20,7 +20,7 @@ export class RelacaoComponent implements OnInit {
   final: string = '';
   final1: string = '';
   array: string [] = [];
-  email: string | undefined = '';
+  email: string = '';
   id: any = '';
   listaTags: string[] = new Array<string>();
   listaStringTags: string = '';
@@ -43,23 +43,20 @@ export class RelacaoComponent implements OnInit {
   ngOnInit(): void {
     const currentUser = localStorage.getItem('currentUser');
     this.email = currentUser?.replace(/\"/g, "");
-    console.log(currentUser);
-    console.log(this.email);
+    //console.log(currentUser);
+    //console.log(this.email);
     this.relacaoService.getPerfilAtual(this.email).pipe(
       mergeMap((res: any) => this.relacaoService.getJogadorAtual(res.id))).pipe(
-        mergeMap((res1: any) => this.relacaoService.getListRelacoes(res1.id))).pipe(
-          mergeMap((res2: any) => res2.forEach((element: any) => {
-            console.log(element.jogador2),
+        mergeMap((res1: any) => this.relacaoService.getListRelacoes(res1.id))).subscribe(
+          (res2: any) => res2.forEach((element: any) => {
+            //console.log(element.jogador2),
               this.relacaoService.getPerfilById(element.jogador2).subscribe(
                 (r: any) => {
-                  console.log(r.nome),
-                    this.listaPerfis.push(r),
-                    console.log(this.listaPerfis)
+                  //console.log(r.nome),
+                    this.listaPerfis.push(r)
+                    //console.log(this.listaPerfis)
                 })
-          }))).subscribe( (res3: any) => {
-          console.log(res3);
-          console.log(this.listaPerfis);
-      });
+              }));
   }
 
   onSubmit() {
@@ -67,9 +64,9 @@ export class RelacaoComponent implements OnInit {
     this.test = this.selected.replace("Nome: ", "");
     this.final = this.test.replace("Email: ", "");
     this.final1 = this.final.replace(" ", "");
-    console.log(this.final1);
+    //console.log(this.final1);
     this.array = this.final1.split(",");
-    console.log(this.array[1]);
+    //console.log(this.array[1]);
 
     this.relacaoService.getPerfilAtual(this.email).pipe(
       mergeMap((res: any) => this.relacaoService.getJogadorAtual(res.id))).subscribe(
@@ -78,11 +75,11 @@ export class RelacaoComponent implements OnInit {
             mergeMap((res1: any) => this.relacaoService.getJogadorAtual(res1.id))).pipe(
               mergeMap((res: any) => this.relacaoService.getRelacao(r.id, res.id))).subscribe(
                 (res2: any) => {
-                  console.log(res2.id);
+                  //console.log(res2.id);
                   this.listaStringTags = this.f['Tags'].value;
                   this.listaTags = this.listaStringTags.toString().split(",");
                   this.f['Tags'].setValue(this.listaTags);
-                  console.log(this.f['Tags'].value);
+                  //console.log(this.f['Tags'].value);
                   this.relacaoService.patchRelacao(res2.id, {
                     id: res2.id,
                     jogador1: res2.jogador1,

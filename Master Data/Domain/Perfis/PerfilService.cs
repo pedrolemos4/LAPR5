@@ -48,7 +48,8 @@ namespace DDDSample1.Domain.Perfis
 
         public async Task<PerfilDto> AddAsync(CreatingPerfilDto perfilC)
         {
-            var per = new Perfil(perfilC.nome, perfilC.email, perfilC.telefone,
+            
+            var per = new Perfil(perfilC.avatar, perfilC.nome, perfilC.email, perfilC.telefone,
             /*converteParaListaString(*/perfilC.tags, perfilC.dataNascimento, perfilC.estadoHumor, perfilC.password, perfilC.pais, perfilC.cidade, perfilC.perfilFacebook, perfilC.perfilLinkedin);
 
             await this._repo.AddAsync(per);

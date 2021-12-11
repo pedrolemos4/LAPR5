@@ -43,6 +43,7 @@ export class PerfilComponent implements OnInit {
   onSubmit() {
     this.perfilService.editarPerfil(this.id, {
       id: this.Perfil.id,
+      avatar: this.Perfil.avatar,
       nome: this.editarPerfilForm.controls['nome'].value,
       email: this.editarPerfilForm.controls['email'].value,
       telefone: this.Perfil.telefone,

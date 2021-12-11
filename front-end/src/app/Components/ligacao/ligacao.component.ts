@@ -65,22 +65,22 @@ export class LigacaoComponent implements OnInit {
     if (this.parametroSelecionado == 'nome') {
       this.ligacaoService.getPerfilByNome(this.parametroForm.controls['Parametro'].value).subscribe(
         (res: any) => {
-          this.listaPerfis.push(res),
-            console.log(res)
+          this.listaPerfis.push(res)
+            //console.log(res)
         }
       );
     } else if (this.parametroSelecionado == 'pais') {
       this.ligacaoService.getPerfilByPais(this.parametroForm.controls['Parametro'].value).subscribe(
         (res: any) => res.forEach((element: any) => {
-          this.listaPerfis.push(element),
-            console.log(res)
+          this.listaPerfis.push(element)
+            //console.log(res)
         })
       );
     } else {
       this.ligacaoService.getPerfilByEmail(this.parametroForm.controls['Parametro'].value).subscribe(
         (res: any) => {
-          this.listaPerfis.push(res),
-            console.log(res)
+          this.listaPerfis.push(res)
+            //console.log(res)
         }
       );
     }
@@ -89,15 +89,15 @@ export class LigacaoComponent implements OnInit {
   onSubmit() {
     const currentUser = localStorage.getItem('currentUser');
     this.email = currentUser?.replace(/\"/g, "");
-    console.log(currentUser);
-    console.log(this.email);
+    //console.log(currentUser);
+    //console.log(this.email);
 
     this.test = this.selected.replace("Nome: ", "");
     this.final = this.test.replace("Email: ", "");
     this.final1 = this.final.replace(" ", "");
-    console.log(this.final1);
+    //console.log(this.final1);
     this.array = this.final1.split(",");
-    console.log(this.array[1]);
+    //console.log(this.array[1]);
 
     this.ligacaoService.getPerfilAtual(this.email).pipe(
       mergeMap((res: any) => this.ligacaoService.getJogadorAtual(res.id))).subscribe(
@@ -106,15 +106,15 @@ export class LigacaoComponent implements OnInit {
             mergeMap((res1: any) => this.ligacaoService.getJogadorAtual(res1.id))).subscribe(
               (res: any) => this.ligacaoService.getRelacoes(r.id).subscribe(
                 (res2: any) => { res2.forEach((element: any) => {
-                  console.log(element.jogador2);
+                  //console.log(element.jogador2);
                   this.listaVerfica.push(element.jogador2);
                 }); 
                 if(this.listaVerfica.includes(res.id)){
                   this.toastr.error("Erro: Já são amigos!");
                   this.toastr.error("Erro: Não é possível realizar um pedido de ligação!");
                 } else{
-                  console.log(r.id);
-                  console.log(res.id);
+                  //console.log(r.id);
+                  //console.log(res.id);
                   this.ligacaoService.registoLigacao({
                     id : '',
                     TextoLigacao: this.ligacaoForm.controls['TextoLigacao'].value,
