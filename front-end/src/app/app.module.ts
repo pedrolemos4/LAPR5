@@ -27,6 +27,7 @@ import { HomeInicialComponent } from './Components/home-inicial/home-inicial.com
 import { RedeNivelComponent } from './Components/rede-nivel/rede-nivel.component';
 import { PedidoLigacaoPendenteComponent } from './Components/pedido-ligacao-pendente/pedido-ligacao-pendente.component';
 import { PedidoComponent } from './Components/pedido/pedido.component';
+import { VerPerfilComponent } from './Components/ver-perfil/ver-perfil.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { PedidoComponent } from './Components/pedido/pedido.component';
     HomeInicialComponent,
     RedeNivelComponent,
     PedidoLigacaoPendenteComponent,
-    PedidoComponent
+    PedidoComponent,
+    VerPerfilComponent
   ],
   imports: [
     BrowserModule,
