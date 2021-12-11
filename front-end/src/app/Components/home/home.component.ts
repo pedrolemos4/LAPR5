@@ -17,10 +17,8 @@ export class HomeComponent implements OnInit {
   selected: string = '';
   emailUser: string = '';
   idPerfilUser: string = '';
-  nomeUser: string = '';
   pedirJogadorObjetivo: FormGroup;
   ntagsForm: FormGroup;
-  idJogadorAtivo!: string;
   container: any;
   showNames: string[] = [];
 
@@ -35,24 +33,16 @@ export class HomeComponent implements OnInit {
 
   selectChangeHandler(event: any) {
     this.selected = event.target.value;
+    document.getElementById("mensagemPedido").style.display = "block";
   }
 
   ngOnInit(): void {
+    document.getElementById("mensagemPedido").style.display = "none";
     this.numeroTags = this.ntagsForm.controls['ntags'].value;
     const currentUser = localStorage.getItem('currentUser');
     this.emailUser = currentUser?.replace(/\"/g, "");
     this.homeService.getPerfilByEmail(this.emailUser).subscribe(Perfil => {
-      this.nomeUser = Perfil.nome;
-      this.idPerfilUser = Perfil.id;
-      this.nomes.push(this.nomeUser);
-      this.homeService.getJogadorAtual(Perfil.id).subscribe(Jogador => {
-        this.homeService.getRelacoesJogador(Jogador.id).subscribe(result => {
-          console.log(result.length);
-          if (result.length > 0) {
-            document.getElementById("card").style.display = 'none';
-          }
-        });
-      });
+      this.nomes.push(Perfil.nome);
     });
   }
 
@@ -115,7 +105,7 @@ export class HomeComponent implements OnInit {
           this.homeService.getJogadorAtual(PerfilNames.id).subscribe(Jogador2 => {
             this.homeService.registoLigacao({
               id: '',
-              TextoLigacao: 'Pedido enviado por: ' + this.nomeUser + '.',
+              TextoLigacao: 'Pedido enviado por: ' + Perfil.nome + '.',
               EstadoLigacao: this.estadoLigacao,
               Jogador1: Jogador.id,
               Jogador2: Jogador2.id
