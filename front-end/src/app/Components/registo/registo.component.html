@@ -1,49 +1,61 @@
+<html>
 <app-headerhome></app-headerhome>
 <div class="card">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <h4 class="card-header">Register</h4>
+    <h4 class="card-header">Registo</h4>
     <div class="card-body">
-        <form [formGroup]="registoForm" (ngSubmit)="onSubmit()">
+
+        <div class="col-25">
+            <label for="colFormLabel" class="col-sm-2 col-form-label">Escolha um avatar: </label>
+        </div>
+        <div class="col-85">
+            <input style="display: none" type="file" (change)="onFileUpload($event)" #selectFile>
+            <button (click)="selectFile.click()">Selecione um Ficheiro</button>
+            <div class="circular_image">
+                <img id="imagem" [src]="imagePreview">
+            </div>
+        </div>
+        <form [formGroup]="registoForm">
             <div class="form-group">
                 <div class="col-xs-2">
                     <div class="label1-maior">
-                        <label for="colFormLabel">Name</label>
+                        <label for="colFormLabel">Nome</label>
                     </div>
                     <div class="coluna1-menor">
                         <input type="text" name="nome" class="form-control" formControlName="nome" />
                         <div *ngIf="registoForm.controls['nome'].touched && registoForm.controls['nome'].errors?.['required']"
-                            class="alert alert-danger"> Name is required</div>
+                            class="alert alert-danger"> Nome é obrigatório</div>
                     </div>
                     <div class="label-maior">
-                        <label for="colFormLabel">Phone Number</label>
+                        <label for="colFormLabel">Telefone</label>
                     </div>
                     <div class="coluna-menor">
                         <input type="text" name="telefone" formControlName="telefone" class="form-control" />
                         <div *ngIf="registoForm.controls['telefone'].touched && registoForm.controls['telefone'].errors?.['required']"
-                            class="alert alert-danger"> Phone Number is required</div>
+                            class="alert alert-danger"> Telefone é obrigatório</div>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-2">
                     <div class="label1-maior">
-                        <label for="colFormLabel">Country</label>
+                        <label for="colFormLabel">País</label>
                     </div>
                     <div class="coluna1-menor">
                         <input type="text" name="pais" formControlName="pais" class="form-control" />
                         <div *ngIf="registoForm.controls['pais'].touched && registoForm.controls['pais'].errors?.['required']"
-                            class="alert alert-danger">Country is required</div>
+                            class="alert alert-danger">País é obrigatório</div>
                     </div>
                     <div class="label-maior">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">City</label>
+                        <label for="colFormLabel" class="col-sm-2 col-form-label">Cidade</label>
                     </div>
                     <div class="coluna-menor">
                         <input type="text" name="cidade" formControlName="cidade" class="form-control" />
                         <div *ngIf="registoForm.controls['cidade'].touched && registoForm.controls['cidade'].errors?.['required']"
-                            class="alert alert-danger">City is required</div>
+                            class="alert alert-danger">Cidade é obrigatório</div>
                     </div>
                 </div>
             </div>
@@ -57,7 +69,7 @@
             </div>
             <div class="form-group">
                 <div class="col-25">
-                    <label for="colFormLabel" class="col-sm-2 col-form-label">Birthday</label>
+                    <label for="colFormLabel" class="col-sm-2 col-form-label">Data de Nascimento</label>
                 </div>
                 <div class="col-75">
                     <input type="date" name="dataNascimento" formControlName="dataNascimento" class="form-control" />
@@ -65,9 +77,9 @@
             </div>
             <div class="form-group">
                 <div class="col-25">
-                    <label for="colFormLabel" class="col-sm-2 col-form-label">Mood</label>
+                    <label for="colFormLabel" class="col-sm-2 col-form-label">Estado de Humor</label>
                 </div>
-                <div class="custom-select mr-sm-2">
+                <div class="col-75">
                     <select name="estadoHumor" (change)="selectChangeHandler($event)">
                         <option selected disabled="disabled">Choose...</option>
                         <option value="joyful">Joyful</option>
@@ -81,37 +93,36 @@
                         <option value="grateful">Grateful</option>
                         <option value="angry">Angry</option>
                     </select>
-                    <p><span>You selected: </span><b>{{selected}}</b></p>
+                    <span> Selecionado: </span><b>{{selected}}</b>
                 </div>
             </div>
             <div class="col-xs-2">
-                <div class="label-maior">
-                    <label for="colFormLabel" class="col-sm-2 col-form-label">Tags (use a comma to separate
-                        them)</label>
+                <div class="col-25">
+                    <label for="colFormLabel" class="col-sm-2 col-form-label">Tags (use uma vírgula)</label>
                 </div>
-                <div class="coluna">
+                <div class="col-75">
                     <input type="text" name="tags" formControlName="tags" class="form-control" />
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-25">
-                    <label for="colFormLabel" class="col-sm-2 col-form-label">Facebook Profile</label>
+                    <label for="colFormLabel" class="col-sm-2 col-form-label">Perfil Facebook</label>
                 </div>
                 <div class="col-75">
                     <input type="text" name="perfilFb" formControlName="perfilFb" class="form-control" />
                 </div>
                 <div *ngIf="registoForm.controls['perfilFb'].touched && registoForm.controls['perfilFb'].errors?.['required']"
-                    class="alert alert-danger">Facebook Profile is required</div>
+                    class="alert alert-danger">Perfil Facebook é obrigatório</div>
             </div>
             <div class="form-group">
                 <div class="col-25">
-                    <label for="colFormLabel" class="col-sm-2 col-form-label">Profile Linkedin</label>
+                    <label for="colFormLabel" class="col-sm-2 col-form-label">Perfil Linkedin</label>
                 </div>
                 <div class="col-75">
                     <input type="text" name="perfilL" formControlName="perfilL" class="form-control" />
                 </div>
                 <div *ngIf="registoForm.controls['perfilL'].touched && registoForm.controls['perfilL'].errors?.['required']"
-                    class="alert alert-danger">Linkedin Profile is required</div>
+                    class="alert alert-danger">Perfil Linkedin é obrigatório</div>
             </div>
             <div class="form-group">
                 <div class="col-25">
@@ -121,11 +132,83 @@
                     <input type="password" name="password" formControlName="password" class="form-control" />
                 </div>
             </div>
+        </form>
             <div class="form-group">
-                <button type="submit" id="submit" class="btn-primary">Register</button>
+                <form [formGroup]="checkForm">
+                <div class="pequenas">
+                    <input type="checkbox" formControlName="check" name="checkRegisto" (change)="isChecked()"> Li, compreendi e aceito a
+                    <button class="button1" (click)="onPolitica()" id="botao">
+                        Política de Privacidade</button>
+                </div>
+            </form>
+                <button type="submit" id="submit" class="btn-primary" (click)="onSubmit()">Registo</button>
                 <a routerLink="../" class="btn-link">Cancel</a>
             </div>
 
-        </form>
+        
     </div>
+
+    <div class="card2" id="politica">
+        <h4 class="card-header">Política de Privacidade</h4>
+        <div class="card2-body">
+            <div class="card2-body">
+                <p>A Empresa Graphs4Social preocupa-se com a confidencialidade e a integridade dos dados pessoais dos seus clientes.</p>
+                <p>Cumprimos a legislação de proteção de dados pessoais em vigor,nomeadamente nas relações com os seus utilizadores, 
+                    fornecedores e subcontratados, em particular o Regulamento (UE) 2016/679 do Parlamento Europeu e do Conselho, de
+                     27 de Abril de 2016 (“Regulamento” ou “RGPD”).</p>
+                <p>Compreendemos e aceitamos que a utilização dos seus dados pessoais requerem a sua prévia autorização, 
+                    servindo neste caso, apenas para o contactar em caso de alguma alteração ou na utilização dos serviços oferecidos.</p>
+                <p>Utilizamos uma diversidade de medidas de segurança, incluindo encriptação e ferramentas de autenticação, 
+                    para ajudar a proteger e manter a segurança dos seus dados pessoais em conformidade
+                    com os requisitos de proteção de dados aplicáveis.</p>
+                <p>Os dados fornecidos à Empresa Graphs4Social apenas podem ser acedidos por
+                    pessoal restrito desde que seja para uma das finalidades comunicadas.
+                    A transferência de dados recolhidos é feita sempre de forma encriptada.</p>
+                <p>Os dados disponibilizados serão usados unicamente durante o período de tempo necessário à finalidade 
+                    para a qual foram disponibilizados, após o que serão destruídos de
+                    forma segura, salvo se, durante esse período, não tenha já retirado o seu consentimento.</p>
+                <p>Os seus dados pessoais fornecidos, salvo a sua autorização expressa em contrário, não serão
+                    transmitidos a terceiros.</p>
+                <p>Pode, em qualquer altura, alterar ou retirar o seu consentimento dos seus dados pessoais fornecidos.
+                    Com esta ação, os seus dados serão apagados de forma segura.</p>
+                <p>Para alterar ou retirar o seu consentimento dos dados fornecidos tem de contactar o 
+                    Encarregado da Proteção de Dados da Empresa através do endereço de email g4Social@gmail.com.</p>
+                <h4>Que dados são recolhidos?</h4>
+                • Informação de identificação pessoal (Nome, Email, Cidade, País, Data de Nascimento, Telefone, Perfil do Facebook e Linkedin);<br><br>
+                <h4>Como são recolhidos os dados?</h4>
+                • No acto do registo na aplicação.<br><br>
+                <h4>Como serão usados os dados?</h4>
+                • Criar um novo utilizador da aplicação e guardar as suas informações;<br>
+                • Informar o utilizador de actualizações ou oportunidades relacionadas à aplicação.<br><br>
+                <h4>Como são armazenados os dados?</h4>
+                Os dados são armazenados em segurança no serviço de base de dados SQL Azure.
+                Este serviço cloud apresenta vários sistemas de segurança perante os dados guardados:<br>
+                • Segurança de Rede;<br>
+                • Gestão de Acesso;<br>
+                • Proteção de ameaças;<br>
+                • Proteção de informação.<br><br>
+                <h4>Quais são os direitos de proteção de dados?</h4>
+                • <b>Direito de Acesso</b> – o utilizador tem o direito de pedir uma
+                cópia dos seus dados pessoais.<br>
+                • <b>Direito de retificação</b> – o utilizador tem o direito de pedir a alteraração
+                dos seus dados pessoais a qualquer momento. O utilizador tem também o direito de pedir para completar 
+                qualquer informação que esteja incompleta do seu perfil.<br>
+                • <b>Direito de Remoção</b> – o utlizador tem o direito de pedir que a Empresa
+                apague os seus dados sobre certas condições.<br>
+                • <b>Direito de restrição de processamento</b> – o utlizador tem o direito de pedir a restrição do processamento
+                 dos seus dados, sobre certas condições.<br>
+                • <b>Direito de protabilidade de dados</b> – o utilizador tem o direito de pedir a transferência dos dados
+                 recolhidos para outra organização, ou diretamente para o utilizador, sobre certas condições.<br><br>
+                Se o utilizador pretender executar um dos pedidos apresentados, a Empresa Graphs4Social tem um limite de um mês
+                para responder. Se pretender contactar-nos para exercer algum destes
+                direitos, por favor contactar:<br>
+                Ligue-nos em:  25 578 2319 <br>
+                
+            </div>
+            <button type="button" class="btn-link1" (click)="onVoltar()">Voltar</button>
+        </div>
+    </div>
+
+
 </div>
+</html>
