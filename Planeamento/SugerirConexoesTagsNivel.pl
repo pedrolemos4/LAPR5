@@ -1,10 +1,9 @@
-lista_utilizadores_com_tags_conexoes(NUtilizador,Nivel,ListaResTags,
-ListaNUtilizadores,ListaFinal1):-
+lista_utilizadores_com_tags_conexoes(NUtilizador,Nivel,ListaFinal1):-
 no(NUtilizador,_,ListaTags),
 lista_todos_utilizadores(NUtilizador,ListaTodos),
 lista_utilizadores_sem_ligacao(NUtilizador,[],ListaTodos,ListaFinal),
 lista_tags_utilizador(ListaFinal,ListaTags,[],ListaResTags),
-percorre_niveis(NUtilizador,[NUtilizador|[]],0,Nivel,[],[],ListaNUtilizadores),
+percorre_niveis1(NUtilizador,[NUtilizador|[]],0,Nivel,[],[],ListaNUtilizadores),
 intersection(ListaNUtilizadores,ListaResTags,ListaSemVerCaminho),
 ver_caminhos(NUtilizador,ListaSemVerCaminho,ListaTags,[],ListaFinal1).
 
@@ -46,12 +45,12 @@ lista_tags_utilizador(ListaUtilizadores,ListaTags,[Utilizador|ListaFinalUtilizad
 % o 6º argumento correspode a uma lista que contem todos os utilizadores até ao nivel do 2º argumento
 % o 7º argumento corresponde à lista que retorna com os numeros dos utilizados até ao nivel correspondente determinado no 3º argumento
 % findall retorna lista com utilizadores com conexao a um utilizador em especifico, verifica se o Utilizador
-percorre_niveis(Numero,[],NivelAtual,Nivel,ListUtilizadores,ListaGuardaTodosNiveis,ListaARetornar):-  sort(ListUtilizadores,ListUtilizadores1),
+percorre_niveis1(Numero,[],NivelAtual,Nivel,ListUtilizadores,ListaGuardaTodosNiveis,ListaARetornar):-  sort(ListUtilizadores,ListUtilizadores1),
 append(ListUtilizadores1,ListaGuardaTodosNiveis,ListaRes),sort(ListaRes,ListaRes1),
 NivelAtual1 is NivelAtual+1, ((NivelAtual1==Nivel,ListaARetornar = ListaRes1,!);
-percorre_niveis(Numero,ListUtilizadores1,NivelAtual1,Nivel,[],ListaRes1,ListaARetornar)).
-percorre_niveis(Numero,[NUtilizador|ListaNivel],NivelAtual,Nivel,ListUtilizadores,ListaGuardaTodosNiveis,ListaARetornar):-findall(NX,((ligacao(NUtilizador,NX,_,_);ligacao(NX,NUtilizador,_,_)),NX\==Numero),ListUtilizadoresNivel), append(ListUtilizadoresNivel,ListUtilizadores,Lista),
-percorre_niveis(Numero,ListaNivel,NivelAtual,Nivel,Lista,ListaGuardaTodosNiveis,ListaARetornar).
+percorre_niveis1(Numero,ListUtilizadores1,NivelAtual1,Nivel,[],ListaRes1,ListaARetornar)).
+percorre_niveis1(Numero,[NUtilizador|ListaNivel],NivelAtual,Nivel,ListUtilizadores,ListaGuardaTodosNiveis,ListaARetornar):-findall(NX,((ligacao(NUtilizador,NX,_,_);ligacao(NX,NUtilizador,_,_)),NX\==Numero),ListUtilizadoresNivel), append(ListUtilizadoresNivel,ListUtilizadores,Lista),
+percorre_niveis1(Numero,ListaNivel,NivelAtual,Nivel,Lista,ListaGuardaTodosNiveis,ListaARetornar).
 
 
 % de forma a retornar caminho entre um ponto de origem e destino, neste caso entre o jogador inicial e o jogador objetivo

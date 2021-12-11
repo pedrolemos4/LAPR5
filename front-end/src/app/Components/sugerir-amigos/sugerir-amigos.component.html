@@ -1,0 +1,28 @@
+<main>
+    <app-header></app-header>
+    <app-navbar></app-navbar>
+    <div class="content">
+        <div id="card">
+            <p>Escolha o nível até o qual pretende que seja sugerido o utilizador </p>
+            <form [formGroup]="pedirNivel">
+                <div class="form-group">
+                    <label for="numeroNiveis">Nível: </label>
+                    <input type="text" id="numeroNiveis" placeholder="Número inteiro maior que 1"
+                        formControlName="numeroNiveis" class="form-control" required />
+                </div>
+            </form>
+            <div class="form-group">
+                <button (click)="onSubmitNivel()" id="submit" class="btn-primary">Ok</button>
+            </div>
+            <div class="form-data">
+                <ul id="selector" class="selector" style="margin: 20px; margin-left: -10px;">
+                    <p id = "textoSugestoes">Sugestões:</p>
+                    <li *ngFor="let args of lista">
+                        {{args}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+</main>

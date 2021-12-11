@@ -17,10 +17,12 @@ import { VerPerfilComponent } from './Components/ver-perfil/ver-perfil.component
 import { LigacaoComponent } from './Components/ligacao/ligacao.component';
 import { HomeInicialComponent } from './Components/home-inicial/home-inicial.component';
 import { RedeNivelComponent } from './Components/rede-nivel/rede-nivel.component';
+import { SugerirAmigosComponent } from './Components/sugerir-amigos/sugerir-amigos.component';
 import { PedidoLigacaoPendenteComponent } from './Components/pedido-ligacao-pendente/pedido-ligacao-pendente.component';
 
 const routes: Routes = [
   { path: '', component: HomeInicialComponent },
+  { path: 'sugerir_amigos', component: SugerirAmigosComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registo', component: RegistoComponent },
   { path: 'perfil', component: VerPerfilComponent },

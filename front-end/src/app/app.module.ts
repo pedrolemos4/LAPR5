@@ -28,6 +28,7 @@ import { RedeNivelComponent } from './Components/rede-nivel/rede-nivel.component
 import { PedidoLigacaoPendenteComponent } from './Components/pedido-ligacao-pendente/pedido-ligacao-pendente.component';
 import { PedidoComponent } from './Components/pedido/pedido.component';
 import { VerPerfilComponent } from './Components/ver-perfil/ver-perfil.component';
+import { SugerirAmigosComponent } from './Components/sugerir-amigos/sugerir-amigos.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { VerPerfilComponent } from './Components/ver-perfil/ver-perfil.component
     RedeNivelComponent,
     PedidoLigacaoPendenteComponent,
     PedidoComponent,
-    VerPerfilComponent
+    VerPerfilComponent,
+    SugerirAmigosComponent
   ],
   imports: [
     BrowserModule,

@@ -44,7 +44,20 @@ stop(Port):-
 :- http_handler('/api/CheckTags', checkTagsHandler, []).
 :- http_handler('/api/CalcularTamanhoRede', tamRedeHandler, []).
 :- http_handler('/api/CaminhoMaisSeguro', caminhoSeguroHandler, []).
+:- http_handler('/api/SugerirConexoes', sugerirConexoesHandler,[]).
 
+sugerirConexoesHandler(Request):-
+    cors_enable,
+    removerBaseConhecimento(),!,
+    carregaDados(),!,
+    http_parameters(Request,
+    [idNo(IdNo,[string]),
+     nivel(N,[number])]),
+
+    lista_utilizadores_com_tags_conexoes(IdNo,N,ListaFinal),
+    Reply = objeto_json_tags(ListaFinal),
+    prolog_to_json(Reply,JSONObject),
+    reply_json(JSONObject,[json_object]).
 
 checkTagsHandler(Request):-
     cors_enable,
