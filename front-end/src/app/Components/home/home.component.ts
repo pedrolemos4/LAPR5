@@ -37,12 +37,20 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    document.getElementById("mensagemPedido").style.display = "none";
     this.numeroTags = this.ntagsForm.controls['ntags'].value;
     const currentUser = localStorage.getItem('currentUser');
     this.emailUser = currentUser?.replace(/\"/g, "");
     this.homeService.getPerfilByEmail(this.emailUser).subscribe(Perfil => {
       this.nomes.push(Perfil.nome);
+      if (this.numeroTags <= Perfil.tags.length) {
+        this.homeService.getJogadorAtual(Perfil.id).subscribe(Jogador => {
+          this.homeService.getRelacoesJogador(Jogador.id).subscribe(result => {
+            if (result.length > 0) {
+              document.getElementById("card").style.display = 'none';
+            }
+          });
+        });
+      }
     });
   }
 
@@ -58,9 +66,9 @@ export class HomeComponent implements OnInit {
               document.getElementById("card").style.display = 'none';
             } else {
               this.homeService.getJogadoresSugeridos(this.numeroTags).subscribe(array => {
-                if (array.length > 0) {
-                  var array1 = Object.values(array);
-                  var aux12 = array1[0];
+                var array1 = Object.values(array);
+                var aux12 = array1[0];
+                if (aux12.length > 0) {
                   for (var i = 0; i < aux12.length; i++) {
                     if (i % 2 != 0) {
                       var aux = aux12[i];
