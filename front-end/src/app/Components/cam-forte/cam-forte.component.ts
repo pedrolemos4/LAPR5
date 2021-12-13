@@ -32,6 +32,8 @@ export class CamForteComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    document.getElementById("mensagem").style.display="none";
+    document.getElementById("mensagem1").style.display="none";
     const currentUser = localStorage.getItem('currentUser');
     this.emailCurrentUser = currentUser?.replace(/\"/g, "");
     this.camForteService.getPerfilAtual(this.emailCurrentUser).subscribe(Perfil => {
@@ -65,10 +67,12 @@ export class CamForteComponent implements OnInit {
 
   selectAmigo(event: any) {
     this.selectedAmigo = event.target.value;
+    document.getElementById("mensagem").style.display="block";
   }
 
   onSubmit() {
     //this.camForteService.getPerfilAtual(this.selectedAmigo).subscribe(Perfil => {
+    document.getElementById("mensagem1").style.display="block";
     this.camForteService.getCaminhoForte(this.emailCurrentUser, this.selectedAmigo).subscribe(Cam => {
       console.log(Cam);
       var aux = Object.values(Cam);
