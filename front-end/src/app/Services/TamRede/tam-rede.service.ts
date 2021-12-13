@@ -23,8 +23,13 @@ export class TamRedeService {
     return this.http.get<Jogador>(this.url + 'jogadores/GetJogadorByPerfil/' + idPerfil);
   }
 
-  getTamRede(Nivel: string, IdJogador: any): Observable<string> {
+  getTamRede(IdJogador: any, Nivel: string): Observable<string> {
     const urlAux = this.urlPlan + '/api/CalcularTamanhoRede?idJog=' + IdJogador + '&nivel=' + Nivel;
+    return this.http.get<string>(urlAux);
+  }
+
+  getTamRedeTotal(IdJogador: any): Observable<string> {
+    const urlAux = this.urlPlan + '/api/CalcularTamanhoRede?idJog=' + IdJogador + '&nivel=10';
     return this.http.get<string>(urlAux);
   }
 }
