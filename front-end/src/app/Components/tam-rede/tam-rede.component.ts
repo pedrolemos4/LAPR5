@@ -39,13 +39,23 @@ export class TamRedeComponent implements OnInit {
   };
 
   onSubmit(){
-    var nivel = document.getElementById('nivel') as HTMLInputElement;
-    console.log(nivel.value);
-    this.tamRedeService.getTamRede(nivel.value, this.idCurrentUser).subscribe(Rede => {
-      var res = Object.values(Rede);
-      var tamanho = res[0];
-      this.toastr.success("Tamanho da Rede: " + tamanho);
-    });
+    var nivel = document.getElementById("nivel") as HTMLInputElement;
+    if(nivel.value.match("1") || nivel.value.match("2") || nivel.value.match("3")){
+      this.tamRedeService.getTamRede(this.idCurrentUser, nivel.value).subscribe(Rede => {
+        var res = Object.values(Rede);
+        var tamanho = res[0];
+        this.toastr.success("Tamanho da Rede: " + tamanho);
+      });
+    } else {
+      this.toastr.error("Nivel tem que ser entre 1 e 3!");
+    }
   }
 
+  dimensaoRede(){
+    this.tamRedeService.getTamRedeTotal(this.idCurrentUser).subscribe(Rede => {
+      var res = Object.values(Rede);
+      var tamanho = res[0];
+      this.toastr.success("Dimensão Total da Rede: " + tamanho);
+    });
+  }
 }
