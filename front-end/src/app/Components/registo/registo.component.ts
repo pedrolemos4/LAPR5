@@ -76,7 +76,7 @@ export class RegistoComponent implements OnInit {
   }
 
 
-  onFileUpload(event: Event) {
+  onFileUpload(event: any) {
     this.file = (event.target as HTMLInputElement).files[0];
     let f;
     const reader = new FileReader();
