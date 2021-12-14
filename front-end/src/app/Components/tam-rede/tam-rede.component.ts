@@ -44,10 +44,10 @@ export class TamRedeComponent implements OnInit {
       this.tamRedeService.getTamRede(this.idCurrentUser, nivel.value).subscribe(Rede => {
         var res = Object.values(Rede);
         var tamanho = res[0];
-        this.toastr.success("Tamanho da Rede: " + tamanho);
+        this.toastr.success("Tamanho da Rede: " + tamanho, undefined, { positionClass: 'toast-bottom-left' });
       });
     } else {
-      this.toastr.error("Nivel tem que ser entre 1 e 3!");
+      this.toastr.error("Nivel tem que ser entre 1 e 3!", undefined, { positionClass: 'toast-bottom-left' });
     }
   }
 
@@ -55,7 +55,7 @@ export class TamRedeComponent implements OnInit {
     this.tamRedeService.getTamRedeTotal(this.idCurrentUser).subscribe(Rede => {
       var res = Object.values(Rede);
       var tamanho = res[0];
-      this.toastr.success("Dimensão Total da Rede: " + tamanho);
+      this.toastr.success("Dimensão Total da Rede: " + tamanho, undefined, { positionClass: 'toast-bottom-left' });
     });
   }
 }

@@ -90,11 +90,11 @@ export class RelacaoComponent implements OnInit {
                   } as Relacao).subscribe({
                     next: (res3: any) => {
                       console.log(res3);
-                      this.toastr.success('Alteração realizada com sucesso!');
+                      this.toastr.success("Alteração realizada com sucesso!",undefined,{positionClass: 'toast-bottom-left'});
                       this.router.navigateByUrl('/home');
                     },
                     error: () => {
-                      this.toastr.error("Erro: Serviço Não Disponível");
+                      this.toastr.error("Erro: Serviço Não Disponível",undefined,{positionClass: 'toast-bottom-left'});
                     }
                   });
                 });

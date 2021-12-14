@@ -161,15 +161,15 @@ export class RegistoComponent implements OnInit {
         } as Jogador)))
         .subscribe({
           next: () => {
-            this.toastr.success('Jogador foi criado com sucesso!');
+            this.toastr.success("Jogador foi criado com sucesso!",undefined,{positionClass: 'toast-bottom-left'});
             this.router.navigateByUrl('/login');
           },
           error: () => {
-            this.toastr.error("Erro: Serviço Não Disponível");
+            this.toastr.error("Erro: Serviço Não Disponível",undefined,{positionClass: 'toast-bottom-left'});
           }
         });
     } else {
-      this.toastr.error("Erro: É necessário o seu consentimento");
+      this.toastr.error("Erro: É necessário o seu consentimento",undefined,{positionClass: 'toast-bottom-left'});
     }
   }
 }

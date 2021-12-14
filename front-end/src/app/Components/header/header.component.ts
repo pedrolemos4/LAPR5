@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   Logout(){
     localStorage.removeItem('currentUser');
     console.log(localStorage.getItem('currentUser'));
-    this.toastr.success('Logout realizado com sucesso!');
+    this.toastr.success("Logout realizado com sucesso!",undefined,{positionClass: 'toast-bottom-left'});
     this.router.navigateByUrl('/homePrincipal');
     
   }

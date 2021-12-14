@@ -79,10 +79,10 @@ export class CamForteComponent implements OnInit {
       var valores = aux[0];
       console.log(aux);
       if (valores.length == 0) {
-        this.toastr.error("Não é possível calcular caminho. Selecione outro utilizador");
+        this.toastr.error("Não é possível calcular caminho. Selecione outro utilizador",undefined,{positionClass: 'toast-bottom-left'});
       } else {
         this.caminho = valores;
-        this.toastr.success("Caminho mais forte calculado");
+        this.toastr.success("Caminho mais forte calculado",undefined,{positionClass: 'toast-bottom-left'});
       }
     });
     //});

@@ -91,11 +91,11 @@ export class IntroducaoComponent implements OnInit {
       } as Relacao)))
       .subscribe({
         next: () => {
-          this.toastr.success('Introdução aceite com sucesso!');
+          this.toastr.success("Introdução aceite com sucesso!",undefined,{positionClass: 'toast-bottom-left'});
           this.router.navigateByUrl('/home');
         },
         error: () => {
-          this.toastr.error("Error: Service Unavailable");
+          this.toastr.error("Error: Service Unavailable",undefined,{positionClass: 'toast-bottom-left'});
         }
       });
   }
@@ -112,11 +112,11 @@ export class IntroducaoComponent implements OnInit {
     } as Introducao).subscribe({
       next: (result: any) => {
         console.log(result);
-        this.toastr.success('Introdução rejeitada com sucesso!');
+        this.toastr.success("Introdução rejeitada com sucesso!",undefined,{positionClass: 'toast-bottom-left'});
         this.router.navigateByUrl('/home');
       },
       error: () => {
-        this.toastr.error("Error: Service Unavailable");
+        this.toastr.error("Error: Service Unavailable",undefined,{positionClass: 'toast-bottom-left'});
       }
     });
   }

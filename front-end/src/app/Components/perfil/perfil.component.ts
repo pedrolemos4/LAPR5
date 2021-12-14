@@ -57,11 +57,12 @@ export class PerfilComponent implements OnInit {
       perfilLinkedin: this.Perfil.perfilLinkedin
     }).subscribe({
       next: () => {
-        this.toastr.success('Perfil editado com sucesso!');
+        localStorage.setItem('currentUser',this.editarPerfilForm.controls['email'].value);
+        this.toastr.success("Perfil editado com sucesso!",undefined,{positionClass: 'toast-bottom-left'});
         this.router.navigateByUrl('/home');
       },
       error:() => {
-        this.toastr.error("Erro: Serviço Não Disponível");
+        this.toastr.error("Erro: Serviço Não Disponível",undefined,{positionClass: 'toast-bottom-left'});
       }
     });
   }
