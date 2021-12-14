@@ -3,6 +3,11 @@
 <div id="texto">
     <div id="container">
         <h2>Fazer Post</h2>
+        <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+            <input id="post" type="text" placeholder="Escreva aqui o seu post..." formControlName="TextoPost"
+                class ="form-control" required/>
+        <button type="submit" id="submit" class="submit"> Publicar</button>
+        </form>
     </div>
 </div>
 

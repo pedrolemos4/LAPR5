@@ -28,44 +28,12 @@ label {
     /*margin-right: 10px;*/
 }
 
-.col-25 {
-    float: left;
-    width: 25%;
-    margin-top: 6px;
-}
-
-.col-75 {
-    float: left;
-    width: 75%;
-    margin-top: 6px;
-}
-
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
 .submit {
     background-color: rgb(16, 219, 60);
     color: white;
     border: none;
     padding: 9px 15px;
     cursor: pointer;
-}
-
-input[type=mensagemIntrodutoria] {
-    width: 90%;
-    padding: 15px;
-    margin: 5px 0 22px;
-    border: none;
-    float: right;
-    background: #ffffff;
-}
-
-input[type=mensagemIntrodutoria]:focus {
-    background-color: #ffffff;
-    outline: none;
 }
 
 .submit:hover {
@@ -75,4 +43,25 @@ input[type=mensagemIntrodutoria]:focus {
 .selector {
     width: 192px;
     height: 30px;
+}
+
+.coluna-menor {
+    float: right;
+    width: 60%;
+    margin-top: 5px;
+    margin-right: 38%;
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 3px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #ffffff;
+}
+
+input[type=text]:focus {
+    background-color: #ffffff;
+    outline: none;
 }
