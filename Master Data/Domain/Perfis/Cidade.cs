@@ -23,7 +23,7 @@ namespace DDDSample1.Domain.Perfis
         private void setCidade(string cidade)
         {
             //this.City = cidade;
-            if(cidade.Any(char.IsLetterOrDigit)){
+            if(cidade.All(c => char.IsLetterOrDigit(c))){
                 this.City = cidade;
             }else{
                 throw new BusinessRuleValidationException("Invalid information, has to be alphanumeric.");

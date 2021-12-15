@@ -15,6 +15,14 @@ export class RegistoService {
 
   constructor(private httpClient: HttpClient) { }
 
+  getByEmail(email: any) {
+    return this.httpClient.get<Perfil>(this.urlPerfil + '/GetPerfilByEmail/' + email);
+  }
+
+  getAllEmails() {
+    return this.httpClient.get<string[]>(this.urlPerfil + '/GetAllEmails');
+  }
+
    registoPerfil(perfil: Perfil): Observable<Perfil> {
     let bodystr = JSON.stringify(perfil);
     const httpOptions = {
@@ -22,6 +30,7 @@ export class RegistoService {
         'Content-Type':  'application/json',        
       })
     };
+    console.log(bodystr);
      return this.httpClient.post<Perfil>(this.urlPerfil, bodystr, httpOptions);
    }
 

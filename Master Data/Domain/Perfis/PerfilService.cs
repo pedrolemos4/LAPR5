@@ -36,6 +36,23 @@ namespace DDDSample1.Domain.Perfis
             return listDto;
         }
 
+        public async Task<List<string>> GetAllEmails()
+        {
+            var list = await this._repo.GetAllAsync(); 
+
+            List<string> listEmails = GetAllEmailsDosPerfis(list); 
+
+            return listEmails;
+        }
+
+        private static List<string> GetAllEmailsDosPerfis(List<Perfil> listPerfis){
+            List<string> listEmails = new List<string>();
+            foreach(Perfil p in listPerfis){
+                listEmails.Add(p.email.EnderecoEmail);
+            }
+            return listEmails;
+        }
+
         public async Task<PerfilDto> GetByIdAsync(PerfilId id)
         {
             var per = await this._repo.GetByIdAsync(id);
@@ -51,7 +68,11 @@ namespace DDDSample1.Domain.Perfis
             
             var per = new Perfil(perfilC.avatar, perfilC.nome, perfilC.email, perfilC.telefone,
             /*converteParaListaString(*/perfilC.tags, perfilC.dataNascimento, perfilC.estadoHumor, perfilC.password, perfilC.pais, perfilC.cidade, perfilC.perfilFacebook, perfilC.perfilLinkedin);
-
+            var list = await this._repo.GetAllAsync();
+            var listEmails = GetAllEmailsDosPerfis(list);
+            if(listEmails.Contains(perfilC.email)){
+                return null;
+            }
             await this._repo.AddAsync(per);
 
             await this._unitOfWork.CommitAsync();

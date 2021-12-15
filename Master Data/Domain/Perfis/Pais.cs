@@ -23,17 +23,22 @@ namespace DDDSample1.Domain.Perfis
         }
         private void setPais(string pais)
         {
-            try
+            if (pais.Length != 0)
             {
-                CultureInfo[] getCultureInfo = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+                try
+                {
+                    CultureInfo[] getCultureInfo = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
 
-                RegionInfo GetRegionInfo = new RegionInfo(new CultureInfo(pais).Name);
+                    RegionInfo GetRegionInfo = new RegionInfo(new CultureInfo(pais).Name);
 
-                this.Country = GetRegionInfo.EnglishName;
-            }
-            catch
-            {
-                throw new BusinessRuleValidationException("Invalid country.");
+                    this.Country = GetRegionInfo.EnglishName;
+                }
+                catch
+                {
+                    throw new BusinessRuleValidationException("Invalid country.");
+                }
+            } else{
+                this.Country = pais;
             }
         }
 

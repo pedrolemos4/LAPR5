@@ -25,17 +25,13 @@
                         <label for="colFormLabel">Nome</label>
                     </div>
                     <div class="coluna1-menor">
-                        <input type="text" name="nome" class="form-control" formControlName="nome" />
-                        <div *ngIf="registoForm.controls['nome'].touched && registoForm.controls['nome'].errors?.['required']"
-                            class="alert alert-danger"> Nome é obrigatório</div>
+                        <input type="text" name="nome" class="form-control" formControlName="nome"/>
                     </div>
                     <div class="label-maior">
                         <label for="colFormLabel">Telefone</label>
                     </div>
                     <div class="coluna-menor">
                         <input type="text" name="telefone" formControlName="telefone" class="form-control" />
-                        <div *ngIf="registoForm.controls['telefone'].touched && registoForm.controls['telefone'].errors?.['required']"
-                            class="alert alert-danger"> Telefone é obrigatório</div>
                     </div>
                 </div>
             </div>
@@ -46,16 +42,12 @@
                     </div>
                     <div class="coluna1-menor">
                         <input type="text" name="pais" formControlName="pais" class="form-control" />
-                        <div *ngIf="registoForm.controls['pais'].touched && registoForm.controls['pais'].errors?.['required']"
-                            class="alert alert-danger">País é obrigatório</div>
                     </div>
                     <div class="label-maior">
                         <label for="colFormLabel" class="col-sm-2 col-form-label">Cidade</label>
                     </div>
                     <div class="coluna-menor">
                         <input type="text" name="cidade" formControlName="cidade" class="form-control" />
-                        <div *ngIf="registoForm.controls['cidade'].touched && registoForm.controls['cidade'].errors?.['required']"
-                            class="alert alert-danger">Cidade é obrigatório</div>
                     </div>
                 </div>
             </div>
@@ -111,8 +103,6 @@
                 <div class="col-75">
                     <input type="text" name="perfilFb" formControlName="perfilFb" class="form-control" />
                 </div>
-                <div *ngIf="registoForm.controls['perfilFb'].touched && registoForm.controls['perfilFb'].errors?.['required']"
-                    class="alert alert-danger">Perfil Facebook é obrigatório</div>
             </div>
             <div class="form-group">
                 <div class="col-25">
@@ -121,15 +111,13 @@
                 <div class="col-75">
                     <input type="text" name="perfilL" formControlName="perfilL" class="form-control" />
                 </div>
-                <div *ngIf="registoForm.controls['perfilL'].touched && registoForm.controls['perfilL'].errors?.['required']"
-                    class="alert alert-danger">Perfil Linkedin é obrigatório</div>
             </div>
             <div class="form-group">
                 <div class="col-25">
                     <label for="colFormLabel" class="col-sm-2 col-form-label">Password</label>
                 </div>
                 <div class="col-75">
-                    <input type="password" name="password" formControlName="password" class="form-control" />
+                    <input type="password" name="password" formControlName="password" pattern="^(?=.*?[A-Z])(?=.*?[@$!%*#?&+=^_])$" class="form-control" />
                 </div>
             </div>
         </form>
@@ -172,7 +160,7 @@
                 <p>Pode, em qualquer altura, alterar ou retirar o seu consentimento dos seus dados pessoais fornecidos.
                     Com esta ação, os seus dados serão apagados de forma segura.</p>
                 <p>Para alterar ou retirar o seu consentimento dos dados fornecidos tem de contactar o 
-                    Encarregado da Proteção de Dados da Empresa através do endereço de email g4Social@gmail.com.</p>
+                    Responsável pelo Tratamento de Dados da Empresa, Arlindo Manuel dos Santos Pacheco, através do endereço de email arman@gmail.com.</p>
                 <h4>Que dados são recolhidos?</h4>
                 • Informação de identificação pessoal (Nome, Email, Cidade, País, Data de Nascimento, Telefone, Perfil do Facebook e Linkedin);<br><br>
                 <h4>Como são recolhidos os dados?</h4>
@@ -198,9 +186,12 @@
                 • <b>Direito de restrição de processamento</b> – o utlizador tem o direito de pedir a restrição do processamento
                  dos seus dados, sobre certas condições.<br>
                 • <b>Direito de protabilidade de dados</b> – o utilizador tem o direito de pedir a transferência dos dados
-                 recolhidos para outra organização, ou diretamente para o utilizador, sobre certas condições.<br><br>
+                 recolhidos para outra organização, ou diretamente para o utilizador, sobre certas condições.<br>
+                • <b>Direito de Oposição</b> – o utlizador tem o direito de se opor em qualquer momento, por motivos relacionados com a
+                 sua situação particular, ao tratamento de dados pessoais que lhe digam respeito.<br><br>
+                Prazo de conservação dos dados pessoais: 1/02/2022.<br>
                 Se o utilizador pretender executar um dos pedidos apresentados, a Empresa Graphs4Social tem um limite de um mês
-                para responder. Se pretender contactar-nos para exercer algum destes
+                para responder.<br> Se pretender contactar-nos para exercer algum destes
                 direitos, por favor contactar:<br>
                 Ligue-nos em:  25 578 2319 <br>
                 

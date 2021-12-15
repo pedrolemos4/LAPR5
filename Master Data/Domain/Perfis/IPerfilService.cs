@@ -17,6 +17,6 @@ namespace DDDSample1.Domain.Perfis
         Task<PerfilDto> UpdateAsync(PerfilDto perfil);
 
         Task<PerfilDto> DeleteAsync(PerfilId ligacaoId);
-
+        Task<List<string>> GetAllEmails();
     }
 }
