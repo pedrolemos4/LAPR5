@@ -15,7 +15,7 @@ export class TagRelacaoUserComponent implements OnInit {
   listTags: string[] = new Array<string>();
   listTagsAux: string[] = new Array<string>();
   listRelacoes: Relacao[] = new Array<Relacao>();
-  listNomes: string[] = new Array<string>();
+  listAmigos: string[] = new Array<string>();
 
   emailUser: string = '';
   perfilUser!: Perfil;
@@ -44,6 +44,39 @@ export class TagRelacaoUserComponent implements OnInit {
               }
             }
             this.listTagsAux.pop();
+          });
+        });
+      });
+    });
+  }
+
+  amigosTag(tag: string){
+    this.listAmigos = new Array<string>();
+    console.log(tag);
+    const currentUser = localStorage.getItem('currentUser');
+    this.emailUser = currentUser?.replace(/\"/g, "");
+    this.tagRelacaoUserService.getPerfilByEmail(this.emailUser).subscribe(Perfil => {
+      this.perfilUser = Perfil;
+      this.idPerfilUser = Perfil.id;
+      this.tagRelacaoUserService.getJogadorByPerfil(this.idPerfilUser).subscribe(Response => {
+        this.currentUser = Response;
+        this.idCurrentUser = this.currentUser.id;
+        this.tagRelacaoUserService.getRelacoesJogador(this.idCurrentUser).subscribe(Relacoes => {
+          this.listRelacoes = Relacoes
+          this.listRelacoes.forEach((relacao: any) => {
+            this.listTagsAux.push(relacao.tags);
+            var aux = this.listTagsAux[0];
+            console.log(aux);
+            for(var i = 0; i < aux.length; i++){
+              if(relacao.tags.indexOf(tag) > -1){
+                this.tagRelacaoUserService.getPerfilJogador(relacao.jogador2).subscribe(Perfil => {
+                  if(this.listAmigos.indexOf(Perfil.email) <= -1){
+                    this.listAmigos.push(Perfil.email);
+                  }
+                })
+              }
+            }
+            this.listTagsAux.pop(); 
           });
         });
       });
