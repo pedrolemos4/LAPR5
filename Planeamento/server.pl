@@ -22,13 +22,15 @@
 :- dynamic ligacao/4.
 
 :-ensure_loaded("./AlgoritmoCaminhoSeguro.pl").
-:-ensure_loaded("./calcular_tamanho_rede.pl").
+:-ensure_loaded("./calcularTamanhoRede.pl").
 :-ensure_loaded("./CaminhoMaisForte.pl").
 :-ensure_loaded("./checktags.pl").
 :-ensure_loaded("./SugerirConexoesTagsNivel.pl").
 
 
 :-json_object objeto_json_tags(caminho:list(string)).
+:-json_object objeto_json_rede(resultado:number).
+:-json_object objeto_json_seguro(caminho_seguro:list(string)).
 
 % Criacao de servidor HTTP no porto 'Port'
 server(Port) :-
@@ -40,7 +42,22 @@ stop(Port):-
 % Handlers
 :- http_handler('/api/CaminhoMaisForte', caminhoForteHandler, []).
 :- http_handler('/api/CheckTags', checkTagsHandler, []).
+:- http_handler('/api/CalcularTamanhoRede', tamRedeHandler, []).
+:- http_handler('/api/CaminhoMaisSeguro', caminhoSeguroHandler, []).
+:- http_handler('/api/SugerirConexoes', sugerirConexoesHandler,[]).
 
+sugerirConexoesHandler(Request):-
+    cors_enable,
+    removerBaseConhecimento(),!,
+    carregaDados(),!,
+    http_parameters(Request,
+    [idNo(IdNo,[string]),
+     nivel(N,[number])]),
+
+    lista_utilizadores_com_tags_conexoes(IdNo,N,ListaFinal),
+    Reply = objeto_json_tags(ListaFinal),
+    prolog_to_json(Reply,JSONObject),
+    reply_json(JSONObject,[json_object]).
 
 checkTagsHandler(Request):-
     cors_enable,
@@ -66,6 +83,33 @@ caminhoForteHandler(Request):-
     Reply = objeto_json_tags(LCaminho),
     prolog_to_json(Reply,JSONObject),
     reply_json(JSONObject,[json_object]).
+
+tamRedeHandler(Request):-
+    cors_enable,
+    removerBaseConhecimento(),!,
+    carregaDados(),!,
+    http_parameters(Request,
+        [idJog(IdJogador,[string]),
+         nivel(Nivel,[number])]),
+    rede(IdJogador,Nivel,Tam),
+    Reply = objeto_json_rede(Tam),
+    prolog_to_json(Reply,JSONObject),
+    reply_json(JSONObject,[json_object]).
+
+caminhoSeguroHandler(Request):-
+    cors_enable,
+    removerBaseConhecimento(),!,
+    carregaDados(),!,
+    http_parameters(Request,
+        [idOrig(IdOrig,[string]),
+         idDest(IdDest,[string]),
+         forcaMinima(Forca,[number])]),
+    plan_seguro(IdOrig,IdDest,Caminho,Forca),
+    Reply = objeto_json_seguro(Caminho),
+    prolog_to_json(Reply,JSONObject),
+    reply_json(JSONObject,[json_object]).
+
+
 
 obter_users_url("https://localhost:5001/api/Jogadores").
 obter_perfis_url("https://localhost:5001/api/Perfis").

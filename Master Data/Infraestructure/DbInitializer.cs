@@ -41,6 +41,7 @@ namespace DDDSample1.Infrastructure
             List<string> listaTags2 = new List<string>() { "Valongo", "Ballet" };
             List<string> listaTags3 = new List<string>() { "Atletismo", "Lisboa" };
             List<string> listaTags4 = new List<string>() { "Musica", "Arte" };
+            List<string> listaTags5 = new List<string>() { "Musica", "Sports" };
             Perfil p1 = new Perfil("", "Carlos", "carlos@gmail.com", 351936825014, listaTags, "2000-05-20", "Joyful", "carlos_Sport7", "en-PT", "Porto", "perfilFB", "perfilLink");
             Perfil p2 = new Perfil("", "Fiona", "fiona@gmail.com", 351936825014, listaTags2, "2003-10-07", "Disappointed", "super+Fifi48", "en-US", "Lisboa", "perfilFB2", "perfilLink2");
             Perfil p3 = new Perfil("", "Joaquim", "joaquim@gmail.com", 351936825014, listaTags3, "2004-11-08", "Disappointed", "joq_Joquim12", "en-PT", "Porto", "perfilFB3", "perfilLink3");
@@ -71,10 +72,10 @@ namespace DDDSample1.Infrastructure
 
             Relacao relacao = new Relacao(jogadores[0].Id,jogadores[1].Id,listaTags,10,80);
             Relacao relacao1 = new Relacao(jogadores[1].Id,jogadores[0].Id,listaTags,5,10);
-            Relacao relacao2 = new Relacao(jogadores[1].Id,jogadores[2].Id,listaTags,10,20);
-            Relacao relacao3 = new Relacao(jogadores[2].Id,jogadores[1].Id,listaTags,5,40);
-            Relacao relacao4 = new Relacao(jogadores[1].Id,jogadores[3].Id,listaTags,5,40);
-            Relacao relacao5 = new Relacao(jogadores[3].Id,jogadores[1].Id,listaTags,5,40);
+            Relacao relacao2 = new Relacao(jogadores[1].Id,jogadores[2].Id,listaTags2,10,20);
+            Relacao relacao3 = new Relacao(jogadores[2].Id,jogadores[1].Id,listaTags2,5,40);
+            Relacao relacao4 = new Relacao(jogadores[1].Id,jogadores[3].Id,listaTags5,5,40);
+            Relacao relacao5 = new Relacao(jogadores[3].Id,jogadores[1].Id,listaTags5,5,40);
             Relacao relacao6 = new Relacao(jogadores[3].Id,jogadores[4].Id,listaTags,5,40);
             Relacao relacao7 = new Relacao(jogadores[4].Id,jogadores[3].Id,listaTags,5,40);
             Ligacao ligacao = new Ligacao("texto","Pendente",jogadores[0].Id,jogadores[1].Id);

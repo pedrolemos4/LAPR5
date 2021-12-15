@@ -12,13 +12,17 @@ import { environment } from 'src/environments/environment';
 })
 export class HomeService {
 
-  private readonly urlPlan = 'http://localhost:4300';
+  private readonly urlPlan = environment.prologUrl;
   private readonly urlPer = environment.apiUrl + 'Perfis/';
   private readonly jogadorUrl = environment.apiUrl + 'Jogadores/';
   private readonly relacoesUrl = environment.apiUrl + 'Relacoes/';
   private readonly ligacoesUrl = environment.apiUrl + 'Ligacoes';
 
   constructor(private http: HttpClient) { }
+
+  getAllJogadores():Observable<Jogador[]>{
+    return this.http.get<Jogador[]>(this.jogadorUrl);
+  }
 
   getPerfilByEmail(email: string): Observable<Perfil> {
     return this.http.get<Perfil>(this.urlPer + 'GetPerfilByEmail/' + email);

@@ -27,6 +27,10 @@ import { HomeInicialComponent } from './Components/home-inicial/home-inicial.com
 import { RedeNivelComponent } from './Components/rede-nivel/rede-nivel.component';
 import { PedidoLigacaoPendenteComponent } from './Components/pedido-ligacao-pendente/pedido-ligacao-pendente.component';
 import { PedidoComponent } from './Components/pedido/pedido.component';
+import { VerPerfilComponent } from './Components/ver-perfil/ver-perfil.component';
+import { SugerirAmigosComponent } from './Components/sugerir-amigos/sugerir-amigos.component';
+import { FazerPostComponent } from './Components/fazer-post/fazer-post.component';
+import { TagRelacaoUserComponent } from './Components/tag-relacao-user/tag-relacao-user.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +54,11 @@ import { PedidoComponent } from './Components/pedido/pedido.component';
     HomeInicialComponent,
     RedeNivelComponent,
     PedidoLigacaoPendenteComponent,
-    PedidoComponent
+    PedidoComponent,
+    VerPerfilComponent,
+    SugerirAmigosComponent,
+    FazerPostComponent,
+    TagRelacaoUserComponent
   ],
   imports: [
     BrowserModule,

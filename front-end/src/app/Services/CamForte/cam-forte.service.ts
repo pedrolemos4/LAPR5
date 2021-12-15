@@ -12,9 +12,14 @@ import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 export class CamForteService {
 
   private readonly url = environment.apiUrl;
-  private readonly urlPlan = 'http://localhost:4300';
+  private readonly urlPerfis = environment.apiUrl + 'Perfis/';
+  private readonly urlPlan = environment.prologUrl;
 
   constructor(private http: HttpClient) { }
+
+  getPerfis(): Observable<Perfil[]> {
+    return this.http.get<Perfil[]>(this.urlPerfis);
+  }
 
   getPerfilAtual(email: any): Observable<Perfil> {
     return this.http.get<Perfil>(this.url + 'perfis/GetPerfilByEmail/' + email);
@@ -34,6 +39,7 @@ export class CamForteService {
 
   getCaminhoForte(id: any, id2: any) {
     const urlAux = this.urlPlan + '/api/CaminhoMaisForte?origId=' + id + '&destId=' + id2;
+    console.log(urlAux);
     return this.http.get<string[]>(urlAux);
   }
 

@@ -110,8 +110,8 @@ export class LigacaoComponent implements OnInit {
                   this.listaVerfica.push(element.jogador2);
                 }); 
                 if(this.listaVerfica.includes(res.id)){
-                  this.toastr.error("Erro: Já são amigos!");
-                  this.toastr.error("Erro: Não é possível realizar um pedido de ligação!");
+                  this.toastr.error("Erro: Já são amigos!",undefined,{positionClass: 'toast-bottom-left'});
+                  this.toastr.error("Erro: Não é possível realizar um pedido de ligação!",undefined,{positionClass: 'toast-bottom-left'});
                 } else{
                   //console.log(r.id);
                   //console.log(res.id);
@@ -123,7 +123,8 @@ export class LigacaoComponent implements OnInit {
                     Jogador2: res.id
                   } as Ligacao).subscribe((result: any) => {
                     console.log(result),
-                    this.toastr.success("Pedido de Ligação realizado com sucesso!")});
+                    this.toastr.success("Pedido de Ligação realizado com sucesso!",undefined,{positionClass: 'toast-bottom-left'});
+                  });
                     this.router.navigateByUrl('/home');
                 }}))});
   }

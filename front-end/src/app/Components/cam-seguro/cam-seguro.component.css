@@ -16,6 +16,15 @@
     width: 35%;
 }
 
+#container2{
+    margin-top: 20px;
+    border-radius: 8px;
+    background-color: #f2f2f2e7;
+    padding: 15px;
+    padding-top: 2px;
+    width: 70%;
+}
+
 .form-data{
     text-align: left;
     margin-right: 20px;

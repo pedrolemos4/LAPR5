@@ -15,9 +15,14 @@ import { Perfil } from 'src/app/Models/Perfil';
 export class CamSeguroComponent implements OnInit {
   
   camSeguroForm: FormGroup;
+  selectedUser!: Jogador;
   selectedPlayer: string = '';
+  idSelectedPlayer: string = '';
+  perfilSelectedUser!: Perfil;
+  idPerfilSelectedUser: string = '';
+
   playersList: Jogador[] = [];
-  
+
   emailUser: string = '';
   perfilUser!: Perfil;
   idPerfilUser: string = '';
@@ -25,7 +30,8 @@ export class CamSeguroComponent implements OnInit {
   idCurrentUser: string = '';
   perfilList: Perfil[] = [];
   emailList: string[] = [];
-  constructor(private formBuilder: FormBuilder, private camSeguroService: CamSeguroService) { 
+  emailListCaminho: string[] = [];
+  constructor(private formBuilder: FormBuilder, private camSeguroService: CamSeguroService, private toastr: ToastrService) { 
     this.camSeguroForm = this.formBuilder.group({
       jogador: [''],
       forca: ['', Validators.required],
@@ -38,23 +44,18 @@ export class CamSeguroComponent implements OnInit {
     this.camSeguroService.getPerfilByEmail(this.emailUser).subscribe(Perfil => {
       this.perfilUser = Perfil;
       this.idPerfilUser = Perfil.id;
-      console.log(this.idPerfilUser);
       this.camSeguroService.getJogadorByPerfil(this.idPerfilUser).subscribe(Response => {
         this.currentUser = Response;
         this.idCurrentUser = this.currentUser.id;
-        console.log(this.idCurrentUser);
         this.camSeguroService.getAmigosPossiveis(this.idCurrentUser).subscribe(Response => {
           this.playersList = Response;
-          console.log(this.playersList);
           this.playersList.forEach((element: any) => {
             this.perfilList.push(element.perfilId);
           })
-          console.log(this.perfilList);
           this.perfilList.forEach((id: any) => {
             this.camSeguroService.getPerfilById(id).subscribe(Perfil => {
               this.emailList.push(Perfil.email);
             })
-            console.log(this.emailList);
           });
         });
       });
@@ -67,7 +68,28 @@ export class CamSeguroComponent implements OnInit {
   }
   
   onSubmit(){
-    //ligacao com prolog
+    var forca = document.getElementById('forca') as HTMLInputElement;
+    this.camSeguroService.getPerfilByEmail(this.selectedPlayer).subscribe(Perfil => {
+      this.perfilSelectedUser = Perfil;
+      this.idPerfilSelectedUser = Perfil.id;
+      this.camSeguroService.getJogadorByPerfil(this.idPerfilSelectedUser).subscribe(Response => {
+        this.selectedUser = Response;
+        this.idSelectedPlayer = this.selectedUser.id;
+        this.camSeguroService.getCamSeguro(this.idCurrentUser, this.idSelectedPlayer, forca.value).subscribe(Caminho => {
+          var caminho = Object.values(Caminho);
+          var cam = caminho[0];
+          if(cam.length == 0) {
+            this.toastr.error("Não existe nenhum caminho!",undefined,{positionClass: 'toast-bottom-left'});
+          }
+          for(var i = 0; i < cam.length; i++) {   
+            this.camSeguroService.getPerfilJogador(cam[i]).subscribe(Perfil => {
+              this.emailListCaminho.push(Perfil.email);
+            })
+          }
+        });
+      });
+    });
+    
   }
 
 }

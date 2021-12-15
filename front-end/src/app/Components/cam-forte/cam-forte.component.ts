@@ -32,6 +32,8 @@ export class CamForteComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    document.getElementById("mensagem").style.display="none";
+    //document.getElementById("mensagem1").style.display="none";
     const currentUser = localStorage.getItem('currentUser');
     this.emailCurrentUser = currentUser?.replace(/\"/g, "");
     this.camForteService.getPerfilAtual(this.emailCurrentUser).subscribe(Perfil => {
@@ -40,36 +42,50 @@ export class CamForteComponent implements OnInit {
       this.camForteService.getJogador(this.idPerfilCurrentUser).subscribe(Jogador => {
         this.currentUser = Jogador;
         this.idCurrentUser = this.currentUser.id;
-
-        this.camForteService.getAmigos(this.idCurrentUser).subscribe(Amigos => {
-          this.amigos = Amigos;
-          this.amigos.forEach((element: any) => {
-            this.amigosIdList.push(element.id);
-          });
-          this.amigosIdList.forEach((element: any) => {
-            this.camForteService.getPerfilJogador(element).subscribe(Perfil => {
-              this.amigosPerfilList.push(Perfil.id);
-              this.emailAmigos.push(Perfil.email);
-            });
+        this.camForteService.getPerfis().subscribe(Perfis => {
+          Perfis.forEach(element => {
+            if (element.email != this.emailCurrentUser) {
+              this.emailAmigos.push(element.email);
+            }
           });
         });
+        // this.camForteService.getAmigos(this.idCurrentUser).subscribe(Amigos => {
+        //   this.amigos = Amigos;
+        //   this.amigos.forEach((element: any) => {
+        //     this.amigosIdList.push(element.id);
+        //   });
+        //   this.amigosIdList.forEach((element: any) => {
+        //     this.camForteService.getPerfilJogador(element).subscribe(Perfil => {
+        //       this.amigosPerfilList.push(Perfil.id);
+        //       this.emailAmigos.push(Perfil.email);
+        //     });
+        //   });
+        // });
       });
     });
   };
 
   selectAmigo(event: any) {
     this.selectedAmigo = event.target.value;
+    document.getElementById("mensagem").style.display="block";
   }
 
   onSubmit() {
-    this.camForteService.getPerfilAtual(this.selectedAmigo).subscribe(Perfil => {
-      this.camForteService.getCaminhoForte(this.emailCurrentUser, Perfil.email).subscribe(Cam => {
-        var aux = Object.values(Cam);
-        var valores = aux[0];
+    //this.camForteService.getPerfilAtual(this.selectedAmigo).subscribe(Perfil => {
+    //document.getElementById("mensagem1").style.display="block";
+    this.camForteService.getCaminhoForte(this.emailCurrentUser, this.selectedAmigo).subscribe(Cam => {
+      console.log(Cam);
+      var aux = Object.values(Cam);
+      var valores = aux[0];
+      console.log(aux);
+      if (valores.length == 0) {
+        this.toastr.error("Não é possível calcular caminho. Selecione outro utilizador",undefined,{positionClass: 'toast-bottom-left'});
+      } else {
         this.caminho = valores;
-        this.toastr.success("Caminho mais forte calculado");
-      });
+        this.toastr.success("Caminho mais forte calculado",undefined,{positionClass: 'toast-bottom-left'});
+      }
     });
+    //});
   }
 
 }

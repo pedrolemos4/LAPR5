@@ -39,15 +39,11 @@ export class LoginComponent implements OnInit {
         this.saveCurrentUser(this.f['email'].value);
         const userStr = localStorage.getItem('currentUser');
         //console.log(userStr);
-        this.toastr.success('Login realizado com sucesso!');
+        this.toastr.success("Login realizado com sucesso!",undefined,{positionClass: 'toast-bottom-left'});
         this.router.navigateByUrl('/home');
       },
-      error: error => {
-        if (error.status == 404) {
-          this.toastr.error('Email ou Password incorretos.');
-        } else {
-          console.log(error);
-        }
+      error: () => {
+        this.toastr.error("Email ou Password incorretos.", undefined, { positionClass: 'toast-bottom-left' });
       }
     });
   }
