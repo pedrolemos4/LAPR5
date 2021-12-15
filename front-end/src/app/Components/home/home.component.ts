@@ -84,7 +84,7 @@ export class HomeComponent implements OnInit {
                     }
                   }
                 } else {
-                  this.toastr.error("Não existem tags em comum.");
+                  this.toastr.error("Não existem tags em comum.",undefined,{positionClass: 'toast-bottom-left'});
                   this.homeService.getAllJogadores().subscribe(TodosJogadores => {
                     TodosJogadores.forEach((element: Jogador) => {
                       this.homeService.getPerfil(element.id).subscribe(Perfil1 => {
@@ -98,7 +98,7 @@ export class HomeComponent implements OnInit {
           });
         });
       } else {
-        this.toastr.error("Insira o número de tags que seja igual ou menor ao número de tags que possui.");
+        this.toastr.error("Insira o número de tags que seja igual ou menor ao número de tags que possui.",undefined,{positionClass: 'toast-bottom-left'});
       }
     });
   }
@@ -119,7 +119,7 @@ export class HomeComponent implements OnInit {
               Jogador2: Jogador2.id
             } as Ligacao).subscribe((result: any) => {
               console.log(result),
-                this.toastr.success("Pedido de Ligação realizado com sucesso!");
+                this.toastr.success("Pedido de Ligação realizado com sucesso!",undefined,{positionClass: 'toast-bottom-left'});
             });
           });
         });

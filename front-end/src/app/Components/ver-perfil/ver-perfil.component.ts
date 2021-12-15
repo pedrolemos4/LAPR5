@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { PerfilService } from 'src/app/Services/Perfil/perfil.service';
 
 @Component({
@@ -21,7 +22,7 @@ export class VerPerfilComponent implements OnInit {
   imagePreview: string | ArrayBuffer = '';
 
 
-  constructor(private perfilService: PerfilService) { }
+  constructor(private perfilService: PerfilService, private toastr: ToastrService) { }
 
   dataURItoBlob(dataURI) {
     const byteString = window.atob(dataURI);
@@ -36,6 +37,7 @@ export class VerPerfilComponent implements OnInit {
 
   ngOnInit(): void {
     const currentUser = localStorage.getItem('currentUser');
+    console.log(currentUser);
     this.emailUser = currentUser?.replace(/\"/g, "");
     this.perfilService.getPerfilAtual(this.emailUser).subscribe(Perfil => {
       this.nome = Perfil.nome;
@@ -62,6 +64,9 @@ export class VerPerfilComponent implements OnInit {
       // this.facebook = Perfil.perfilFacebook;
       // this.linkedin = Perfil.perfilLinkedin;
       this.tags = Perfil.tags;
+      error: () => {
+        this.toastr.error("Email ou Password incorretos.", undefined, { positionClass: 'toast-bottom-left' });
+      }
     });
   }
 

@@ -29,6 +29,8 @@ import { PedidoLigacaoPendenteComponent } from './Components/pedido-ligacao-pend
 import { PedidoComponent } from './Components/pedido/pedido.component';
 import { VerPerfilComponent } from './Components/ver-perfil/ver-perfil.component';
 import { SugerirAmigosComponent } from './Components/sugerir-amigos/sugerir-amigos.component';
+import { FazerPostComponent } from './Components/fazer-post/fazer-post.component';
+import { TagRelacaoUserComponent } from './Components/tag-relacao-user/tag-relacao-user.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { SugerirAmigosComponent } from './Components/sugerir-amigos/sugerir-amig
     PedidoLigacaoPendenteComponent,
     PedidoComponent,
     VerPerfilComponent,
-    SugerirAmigosComponent
+    SugerirAmigosComponent,
+    FazerPostComponent,
+    TagRelacaoUserComponent
   ],
   imports: [
     BrowserModule,

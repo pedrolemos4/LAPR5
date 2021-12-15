@@ -280,6 +280,25 @@ namespace DDDNetCore.Migrations
 
             modelBuilder.Entity("DDDSample1.Domain.Perfis.Perfil", b =>
                 {
+                    b.OwnsOne("DDDSample1.Domain.Perfis.Avatar", "avatar", b1 =>
+                        {
+                            b1.Property<string>("PerfilId")
+                                .HasColumnType("nvarchar(450)");
+
+                            b1.Property<bool>("Active")
+                                .HasColumnType("bit");
+
+                            b1.Property<string>("avatar")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("PerfilId");
+
+                            b1.ToTable("Perfis");
+
+                            b1.WithOwner()
+                                .HasForeignKey("PerfilId");
+                        });
+
                     b.OwnsOne("DDDSample1.Domain.Perfis.Cidade", "cidade", b1 =>
                         {
                             b1.Property<string>("PerfilId")
@@ -493,6 +512,8 @@ namespace DDDNetCore.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("PerfilId");
                         });
+
+                    b.Navigation("avatar");
 
                     b.Navigation("cidade");
 

@@ -19,6 +19,8 @@ import { HomeInicialComponent } from './Components/home-inicial/home-inicial.com
 import { RedeNivelComponent } from './Components/rede-nivel/rede-nivel.component';
 import { SugerirAmigosComponent } from './Components/sugerir-amigos/sugerir-amigos.component';
 import { PedidoLigacaoPendenteComponent } from './Components/pedido-ligacao-pendente/pedido-ligacao-pendente.component';
+import { FazerPostComponent } from './Components/fazer-post/fazer-post.component';
+import { TagRelacaoUserComponent } from './Components/tag-relacao-user/tag-relacao-user.component';
 
 const routes: Routes = [
   { path: '', component: HomeInicialComponent },
@@ -40,7 +42,9 @@ const routes: Routes = [
   { path: 'homePrincipal', component: HomeInicialComponent },
   { path: 'ligacao', component: LigacaoComponent },
   { path: 'rede_nivel', component: RedeNivelComponent },
-  { path: 'pedido_ligacao_pendente', component: PedidoLigacaoPendenteComponent }
+  { path: 'pedido_ligacao_pendente', component: PedidoLigacaoPendenteComponent },
+  { path: 'fazer_post', component: FazerPostComponent},
+  { path: 'tag_relacao_user', component: TagRelacaoUserComponent }
 ];
 
 
