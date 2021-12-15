@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://localhost:5001/api/'
+  apiUrl: 'https://localhost:5001/api/',
+  prologUrl : 'http://vs144.dei.isep.ipp.pt:3030'
 };
 
 /*

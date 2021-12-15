@@ -13,7 +13,7 @@ export class CamForteService {
 
   private readonly url = environment.apiUrl;
   private readonly urlPerfis = environment.apiUrl + 'Perfis/';
-  private readonly urlPlan = 'http://localhost:4300';
+  private readonly urlPlan = environment.prologUrl;
 
   constructor(private http: HttpClient) { }
 

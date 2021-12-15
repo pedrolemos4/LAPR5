@@ -11,7 +11,7 @@ import { Jogador } from 'src/app/Models/Jogador';
 export class SugerirAmigosService {
 
   private readonly url = environment.apiUrl;
-  private readonly urlPlan = 'http://localhost:4300';
+  private readonly urlPlan = environment.prologUrl;
 
   constructor(private http: HttpClient) { }
 
