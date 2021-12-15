@@ -7,5 +7,9 @@
 
     <div id="container">
         <h2>Tags das relações do utilzador:</h2>
+        <div *ngIf="!listTags.length">Não tem relações com tags associadas!</div>
+        <div *ngFor="let tag of listTags">
+            <p>{{tag}}</p>
+        </div>  
     </div>
 </div>
