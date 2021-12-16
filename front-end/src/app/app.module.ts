@@ -30,6 +30,7 @@ import { PedidoComponent } from './Components/pedido/pedido.component';
 import { VerPerfilComponent } from './Components/ver-perfil/ver-perfil.component';
 import { SugerirAmigosComponent } from './Components/sugerir-amigos/sugerir-amigos.component';
 import { FazerPostComponent } from './Components/fazer-post/fazer-post.component';
+import { TagRelacaoUserComponent } from './Components/tag-relacao-user/tag-relacao-user.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { FazerPostComponent } from './Components/fazer-post/fazer-post.component
     PedidoComponent,
     VerPerfilComponent,
     SugerirAmigosComponent,
-    FazerPostComponent
+    FazerPostComponent,
+    TagRelacaoUserComponent
   ],
   imports: [
     BrowserModule,

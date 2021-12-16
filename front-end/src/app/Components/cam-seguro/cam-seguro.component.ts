@@ -78,6 +78,9 @@ export class CamSeguroComponent implements OnInit {
         this.camSeguroService.getCamSeguro(this.idCurrentUser, this.idSelectedPlayer, forca.value).subscribe(Caminho => {
           var caminho = Object.values(Caminho);
           var cam = caminho[0];
+          if(cam.length == 0) {
+            this.toastr.error("Não existe nenhum caminho!",undefined,{positionClass: 'toast-bottom-left'});
+          }
           for(var i = 0; i < cam.length; i++) {   
             this.camSeguroService.getPerfilJogador(cam[i]).subscribe(Perfil => {
               this.emailListCaminho.push(Perfil.email);

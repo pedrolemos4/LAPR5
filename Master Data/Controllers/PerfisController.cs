@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DDDSample1.Domain.Perfis;
@@ -24,6 +23,14 @@ namespace DDDSample1.Controllers
         public async Task<ActionResult<List<PerfilDto>>> GetPerfis()
         {
             return await _servicePerfil.GetAllAsync();
+        }
+
+        // GET: api/Perfis
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<ActionResult<List<string>>> GetAllEmails()
+        {
+            return await _servicePerfil.GetAllEmails();
         }
 
         // GET: api/Perfis/5
@@ -65,7 +72,7 @@ namespace DDDSample1.Controllers
 
             if (perfil == null)
             {
-                return NotFound();
+                return null;
             }
 
             return perfil;

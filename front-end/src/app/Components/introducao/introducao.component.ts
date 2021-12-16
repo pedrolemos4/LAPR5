@@ -40,19 +40,14 @@ export class IntroducaoComponent implements OnInit {
     this.introducaoService.getPerfilByEmail(this.emailUser).subscribe(Perfil => {
       this.perfilUser = Perfil;
       this.idPerfilUser = Perfil.id;
-      console.log(this.idPerfilUser);
       this.introducaoService.getJogadorByPerfil(this.idPerfilUser).subscribe(Response => {
         this.currentUser = Response;
         this.idCurrentUser = this.currentUser.id;
-        console.log(this.idCurrentUser);
         this.introducaoService.getIntroducoesAprovarRejeitar(this.idCurrentUser).subscribe(Response => {
           this.listIntroducoes = Response;
           this.idCurrentUser = this.currentUser.id;
-          console.log(this.idCurrentUser);
-
           this.listIntroducoes.forEach((introducao: any) => {
             this.introducaoService.getPerfilJogador(introducao.jogadorIntrodutor).subscribe(Perfil => {
-              console.log(Perfil.email);
               this.perfilIntrodutoresList.push(Perfil.email);
             })
             this.introducaoService.getPerfilJogador(introducao.jogadorInicial).subscribe(Perfil => {

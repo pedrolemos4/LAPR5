@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 })
 export class HomeService {
 
-  private readonly urlPlan = 'http://localhost:4300';
+  private readonly urlPlan = environment.prologUrl;
   private readonly urlPer = environment.apiUrl + 'Perfis/';
   private readonly jogadorUrl = environment.apiUrl + 'Jogadores/';
   private readonly relacoesUrl = environment.apiUrl + 'Relacoes/';
