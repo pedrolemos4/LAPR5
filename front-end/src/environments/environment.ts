@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'https://localhost:5001/api/',
-  prologUrl : 'http://vs144.dei.isep.ipp.pt:3030'
+  prologUrl : 'http://algavmachine.westeurope.cloudapp.azure.com:443'
 };
 
 /*
