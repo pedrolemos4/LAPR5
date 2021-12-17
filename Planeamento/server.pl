@@ -111,9 +111,9 @@ caminhoSeguroHandler(Request):-
 
 
 
-obter_users_url("https://localhost:5001/api/Jogadores").
-obter_perfis_url("https://localhost:5001/api/Perfis").
-obter_relacoes_url("https://localhost:5001/api/Relacoes").
+obter_users_url("https://backendlapr5.azurewebsites.net/api/jogadores").
+obter_perfis_url("https://backendlapr5.azurewebsites.net/api/perfis").
+obter_relacoes_url("https://backendlapr5.azurewebsites.net/api/relacoes").
 
 
 adicionaJogadores():-
