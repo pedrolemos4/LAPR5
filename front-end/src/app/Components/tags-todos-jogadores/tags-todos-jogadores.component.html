@@ -1,0 +1,23 @@
+<app-header></app-header>
+<app-navbar></app-navbar>
+<div class="card">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <div class="card-body">
+        <div class="tags">
+            <h2>Tags de todos os Utilizadores:</h2>
+            <div *ngFor="let tag of listTags">
+                <p>{{tag}} <button (click)="jogadoresTag(tag)"
+                        style="cursor: pointer; margin-left: 80%; display: block; margin-top: -25px;">Ver
+                        Utilizadores</button></p>
+            </div>
+        </div>
+        <div class="jogadores">
+            <h4>Utilizadores com a tag selecionada:</h4>
+            <div *ngFor="let jog of listJogadores">
+                <p>Nome: {{jog.nome}}, Email: {{jog.email}}</p>
+            </div>
+        </div>
+    </div>
+</div>

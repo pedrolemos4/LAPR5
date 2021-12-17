@@ -31,6 +31,7 @@ import { VerPerfilComponent } from './Components/ver-perfil/ver-perfil.component
 import { SugerirAmigosComponent } from './Components/sugerir-amigos/sugerir-amigos.component';
 import { FazerPostComponent } from './Components/fazer-post/fazer-post.component';
 import { TagRelacaoUserComponent } from './Components/tag-relacao-user/tag-relacao-user.component';
+import { TagsTodosJogadoresComponent } from './Components/tags-todos-jogadores/tags-todos-jogadores.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { TagRelacaoUserComponent } from './Components/tag-relacao-user/tag-relac
     VerPerfilComponent,
     SugerirAmigosComponent,
     FazerPostComponent,
-    TagRelacaoUserComponent
+    TagRelacaoUserComponent,
+    TagsTodosJogadoresComponent
   ],
   imports: [
     BrowserModule,

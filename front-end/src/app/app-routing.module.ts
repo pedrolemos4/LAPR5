@@ -21,6 +21,7 @@ import { SugerirAmigosComponent } from './Components/sugerir-amigos/sugerir-amig
 import { PedidoLigacaoPendenteComponent } from './Components/pedido-ligacao-pendente/pedido-ligacao-pendente.component';
 import { FazerPostComponent } from './Components/fazer-post/fazer-post.component';
 import { TagRelacaoUserComponent } from './Components/tag-relacao-user/tag-relacao-user.component';
+import { TagsTodosJogadoresComponent } from './Components/tags-todos-jogadores/tags-todos-jogadores.component';
 
 const routes: Routes = [
   { path: '', component: HomeInicialComponent },
@@ -44,7 +45,8 @@ const routes: Routes = [
   { path: 'rede_nivel', component: RedeNivelComponent },
   { path: 'pedido_ligacao_pendente', component: PedidoLigacaoPendenteComponent },
   { path: 'fazer_post', component: FazerPostComponent},
-  { path: 'tag_relacao_user', component: TagRelacaoUserComponent }
+  { path: 'tag_relacao_user', component: TagRelacaoUserComponent },
+  { path: 'tags_jogadores', component: TagsTodosJogadoresComponent }
 ];
 
 
