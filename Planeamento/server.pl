@@ -34,7 +34,9 @@
 
 % Criacao de servidor HTTP no porto 'Port'
 server(Port) :-
-    http_server(http_dispatch, [port(Port)]).
+    http_server(http_dispatch, [port(Port),
+								ssl([certificate_file('./socialaicert'),
+									key_file('./socialaicert')])]).
 
 stop(Port):-
     http_stop_server(Port,_).
