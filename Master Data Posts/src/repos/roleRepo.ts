@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-angle-bracket-type-assertion */
 import { Service, Inject } from 'typedi';
 
 import IRoleRepo from "../services/IRepos/IRoleRepo";

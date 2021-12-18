@@ -55,6 +55,10 @@ export default {
         user: {
             name: "UserRepo",
             path: "../repos/userRepo"
+        },
+        comentario: {
+            name: "ComentarioRepo",
+            path: "../repos/comentarioRepo"
         }
     },
 

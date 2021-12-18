@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { Router, Request, Response, NextFunction } from 'express';
 import { Container } from 'typedi';
 
