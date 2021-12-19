@@ -21,18 +21,17 @@ export class TagsTodosJogadoresComponent implements OnInit {
   idPerfilUser: string = '';
   currentUser!: Jogador;
   idCurrentUser: string = '';
-  constructor(private router: Router, private toastr: ToastrService, private tagsTodosJogadoresService: TagsTodosJogadoresService) { }
+  constructor(private tagsTodosJogadoresService: TagsTodosJogadoresService) { }
 
   ngOnInit(): void {
     this.tagsTodosJogadoresService.getAllPerfis().subscribe(
       (res: any) => {
         res.forEach(element => {
-          console.log(element.tags);
           this.listaAux.push(element.tags);
         });
         // passar lista de listas para string
         var lista = this.listaAux.join(",");
-        console.log(lista);
+        
         // passar string para lista
         var lista1 = lista.split(",");
         lista1.forEach(element => {
@@ -41,9 +40,6 @@ export class TagsTodosJogadoresComponent implements OnInit {
           }
         });
         
-        console.log(this.listaAux);
-        console.log(lista1);
-        console.log(this.listTags);
       }
     );
   }
@@ -53,10 +49,8 @@ export class TagsTodosJogadoresComponent implements OnInit {
       (res:any) => {
         res.forEach(element => {
           if(element.tags.includes(tag)){
-            console.log("aaa");
             this.listJogadores.push(element);
           }
-          console.log(this.listJogadores);
         });
       });
       this.listJogadores = [];

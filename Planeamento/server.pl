@@ -26,11 +26,13 @@
 :-ensure_loaded("./CaminhoMaisForte.pl").
 :-ensure_loaded("./checktags.pl").
 :-ensure_loaded("./SugerirConexoesTagsNivel.pl").
+:-ensure_loaded("./FortalezaRede.pl").
 
 
 :-json_object objeto_json_tags(caminho:list(string)).
 :-json_object objeto_json_rede(resultado:number).
 :-json_object objeto_json_seguro(caminho_seguro:list(string)).
+:-json_object objeto_json_fortaleza(resultado:number)).
 
 % Criacao de servidor HTTP no porto 'Port'
 server(Port) :-
@@ -47,6 +49,7 @@ stop(Port):-
 :- http_handler('/api/CalcularTamanhoRede', tamRedeHandler, []).
 :- http_handler('/api/CaminhoMaisSeguro', caminhoSeguroHandler, []).
 :- http_handler('/api/SugerirConexoes', sugerirConexoesHandler,[]).
+:- http_handler('/api/FortalezaRede', fortalezaRedeHandler,[]).
 
 sugerirConexoesHandler(Request):-
     cors_enable,
@@ -111,7 +114,16 @@ caminhoSeguroHandler(Request):-
     prolog_to_json(Reply,JSONObject),
     reply_json(JSONObject,[json_object]).
 
-
+fortalezaRedeHandler(Request):-
+    cors_enable,
+    removerBaseConhecimento(),!,
+    carregaDados(),!,
+    http_parameters(Request,
+        [numero(Numero,[string])]),
+    fortaleza(Numero,SomaForcas),
+    Reply = objeto_json_fortaleza(SomaForcas),
+    prolog_to_json(Reply,JSONObject),
+    reply_json(JSONObject,[json_object]).
 
 obter_users_url("https://backendlapr5.azurewebsites.net/api/jogadores").
 obter_perfis_url("https://backendlapr5.azurewebsites.net/api/perfis").

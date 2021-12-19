@@ -22,6 +22,7 @@ import { PedidoLigacaoPendenteComponent } from './Components/pedido-ligacao-pend
 import { FazerPostComponent } from './Components/fazer-post/fazer-post.component';
 import { TagRelacaoUserComponent } from './Components/tag-relacao-user/tag-relacao-user.component';
 import { TagsTodosJogadoresComponent } from './Components/tags-todos-jogadores/tags-todos-jogadores.component';
+import { FortalezaRedeComponent } from './Components/fortaleza-rede/fortaleza-rede.component';
 
 const routes: Routes = [
   { path: '', component: HomeInicialComponent },
@@ -46,7 +47,8 @@ const routes: Routes = [
   { path: 'pedido_ligacao_pendente', component: PedidoLigacaoPendenteComponent },
   { path: 'fazer_post', component: FazerPostComponent},
   { path: 'tag_relacao_user', component: TagRelacaoUserComponent },
-  { path: 'tags_jogadores', component: TagsTodosJogadoresComponent }
+  { path: 'tags_jogadores', component: TagsTodosJogadoresComponent },
+  { path: 'fortaleza_rede', component: FortalezaRedeComponent }
 ];
 
 
