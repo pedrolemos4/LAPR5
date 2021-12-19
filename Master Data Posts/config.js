@@ -63,6 +63,10 @@ export default {
         post: {
             name: "PostRepo",
             path: "../repos/postRepo"
+        },
+        comentario: {
+            name: "ComentarioRepo",
+            path: "../repos/comentarioRepo"
         }
     },
 
