@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-object-literal-type-assertion */
 import { Mapper } from "../core/infra/Mapper";
 
 import { Document, Model } from 'mongoose';
