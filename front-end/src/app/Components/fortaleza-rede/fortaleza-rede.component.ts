@@ -17,16 +17,16 @@ export class FortalezaRedeComponent implements OnInit {
   constructor(private fortalezaService: FortalezaRedeService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
-    // const currentUser = localStorage.getItem('currentUser');
-    // this.email = currentUser?.replace(/\"/g, "");
-    // this.fortalezaService.getPerfilAtual(this.email).pipe(
-    //   mergeMap((res: any) => this.fortalezaService.getJogadorAtual(res.id))).subscribe( 
-    //     (res1:any) =>{
-    //       this.fortalezaService.getFortalezaRede(res1.id).subscribe( Rede => {
-    //         var res = Object.values(Rede);
-    //         this.soma = res[0];
-    //       });
-    //     });
+    const currentUser = localStorage.getItem('currentUser');
+    this.email = currentUser?.replace(/\"/g, "");
+    this.fortalezaService.getPerfilAtual(this.email).pipe(
+      mergeMap((res: any) => this.fortalezaService.getJogadorAtual(res.id))).subscribe( 
+        (res1:any) =>{
+          this.fortalezaService.getFortalezaRede(res1.id).subscribe( Rede => {
+            var res = Object.values(Rede);
+            this.soma = res[0];
+          });
+        });
   }
 
 }

@@ -33,7 +33,7 @@
 :-json_object objeto_json_tags(caminho:list(string)).
 :-json_object objeto_json_rede(resultado:number).
 :-json_object objeto_json_seguro(caminho_seguro:list(string)).
-:-json_object objeto_json_fortaleza(resultado:number)).
+:-json_object objeto_json_fortaleza(resultado:number).
 
 % Criacao de servidor HTTP no porto 'Port'
 server(Port) :-
