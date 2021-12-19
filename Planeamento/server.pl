@@ -5,6 +5,7 @@
 :- use_module(library(http/http_open)).
 :- use_module(library(http/json)).
 :- use_module(library(http/http_cors)).
+:- use_module(library(http/http_ssl_plugin)).
 
 % Bibliotecas JSON
 :- use_module(library(http/json_convert)).
@@ -37,11 +38,12 @@
 % Criacao de servidor HTTP no porto 'Port'
 server(Port) :-
     http_server(http_dispatch, [port(Port),
-								ssl([certificate_file('./socialaicert'),
-									key_file('./socialaicert')])]).
+				ssl([certificate_file('C:/Users/admin_Lapr5/21s5_di_52/Planeamento/socialaicert.crt'),
+                                key_file('C:/Users/admin_Lapr5/21s5_di_52/Planeamento/socialaikey.key')])]).
 
 stop(Port):-
     http_stop_server(Port,_).
+
 
 % Handlers
 :- http_handler('/api/CaminhoMaisForte', caminhoForteHandler, []).
