@@ -1,27 +1,35 @@
-import { Response, Request } from 'express';
+import { Request, Response, NextFunction } from 'express';
+import { Inject, Service } from 'typedi';
+import config from "../../config";
 
-import { Container} from 'typedi';
-
-import config from '../../config';
-
-import IComentarioRepo from '../services/IRepos/IComentarioRepo';
-import { ComentarioMap } from '../mappers/ComentarioMap';
 import { IComentarioDTO } from '../dto/IComentarioDTO';
 
+import { Result } from "../core/logic/Result";
+import { ParamsDictionary } from 'express-serve-static-core';
+import { ParsedQs } from 'qs';
+import IComentarioController from './IControllers/IComentarioController';
+import IComentarioService from '../services/IServices/IComentarioService';
 
-exports.getMe = async function(req, res: Response) {
-  
-    // NB: a arquitetura ONION não está a ser seguida aqui
 
-    const comentarioRepo = Container.get(config.repos.comentario.name) as IComentarioRepo
+@Service()
+export default class ComentarioController implements IComentarioController {
+    constructor(
+        @Inject(config.services.comentario.name) private comentarioServiceInstance : IComentarioService
+    ){}
 
-    if( !req.token || req.token == undefined )
-        return res.json( new Error("Token inexistente ou inválido")).status(401);
+    public async createComentario(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) {
+        try {
+            const comentarioOrError = await this.comentarioServiceInstance.createComentario(req.body as IComentarioDTO) as Result<IComentarioDTO>;
 
-    const comentario = await comentarioRepo.findById( req.token.id );
-    if (!comentario)
-        return res.json( new Error("Comentario não registado")).status(401);
+            if(comentarioOrError.isFailure){
+                return res.status(402).send();
+            }
 
-    const comentarioDTO = ComentarioMap.toDTO( comentario ) as IComentarioDTO;
-    return res.json( comentarioDTO ).status(200);
+            const comentarioDTO = comentarioOrError.getValue();
+            return res.json(comentarioDTO).status(201);
+        }
+        catch (e){
+            return next(e);
+        }
+    };
 }

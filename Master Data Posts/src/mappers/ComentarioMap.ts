@@ -1,20 +1,13 @@
 /* eslint-disable @typescript-eslint/no-object-literal-type-assertion */
-import { Container } from 'typedi';
 
 import { Mapper } from "../core/infra/Mapper";
 
-import {IUserDTO} from "../dto/IUserDTO";
-
-import { User } from "../domain/user";
 import { UniqueEntityID } from "../core/domain/UniqueEntityID";
 
-import { UserEmail } from "../domain/userEmail";
-import { UserPassword } from "../domain/userPassword";
-
-import RoleRepo from "../repos/roleRepo";
 import { Comentario } from '../domain/comentario';
 import { IComentarioDTO } from '../dto/IComentarioDTO';
-import ComentarioRepo from '../repos/comentarioRepo';
+import { IComentarioPersistence } from "../dataschema/IComentarioPersistence";
+import { Document, Model } from "mongoose";
 
 export class ComentarioMap extends Mapper<Comentario> {
 
@@ -28,18 +21,18 @@ export class ComentarioMap extends Mapper<Comentario> {
     } as IComentarioDTO;
   }
 
-  public static async toDomain (raw: any): Promise<Comentario> {
+  public static toDomain (comentario: any | Model<IComentarioPersistence & Document>):Comentario {
 
-    const userOrError = Comentario.create({
-      autor: raw.autor,
-      texto: raw.texto,
-      likes: raw.likes,
-      dislikes: raw.dislikes
-    }, new UniqueEntityID(raw.domainId))
+    const comentarioOrError = Comentario.create({
+      autor: comentario.autor,
+      texto: comentario.texto,
+      likes: comentario.likes,
+      dislikes: comentario.dislikes
+    }, new UniqueEntityID(comentario.domainId))
 
-    userOrError.isFailure ? console.log(userOrError.error) : '';
+    comentarioOrError.isFailure ? console.log(comentarioOrError.error) : '';
     
-    return userOrError.isSuccess ? userOrError.getValue() : null;
+    return comentarioOrError.isSuccess ? comentarioOrError.getValue() : null;
   }
 
   public static toPersistence (comentario: Comentario): any {

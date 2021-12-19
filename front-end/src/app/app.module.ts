@@ -33,6 +33,7 @@ import { FazerPostComponent } from './Components/fazer-post/fazer-post.component
 import { TagRelacaoUserComponent } from './Components/tag-relacao-user/tag-relacao-user.component';
 import { TagsTodosJogadoresComponent } from './Components/tags-todos-jogadores/tags-todos-jogadores.component';
 import { FortalezaRedeComponent } from './Components/fortaleza-rede/fortaleza-rede.component';
+import { AmigosComumComponent } from './Components/amigos-comum/amigos-comum.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { FortalezaRedeComponent } from './Components/fortaleza-rede/fortaleza-re
     FazerPostComponent,
     TagRelacaoUserComponent,
     TagsTodosJogadoresComponent,
-    FortalezaRedeComponent
+    FortalezaRedeComponent,
+    AmigosComumComponent
   ],
   imports: [
     BrowserModule,

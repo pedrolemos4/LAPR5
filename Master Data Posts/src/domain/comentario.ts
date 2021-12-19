@@ -1,9 +1,10 @@
 import { Result } from "../core/logic/Result";
-import { Guard } from "../core/logic/Guard";
 import { List } from "lodash";
 import { AggregateRoot } from "../core/domain/AggregateRoot";
 import { UniqueEntityID } from "../core/domain/UniqueEntityID";
 import { User } from "./user";
+import { ComentarioId } from "./comentarioId";
+import { IComentarioDTO } from "../dto/IComentarioDTO";
 
 interface ComentarioProps {
   autor: User;
@@ -17,6 +18,10 @@ export class Comentario extends AggregateRoot<ComentarioProps> {
     return this._id;
   }
 
+  get comentarioId(): ComentarioId {
+    return new ComentarioId(this.comentarioId.toValue());
+  }
+  
   get autor (): User {
     return this.props.autor;
   }
@@ -37,26 +42,17 @@ export class Comentario extends AggregateRoot<ComentarioProps> {
     super(props, id);
   }
 
-  public static create (props: ComentarioProps, id?: UniqueEntityID): Result<Comentario> {
+  public static create(comentarioDTO: IComentarioDTO, id?: UniqueEntityID): Result<Comentario> {
+    const autor = comentarioDTO.autor;
+    const texto = comentarioDTO.texto;
+    const likes = comentarioDTO.likes;
+    const dislikes = comentarioDTO.dislikes;
 
-    const guardedProps = [
-        { argument: props.autor, argumentName: 'autor' },
-        { argument: props.texto, argumentName: 'texto' },
-        { argument: props.likes, argumentName: 'likes' },
-        { argument: props.dislikes, argumentName: 'dislikes' }
-    ];
-
-    const guardResult = Guard.againstNullOrUndefinedBulk(guardedProps);
-
-    if (!guardResult.succeeded) {
-      return Result.fail<Comentario>(guardResult.message)
-    }     
-    else {
-      const comentario = new Comentario({
-        ...props
-      }, id);
-
-      return Result.ok<Comentario>(comentario);
+    if (!!texto === false || texto.length === 0) {
+        return Result.fail<Comentario>('Must provide texto')
+    } else {
+        const post = new Comentario({ autor: autor, texto: texto, likes: likes, dislikes: dislikes }, id);
+        return Result.ok<Comentario>(post)
     }
   }
 }
