@@ -22,9 +22,11 @@ import { PedidoLigacaoPendenteComponent } from './Components/pedido-ligacao-pend
 import { FazerPostComponent } from './Components/fazer-post/fazer-post.component';
 import { TagRelacaoUserComponent } from './Components/tag-relacao-user/tag-relacao-user.component';
 import { TagsTodosJogadoresComponent } from './Components/tags-todos-jogadores/tags-todos-jogadores.component';
+import { AmigosComumComponent } from './Components/amigos-comum/amigos-comum.component';
 
 const routes: Routes = [
   { path: '', component: HomeInicialComponent },
+  { path: 'amigos_comum', component: AmigosComumComponent },
   { path: 'sugerir_amigos', component: SugerirAmigosComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registo', component: RegistoComponent },
@@ -44,7 +46,7 @@ const routes: Routes = [
   { path: 'ligacao', component: LigacaoComponent },
   { path: 'rede_nivel', component: RedeNivelComponent },
   { path: 'pedido_ligacao_pendente', component: PedidoLigacaoPendenteComponent },
-  { path: 'fazer_post', component: FazerPostComponent},
+  { path: 'fazer_post', component: FazerPostComponent },
   { path: 'tag_relacao_user', component: TagRelacaoUserComponent },
   { path: 'tags_jogadores', component: TagsTodosJogadoresComponent }
 ];

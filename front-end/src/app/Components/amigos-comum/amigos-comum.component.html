@@ -1,0 +1,33 @@
+<app-header></app-header>
+<app-navbar></app-navbar>
+<div id="texto">
+    <div id="container">
+        <h2>Amigos Em Comum</h2>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-25">
+                        <label for="amigos">Amigos:</label>
+                    </div>
+                    <div class="col-75">
+                        <select id="amigos" class="selector" style="margin: 20px;" (change)="selectAmigo($event)">
+                            <option selected disabled="disabled">Selecione um amigo</option>
+                            <option *ngFor="let eachVal of emailAmigos" [ngValue]="eachVal">
+                                {{eachVal}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <p id="mensagem"><span> Selecionou: </span><b>{{selectedAmigo}}</b></p>
+            <button id="submit" type="submit" class="submit"> Listar Amigos em Comum </button>
+            <div class="form-data">
+                <ul id="selector" class="selector" style="margin: 20px; margin-left: -10px;">
+                    <li *ngFor="let args of listaAmigosComum">
+                        {{args}}
+                    </li>
+                </ul>
+            </div>
+        </form>
+    </div>
+</div>
