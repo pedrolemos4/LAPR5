@@ -44,6 +44,10 @@ export default {
         role: {
             name: "RoleController",
             path: "../controllers/roleController"
+        },
+        post: {
+            name: "PostController",
+            path: "../controllers/postController"
         }
     },
 
@@ -56,6 +60,10 @@ export default {
             name: "UserRepo",
             path: "../repos/userRepo"
         },
+        post: {
+            name: "PostRepo",
+            path: "../repos/postRepo"
+        },
         comentario: {
             name: "ComentarioRepo",
             path: "../repos/comentarioRepo"
@@ -66,6 +74,10 @@ export default {
         role: {
             name: "RoleService",
             path: "../services/roleService"
+        },
+        post: {
+            name: "PostService",
+            path: "../services/postService"
         }
     },
 };
