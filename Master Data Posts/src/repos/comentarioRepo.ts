@@ -2,12 +2,8 @@
 import { Service, Inject } from 'typedi';
 
 import IComentarioRepo from "../services/IRepos/IComentarioRepo";
-import { Role } from "../domain/role";
-import { RoleId } from "../domain/roleId";
-import { RoleMap } from "../mappers/RoleMap";
 
 import { Document, FilterQuery, Model } from 'mongoose';
-import { IRolePersistence } from '../dataschema/IRolePersistence';
 import { Comentario } from '../domain/comentario';
 import { ComentarioMap } from '../mappers/ComentarioMap';
 import { ComentarioId } from '../domain/comentarioId';
@@ -32,26 +28,29 @@ export default class ComentarioRepo implements IComentarioRepo {
     const idX = comentario.id instanceof ComentarioId ? (<ComentarioId>comentario.id) : comentario.id;
 
     const query = { domainId: idX}; 
-    const roleDocument = await this.comentarioSchema.findOne( query as FilterQuery<IComentarioPersistence & Document>);
+    const comentarioDocument = await this.comentarioSchema.findOne( query as FilterQuery<IComentarioPersistence & Document>);
 
-    return !!roleDocument === true;
+    return !!comentarioDocument === true;
   }
 
   public async save (comentario: Comentario): Promise<Comentario> {
     const query = { domainId: comentario.id.toString()}; 
 
-    const roleDocument = await this.comentarioSchema.findOne( query );
+    const comentarioDocument = await this.comentarioSchema.findOne( query );
 
     try {
-      if (roleDocument === null ) {
+      if (comentarioDocument === null ) {
         const rawRole: any = ComentarioMap.toPersistence(comentario);
 
-        const roleCreated = await this.comentarioSchema.create(rawRole);
+        const comentarioCreated = await this.comentarioSchema.create(rawRole);
 
-        //return RoleMap.toDomain(roleCreated);
+        return ComentarioMap.toDomain(comentarioCreated);
       } else {
-        roleDocument.texto = comentario.texto;
-        await roleDocument.save();
+        comentarioDocument.autor = comentario.autor;
+        comentarioDocument.texto = comentario.texto;
+        comentarioDocument.likes = comentario.likes;
+        comentarioDocument.dislikes = comentario.dislikes;
+        await comentarioDocument.save();
 
         return comentario;
       }
@@ -62,15 +61,12 @@ export default class ComentarioRepo implements IComentarioRepo {
 
   public async findById (comentarioId: ComentarioId | string): Promise<Comentario> {
 
-    const idX = comentarioId instanceof ComentarioId ? (<ComentarioId>comentarioId).id.toValue() : comentarioId;
+    const query = { domainId: comentarioId };
+        const comentarioRecord = await this.comentarioSchema.findOne(query as FilterQuery<IComentarioPersistence & Document>);
 
-    const query = { domainId: idX }; 
-    const userRecord = await this.comentarioSchema.findOne( query );
-
-    if( userRecord != null) {
-      return ComentarioMap.toDomain(userRecord);
-    }
-    else
-      return null;
-  }
+        if (comentarioRecord != null) {
+            return ComentarioMap.toDomain(comentarioRecord);
+        } else
+            return null;
+      }
 }

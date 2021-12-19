@@ -48,6 +48,10 @@ export default {
         post: {
             name: "PostController",
             path: "../controllers/postController"
+        },
+        comentario: {
+            name: "ComentarioController",
+            path: "../controllers/comentarioController"
         }
     },
 
@@ -78,6 +82,10 @@ export default {
         post: {
             name: "PostService",
             path: "../services/postService"
+        },
+        comentario: {
+            name: "ComentarioService",
+            path: "../services/comentarioService"
         }
     },
 };
