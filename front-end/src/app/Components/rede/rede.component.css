@@ -1,6 +1,35 @@
 #canvas {
-  position: absolute;
-  overflow: hidden;
-  margin-top: 0%;
-  margin-left: 22%;
+    position: absolute;
+    overflow: hidden;
+    margin-top: 0%;
+    margin-left: 22%;
+}
+
+#views-panel {
+    position: absolute;
+    left: 20.0vmin;
+    top: 1vh;
+    z-index: 1;
+    width: 100.0vmin;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 1.5vmin;
+    color: white;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+}
+
+table.views {
+    background-color: #70707070;
+    text-align: right;
+}
+
+th,
+td {
+    overflow: hidden;
+    border: 1px solid black;
 }

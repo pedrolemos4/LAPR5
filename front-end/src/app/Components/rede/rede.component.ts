@@ -23,6 +23,7 @@ export class RedeComponent implements OnInit {
   labelRenderer!: any;
   camera!: THREE.PerspectiveCamera;
   miniMapCamera!: THREE.OrthographicCamera;
+  cameraPrimeiraPessoa!: THREE.PerspectiveCamera;
   arrayAmigos: Jogador[] = new Array<Jogador>();;
   nome: string | undefined = '';
   perfilByJogador!: Perfil;
@@ -239,6 +240,10 @@ export class RedeComponent implements OnInit {
     this.miniMapCamera = new THREE.OrthographicCamera(- 2, 2, 2, -2, 0.01, 1000);
     this.camera.add(this.miniMapCamera);
 
+    //camera primeira pessoa
+    this.cameraPrimeiraPessoa = new THREE.PerspectiveCamera(60,aspectRatio,0.01,1000);
+    this.camera.add(this.cameraPrimeiraPessoa);
+    
     // Create a renderer
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setPixelRatio(window.devicePixelRatio);
