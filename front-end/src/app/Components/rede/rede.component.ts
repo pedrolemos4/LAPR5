@@ -207,9 +207,6 @@ export class RedeComponent implements OnInit {
     this.renderer.render(this.scene, this.miniMapCamera);
 
     this.renderer.setScissorTest(false);
-
-
-
   }
 
   windowResize() {
@@ -250,6 +247,12 @@ export class RedeComponent implements OnInit {
     this.renderer.setSize(WIDTH, HEIGHT);
     document.body.appendChild(this.renderer.domElement);
 
+    const controls = new OrbitControls( this.camera, this.renderer.domElement );
+    //controls.enablePan = false;
+
+    const controlsMiniMap = new OrbitControls( this.miniMapCamera, this.renderer.domElement );
+    controlsMiniMap.enableRotate = false;
+
     //Create label render
     this.labelRenderer = new CSS2DRenderer();
     this.labelRenderer.setSize(WIDTH, HEIGHT);
@@ -264,8 +267,8 @@ export class RedeComponent implements OnInit {
     this.scene.add(this.camera);
 
     //Create panning and zoom controls
-    window.addEventListener('mousedown', event => this.mouseDown(event));
-    window.addEventListener('mouseup', event => this.mouseUp(event));
+    //window.addEventListener('mousedown', event => this.mouseDown(event));
+    //window.addEventListener('mouseup', event => this.mouseUp(event));
     window.addEventListener('wheel', event => this.mouseWheel(event));
 
     //Create light
@@ -392,7 +395,7 @@ export class RedeComponent implements OnInit {
     }
   }
 
-  mouseUp = (event: MouseEvent) => {
+  /*mouseUp = (event: MouseEvent) => {
 
     if (event.clientX < this.dragX) {
       this.camera.position.x = this.camera.position.x + 0.5;
@@ -417,7 +420,7 @@ export class RedeComponent implements OnInit {
   mouseDown = (event: MouseEvent) => {
     this.dragX = event.clientX;
     this.dragY = event.clientY;
-  }
+  }*/
 
   mouseWheel = (event: WheelEvent) => {
     event.preventDefault();

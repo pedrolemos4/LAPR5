@@ -6,12 +6,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <div id="container">
-        <h2>Tags das relações do utilizador:</h2>
+        <h2 style="font-weight: bold;">Tags das relações do utilizador:</h2>
         <div *ngIf="!listTags.length">Não tem relações com tags associadas!</div>
         <div *ngFor="let tag of listTags">
-            <p>{{tag}} <button (click)="amigosTag(tag)" style="cursor: pointer; margin-left: 80%; display: block; margin-top: -25px;">Ver Amigos</button></p>
+            <p style=" margin-left: 3%;">{{tag}} <button (click)="amigosTag(tag)" style="cursor: pointer; margin-left: 80%; display: block; margin-top: -25px;">Ver Amigos</button></p>
         </div>
-        <h4>Amigos com a tag selecionada:</h4>
+        <h4 style="font-weight: bold;">Amigos com a tag selecionada:</h4>
         <div *ngFor="let amigo of listAmigos">
             <p>{{amigo}}</p>
         </div>
