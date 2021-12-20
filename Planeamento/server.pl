@@ -28,6 +28,7 @@
 :-ensure_loaded("./checktags.pl").
 :-ensure_loaded("./SugerirConexoesTagsNivel.pl").
 :-ensure_loaded("./FortalezaRede.pl").
+:-ensure_loaded("./CaminhoMaisCurto.pl").
 
 
 :-json_object objeto_json_tags(caminho:list(string)).
@@ -47,6 +48,7 @@ stop(Port):-
 
 % Handlers
 :- http_handler('/api/CaminhoMaisForte', caminhoForteHandler, []).
+:- http_handler('/api/CaminhoMaisCurto', caminhoCurtoHandler, []).
 :- http_handler('/api/CheckTags', checkTagsHandler, []).
 :- http_handler('/api/CalcularTamanhoRede', tamRedeHandler, []).
 :- http_handler('/api/CaminhoMaisSeguro', caminhoSeguroHandler, []).
@@ -90,6 +92,20 @@ caminhoForteHandler(Request):-
     Reply = objeto_json_tags(LCaminho),
     prolog_to_json(Reply,JSONObject),
     reply_json(JSONObject,[json_object]).
+
+caminhoCurtoHandler(Request):-
+    cors_enable,
+    removerBaseConhecimento(),!,
+    carregaDados(),!,
+
+    http_parameters(Request,
+        [origId(Orig,[string]),
+         destId(Dest,[string])]),
+    plan_minlig(Orig,Dest,LCaminho),
+    Reply = objeto_json_tags(LCaminho),
+    prolog_to_json(Reply,JSONObject),
+    reply_json(JSONObject,[json_object]).
+
 
 tamRedeHandler(Request):-
     cors_enable,
