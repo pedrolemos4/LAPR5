@@ -15,7 +15,8 @@ export class TagRelacaoUserComponent implements OnInit {
   listTags: string[] = new Array<string>();
   listTagsAux: string[] = new Array<string>();
   listRelacoes: Relacao[] = new Array<Relacao>();
-  listAmigos: string[] = new Array<string>();
+  listAmigosAux: string[] = new Array<string>();
+  listAmigos: Perfil[] = new Array<Perfil>();
 
   emailUser: string = '';
   perfilUser!: Perfil;
@@ -51,7 +52,8 @@ export class TagRelacaoUserComponent implements OnInit {
   }
 
   amigosTag(tag: string){
-    this.listAmigos = new Array<string>();
+    this.listAmigosAux = new Array<string>();
+    this.listAmigos = new Array<Perfil>();
     console.log(tag);
     const currentUser = localStorage.getItem('currentUser');
     this.emailUser = currentUser?.replace(/\"/g, "");
@@ -70,8 +72,9 @@ export class TagRelacaoUserComponent implements OnInit {
             for(var i = 0; i < aux.length; i++){
               if(relacao.tags.indexOf(tag) > -1){
                 this.tagRelacaoUserService.getPerfilJogador(relacao.jogador2).subscribe(Perfil => {
-                  if(this.listAmigos.indexOf(Perfil.email) <= -1){
-                    this.listAmigos.push(Perfil.email);
+                  if(this.listAmigosAux.indexOf(Perfil.email) <= -1){
+                    this.listAmigosAux.push(Perfil.email);
+                    this.listAmigos.push(Perfil);
                   }
                 })
               }

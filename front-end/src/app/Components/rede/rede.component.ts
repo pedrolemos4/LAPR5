@@ -251,6 +251,7 @@ export class RedeComponent implements OnInit {
     //controls.enablePan = false;
 
     const controlsMiniMap = new OrbitControls( this.miniMapCamera, this.renderer.domElement );
+    controlsMiniMap.enableZoom = false;
     controlsMiniMap.enableRotate = false;
 
     //Create label render
