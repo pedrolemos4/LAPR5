@@ -6,14 +6,20 @@
     display: inline-block;
     vertical-align: top;
     position: absolute;
+    overflow-y: auto;
 }
 
 #container{
-    border-radius: 8px;
+    padding: 17px;
+    width: 50%;
     background-color: #f2f2f2e7;
-    padding: 15px;
-    padding-top: 2px;
-    width: 55%;
+    border-radius: 5px;
+    justify-content: center;
+    margin-left: 16.5%;
+    margin-top: 15px;
+    position: fixed;
+    height: 80%;
+    overflow-y: auto;
 }
 
 .form-data{
