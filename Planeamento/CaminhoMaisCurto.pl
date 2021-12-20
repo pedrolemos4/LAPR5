@@ -1,9 +1,9 @@
 :-dynamic melhor_sol_minlig/2.
 
-dfs(Orig,Dest,Cam):-dfs2(Orig,Dest,[Orig],Cam).
-dfs2(Dest,Dest,LA,Cam):-!,reverse(LA,Cam).
-dfs2(Act,Dest,LA,Cam):-no(NAct,Act,_),ligacao(NAct,NX,_,_),
-no(NX,X,_),\+ member(X,LA),dfs2(X,Dest,[X|LA],Cam).
+dfsCurto(Orig,Dest,Cam):-dfsCurto2(Orig,Dest,[Orig],Cam).
+dfsCurto2(Dest,Dest,LA,Cam):-!,reverse(LA,Cam).
+dfsCurto2(Act,Dest,LA,Cam):-no(NAct,Act,_),(ligacao(NAct,NX,_,_);ligacao(NX,NAct,_,_)),
+no(NX,X,_),\+ member(X,LA),dfsCurto2(X,Dest,[X|LA],Cam).
 
 
 plan_minlig(Orig,Dest,LCaminho_minlig):-
@@ -17,7 +17,7 @@ plan_minlig(Orig,Dest,LCaminho_minlig):-
 
 melhor_caminho_minlig(Orig,Dest):-
 		asserta(melhor_sol_minlig(_,10000)),
-		dfs(Orig,Dest,LCaminho),
+		dfsCurto(Orig,Dest,LCaminho),
 		atualiza_melhor_minlig(LCaminho),
 		fail.
 
