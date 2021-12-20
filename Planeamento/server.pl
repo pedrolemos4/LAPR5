@@ -148,6 +148,7 @@ obter_perfis_url("https://backendlapr5.azurewebsites.net/api/perfis").
 obter_relacoes_url("https://backendlapr5.azurewebsites.net/api/relacoes").
 
 
+
 adicionaJogadores():-
     carregaJogadores(Data),
     parse_jogadores(Data).
@@ -207,7 +208,17 @@ carregaLigacoes([Jogador1|Lista]):-
 carregaLigacao([_|Lista]):-carregaLigacoes(Lista).
 
 adicionaLigacoes():- findall(Jogador1,nova_relacao(Jogador1,_,_),Lista),
-                        carregaLigacao(Lista).
+                        percorre_utilizadores(Lista).
+
+percorre_utilizadores([]):- !.
+percorre_utilizadores([X|ListaUtilizadores]):-
+    findall(Y,nova_relacao(X,Y,_),LigacoesDeX), percorre_lista_ligacoes_possiveis(X,LigacoesDeX),
+    percorre_utilizadores(ListaUtilizadores).
+
+% percorre lista de amigos do utilizador X e faz um asserta de um novo facto(ligacao1)
+percorre_lista_ligacoes_possiveis(_,[]):-!.
+percorre_lista_ligacoes_possiveis(X,[Y|Lista]):- nova_relacao(X,Y,F1), nova_relacao(Y,X,F2),asserta(ligacao(X,Y,F1,F2)), percorre_lista_ligacoes_possiveis(X,Lista).
+
 
 carrega_no([]):- !.
 carrega_no([IdJ|Lista]):-novo_jogador(IdJ,IdP),
@@ -235,13 +246,3 @@ removerBaseConhecimento():-
         retractall(nova_relacao(_,_,_)),
         retractall(no(_,_,_)),
         retractall(ligacao(_,_,_,_)).
-
-
-
-
-
-
-
-
-
-
