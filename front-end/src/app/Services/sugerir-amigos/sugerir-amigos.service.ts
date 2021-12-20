@@ -16,7 +16,7 @@ export class SugerirAmigosService {
   constructor(private http: HttpClient) { }
 
   getAmigosSugeridos(id: any, nivel: any) {
-    const urlAux = this.urlPlan + '/api/SugerirConexoes?idNo=' + id + '&nivel=' + nivel;  //http://localhost:4300/api/SugerirConexoes?idNo=113951b3-076b-4702-bba9-2b0dbe720e72&nivel=2
+    const urlAux = this.urlPlan + '/api/SugerirConexoes?idNo=' + id + '&nivel=' + nivel;
     return this.http.get<string[]>(urlAux);
   }
 
@@ -26,5 +26,13 @@ export class SugerirAmigosService {
 
   getJogador(idPerfil: any): Observable<Jogador> {
     return this.http.get<Jogador>(this.url + 'jogadores/GetJogadorByPerfil/' + idPerfil);
+  }
+
+  getJogadorById(id: any): Observable<Jogador> {
+    return this.http.get<Jogador>(this.url + 'jogadores/GetJogador/' + id);
+  }
+
+  getPerfilById(id: any): Observable<Perfil> {
+    return this.http.get<Perfil>(this.url + 'perfis/GetPerfil/' + id);
   }
 }

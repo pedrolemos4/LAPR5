@@ -37,16 +37,16 @@ namespace DDDSample1.Infrastructure
                 Console.WriteLine("\n=============================\n========================\nLINHA 33");
                 return;
             }
-            List<string> listaTags = new List<string>() { "Porto", "University", "Sports" };
+            List<string> listaTags = new List<string>() { "Porto", "Valongo", "Sports" };
             List<string> listaTags2 = new List<string>() { "Valongo", "Ballet" };
             List<string> listaTags3 = new List<string>() { "Atletismo", "Lisboa" };
             List<string> listaTags4 = new List<string>() { "Musica", "Arte" };
-            List<string> listaTags5 = new List<string>() { "Musica", "Sports" };
+            List<string> listaTags5 = new List<string>() { "Musica", "Valongo" };
             Perfil p1 = new Perfil("", "Carlos", "carlos@gmail.com", 351936825014, listaTags, "2000-05-20", "Joyful", "carlos_Sport7", "en-PT", "Porto", "perfilFB", "perfilLink");
             Perfil p2 = new Perfil("", "Fiona", "fiona@gmail.com", 351936825014, listaTags2, "2003-10-07", "Disappointed", "super+Fifi48", "en-US", "Lisboa", "perfilFB2", "perfilLink2");
             Perfil p3 = new Perfil("", "Joaquim", "joaquim@gmail.com", 351936825014, listaTags3, "2004-11-08", "Disappointed", "joq_Joquim12", "en-PT", "Porto", "perfilFB3", "perfilLink3");
             Perfil p4 = new Perfil("", "Rui", "rui@gmail.com", 351935682105, listaTags4, "2001-06-02", "Disappointed", "Qwerty123+", "en-PT", "Porto", "perfilFB4", "perfilLink4");
-            Perfil p5 = new Perfil("", "Joana", "joana@gmail.com", 351935644105, listaTags4, "2002-02-12", "Joyful", "Qwerty122223+", "en-PT", "Lisboa", "perfilFB5", "perfilLink5");
+            Perfil p5 = new Perfil("", "Joana", "joana@gmail.com", 351935644105, listaTags5, "2002-02-12", "Joyful", "Qwerty122223+", "en-PT", "Lisboa", "perfilFB5", "perfilLink5");
 
             context.Perfis.Add(p1);
             context.Perfis.Add(p2);

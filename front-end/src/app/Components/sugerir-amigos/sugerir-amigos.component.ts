@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { SugerirAmigosService } from 'src/app/Services/sugerir-amigos/sugerir-amigos.service';
-import { Perfil } from 'src/app/Models/Perfil';
-import { Jogador } from 'src/app/Models/Jogador';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
@@ -42,7 +40,13 @@ export class SugerirAmigosComponent implements OnInit {
         this.sugerirAmigosService.getAmigosSugeridos(Jogador.id, this.nNiveis).subscribe(ListaAux => {
           this.aux1 = Object.values(ListaAux);
           this.aux = Object.values(this.aux1);
-          this.lista = this.aux;
+          this.aux.forEach((element: any) => {
+            this.sugerirAmigosService.getJogadorById(element).subscribe(Jogador => {
+              this.sugerirAmigosService.getPerfilById(Jogador.perfilId).subscribe(PerfilAux => {
+                this.lista.push(PerfilAux.email);
+              });
+            });
+          });
         });
       });
     });
