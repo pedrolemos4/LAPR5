@@ -19,6 +19,10 @@ export class CamCurtoService {
     return this.http.get<Perfil>(this.url + 'perfis/GetPerfilByEmail/' + email);
   }
 
+  getPerfis(): Observable<Perfil[]> {
+    return this.http.get<Perfil[]>(this.url + 'Perfis/');
+  }
+
   getJogador(idPerfil: any): Observable<Jogador> {
     return this.http.get<Jogador>(this.url + 'jogadores/GetJogadorByPerfil/' + idPerfil);
   }

@@ -40,7 +40,14 @@ export class CamCurtoComponent implements OnInit {
         this.currentUser = Jogador;
         this.idCurrentUser = this.currentUser.id;
 
-        this.camCurtoService.getAmigos(this.idCurrentUser).subscribe(Amigos => {
+        this.camCurtoService.getPerfis().subscribe(Perfis => {
+          Perfis.forEach(element => {
+            if(element.email != this.emailCurrentUser){
+              this.emailAmigos.push(element.email)
+            }
+          });
+        });
+        /*this.camCurtoService.getAmigos(this.idCurrentUser).subscribe(Amigos => {
           this.amigos = Amigos;
           this.amigos.forEach((element: any) => {
             this.amigosIdList.push(element.id);
@@ -51,7 +58,7 @@ export class CamCurtoComponent implements OnInit {
               this.emailAmigos.push(Perfil.email);
             });
           });
-        });
+        });*/
       });
     });
   };
@@ -70,7 +77,7 @@ export class CamCurtoComponent implements OnInit {
         this.toastr.error("Não é possível calcular caminho. Selecione outro utilizador", undefined, { positionClass: 'toast-bottom-left' });
       } else {
         this.caminho = valores;
-        this.toastr.success("Caminho mais forte calculado", undefined, { positionClass: 'toast-bottom-left' });
+        this.toastr.success("Caminho mais curto calculado", undefined, { positionClass: 'toast-bottom-left' });
       }
     });
   }
