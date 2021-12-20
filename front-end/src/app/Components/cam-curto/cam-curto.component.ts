@@ -4,6 +4,7 @@ import { CamCurtoService } from 'src/app/Services/CamCurto/cam-curto.service';
 import { Perfil } from 'src/app/Models/Perfil';
 import { Jogador } from 'src/app/Models/Jogador';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cam-curto',
@@ -17,15 +18,15 @@ export class CamCurtoComponent implements OnInit {
   currentUser!: Jogador;
   idCurrentUser: any = '';
   amigos: Jogador[] = [];
-  emailAmigos : string [] = [];
+  emailAmigos: string[] = [];
   amigosIdList: string[] = [];
-  amigosPerfilList : Perfil [] = [];
-  selectedAmigo: string='';
+  amigosPerfilList: Perfil[] = [];
+  selectedAmigo: string = '';
   caminhoMaisCurtoForm: FormGroup;
+  caminho: string;
 
 
-  
-  constructor(private formBuilder: FormBuilder,private camCurtoService: CamCurtoService) { 
+  constructor(private formBuilder: FormBuilder, private camCurtoService: CamCurtoService, private toastr: ToastrService) {
     this.caminhoMaisCurtoForm = this.formBuilder.group({});
   }
 
@@ -41,7 +42,7 @@ export class CamCurtoComponent implements OnInit {
 
         this.camCurtoService.getAmigos(this.idCurrentUser).subscribe(Amigos => {
           this.amigos = Amigos;
-          this.amigos.forEach((element : any) => {
+          this.amigos.forEach((element: any) => {
             this.amigosIdList.push(element.id);
           });
           this.amigosIdList.forEach((element: any) => {
@@ -55,9 +56,22 @@ export class CamCurtoComponent implements OnInit {
     });
   };
 
-  selectAmigo(event:any){
-    this.selectedAmigo=event.target.value;
+  selectAmigo(event: any) {
+    this.selectedAmigo = event.target.value;
   }
 
-  onSubmit() {}
+  onSubmit() {
+    this.camCurtoService.getCaminhoCurto(this.emailCurrentUser, this.selectedAmigo).subscribe(Cam => {
+      console.log(Cam);
+      var aux = Object.values(Cam);
+      var valores = aux[0];
+      console.log(aux);
+      if (valores.length == 0) {
+        this.toastr.error("Não é possível calcular caminho. Selecione outro utilizador", undefined, { positionClass: 'toast-bottom-left' });
+      } else {
+        this.caminho = valores;
+        this.toastr.success("Caminho mais forte calculado", undefined, { positionClass: 'toast-bottom-left' });
+      }
+    });
+  }
 }

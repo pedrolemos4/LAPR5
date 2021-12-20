@@ -11,6 +11,7 @@ import { Jogador } from 'src/app/Models/Jogador';
 })
 export class CamCurtoService {
   private readonly url = environment.apiUrl;
+  private readonly urlPlan = environment.prologUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -28,5 +29,11 @@ export class CamCurtoService {
 
   getPerfilJogador(id: string): Observable<Perfil> {
     return this.http.get<Perfil>(this.url + 'jogadores/GetPerfilJogador/' + id);
+  }
+
+  getCaminhoCurto(email1: any, email2: string){
+    const urlAux = this.urlPlan + '/api/CaminhoMaisCurto?origId=' + email1 + '&destId=' + email2;
+    console.log(urlAux);
+    return this.http.get<string[]>(urlAux);
   }
 }
