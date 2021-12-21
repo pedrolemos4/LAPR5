@@ -22,6 +22,7 @@ export class RedeComponent implements OnInit {
   renderer!: any;
   labelRenderer!: any;
   camera!: THREE.PerspectiveCamera;
+  cameraAux!: THREE.PerspectiveCamera;
   miniMapCamera!: THREE.OrthographicCamera;
   cameraPrimeiraPessoa!: THREE.PerspectiveCamera;
   arrayAmigos: Jogador[] = new Array<Jogador>();;
@@ -187,7 +188,7 @@ export class RedeComponent implements OnInit {
 
   animate() {
     let WIDTH = 1275;
-    let HEIGHT = 693;
+    let HEIGHT = 663;
     requestAnimationFrame(this.animate.bind(this));
     this.renderer.setClearColor(0x000000);
 
@@ -201,8 +202,8 @@ export class RedeComponent implements OnInit {
 
     this.renderer.setScissorTest(true);
 
-    this.renderer.setScissor(1070, window.innerHeight - this.insetHeight - 550, this.insetWidth, this.insetHeight - 60);
-    this.renderer.setViewport(1070, window.innerHeight - this.insetHeight - 550, this.insetWidth, this.insetHeight - 60);
+    this.renderer.setScissor(1010, window.innerHeight - this.insetHeight - 550, this.insetWidth, this.insetHeight - 60);
+    this.renderer.setViewport(1010, window.innerHeight - this.insetHeight - 550, this.insetWidth, this.insetHeight - 60);
 
     this.renderer.render(this.scene, this.miniMapCamera);
 
@@ -211,7 +212,7 @@ export class RedeComponent implements OnInit {
 
   windowResize() {
     let WIDTH = 1275;
-    let HEIGHT = 693;
+    let HEIGHT = 663;
     this.camera.aspect = WIDTH / HEIGHT;
     this.renderer.setSize(WIDTH, HEIGHT);
     this.camera.updateProjectionMatrix();
@@ -227,15 +228,18 @@ export class RedeComponent implements OnInit {
 
   async initialize() {
     let WIDTH = 1275;
-    let HEIGHT = 693;
+    let HEIGHT = 663;
 
     // Create an perspective camera
     const aspectRatio = WIDTH / HEIGHT;
     this.camera = new THREE.PerspectiveCamera(70, aspectRatio, 0.01, 1000);
     this.camera.position.z = 2.5;
 
+    this.cameraAux = new THREE.PerspectiveCamera(70, aspectRatio, 0.01, 1000);
+    this.cameraAux.position.z = 2.5;
+
     this.miniMapCamera = new THREE.OrthographicCamera(- 2, 2, 2, -2, 0.01, 1000);
-    this.camera.add(this.miniMapCamera);
+    this.cameraAux.add(this.miniMapCamera);
 
     //camera primeira pessoa
     this.cameraPrimeiraPessoa = new THREE.PerspectiveCamera(60,aspectRatio,0.01,1000);
@@ -248,11 +252,9 @@ export class RedeComponent implements OnInit {
     document.body.appendChild(this.renderer.domElement);
 
     const controls = new OrbitControls( this.camera, this.renderer.domElement );
-    //controls.enablePan = false;
 
     const controlsMiniMap = new OrbitControls( this.miniMapCamera, this.renderer.domElement );
     controlsMiniMap.enableZoom = false;
-    controlsMiniMap.enableRotate = false;
 
     //Create label render
     this.labelRenderer = new CSS2DRenderer();
