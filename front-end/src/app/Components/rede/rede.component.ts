@@ -251,10 +251,11 @@ export class RedeComponent implements OnInit {
     this.renderer.setSize(WIDTH, HEIGHT);
     document.body.appendChild(this.renderer.domElement);
 
+    //Orbit Controls
     const controls = new OrbitControls( this.camera, this.renderer.domElement );
+    controls.enablePan = false;
 
     const controlsMiniMap = new OrbitControls( this.miniMapCamera, this.renderer.domElement );
-    controlsMiniMap.enableZoom = false;
 
     //Create label render
     this.labelRenderer = new CSS2DRenderer();
