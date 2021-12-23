@@ -10,7 +10,7 @@
     left: 20.0vmin;
     top: 1vh;
     z-index: 1;
-    width: 100.0vmin;
+    width: 120.0vmin;
     text-align: center;
     font-family: Arial, sans-serif;
     font-size: 1.5vmin;
@@ -26,10 +26,28 @@ table {
 table.views {
     background-color: #70707070;
     text-align: right;
+    width: 20%;
+}
+
+table.views label{
+    margin-right: 5%;
 }
 
 th,
 td {
     overflow: hidden;
     border: 1px solid black;
+    text-align: center;
+}
+
+.pequenas{
+    margin-top: 5%;
+}
+
+.pequenas input{
+    margin-left: 0%;
+}
+
+.pequenas label{
+    margin: 5%;
 }

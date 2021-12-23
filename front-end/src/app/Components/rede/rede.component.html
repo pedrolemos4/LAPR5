@@ -12,6 +12,12 @@
                                 <option value='fixed'>Fixed</option>
                                 <option value='first'>First-person</option>
                             </select>
+                            <form [formGroup]="checkForm">
+                                <div class="pequenas">
+                                    <input type="checkbox" formControlName="check" id="checkRegisto" name="checkRegisto" (change)="isChecked()"> 
+                                    <label for="checkRegisto">Movimento no mini-mapa</label>
+                                </div>
+                            </form>
                         </td>
                     </tr>
                 </table>

@@ -7,6 +7,7 @@ import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRe
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Relacao } from 'src/app/Models/Relacao';
 import { Vector3 } from 'three';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-rede',
@@ -34,11 +35,31 @@ export class RedeComponent implements OnInit {
   container: any;
   insetWidth: any;
   insetHeight: any;
+  checkForm: FormGroup;
+  isCheckedBox: boolean = false;
 
   dragX?: any;
   dragY?: any;
 
-  constructor(private redeService: RedeService) { }
+  constructor(private redeService: RedeService, private formBuilder: FormBuilder) {
+    this.checkForm = this.formBuilder.group({
+      check: ['', Validators.requiredTrue]
+    });
+   }
+
+   isChecked() {
+     if(this.isCheckedBox == false){
+    this.isCheckedBox = true;
+    this.miniMapCamera = new THREE.OrthographicCamera(- 2, 2, 2, -2, 0.01, 1000);
+    this.camera.add(this.miniMapCamera);
+     } else{
+      this.isCheckedBox = false;
+      this.miniMapCamera = new THREE.OrthographicCamera(- 2, 2, 2, -2, 0.01, 1000);
+      this.cameraAux.add(this.miniMapCamera);
+      this.scene.add(this.camera);
+     }
+
+  }
 
   ngOnInit(): void {
     const currentUser = localStorage.getItem('currentUser');
@@ -253,9 +274,10 @@ export class RedeComponent implements OnInit {
 
     //Orbit Controls
     const controls = new OrbitControls( this.camera, this.renderer.domElement );
-    controls.enablePan = false;
+    //controls.enablePan = false;
 
     const controlsMiniMap = new OrbitControls( this.miniMapCamera, this.renderer.domElement );
+    controlsMiniMap.enablePan = false;
 
     //Create label render
     this.labelRenderer = new CSS2DRenderer();
@@ -269,6 +291,7 @@ export class RedeComponent implements OnInit {
     // Create a scene
     this.scene = new THREE.Scene();
     this.scene.add(this.camera);
+    this.scene.add(this.cameraAux);
 
     //Create panning and zoom controls
     //window.addEventListener('mousedown', event => this.mouseDown(event));
