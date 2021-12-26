@@ -143,9 +143,9 @@ fortalezaRedeHandler(Request):-
     prolog_to_json(Reply,JSONObject),
     reply_json(JSONObject,[json_object]).
 
-obter_users_url("https://backendlapr5.azurewebsites.net/api/jogadores").
-obter_perfis_url("https://backendlapr5.azurewebsites.net/api/perfis").
-obter_relacoes_url("https://backendlapr5.azurewebsites.net/api/relacoes").
+obter_users_url("https://backend-lapr-5.azurewebsites.net/api/jogadores").
+obter_perfis_url("https://backend-lapr-5.azurewebsites.net/api/perfis").
+obter_relacoes_url("https://backend-lapr-5.azurewebsites.net/api/relacoes").
 
 
 
