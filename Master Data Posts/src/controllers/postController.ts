@@ -16,6 +16,19 @@ export default class PostController implements IPostController{
         @Inject(config.services.post.name) private postServiceInstance : IPostService
     ){}
 
+    public async getPosts(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) {
+        try{
+            const postOrError = await this.postServiceInstance.getPosts();
+
+            if(postOrError.isFailure){
+                return res.status(402).send();
+            }
+
+            return res.status(201).json(postOrError.getValue());
+        } catch(e){
+            return next(e);
+        }
+    }
     public async createPost(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) {
         try {
             const postOrError = await this.postServiceInstance.createPost(req.body as IPostDTO) as Result<IPostDTO>;

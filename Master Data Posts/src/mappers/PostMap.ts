@@ -1,7 +1,7 @@
 import { Mapper } from "../core/infra/Mapper";
 
 import { Document,Model } from "mongoose";
-import { IPostPersistence } from "../dataschema/IPostSchema";
+import { IPostPersistence } from "../dataschema/IPostPersistence";
 
 import IPostDTO from "../dto/IPostDTO";
 import { Post } from "../domain/post";
@@ -14,6 +14,9 @@ export class PostMap extends Mapper<Post> {
         return{
             id: post.id.toString(),
             description: post.description,
+            email: post.email,
+            likes: post.likes,
+            dislikes: post.dislikes
         } as IPostDTO;
     }
 
@@ -30,8 +33,11 @@ export class PostMap extends Mapper<Post> {
 
     public static toPersistence(post:Post): any{
         return {
-            id: post.id.toString(),
-            description: post.description
+            domainId: post.id.toString(),
+            description: post.description,
+            email: post.email,
+            likes: post.likes,
+            dislikes: post.dislikes
         }
     }
 }

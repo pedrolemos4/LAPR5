@@ -21,6 +21,11 @@ export default async ({ expressApp }) => {
     schema: '../persistence/schemas/roleSchema',
   };
 
+  const postSchema = {
+    name: 'postSchema',
+    schema: '../persistence/schemas/postSchema',
+  }
+
   const roleController = {
     name: config.controllers.role.name,
     path: config.controllers.role.path
@@ -29,6 +34,16 @@ export default async ({ expressApp }) => {
   const roleRepo = {
     name: config.repos.role.name,
     path: config.repos.role.path
+  }
+
+  const postController = {
+    name: config.controllers.post.name,
+    path: config.controllers.post.path
+  }
+
+  const postRepo = {
+    name: config.repos.post.name,
+    path: config.repos.post.path
   }
 
   const userRepo = {
@@ -41,21 +56,30 @@ export default async ({ expressApp }) => {
     path: config.services.role.path
   }
 
+  const postService = {
+    name: config.services.post.name,
+    path: config.services.post.path
+  }
+
   await dependencyInjectorLoader({
     mongoConnection,
     schemas: [
       userSchema,
-      roleSchema
+      roleSchema,
+      postSchema
     ],
     controllers: [
-      roleController
+      roleController,
+      postController
     ],
     repos: [
       roleRepo,
-      userRepo
+      userRepo,
+      postRepo
     ],
     services: [
-      roleService
+      roleService,
+      postService
     ]
   });
   Logger.info('✌️ Schemas, Controllers, Repositories, Services, etc. loaded');

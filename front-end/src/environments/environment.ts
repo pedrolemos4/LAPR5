@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   //https://backendlapr5.azurewebsites.net/api/
   apiUrl: 'https://localhost:5001/api/',
-  prologUrl : 'https://algavmachine.westeurope.cloudapp.azure.com:443'
+  prologUrl : 'https://algav-machine.westeurope.cloudapp.azure.com:443'
 };
 
 /*
