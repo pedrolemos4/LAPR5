@@ -8,6 +8,8 @@ import { Comentario } from '../domain/comentario';
 import { ComentarioMap } from '../mappers/ComentarioMap';
 import { ComentarioId } from '../domain/comentarioId';
 import { IComentarioPersistence } from '../dataschema/IComentarioPersistence';
+import { Result } from '../core/logic/Result';
+import { IComentarioDTO } from '../dto/IComentarioDTO';
 
 @Service()
 export default class ComentarioRepo implements IComentarioRepo {
@@ -40,9 +42,9 @@ export default class ComentarioRepo implements IComentarioRepo {
 
     try {
       if (comentarioDocument === null ) {
-        const rawRole: any = ComentarioMap.toPersistence(comentario);
+        const rawComentario: any = ComentarioMap.toPersistence(comentario);
 
-        const comentarioCreated = await this.comentarioSchema.create(rawRole);
+        const comentarioCreated = await this.comentarioSchema.create(rawComentario);
 
         return ComentarioMap.toDomain(comentarioCreated);
       } else {
@@ -69,4 +71,17 @@ export default class ComentarioRepo implements IComentarioRepo {
         } else
             return null;
       }
+
+  public async getComentarios(){
+    const document = await this.comentarioSchema.find();
+    var comentarios = [] ;
+     if(document === null){
+        return Result.fail<IComentarioDTO[]>("No Comentarios Found!");
+     } else{
+         for(var i =0;i<document.length;i++){
+          comentarios.push(ComentarioMap.toDTO(ComentarioMap.toDomain(document[i])));
+         }
+        return Result.ok<IComentarioDTO[]>(comentarios);
+    }
+  }
 }

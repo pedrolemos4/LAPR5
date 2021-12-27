@@ -1,10 +1,9 @@
 import { List } from "lodash";
-import { User } from "../domain/user";
 
 export interface IComentarioPersistence {
-    id: string;
-    autor: User;
+    domainId: string;
+    autor: string;
     texto: string;
-    likes: List<User>;
-    dislikes: List<User>;
+    likes: List<string>;
+    dislikes: List<string>;
   }

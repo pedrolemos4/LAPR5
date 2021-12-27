@@ -26,6 +26,11 @@ export default async ({ expressApp }) => {
     schema: '../persistence/schemas/postSchema',
   }
 
+  const comentarioSchema = {
+    name: 'comentarioSchema',
+    schema: '../persistence/schemas/comentarioSchema',
+  }
+
   const roleController = {
     name: config.controllers.role.name,
     path: config.controllers.role.path
@@ -41,9 +46,19 @@ export default async ({ expressApp }) => {
     path: config.controllers.post.path
   }
 
+  const comentarioController = {
+    name: config.controllers.comentario.name,
+    path: config.controllers.comentario.path
+  }
+
   const postRepo = {
     name: config.repos.post.name,
     path: config.repos.post.path
+  }
+
+  const comentarioRepo = {
+    name: config.repos.comentario.name,
+    path: config.repos.comentario.path
   }
 
   const userRepo = {
@@ -61,25 +76,34 @@ export default async ({ expressApp }) => {
     path: config.services.post.path
   }
 
+  const comentarioService = {
+    name: config.services.comentario.name,
+    path: config.services.comentario.path
+  }
+
   await dependencyInjectorLoader({
     mongoConnection,
     schemas: [
       userSchema,
       roleSchema,
-      postSchema
+      postSchema,
+      comentarioSchema
     ],
     controllers: [
       roleController,
-      postController
+      postController,
+      comentarioController
     ],
     repos: [
       roleRepo,
       userRepo,
-      postRepo
+      postRepo,
+      comentarioRepo
     ],
     services: [
       roleService,
-      postService
+      postService,
+      comentarioService
     ]
   });
   Logger.info('✌️ Schemas, Controllers, Repositories, Services, etc. loaded');

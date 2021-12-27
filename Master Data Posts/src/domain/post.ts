@@ -4,7 +4,6 @@ import IPostDTO from "../dto/IPostDTO";
 
 import { Result } from "../core/logic/Result";
 import { PostId } from "./postId";
-import { User } from "./user";
 import { List } from "lodash";
 
 interface PostProps {

@@ -1,9 +1,9 @@
 import { List } from "lodash";
-import { User } from "../domain/user";
 
 export interface IComentarioDTO {
-    autor: User;
+    id: string;
+    autor: string;
     texto: string;
-    likes: List<User>;
-    dislikes: List<User>;
+    likes: List<string>;
+    dislikes: List<string>;
   }

@@ -5,4 +5,5 @@ import { ComentarioId } from "../../domain/comentarioId";
 export default interface IComentarioRepo extends Repo<Comentario> {
     findById(comentarioId: ComentarioId|string): Promise<Comentario>;
 	save(comentario: Comentario): Promise<Comentario>;
+    getComentarios();
 }

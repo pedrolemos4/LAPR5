@@ -13,16 +13,11 @@ export default class ComentarioService implements IComentarioService {
         @Inject(config.repos.comentario.name) private comentarioRepo: IComentarioRepo
     ) { }
 
-    public async getComentario(comentarioId: string): Promise<Result<IComentarioDTO>> {
-        try {
-            const comentario = await this.comentarioRepo.findById(comentarioId);
 
-            if (comentario === null) {
-                return Result.fail<IComentarioDTO>("Comentario not found");
-            } else {
-                const comentarioDTOResult = ComentarioMap.toDTO(comentario) as IComentarioDTO;
-                return Result.ok<IComentarioDTO>(comentarioDTOResult)
-            }
+    public async getComentarios(): Promise<Result<IComentarioDTO[]>> {
+        try {
+            const comentarios = (await this.comentarioRepo.getComentarios()).getValue();
+            return Result.ok<IComentarioDTO[]>(comentarios);
         } catch(e){
             throw e;
         }

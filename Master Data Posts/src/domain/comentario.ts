@@ -2,15 +2,14 @@ import { Result } from "../core/logic/Result";
 import { List } from "lodash";
 import { AggregateRoot } from "../core/domain/AggregateRoot";
 import { UniqueEntityID } from "../core/domain/UniqueEntityID";
-import { User } from "./user";
 import { ComentarioId } from "./comentarioId";
 import { IComentarioDTO } from "../dto/IComentarioDTO";
 
 interface ComentarioProps {
-  autor: User;
+  autor: string;
   texto: string;
-  likes: List<User>;
-  dislikes: List<User>;
+  likes: List<string>;
+  dislikes: List<string>;
 }
 
 export class Comentario extends AggregateRoot<ComentarioProps> {
@@ -22,7 +21,7 @@ export class Comentario extends AggregateRoot<ComentarioProps> {
     return new ComentarioId(this.comentarioId.toValue());
   }
   
-  get autor (): User {
+  get autor (): string {
     return this.props.autor;
   }
 
@@ -30,11 +29,11 @@ export class Comentario extends AggregateRoot<ComentarioProps> {
     return this.props.texto;
   }
 
-  get likes (): List<User> {
+  get likes (): List<string> {
     return this.props.likes;
   }
 
-  get dislikes (): List<User> {
+  get dislikes (): List<string> {
     return this.props.dislikes;
   }
   

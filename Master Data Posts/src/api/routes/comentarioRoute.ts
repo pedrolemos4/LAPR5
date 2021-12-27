@@ -14,13 +14,15 @@ export default (app: Router) => {
 
     const ctrl = Container.get(config.controllers.comentario.name) as IComentarioController;
 
+    route.get('',(req,res,next)=> ctrl.getComentarios(req,res,next));
+
     route.post('',
         celebrate({
             body: Joi.object({
                 autor: Joi.string().required(),
                 texto: Joi.string().required(),
-                likes: Joi.string(),
-                dislikes: Joi.string()
+                likes: Joi.array().items(Joi.string()),
+                dislikes: Joi.array().items(Joi.string())
             })
         }),
         (req, res, next) => ctrl.createComentario(req, res, next));
