@@ -14,10 +14,15 @@ export default (app: Router) => {
 
     const ctrl = Container.get(config.controllers.post.name) as IPostController;
 
+    route.get('',(req,res,next)=> ctrl.getPosts(req,res,next));
+
     route.post('',
         celebrate({
             body: Joi.object({
-                description: Joi.string().required()
+                description: Joi.string().required(),
+                email: Joi.string().required(),
+                likes: Joi.array().items(Joi.string()),
+                dislikes: Joi.array().items(Joi.string())
             })
         }),
         (req, res, next) => ctrl.createPost(req, res, next));
@@ -26,7 +31,10 @@ export default (app: Router) => {
         celebrate({
             body: Joi.object({
                 id: Joi.string().required(),
-                description: Joi.string().required()
+                description: Joi.string().required(),
+                email: Joi.string().required(),
+                likes: Joi.array().items(Joi.string()),
+                dislikes: Joi.array().items(Joi.string())
             }),
         }),
         (req, res, next) => ctrl.updatePost(req, res, next));

@@ -37,4 +37,16 @@ export class PedidoLigacaoPendenteService {
     return this.http.get<Jogador>(this.jogadorUrl + 'GetJogador/' + id);
   }
 
+  patchLigacao(id: string, ligacao: Ligacao): Observable<Ligacao> {
+    let bodystr = JSON.stringify(ligacao);
+    console.log(ligacao);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+    console.log(id);
+    return this.http.patch<Ligacao>(this.url + id, bodystr, httpOptions);
+  }
+
 }

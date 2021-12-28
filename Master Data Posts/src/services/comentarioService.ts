@@ -6,23 +6,21 @@ import { IComentarioDTO } from "../dto/IComentarioDTO";
 import { Comentario } from "../domain/comentario";
 import { ComentarioMap } from "../mappers/ComentarioMap";
 import IComentarioRepo from "./IRepos/IComentarioRepo";
+import IPostRepo from "./IRepos/IPostRepo";
+import { Post } from "../domain/post";
 
 @Service()
 export default class ComentarioService implements IComentarioService {
     constructor(
-        @Inject(config.repos.comentario.name) private comentarioRepo: IComentarioRepo
+        @Inject(config.repos.comentario.name) private comentarioRepo: IComentarioRepo,
+        @Inject(config.repos.post.name) private postRepo: IPostRepo
     ) { }
 
-    public async getComentario(comentarioId: string): Promise<Result<IComentarioDTO>> {
-        try {
-            const comentario = await this.comentarioRepo.findById(comentarioId);
 
-            if (comentario === null) {
-                return Result.fail<IComentarioDTO>("Comentario not found");
-            } else {
-                const comentarioDTOResult = ComentarioMap.toDTO(comentario) as IComentarioDTO;
-                return Result.ok<IComentarioDTO>(comentarioDTOResult)
-            }
+    public async getComentarios(): Promise<Result<IComentarioDTO[]>> {
+        try {
+            const comentarios = (await this.comentarioRepo.getComentarios()).getValue();
+            return Result.ok<IComentarioDTO[]>(comentarios);
         } catch(e){
             throw e;
         }
@@ -40,6 +38,8 @@ export default class ComentarioService implements IComentarioService {
             const comentarioResult = comentarioOrError.getValue();
 
             await this.comentarioRepo.save(comentarioResult);
+
+            const post = await this.postRepo.findById(comentarioDTO.post);
 
             const comentarioDTOResult = ComentarioMap.toDTO(comentarioResult) as IComentarioDTO;
             return Result.ok<IComentarioDTO>(comentarioDTOResult)

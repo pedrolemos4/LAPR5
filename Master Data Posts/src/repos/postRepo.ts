@@ -6,8 +6,9 @@ import { PostId } from "../domain/postId";
 import { PostMap } from "../mappers/PostMap";
 
 import { Document, FilterQuery, Model } from 'mongoose';
-import { IPostPersistence } from "../dataschema/IPostSchema";
-import roleRoute from "../api/routes/roleRoute";
+import { IPostPersistence } from "../dataschema/IPostPersistence";
+import { Result } from "../core/logic/Result";
+import IPostDTO from "../dto/IPostDTO";
 
 @Service()
 export default class PostRepo implements IPostRepo {
@@ -45,6 +46,10 @@ export default class PostRepo implements IPostRepo {
                 return PostMap.toDomain(postCreated);
             } else {
                 postDocument.description = post.description;
+                postDocument.email = post.email;
+                postDocument.listaComentarios = post.listaComentarios;
+                postDocument.likes = post.likes;
+                postDocument.dislikes = post.dislikes;
                 await postDocument.save();
 
                 return post;
@@ -63,5 +68,18 @@ export default class PostRepo implements IPostRepo {
             return PostMap.toDomain(postRecord);
         } else
             return null;
+    }
+
+    public async getPosts(){
+        const document = await this.postSchema.find();
+        var posts = [] ;
+        if(document === null){
+            return Result.fail<Array<IPostDTO>>("No Posts Found!");
+        } else{
+            for(var i =0;i<document.length;i++){
+                posts.push(PostMap.toDTO(PostMap.toDomain(document[i])));
+            }
+            return Result.ok<Array<IPostDTO>>(posts);
+        }
     }
 }

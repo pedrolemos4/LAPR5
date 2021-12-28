@@ -13,16 +13,10 @@ export default class PostService implements IPostService {
         @Inject(config.repos.post.name) private postRepo: IPostRepo
     ) { }
 
-    public async getPost(postId: string): Promise<Result<IPostDTO>> {
+    public async getPosts(): Promise<Result<IPostDTO[]>> {
         try {
-            const post = await this.postRepo.findById(postId);
-
-            if (post === null) {
-                return Result.fail<IPostDTO>("Post not found");
-            } else {
-                const postDTOResult = PostMap.toDTO(post) as IPostDTO;
-                return Result.ok<IPostDTO>(postDTOResult)
-            }
+            const posts = (await this.postRepo.getPosts()).getValue();
+            return Result.ok<Array<IPostDTO>>(posts);
         } catch(e){
             throw e;
         }

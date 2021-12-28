@@ -117,10 +117,10 @@ export class LigacaoComponent implements OnInit {
                   //console.log(res.id);
                   this.ligacaoService.registoLigacao({
                     id : '',
-                    TextoLigacao: this.ligacaoForm.controls['TextoLigacao'].value,
-                    EstadoLigacao: this.estadoLigacao,
-                    Jogador1: r.id,
-                    Jogador2: res.id
+                    textoLigacao: this.ligacaoForm.controls['TextoLigacao'].value,
+                    estado: this.estadoLigacao,
+                    jogador1: r.id,
+                    jogador2: res.id
                   } as Ligacao).subscribe((result: any) => {
                     console.log(result),
                     this.toastr.success("Pedido de Ligação realizado com sucesso!",undefined,{positionClass: 'toast-bottom-left'});

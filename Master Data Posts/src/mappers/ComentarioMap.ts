@@ -13,8 +13,9 @@ export class ComentarioMap extends Mapper<Comentario> {
 
   public static toDTO( comentario: Comentario): IComentarioDTO {
     return {
-      //id: user.id.toString(),
+      id: comentario.id.toString(),
       autor: comentario.autor,
+      post: comentario.post,
       texto: comentario.texto,
       likes: comentario.likes,
       dislikes: comentario.dislikes
@@ -23,12 +24,10 @@ export class ComentarioMap extends Mapper<Comentario> {
 
   public static toDomain (comentario: any | Model<IComentarioPersistence & Document>):Comentario {
 
-    const comentarioOrError = Comentario.create({
-      autor: comentario.autor,
-      texto: comentario.texto,
-      likes: comentario.likes,
-      dislikes: comentario.dislikes
-    }, new UniqueEntityID(comentario.domainId))
+    const comentarioOrError = Comentario.create(
+      comentario,
+      new UniqueEntityID(comentario.id)
+    );
 
     comentarioOrError.isFailure ? console.log(comentarioOrError.error) : '';
     
@@ -36,13 +35,13 @@ export class ComentarioMap extends Mapper<Comentario> {
   }
 
   public static toPersistence (comentario: Comentario): any {
-    const a = {
-        id: comentario.id.toString(),
+    return {
+        domainId: comentario.id.toString(),
         autor: comentario.autor,
+        post: comentario.post,
         texto: comentario.texto,
         likes: comentario.likes,
         dislikes: comentario.dislikes
     }
-    return a;
   }
 }

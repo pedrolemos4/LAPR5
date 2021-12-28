@@ -1,7 +1,7 @@
 export interface Ligacao{
     id : any;
-    TextoLigacao : string;
-    EstadoLigacao : string;
-    Jogador1 : any;
-    Jogador2 : any;
+    textoLigacao : string;
+    estado : string;
+    jogador1 : any;
+    jogador2 : any;
 }

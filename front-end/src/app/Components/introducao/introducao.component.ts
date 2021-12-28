@@ -73,14 +73,14 @@ export class IntroducaoComponent implements OnInit {
         id: '',
         jogador1: intro.jogadorInicial,
         jogador2: intro.jogadorObjetivo,
-        Tags: this.listavazia,
+        tags: this.listavazia,
         forcaRelacao: this.forcaRelacao,
         forcaLigacao: this.forcaLigacao
       } as Relacao))).pipe(mergeMap((res: any) => this.introducaoService.criarRelacao2({
         id: '',
         jogador1: intro.jogadorObjetivo,
         jogador2: intro.jogadorInicial,
-        Tags: this.listavazia,
+        tags: this.listavazia,
         forcaRelacao: this.forcaRelacao,
         forcaLigacao: this.forcaLigacao
       } as Relacao)))

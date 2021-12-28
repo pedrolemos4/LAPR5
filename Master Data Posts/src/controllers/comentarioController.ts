@@ -17,6 +17,20 @@ export default class ComentarioController implements IComentarioController {
         @Inject(config.services.comentario.name) private comentarioServiceInstance : IComentarioService
     ){}
 
+    public async getComentarios(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) {
+        try{
+            const comentarioOrError = await this.comentarioServiceInstance.getComentarios();
+
+            if(comentarioOrError.isFailure){
+                return res.status(402).send();
+            }
+
+            return res.status(201).json(comentarioOrError.getValue());
+        } catch(e){
+            return next(e);
+        }
+    }
+
     public async createComentario(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) {
         try {
             const comentarioOrError = await this.comentarioServiceInstance.createComentario(req.body as IComentarioDTO) as Result<IComentarioDTO>;

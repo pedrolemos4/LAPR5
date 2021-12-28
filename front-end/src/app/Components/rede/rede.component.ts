@@ -102,7 +102,7 @@ export class RedeComponent implements OnInit {
     this.scene.add(player);
   }
 
-  createRelationship(peso12, peso21, anguloEntreCirculos, centerx, centery, centerz, distance) {
+  createRelationship(peso12, peso21, anguloHorizontal, anguloVertical, centerx, centery, centerz, distance) {
 
     let geometryPlayer122 = new THREE.CylinderGeometry(0.03, 0.03, distance, 32);
     let materialPlayer122;
@@ -175,7 +175,8 @@ export class RedeComponent implements OnInit {
     cylinder.position.x += centerx;
     cylinder.position.y += centery;
     cylinder.position.z += centerz;
-    cylinder.rotateZ(-anguloEntreCirculos);
+    cylinder.rotateY(anguloHorizontal);
+    cylinder.rotateX(anguloVertical);
     this.scene.add(cylinder);
   }
 
@@ -329,7 +330,7 @@ export class RedeComponent implements OnInit {
 
     const anguloFixo = 360 / this.listaRelacao.length, radius = 0.7;
 
-    var angulo, anguloEntreCirculos;
+    var angulo;
 
 
     //1 Nível de amigos, adiciona a lista os jogadores já na rede e as suas posições à rede
@@ -414,13 +415,17 @@ export class RedeComponent implements OnInit {
       let posicao1 = mapNodePosicao.get(this.relacao.jogador1);
       let posicao2 = mapNodePosicao.get(this.relacao.jogador2);
 
-      anguloEntreCirculos = Math.atan2((posicao1[0] - posicao2[0]), (posicao1[1] - posicao2[1]));
+      let hipotenusa = Math.pow(Math.pow(Math.abs(posicao2[0] - posicao1[0]), 2) + Math.pow(Math.abs(posicao2[1] - posicao1[1]) , 2)+ Math.pow(Math.abs(posicao2[2] - posicao1[2]) , 2) , 0.5);
 
-      let hipotenusa = Math.pow(Math.pow(Math.abs(posicao2[0] - posicao1[0]), 2) + Math.pow(Math.abs(posicao2[1] - posicao1[1]), 2), 0.5);
+      //var distance = hipotenusa - (2 * radiusCircle);
 
-      let pontoIntermedio = new THREE.Vector3(((posicao2[0] + posicao1[0]) / 2), ((posicao2[1] + posicao1[1]) / 2), 0);
+      var anguloHorizontal = Math.atan2((posicao1[0] - posicao2[0]), (posicao1[2] - posicao2[2]));
 
-      this.createRelationship(forca12, forca21, anguloEntreCirculos, pontoIntermedio.x, pontoIntermedio.y, pontoIntermedio.z, hipotenusa - (2 * radiusCircle));
+      var anguloVertical = Math.acos((posicao1[1] - posicao2[1]) / hipotenusa);
+
+      let pontoIntermedio = new THREE.Vector3(((posicao2[0] + posicao1[0]) / 2), ((posicao2[1] + posicao1[1]) / 2), ((posicao2[2] + posicao1[2]) / 2));
+
+      this.createRelationship(forca12, forca21, anguloHorizontal, anguloVertical, pontoIntermedio.x, pontoIntermedio.y, pontoIntermedio.z, hipotenusa);
     }
   }
 

@@ -4,9 +4,15 @@ import IPostDTO from "../dto/IPostDTO";
 
 import { Result } from "../core/logic/Result";
 import { PostId } from "./postId";
+import { List } from "lodash";
+import { Comentario } from "./comentario";
 
 interface PostProps {
     description: string;
+    email: string;
+    listaComentarios: List<string>;
+    likes: List<string>;
+    dislikes: List<string>;
 }
 export class Post extends AggregateRoot<PostProps>{
     get id(): UniqueEntityID {
@@ -21,8 +27,28 @@ export class Post extends AggregateRoot<PostProps>{
         return this.props.description;
     }
 
+    get email():string{
+        return this.props.email;
+    }
+
+    get listaComentarios():List<string>{
+        return this.props.listaComentarios;
+    }
+
+    get likes():List<string>{
+        return this.props.likes;
+    }
+
+    get dislikes():List<string>{
+        return this.props.dislikes;
+    }
+    
     set description(value: string) {
         this.props.description = value;
+    }
+
+    set email(value: string){
+        this.props.email = value;
     }
 
     private constructor(props: PostProps, id?: UniqueEntityID) {
@@ -31,11 +57,15 @@ export class Post extends AggregateRoot<PostProps>{
 
     public static create(postDTO: IPostDTO, id?: UniqueEntityID): Result<Post> {
         const description = postDTO.description;
+        const email = postDTO.email;
+        const listaComentarios = postDTO.listaComentarios;
+        const likes = postDTO.likes;
+        const dislikes = postDTO.dislikes;
 
         if (!!description === false || description.length === 0) {
             return Result.fail<Post>('Must provide description')
         } else {
-            const post = new Post({ description: description }, id);
+            const post = new Post({ description: description , email : email, listaComentarios : listaComentarios, likes : likes, dislikes: dislikes }, id);
             return Result.ok<Post>(post)
         }
     }

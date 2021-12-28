@@ -1,8 +1,7 @@
 import { List } from "lodash";
-import { Comentario } from "../domain/comentario";
 
-export default interface IPostDTO{
-    id: string;
+export interface IPostPersistence{
+    domainId: string;
     description: string;
     email: string;
     listaComentarios: List<string>;
