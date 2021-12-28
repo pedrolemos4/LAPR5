@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CaminhoDiferenciadoService } from 'src/app/Services/CaminhoDiferenciado/caminho-diferenciado.service';
 import { Jogador } from 'src/app/Models/Jogador';
@@ -39,6 +38,7 @@ export class CaminhoDiferenciadoComponent implements OnInit {
   selected: THREE.Mesh = null;
   caminho: string;
   array: any[][] = [];
+  arrayRelacoes: any[][] = [];
 
   dragX?: any;
   dragY?: any;
@@ -86,7 +86,7 @@ export class CaminhoDiferenciadoComponent implements OnInit {
     this.scene.add(player);
   }
 
-  createRelationship(peso12, peso21, anguloEntreCirculos, centerx, centery, centerz, distance) {
+  createRelationship(email1, email2, peso12, peso21, anguloEntreCirculos, centerx, centery, centerz, distance) {
 
     let geometryPlayer122 = new THREE.CylinderGeometry(0.03, 0.03, distance, 32);
     let materialPlayer122;
@@ -160,6 +160,19 @@ export class CaminhoDiferenciadoComponent implements OnInit {
     cylinder.position.y += centery;
     cylinder.position.z += centerz;
     cylinder.rotateZ(-anguloEntreCirculos);
+
+    var array = [];
+    // if(materialPlayer122.type == 'MeshPhongMaterial'){
+    //   array = new Array(email1, cylinder, email2, materialPlayer122.color);
+    // } else{
+    //   console.log("COR  " + materialPlayer122.uniforms.color1);
+    //   array = new Array(email1, cylinder, email2, materialPlayer122.uniforms.color1.value, materialPlayer122.uniforms.color2.value);
+    // }
+
+    array = new Array(email1, cylinder, email2, peso12, peso21);
+    this.arrayRelacoes.push(array);
+    console.log(this.arrayRelacoes);
+
     this.scene.add(cylinder);
   }
 
@@ -377,7 +390,15 @@ export class CaminhoDiferenciadoComponent implements OnInit {
 
       let pontoIntermedio = new THREE.Vector3(((posicao2[0] + posicao1[0]) / 2), ((posicao2[1] + posicao1[1]) / 2), 0);
 
-      this.createRelationship(forca12, forca21, anguloEntreCirculos, pontoIntermedio.x, pontoIntermedio.y, pontoIntermedio.z, hipotenusa - (2 * radiusCircle));
+      await this.getPerfil(this.relacao.jogador1);
+      var email1 = this.perfilByJogador.email;
+      console.log("WHAT 1 " + email1);
+
+      await this.getPerfil(this.relacao.jogador2);
+      var email2 = this.perfilByJogador.email;
+      console.log("WHAT 2 " + email2);
+
+      this.createRelationship(email1, email2, forca12, forca21, anguloEntreCirculos, pontoIntermedio.x, pontoIntermedio.y, pontoIntermedio.z, hipotenusa - (2 * radiusCircle));
     }
   }
 
@@ -390,17 +411,10 @@ export class CaminhoDiferenciadoComponent implements OnInit {
     console.log(intersects);
 
     if (intersects[0] != null) {
-      console.log("PPPPPPPPP");
       this.selected = intersects[0].object;
-      console.log(this.selected);
-      console.log(this.selected.children);
       // contem nome e email
-      console.log(this.selected.children[0].element.innerText);
       var aux = this.selected.children[0].element.innerText;
       var list = aux.split(" ");
-      // email
-      // list[1];
-      console.log(list[1]);
       this.getCaminho(list[1]);
     }
 
@@ -420,55 +434,79 @@ export class CaminhoDiferenciadoComponent implements OnInit {
         this.diferenciarCaminho(this.caminho);
         await new Promise(r => setTimeout(r, 10000));
         console.log("ESPERA");
-        this.resetObjectColor();
-        //this.router.navigateByUrl('/home');
+        this.resetObjectColor(this.caminho);
       }
     });
   }
 
-  resetObjectColor(){
+  resetObjectColor(caminho) {
     for (let aux = 0; aux < this.scene.children.length; aux++) {
       if (this.scene.children[aux] instanceof THREE.Mesh && this.scene.children[aux].geometry.type == 'SphereGeometry') {
-        console.log(this.scene.children[aux].children[0].element.style.backgroundColor);
         var labelColor = this.scene.children[aux].children[0].element.style.backgroundColor;
-        console.log(labelColor);
         this.scene.children[aux].material.color.set(labelColor);
       }
     }
+
+    for (let i = 0; i < caminho.length - 1; i++) {
+      this.arrayRelacoes.forEach(element => {
+        var aux = i + 1;
+        if (element[1].material.type == 'MeshPhongMaterial') {
+          if ((caminho[i] == element[0] && caminho[aux] == element[2]) || (caminho[aux] == element[0] && caminho[i] == element[2])) {
+            console.log("MESHPHONG???");
+            element[1].material.color.set('blue');
+          }
+        } else if (element[1].material.type == 'ShaderMaterial') {
+          if ((caminho[i] == element[0] && caminho[aux] == element[2]) || (caminho[aux] == element[0] && caminho[i] == element[2])) {
+            if(element[3] < element[4]){
+              element[1].material.uniforms.color1.value.set('green');
+              element[1].material.uniforms.color2.value.set('red');
+            } else {
+              element[1].material.uniforms.color1.value.set('red');
+              element[1].material.uniforms.color2.value.set('green');
+            } 
+          }
+        }
+      });
+    }
+
     this.renderer.render(this.scene, this.camera);
-      this.labelRenderer.render(this.scene, this.camera);
+    this.labelRenderer.render(this.scene, this.camera);
   }
 
   diferenciarCaminho(caminho: string) {
     for (let aux = 0; aux < this.scene.children.length; aux++) {
       if (this.scene.children[aux] instanceof THREE.Mesh) {
-        console.log("MESH");
         if (this.scene.children[aux].geometry.type == 'SphereGeometry') {
           var label = this.scene.children[aux].children[0].element.innerText;
           var list = label.split(" ");
           if (caminho.includes(list[1])) {
-
-            console.log("ENTROU NO 2 IF");
-            console.log(list[1]);
-
             this.scene.children[aux].material.color.setHex(0xffffff);
-            // this.scene.children[aux].material.transparent = true;
-            // this.scene.children[aux].material.opacity = 0.5;
-      // sleep
-            // await new Promise(r => setTimeout(r, 2000));
-            // this.scene.children[aux].material.color.setHex(resetColor);
           }
         }
-        // if (this.scene.children[aux].geometry.type == 'CylinderGeometry') {
-        //   console.log("CylinderGeometry");
-        //   console.log(this.scene.children[aux]);
-        // }
-
       }
     }
+
+    this.colorRelacoes(caminho);
     this.renderer.render(this.scene, this.camera);
-      this.labelRenderer.render(this.scene, this.camera);
-    console.log(this.array);
+    this.labelRenderer.render(this.scene, this.camera);
+  }
+
+  colorRelacoes(caminho: string) {
+    for (let i = 0; i < caminho.length - 1; i++) {
+      this.arrayRelacoes.forEach(element => {
+        var aux = i + 1;
+        if (element[1].material.type == 'MeshPhongMaterial') {
+          if ((caminho[i] == element[0] && caminho[aux] == element[2]) || (caminho[aux] == element[0] && caminho[i] == element[2])) {
+            element[1].material.color.setHex(0xffffff);
+          }
+        } else if (element[1].material.type == 'ShaderMaterial') {
+          if ((caminho[i] == element[0] && caminho[aux] == element[2]) || (caminho[aux] == element[0] && caminho[i] == element[2])) {           
+            element[1].material.uniforms.color1.value.setHex(0xffffff);
+            element[1].material.uniforms.color2.value.setHex(0xffffff);
+          }
+        }
+      });
+    }
 
   }
 
@@ -484,17 +522,12 @@ export class CaminhoDiferenciadoComponent implements OnInit {
     var intersects = this.raycaster.intersectObjects(this.scene.children, true);
 
     if (intersects.length > 0) {
-      console.log("OQUW");
       intersects[0].object.material.transparent = true;
       intersects[0].object.material.opacity = 0.5;
-      // let resetColor = intersects[0].object.material.color;
-      // console.log(resetColor);
-      // intersects[0].object.material.color.setHex(0xffffff);
       // sleep
       await new Promise(r => setTimeout(r, 2000));
-      //intersects[0].object.material.color.setHex(resetColor);
-       intersects[0].object.material.opacity = 1.0;
-      
+      intersects[0].object.material.opacity = 1.0;
+
     }
 
     this.renderer.render(this.scene, this.camera);
