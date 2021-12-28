@@ -21,7 +21,7 @@ lista_todos_utilizadores(Utilizador,ListaTodos):- findall(NX, (no(NX,_,_)), List
 % o 4º argumento corresponde à lista que retorna completa com todos os utilizadores que o utilizador inicial nao tem ligacao da base de conhecimento
 lista_utilizadores_sem_ligacao(_,ListaUtilizadores,[],ListaFinal):-!,
                                                    reverse(ListaUtilizadores,ListaFinal).
-lista_utilizadores_sem_ligacao(NUtilizador,ListaUtilizadores,[NX|ListaTodos],ListaFinal):-((((ligacao(NUtilizador,NX,_,_));(ligacao(NX,NUtilizador,_,_))),
+lista_utilizadores_sem_ligacao(NUtilizador,ListaUtilizadores,[NX|ListaTodos],ListaFinal):-((((ligacao(NUtilizador,NX,_,_,_,_));(ligacao(NX,NUtilizador,_,_,_,_))),
 lista_utilizadores_sem_ligacao(NUtilizador,ListaUtilizadores,ListaTodos,ListaFinal));     lista_utilizadores_sem_ligacao(NUtilizador,[NX|ListaUtilizadores],ListaTodos,ListaFinal)).
 
 
@@ -49,14 +49,14 @@ percorre_niveis1(Numero,[],NivelAtual,Nivel,ListUtilizadores,ListaGuardaTodosNiv
 append(ListUtilizadores1,ListaGuardaTodosNiveis,ListaRes),sort(ListaRes,ListaRes1),
 NivelAtual1 is NivelAtual+1, ((NivelAtual1==Nivel,ListaARetornar = ListaRes1,!);
 percorre_niveis1(Numero,ListUtilizadores1,NivelAtual1,Nivel,[],ListaRes1,ListaARetornar)).
-percorre_niveis1(Numero,[NUtilizador|ListaNivel],NivelAtual,Nivel,ListUtilizadores,ListaGuardaTodosNiveis,ListaARetornar):-findall(NX,((ligacao(NUtilizador,NX,_,_);ligacao(NX,NUtilizador,_,_)),NX\==Numero),ListUtilizadoresNivel), append(ListUtilizadoresNivel,ListUtilizadores,Lista),
+percorre_niveis1(Numero,[NUtilizador|ListaNivel],NivelAtual,Nivel,ListUtilizadores,ListaGuardaTodosNiveis,ListaARetornar):-findall(NX,((ligacao(NUtilizador,NX,_,_,_,_);ligacao(NX,NUtilizador,_,_,_,_)),NX\==Numero),ListUtilizadoresNivel), append(ListUtilizadoresNivel,ListUtilizadores,Lista),
 percorre_niveis1(Numero,ListaNivel,NivelAtual,Nivel,Lista,ListaGuardaTodosNiveis,ListaARetornar).
 
 
 % de forma a retornar caminho entre um ponto de origem e destino, neste caso entre o jogador inicial e o jogador objetivo
 dfs(Orig,Dest,Cam):-dfs2(Orig,Dest,[Orig],Cam).
 dfs2(Dest,Dest,LA,Cam):-!,reverse(LA,Cam).
-dfs2(NAct,Dest,LA,Cam):-(ligacao(NAct,NX,_,_);ligacao(NX,NAct,_,_)),
+dfs2(NAct,Dest,LA,Cam):-(ligacao(NAct,NX,_,_,_,_);ligacao(NX,NAct,_,_,_,_)),
 \+ member(NX,LA),dfs2(NX,Dest,[NX|LA],Cam).
 
 
