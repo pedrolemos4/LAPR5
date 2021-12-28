@@ -24,6 +24,7 @@ import { TagRelacaoUserComponent } from './Components/tag-relacao-user/tag-relac
 import { TagsTodosJogadoresComponent } from './Components/tags-todos-jogadores/tags-todos-jogadores.component';
 import { FortalezaRedeComponent } from './Components/fortaleza-rede/fortaleza-rede.component';
 import { AmigosComumComponent } from './Components/amigos-comum/amigos-comum.component';
+import { CaminhoDiferenciadoComponent } from './Components/caminho-diferenciado/caminho-diferenciado.component';
 
 const routes: Routes = [
   { path: '', component: HomeInicialComponent },
@@ -50,7 +51,8 @@ const routes: Routes = [
   { path: 'fazer_post', component: FazerPostComponent },
   { path: 'tag_relacao_user', component: TagRelacaoUserComponent },
   { path: 'tags_jogadores', component: TagsTodosJogadoresComponent },
-  { path: 'fortaleza_rede', component: FortalezaRedeComponent }
+  { path: 'fortaleza_rede', component: FortalezaRedeComponent },
+  { path: 'caminho_diferenciado', component: CaminhoDiferenciadoComponent }
 ];
 
 

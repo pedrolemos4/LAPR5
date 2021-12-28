@@ -34,6 +34,7 @@ import { TagRelacaoUserComponent } from './Components/tag-relacao-user/tag-relac
 import { TagsTodosJogadoresComponent } from './Components/tags-todos-jogadores/tags-todos-jogadores.component';
 import { FortalezaRedeComponent } from './Components/fortaleza-rede/fortaleza-rede.component';
 import { AmigosComumComponent } from './Components/amigos-comum/amigos-comum.component';
+import { CaminhoDiferenciadoComponent } from './Components/caminho-diferenciado/caminho-diferenciado.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { AmigosComumComponent } from './Components/amigos-comum/amigos-comum.com
     TagRelacaoUserComponent,
     TagsTodosJogadoresComponent,
     FortalezaRedeComponent,
-    AmigosComumComponent
+    AmigosComumComponent,
+    CaminhoDiferenciadoComponent
   ],
   imports: [
     BrowserModule,
