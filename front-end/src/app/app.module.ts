@@ -34,6 +34,7 @@ import { TagRelacaoUserComponent } from './Components/tag-relacao-user/tag-relac
 import { TagsTodosJogadoresComponent } from './Components/tags-todos-jogadores/tags-todos-jogadores.component';
 import { FortalezaRedeComponent } from './Components/fortaleza-rede/fortaleza-rede.component';
 import { AmigosComumComponent } from './Components/amigos-comum/amigos-comum.component';
+import { CaminhoDiferenciadoComponent } from './Components/caminho-diferenciado/caminho-diferenciado.component';
 import { TagsTodasRelacoesComponent } from './Components/tags-todas-relacoes/tags-todas-relacoes.component';
 
 @NgModule({
@@ -66,6 +67,7 @@ import { TagsTodasRelacoesComponent } from './Components/tags-todas-relacoes/tag
     TagsTodosJogadoresComponent,
     FortalezaRedeComponent,
     AmigosComumComponent,
+    CaminhoDiferenciadoComponent,
     TagsTodasRelacoesComponent
   ],
   imports: [

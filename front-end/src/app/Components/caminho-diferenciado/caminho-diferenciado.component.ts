@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { RedeService } from 'src/app/Services/Rede/rede.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { CaminhoDiferenciadoService } from 'src/app/Services/CaminhoDiferenciado/caminho-diferenciado.service';
 import { Jogador } from 'src/app/Models/Jogador';
 import { Perfil } from 'src/app/Models/Perfil';
-import * as THREE from 'three/build/three.module.js';
-import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Relacao } from 'src/app/Models/Relacao';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as THREE from 'three/build/three.module.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { CSS2DObject, CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-rede',
-  templateUrl: './rede.component.html',
-  styleUrls: ['./rede.component.css']
+  selector: 'app-caminho-diferenciado',
+  templateUrl: './caminho-diferenciado.component.html',
+  styleUrls: ['./caminho-diferenciado.component.css']
 })
-export class RedeComponent implements OnInit {
+export class CaminhoDiferenciadoComponent implements OnInit {
 
   email: string | undefined = '';
   idPerfilAtual: string | undefined = '';
@@ -22,9 +24,6 @@ export class RedeComponent implements OnInit {
   renderer!: any;
   labelRenderer!: any;
   camera!: THREE.PerspectiveCamera;
-  cameraAux!: THREE.PerspectiveCamera;
-  miniMapCamera!: THREE.OrthographicCamera;
-  cameraPrimeiraPessoa!: THREE.PerspectiveCamera;
   arrayAmigos: Jogador[] = new Array<Jogador>();;
   nome: string | undefined = '';
   perfilByJogador!: Perfil;
@@ -34,44 +33,29 @@ export class RedeComponent implements OnInit {
   container: any;
   insetWidth: any;
   insetHeight: any;
-  checkForm: FormGroup;
-  isCheckedBox: boolean = false;
   controlsMiniMap: OrbitControls;
+  mouse: THREE.Vector2;
+  raycaster: THREE.Raycaster;
+  selected: THREE.Mesh = null;
+  caminho: string;
+  array: any[][] = [];
 
   dragX?: any;
   dragY?: any;
 
-  constructor(private redeService: RedeService, private formBuilder: FormBuilder) {
-    this.checkForm = this.formBuilder.group({
-      check: ['', Validators.requiredTrue]
-    });
-  }
-
-  isChecked() {
-    if (this.isCheckedBox == false) {
-      this.isCheckedBox = true;
-      this.miniMapCamera = new THREE.OrthographicCamera(- 2, 2, 2, -2, 0.01, 1000);
-      this.camera.add(this.miniMapCamera);
-      this.controlsMiniMap = new OrbitControls(this.miniMapCamera, this.renderer.domElement);
-      this.controlsMiniMap.enablePan = false;
-    } else {
-      this.isCheckedBox = false;
-      this.miniMapCamera = new THREE.OrthographicCamera(- 2, 2, 2, -2, 0.01, 1000);
-      this.cameraAux.add(this.miniMapCamera);
-      this.scene.add(this.camera);
-    }
+  constructor(private caminhoDiferenciadoService: CaminhoDiferenciadoService, private toastr: ToastrService, private router: Router) {
 
   }
 
   ngOnInit(): void {
     const currentUser = localStorage.getItem('currentUser');
     this.email = currentUser?.replace(/\"/g, "");
-    this.redeService.getPerfilAtual(this.email).subscribe(Perfil => {
+    this.caminhoDiferenciadoService.getPerfilAtual(this.email).subscribe(Perfil => {
       this.idPerfilAtual = Perfil.id;
-      this.redeService.getJogadorAtual(this.idPerfilAtual).subscribe(Jogador => {
+      this.caminhoDiferenciadoService.getJogadorAtual(this.idPerfilAtual).subscribe(Jogador => {
         this.activePlayerObject = Jogador;
         console.log(this.activePlayerObject.id);
-        this.redeService.getPerfilAtual(this.email).subscribe(Perfil => {
+        this.caminhoDiferenciadoService.getPerfilAtual(this.email).subscribe(Perfil => {
           this.nome = Perfil.nome;
           this.initialize();
           this.animate();
@@ -102,7 +86,7 @@ export class RedeComponent implements OnInit {
     this.scene.add(player);
   }
 
-  createRelationship(peso12, peso21, anguloHorizontal, anguloVertical, centerx, centery, centerz, distance) {
+  createRelationship(peso12, peso21, anguloEntreCirculos, centerx, centery, centerz, distance) {
 
     let geometryPlayer122 = new THREE.CylinderGeometry(0.03, 0.03, distance, 32);
     let materialPlayer122;
@@ -175,14 +159,13 @@ export class RedeComponent implements OnInit {
     cylinder.position.x += centerx;
     cylinder.position.y += centery;
     cylinder.position.z += centerz;
-    cylinder.rotateY(anguloHorizontal);
-    cylinder.rotateX(anguloVertical);
+    cylinder.rotateZ(-anguloEntreCirculos);
     this.scene.add(cylinder);
   }
 
   getPerfil(id: string) {
     const promise = new Promise((resolve, reject) => {
-      this.redeService.getPerfil(id).subscribe(Perfil => {
+      this.caminhoDiferenciadoService.getPerfil(id).subscribe(Perfil => {
         this.perfilByJogador = Perfil;
         resolve(Perfil);
       });
@@ -197,7 +180,7 @@ export class RedeComponent implements OnInit {
 
   getRelacao(id: string) {
     let promise = new Promise((resolve, reject) => {
-      this.redeService.getRelacao(id).subscribe(Relacao => {
+      this.caminhoDiferenciadoService.getRelacao(id).subscribe(Relacao => {
         this.listaRelacao = Relacao;
         resolve(Relacao);
       });
@@ -213,6 +196,7 @@ export class RedeComponent implements OnInit {
   animate() {
     let WIDTH = 1275;
     let HEIGHT = 663;
+
     requestAnimationFrame(this.animate.bind(this));
     this.renderer.setClearColor(0x000000);
 
@@ -222,16 +206,6 @@ export class RedeComponent implements OnInit {
 
     this.renderer.setClearColor(0x333333);
 
-    this.renderer.clearDepth();
-
-    this.renderer.setScissorTest(true);
-
-    this.renderer.setScissor(1010, window.innerHeight - this.insetHeight - 550, this.insetWidth, this.insetHeight - 60);
-    this.renderer.setViewport(1010, window.innerHeight - this.insetHeight - 550, this.insetWidth, this.insetHeight - 60);
-
-    this.renderer.render(this.scene, this.miniMapCamera);
-
-    this.renderer.setScissorTest(false);
   }
 
   windowResize() {
@@ -243,11 +217,6 @@ export class RedeComponent implements OnInit {
 
     this.renderer.setSize(WIDTH, HEIGHT);
 
-    this.insetWidth = window.innerHeight / 4;
-    this.insetHeight = window.innerHeight / 4;
-
-    this.miniMapCamera.aspect = this.insetWidth / this.insetHeight;
-    this.miniMapCamera.updateProjectionMatrix();
   }
 
   async initialize() {
@@ -259,16 +228,6 @@ export class RedeComponent implements OnInit {
     this.camera = new THREE.PerspectiveCamera(70, aspectRatio, 0.01, 1000);
     this.camera.position.z = 2.5;
 
-    this.cameraAux = new THREE.PerspectiveCamera(70, aspectRatio, 0.01, 1000);
-    this.cameraAux.position.z = 2.5;
-
-    this.miniMapCamera = new THREE.OrthographicCamera(- 2, 2, 2, -2, 0.01, 1000);
-    this.cameraAux.add(this.miniMapCamera);
-
-    //camera primeira pessoa
-    this.cameraPrimeiraPessoa = new THREE.PerspectiveCamera(60, aspectRatio, 0.01, 1000);
-    this.camera.add(this.cameraPrimeiraPessoa);
-
     // Create a renderer
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -278,9 +237,6 @@ export class RedeComponent implements OnInit {
     //Orbit Controls
     const controls = new OrbitControls(this.camera, this.renderer.domElement);
     //controls.enablePan = false;
-
-    // controlsMiniMap = new OrbitControls( this.miniMapCamera, this.renderer.domElement );
-    // controlsMiniMap.enablePan = false;
 
 
     //Create label render
@@ -295,11 +251,9 @@ export class RedeComponent implements OnInit {
     // Create a scene
     this.scene = new THREE.Scene();
     this.scene.add(this.camera);
-    this.scene.add(this.cameraAux);
 
-    //Create panning and zoom controls
-    //window.addEventListener('mousedown', event => this.mouseDown(event));
-    //window.addEventListener('mouseup', event => this.mouseUp(event));
+    this.mouse = new THREE.Vector2();
+    this.raycaster = new THREE.Raycaster();
 
     //Create light
     const light = new THREE.DirectionalLight(0xFFFFFF, 1);
@@ -311,6 +265,9 @@ export class RedeComponent implements OnInit {
     this.container.appendChild(this.labelRenderer.domElement);
 
     window.addEventListener('resize', this.windowResize, false);
+    this.container.addEventListener('mousemove', event => this.onMouseMove(event), false);
+    this.container.addEventListener('click', event => this.onClick(event), false);
+
     this.windowResize();
 
     const radiusCircle = 0.15;
@@ -330,8 +287,7 @@ export class RedeComponent implements OnInit {
 
     const anguloFixo = 360 / this.listaRelacao.length, radius = 0.7;
 
-    var angulo;
-
+    var angulo, anguloEntreCirculos;
 
     //1 Nível de amigos, adiciona a lista os jogadores já na rede e as suas posições à rede
     for (var i = 0; i < this.listaRelacao.length; i++) {
@@ -342,7 +298,7 @@ export class RedeComponent implements OnInit {
         angulo = 14 * Math.PI / 11;
       }
 
-      let pos = new THREE.Vector3(radius * Math.cos(angulo), radius * Math.sin(angulo), radius * angulo);
+      let pos = new THREE.Vector3(radius * Math.cos(angulo), radius * Math.sin(angulo), 0);
 
       this.relacao = this.listaRelacao[i];
 
@@ -381,7 +337,7 @@ export class RedeComponent implements OnInit {
               angulo = 14 * Math.PI / 11;
             }
 
-            let pos2 = new THREE.Vector3((radius + cont) * Math.cos(angulo), (radius + cont) * Math.sin(angulo), (radius + cont) * angulo);
+            let pos2 = new THREE.Vector3((radius + cont) * Math.cos(angulo), (radius + cont) * Math.sin(angulo), 0);
 
             await this.getPerfil(this.relacao.jogador2);
 
@@ -415,19 +371,134 @@ export class RedeComponent implements OnInit {
       let posicao1 = mapNodePosicao.get(this.relacao.jogador1);
       let posicao2 = mapNodePosicao.get(this.relacao.jogador2);
 
-      let hipotenusa = Math.pow(Math.pow(Math.abs(posicao2[0] - posicao1[0]), 2) + Math.pow(Math.abs(posicao2[1] - posicao1[1]) , 2)+ Math.pow(Math.abs(posicao2[2] - posicao1[2]) , 2) , 0.5);
+      anguloEntreCirculos = Math.atan2((posicao1[0] - posicao2[0]), (posicao1[1] - posicao2[1]));
 
-      //var distance = hipotenusa - (2 * radiusCircle);
+      let hipotenusa = Math.pow(Math.pow(Math.abs(posicao2[0] - posicao1[0]), 2) + Math.pow(Math.abs(posicao2[1] - posicao1[1]), 2), 0.5);
 
-      var anguloHorizontal = Math.atan2((posicao1[0] - posicao2[0]), (posicao1[2] - posicao2[2]));
+      let pontoIntermedio = new THREE.Vector3(((posicao2[0] + posicao1[0]) / 2), ((posicao2[1] + posicao1[1]) / 2), 0);
 
-      var anguloVertical = Math.acos((posicao1[1] - posicao2[1]) / hipotenusa);
-
-      let pontoIntermedio = new THREE.Vector3(((posicao2[0] + posicao1[0]) / 2), ((posicao2[1] + posicao1[1]) / 2), ((posicao2[2] + posicao1[2]) / 2));
-
-      this.createRelationship(forca12, forca21, anguloHorizontal, anguloVertical, pontoIntermedio.x, pontoIntermedio.y, pontoIntermedio.z, hipotenusa);
+      this.createRelationship(forca12, forca21, anguloEntreCirculos, pontoIntermedio.x, pontoIntermedio.y, pontoIntermedio.z, hipotenusa - (2 * radiusCircle));
     }
   }
 
+  onClick(event: any) {
+    event.preventDefault();
+
+    console.log("ONCLICK");
+    this.raycaster.setFromCamera(this.mouse, this.camera);
+    var intersects = this.raycaster.intersectObjects(this.scene.children, true);
+    console.log(intersects);
+
+    if (intersects[0] != null) {
+      console.log("PPPPPPPPP");
+      this.selected = intersects[0].object;
+      console.log(this.selected);
+      console.log(this.selected.children);
+      // contem nome e email
+      console.log(this.selected.children[0].element.innerText);
+      var aux = this.selected.children[0].element.innerText;
+      var list = aux.split(" ");
+      // email
+      // list[1];
+      console.log(list[1]);
+      this.getCaminho(list[1]);
+    }
+
+    this.renderer.render(this.scene, this.camera);
+    this.labelRenderer.render(this.scene, this.camera);
+  }
+
+  getCaminho(emailAmigo: string) {
+    this.caminhoDiferenciadoService.getCaminhoCurto(this.email, emailAmigo).subscribe(async Cam => {
+      var aux = Object.values(Cam);
+      var valores = aux[0];
+      if (valores.length == 0) {
+        this.toastr.error("Não é possível calcular caminho. Selecione outro utilizador", undefined, { positionClass: 'toast-bottom-left' });
+      } else {
+        this.caminho = valores;
+        this.toastr.success("Caminho mais curto calculado", undefined, { positionClass: 'toast-bottom-left' });
+        this.diferenciarCaminho(this.caminho);
+        await new Promise(r => setTimeout(r, 10000));
+        console.log("ESPERA");
+        this.resetObjectColor();
+        //this.router.navigateByUrl('/home');
+      }
+    });
+  }
+
+  resetObjectColor(){
+    for (let aux = 0; aux < this.scene.children.length; aux++) {
+      if (this.scene.children[aux] instanceof THREE.Mesh && this.scene.children[aux].geometry.type == 'SphereGeometry') {
+        console.log(this.scene.children[aux].children[0].element.style.backgroundColor);
+        var labelColor = this.scene.children[aux].children[0].element.style.backgroundColor;
+        console.log(labelColor);
+        this.scene.children[aux].material.color.set(labelColor);
+      }
+    }
+    this.renderer.render(this.scene, this.camera);
+      this.labelRenderer.render(this.scene, this.camera);
+  }
+
+  diferenciarCaminho(caminho: string) {
+    for (let aux = 0; aux < this.scene.children.length; aux++) {
+      if (this.scene.children[aux] instanceof THREE.Mesh) {
+        console.log("MESH");
+        if (this.scene.children[aux].geometry.type == 'SphereGeometry') {
+          var label = this.scene.children[aux].children[0].element.innerText;
+          var list = label.split(" ");
+          if (caminho.includes(list[1])) {
+
+            console.log("ENTROU NO 2 IF");
+            console.log(list[1]);
+
+            this.scene.children[aux].material.color.setHex(0xffffff);
+            // this.scene.children[aux].material.transparent = true;
+            // this.scene.children[aux].material.opacity = 0.5;
+      // sleep
+            // await new Promise(r => setTimeout(r, 2000));
+            // this.scene.children[aux].material.color.setHex(resetColor);
+          }
+        }
+        // if (this.scene.children[aux].geometry.type == 'CylinderGeometry') {
+        //   console.log("CylinderGeometry");
+        //   console.log(this.scene.children[aux]);
+        // }
+
+      }
+    }
+    this.renderer.render(this.scene, this.camera);
+      this.labelRenderer.render(this.scene, this.camera);
+    console.log(this.array);
+
+  }
+
+  async onMouseMove(event: any) {
+    event.preventDefault();
+
+    var rect = document.getElementById("canvas").getBoundingClientRect();
+    this.mouse.x = ((event.clientX - rect.left) / rect.width) * 2.0 - 1.0;
+    this.mouse.y = -((event.clientY - rect.top) / rect.height) * 2.0 + 1.0;
+
+    this.raycaster.setFromCamera(this.mouse, this.camera);
+
+    var intersects = this.raycaster.intersectObjects(this.scene.children, true);
+
+    if (intersects.length > 0) {
+      console.log("OQUW");
+      intersects[0].object.material.transparent = true;
+      intersects[0].object.material.opacity = 0.5;
+      // let resetColor = intersects[0].object.material.color;
+      // console.log(resetColor);
+      // intersects[0].object.material.color.setHex(0xffffff);
+      // sleep
+      await new Promise(r => setTimeout(r, 2000));
+      //intersects[0].object.material.color.setHex(resetColor);
+       intersects[0].object.material.opacity = 1.0;
+      
+    }
+
+    this.renderer.render(this.scene, this.camera);
+    this.labelRenderer.render(this.scene, this.camera);
+  }
 
 }
