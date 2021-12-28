@@ -13,9 +13,9 @@ export class SugerirAmigosComponent implements OnInit {
   nNiveis: number;
   emailCurrentUser: string | undefined = '';
   pedirNivel: FormGroup;
-  lista: string[] = [];
-  aux: string[] = [];
-  aux1: string[] = [];
+  lista: string[] = new Array<string>();
+  aux: string[] = new Array<string>();
+  aux1: string[] = new Array<string>();
 
 
   constructor(private formBuilder: FormBuilder, private sugerirAmigosService: SugerirAmigosService, private toastr: ToastrService) {
@@ -31,6 +31,7 @@ export class SugerirAmigosComponent implements OnInit {
   }
 
   onSubmitNivel(): void {
+    this.lista = [];
     this.nNiveis = this.pedirNivel.controls['numeroNiveis'].value;
     document.getElementById("textoSugestoes").style.display = "block";
     const currentUser = localStorage.getItem('currentUser');
