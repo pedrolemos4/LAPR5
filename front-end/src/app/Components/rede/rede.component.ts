@@ -45,19 +45,19 @@ export class RedeComponent implements OnInit {
     this.checkForm = this.formBuilder.group({
       check: ['', Validators.requiredTrue]
     });
-   }
+  }
 
-   isChecked() {
-     if(this.isCheckedBox == false){
-    this.isCheckedBox = true;
-    this.miniMapCamera = new THREE.OrthographicCamera(- 2, 2, 2, -2, 0.01, 1000);
-    this.camera.add(this.miniMapCamera);
-     } else{
+  isChecked() {
+    if (this.isCheckedBox == false) {
+      this.isCheckedBox = true;
+      this.miniMapCamera = new THREE.OrthographicCamera(- 2, 2, 2, -2, 0.01, 1000);
+      this.camera.add(this.miniMapCamera);
+    } else {
       this.isCheckedBox = false;
       this.miniMapCamera = new THREE.OrthographicCamera(- 2, 2, 2, -2, 0.01, 1000);
       this.cameraAux.add(this.miniMapCamera);
       this.scene.add(this.camera);
-     }
+    }
 
   }
 
@@ -100,7 +100,7 @@ export class RedeComponent implements OnInit {
     this.scene.add(player);
   }
 
-  createRelationship(peso12, peso21, anguloEntreCirculos, centerx, centery, centerz, distance) {
+  createRelationship(peso12, peso21, anguloHorizontal, anguloVertical, centerx, centery, centerz, distance) {
 
     let geometryPlayer122 = new THREE.CylinderGeometry(0.03, 0.03, distance, 32);
     let materialPlayer122;
@@ -173,7 +173,8 @@ export class RedeComponent implements OnInit {
     cylinder.position.x += centerx;
     cylinder.position.y += centery;
     cylinder.position.z += centerz;
-    cylinder.rotateZ(-anguloEntreCirculos);
+    cylinder.rotateY(anguloHorizontal);
+    cylinder.rotateX(anguloVertical);
     this.scene.add(cylinder);
   }
 
@@ -263,9 +264,9 @@ export class RedeComponent implements OnInit {
     this.cameraAux.add(this.miniMapCamera);
 
     //camera primeira pessoa
-    this.cameraPrimeiraPessoa = new THREE.PerspectiveCamera(60,aspectRatio,0.01,1000);
+    this.cameraPrimeiraPessoa = new THREE.PerspectiveCamera(60, aspectRatio, 0.01, 1000);
     this.camera.add(this.cameraPrimeiraPessoa);
-    
+
     // Create a renderer
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -273,10 +274,10 @@ export class RedeComponent implements OnInit {
     document.body.appendChild(this.renderer.domElement);
 
     //Orbit Controls
-    const controls = new OrbitControls( this.camera, this.renderer.domElement );
+    const controls = new OrbitControls(this.camera, this.renderer.domElement);
     //controls.enablePan = false;
 
-    const controlsMiniMap = new OrbitControls( this.miniMapCamera, this.renderer.domElement );
+    const controlsMiniMap = new OrbitControls(this.miniMapCamera, this.renderer.domElement);
     controlsMiniMap.enablePan = false;
 
     //Create label render
@@ -327,7 +328,7 @@ export class RedeComponent implements OnInit {
 
     const anguloFixo = 360 / this.listaRelacao.length, radius = 0.7;
 
-    var angulo, anguloEntreCirculos;
+    var angulo;
 
 
     //1 Nível de amigos, adiciona a lista os jogadores já na rede e as suas posições à rede
@@ -339,7 +340,7 @@ export class RedeComponent implements OnInit {
         angulo = 14 * Math.PI / 11;
       }
 
-      let pos = new THREE.Vector3(radius * Math.cos(angulo), radius * Math.sin(angulo), 0);
+      let pos = new THREE.Vector3(radius * Math.cos(angulo), radius * Math.sin(angulo), radius * Math.sin(angulo));
 
       this.relacao = this.listaRelacao[i];
 
@@ -378,7 +379,7 @@ export class RedeComponent implements OnInit {
               angulo = 14 * Math.PI / 11;
             }
 
-            let pos2 = new THREE.Vector3((radius + cont) * Math.cos(angulo), (radius + cont) * Math.sin(angulo), 0);
+            let pos2 = new THREE.Vector3((radius + cont) * Math.cos(angulo), (radius + cont) * Math.sin(angulo), (radius + cont) * Math.sin(angulo));
 
             await this.getPerfil(this.relacao.jogador2);
 
@@ -412,13 +413,17 @@ export class RedeComponent implements OnInit {
       let posicao1 = mapNodePosicao.get(this.relacao.jogador1);
       let posicao2 = mapNodePosicao.get(this.relacao.jogador2);
 
-      anguloEntreCirculos = Math.atan2((posicao1[0] - posicao2[0]), (posicao1[1] - posicao2[1]));
+      let hipotenusa = Math.pow(Math.pow(Math.abs(posicao2[0] - posicao1[0]), 2) + Math.pow(Math.abs(posicao2[1] - posicao1[1]) , 2)+ Math.pow(Math.abs(posicao2[2] - posicao1[2]) , 2) , 0.5);
 
-      let hipotenusa = Math.pow(Math.pow(Math.abs(posicao2[0] - posicao1[0]), 2) + Math.pow(Math.abs(posicao2[1] - posicao1[1]), 2), 0.5);
+      //var distance = hipotenusa - (2 * radiusCircle);
 
-      let pontoIntermedio = new THREE.Vector3(((posicao2[0] + posicao1[0]) / 2), ((posicao2[1] + posicao1[1]) / 2), 0);
+      var anguloHorizontal = Math.atan2((posicao1[0] - posicao2[0]), (posicao1[2] - posicao2[2]));
 
-      this.createRelationship(forca12, forca21, anguloEntreCirculos, pontoIntermedio.x, pontoIntermedio.y, pontoIntermedio.z, hipotenusa - (2 * radiusCircle));
+      var anguloVertical = Math.acos((posicao1[1] - posicao2[1]) / hipotenusa);
+
+      let pontoIntermedio = new THREE.Vector3(((posicao2[0] + posicao1[0]) / 2), ((posicao2[1] + posicao1[1]) / 2), ((posicao2[2] + posicao1[2]) / 2));
+
+      this.createRelationship(forca12, forca21, anguloHorizontal, anguloVertical, pontoIntermedio.x, pontoIntermedio.y, pontoIntermedio.z, hipotenusa);
     }
   }
 
