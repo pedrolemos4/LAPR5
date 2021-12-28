@@ -24,9 +24,11 @@ import { TagRelacaoUserComponent } from './Components/tag-relacao-user/tag-relac
 import { TagsTodosJogadoresComponent } from './Components/tags-todos-jogadores/tags-todos-jogadores.component';
 import { FortalezaRedeComponent } from './Components/fortaleza-rede/fortaleza-rede.component';
 import { AmigosComumComponent } from './Components/amigos-comum/amigos-comum.component';
+import { TagsTodasRelacoesComponent } from './Components/tags-todas-relacoes/tags-todas-relacoes.component';
 
 const routes: Routes = [
   { path: '', component: HomeInicialComponent },
+  { path: 'tags_todas_relacoes', component: TagsTodasRelacoesComponent },
   { path: 'amigos_comum', component: AmigosComumComponent },
   { path: 'sugerir_amigos', component: SugerirAmigosComponent },
   { path: 'login', component: LoginComponent },

@@ -76,15 +76,15 @@ export class RelacaoComponent implements OnInit {
               mergeMap((res: any) => this.relacaoService.getRelacao(r.id, res.id))).subscribe(
                 (res2: any) => {
                   //console.log(res2.id);
-                  this.listaStringTags = this.f['Tags'].value;
+                  this.listaStringTags = this.f['tags'].value;
                   this.listaTags = this.listaStringTags.toString().split(",");
-                  this.f['Tags'].setValue(this.listaTags);
+                  this.f['tags'].setValue(this.listaTags);
                   //console.log(this.f['Tags'].value);
                   this.relacaoService.patchRelacao(res2.id, {
                     id: res2.id,
                     jogador1: res2.jogador1,
                     jogador2: res2.jogador2,
-                    Tags: this.f['Tags'].value,
+                    tags: this.f['tags'].value,
                     forcaRelacao: res2.forcaRelacao,
                     forcaLigacao: this.f['forcaLigacao'].value
                   } as Relacao).subscribe({
