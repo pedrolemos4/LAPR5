@@ -15,6 +15,7 @@ export class ComentarioMap extends Mapper<Comentario> {
     return {
       id: comentario.id.toString(),
       autor: comentario.autor,
+      post: comentario.post,
       texto: comentario.texto,
       likes: comentario.likes,
       dislikes: comentario.dislikes
@@ -37,6 +38,7 @@ export class ComentarioMap extends Mapper<Comentario> {
     return {
         domainId: comentario.id.toString(),
         autor: comentario.autor,
+        post: comentario.post,
         texto: comentario.texto,
         likes: comentario.likes,
         dislikes: comentario.dislikes

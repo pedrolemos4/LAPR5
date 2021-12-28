@@ -20,6 +20,7 @@ export default (app: Router) => {
         celebrate({
             body: Joi.object({
                 autor: Joi.string().required(),
+                post: Joi.string().required(),
                 texto: Joi.string().required(),
                 likes: Joi.array().items(Joi.string()),
                 dislikes: Joi.array().items(Joi.string())

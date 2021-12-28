@@ -1,10 +1,11 @@
 import { IPostPersistence } from "../../dataschema/IPostPersistence";
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 const PostSchema = new mongoose.Schema(
     {
         domainId: { type: String, unique: true },
         description: { type: String },
+        listaComentarios: [{type: Schema.Types.ObjectId, ref: 'Comentario'}],
         likes: { type: [String] },
         dislikes: { type: [String] },
         email: {type: String}

@@ -6,11 +6,14 @@ import { IComentarioDTO } from "../dto/IComentarioDTO";
 import { Comentario } from "../domain/comentario";
 import { ComentarioMap } from "../mappers/ComentarioMap";
 import IComentarioRepo from "./IRepos/IComentarioRepo";
+import IPostRepo from "./IRepos/IPostRepo";
+import { Post } from "../domain/post";
 
 @Service()
 export default class ComentarioService implements IComentarioService {
     constructor(
-        @Inject(config.repos.comentario.name) private comentarioRepo: IComentarioRepo
+        @Inject(config.repos.comentario.name) private comentarioRepo: IComentarioRepo,
+        @Inject(config.repos.post.name) private postRepo: IPostRepo
     ) { }
 
 
@@ -35,6 +38,8 @@ export default class ComentarioService implements IComentarioService {
             const comentarioResult = comentarioOrError.getValue();
 
             await this.comentarioRepo.save(comentarioResult);
+
+            const post = await this.postRepo.findById(comentarioDTO.post);
 
             const comentarioDTOResult = ComentarioMap.toDTO(comentarioResult) as IComentarioDTO;
             return Result.ok<IComentarioDTO>(comentarioDTOResult)

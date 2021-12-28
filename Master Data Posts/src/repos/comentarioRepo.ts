@@ -49,6 +49,7 @@ export default class ComentarioRepo implements IComentarioRepo {
         return ComentarioMap.toDomain(comentarioCreated);
       } else {
         comentarioDocument.autor = comentario.autor;
+        comentarioDocument.post = comentario.post;
         comentarioDocument.texto = comentario.texto;
         comentarioDocument.likes = comentario.likes;
         comentarioDocument.dislikes = comentario.dislikes;

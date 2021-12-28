@@ -7,7 +7,6 @@ import { PostMap } from "../mappers/PostMap";
 
 import { Document, FilterQuery, Model } from 'mongoose';
 import { IPostPersistence } from "../dataschema/IPostPersistence";
-import roleRoute from "../api/routes/roleRoute";
 import { Result } from "../core/logic/Result";
 import IPostDTO from "../dto/IPostDTO";
 
@@ -48,6 +47,7 @@ export default class PostRepo implements IPostRepo {
             } else {
                 postDocument.description = post.description;
                 postDocument.email = post.email;
+                postDocument.listaComentarios = post.listaComentarios;
                 postDocument.likes = post.likes;
                 postDocument.dislikes = post.dislikes;
                 await postDocument.save();

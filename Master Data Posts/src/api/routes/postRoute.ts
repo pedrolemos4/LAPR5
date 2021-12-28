@@ -31,7 +31,10 @@ export default (app: Router) => {
         celebrate({
             body: Joi.object({
                 id: Joi.string().required(),
-                description: Joi.string().required()
+                description: Joi.string().required(),
+                email: Joi.string().required(),
+                likes: Joi.array().items(Joi.string()),
+                dislikes: Joi.array().items(Joi.string())
             }),
         }),
         (req, res, next) => ctrl.updatePost(req, res, next));
