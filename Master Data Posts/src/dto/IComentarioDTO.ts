@@ -1,5 +1,4 @@
 import { List } from "lodash";
-import { Post } from "../domain/post";
 
 export interface IComentarioDTO {
     id: string;

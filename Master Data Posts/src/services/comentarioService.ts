@@ -7,7 +7,6 @@ import { Comentario } from "../domain/comentario";
 import { ComentarioMap } from "../mappers/ComentarioMap";
 import IComentarioRepo from "./IRepos/IComentarioRepo";
 import IPostRepo from "./IRepos/IPostRepo";
-import { Post } from "../domain/post";
 
 @Service()
 export default class ComentarioService implements IComentarioService {
@@ -41,8 +40,7 @@ export default class ComentarioService implements IComentarioService {
             const id = comentarioResult.post.replace(/\'/g, "");
             const post = await this.postRepo.findById(id);
 
-            const postUpd = await this.postRepo.populate(post,comentarioResult.id.toString());
-            //await this.postRepo.save(postUpd);
+            await this.postRepo.populate(post,comentarioResult.id.toString());
 
             const comentarioDTOResult = ComentarioMap.toDTO(comentarioResult) as IComentarioDTO;
             return Result.ok<IComentarioDTO>(comentarioDTOResult)

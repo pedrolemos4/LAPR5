@@ -9,7 +9,6 @@ import { Document, FilterQuery, Model } from 'mongoose';
 import { IPostPersistence } from "../dataschema/IPostPersistence";
 import { Result } from "../core/logic/Result";
 import IPostDTO from "../dto/IPostDTO";
-import { ComentarioId } from "../domain/comentarioId";
 
 @Service()
 export default class PostRepo implements IPostRepo {
@@ -85,13 +84,10 @@ export default class PostRepo implements IPostRepo {
     }
 
     public async populate(post: Post, comentarioId: string): Promise<Post> {
-        // const query = { domainId: post.id.toString() };
-        // const postRecord = await this.postSchema.findOne(query as FilterQuery<IPostPersistence & Document>);
-        // postRecord.listaComentarios.push(comentarioId);
+
         post.listaComentarios.push(comentarioId);
         this.postSchema.findById({_id : post.id}, function(err,doc){
             doc.listaComentarios = post.listaComentarios;
-            doc.visits.$inc();
             doc.save();
         });
         if (post != null) {

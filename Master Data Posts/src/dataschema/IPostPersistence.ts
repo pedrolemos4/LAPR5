@@ -1,5 +1,4 @@
 import { List } from "lodash";
-import { ComentarioId } from "../domain/comentarioId";
 
 export interface IPostPersistence{
     domainId: string;
