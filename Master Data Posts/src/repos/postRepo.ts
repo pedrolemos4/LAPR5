@@ -9,6 +9,7 @@ import { Document, FilterQuery, Model } from 'mongoose';
 import { IPostPersistence } from "../dataschema/IPostPersistence";
 import { Result } from "../core/logic/Result";
 import IPostDTO from "../dto/IPostDTO";
+import { ComentarioId } from "../domain/comentarioId";
 
 @Service()
 export default class PostRepo implements IPostRepo {
@@ -61,8 +62,8 @@ export default class PostRepo implements IPostRepo {
     }
 
     public async findById(postId: string | PostId): Promise<Post> {
-        const query = { domainId: postId };
-        const postRecord = await this.postSchema.findOne(query as FilterQuery<IPostPersistence & Document>);
+        const query = { _id: postId };
+        const postRecord = await this.postSchema.findById(query);
 
         if (postRecord != null) {
             return PostMap.toDomain(postRecord);
@@ -70,16 +71,34 @@ export default class PostRepo implements IPostRepo {
             return null;
     }
 
-    public async getPosts(){
+    public async getPosts() {
         const document = await this.postSchema.find();
-        var posts = [] ;
-        if(document === null){
+        var posts = [];
+        if (document === null) {
             return Result.fail<Array<IPostDTO>>("No Posts Found!");
-        } else{
-            for(var i =0;i<document.length;i++){
+        } else {
+            for (var i = 0; i < document.length; i++) {
                 posts.push(PostMap.toDTO(PostMap.toDomain(document[i])));
             }
             return Result.ok<Array<IPostDTO>>(posts);
         }
+    }
+
+    public async populate(post: Post, comentarioId: string): Promise<Post> {
+        // const query = { domainId: post.id.toString() };
+        // const postRecord = await this.postSchema.findOne(query as FilterQuery<IPostPersistence & Document>);
+        // postRecord.listaComentarios.push(comentarioId);
+        post.listaComentarios.push(comentarioId);
+        this.postSchema.findById({_id : post.id}, function(err,doc){
+            doc.listaComentarios = post.listaComentarios;
+            doc.visits.$inc();
+            doc.save();
+        });
+        if (post != null) {
+            return PostMap.toDomain(post);
+        } else {
+            return null;
+        }
+        
     }
 }

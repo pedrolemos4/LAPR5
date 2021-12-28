@@ -38,8 +38,11 @@ export default class ComentarioService implements IComentarioService {
             const comentarioResult = comentarioOrError.getValue();
 
             await this.comentarioRepo.save(comentarioResult);
+            const id = comentarioResult.post.replace(/\'/g, "");
+            const post = await this.postRepo.findById(id);
 
-            const post = await this.postRepo.findById(comentarioDTO.post);
+            const postUpd = await this.postRepo.populate(post,comentarioResult.id.toString());
+            //await this.postRepo.save(postUpd);
 
             const comentarioDTOResult = ComentarioMap.toDTO(comentarioResult) as IComentarioDTO;
             return Result.ok<IComentarioDTO>(comentarioDTOResult)

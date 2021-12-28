@@ -6,11 +6,12 @@ import { Result } from "../core/logic/Result";
 import { PostId } from "./postId";
 import { List } from "lodash";
 import { Comentario } from "./comentario";
+import { ComentarioId } from "./comentarioId";
 
 interface PostProps {
     description: string;
     email: string;
-    listaComentarios: List<string>;
+    listaComentarios: string[];
     likes: List<string>;
     dislikes: List<string>;
 }
@@ -31,7 +32,7 @@ export class Post extends AggregateRoot<PostProps>{
         return this.props.email;
     }
 
-    get listaComentarios():List<string>{
+    get listaComentarios():string[]{
         return this.props.listaComentarios;
     }
 
