@@ -72,8 +72,8 @@ namespace DDDSample1.Controllers
         }
 
         // PATCH: api/Ligacoes/5
-        [HttpPut("{ligacao}")]
-        public async Task<ActionResult<LigacaoDto>> PatchLigacao(Guid id, LigacaoDto dto)
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<LigacaoDto>> PatchLigacao([FromRoute] Guid id, [FromBody] LigacaoDto dto)
         {
             if (id != dto.Id)
             {

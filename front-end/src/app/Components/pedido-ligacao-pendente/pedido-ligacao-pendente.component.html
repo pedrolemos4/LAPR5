@@ -1,15 +1,25 @@
-<main>
-    <app-header></app-header>
-    <app-navbar></app-navbar>
-    <div class="card">
-        <h4 class="card-header">Lista de Pedidos Pendentes</h4>
-        <div class="card-body">
-            <div class="form-data">
-                <ul id="selector" class="selector" style="margin: 20px; margin-left: -10px;">
-                    <li *ngFor="let args of ListaLigacoesPendentes">
-                        Nome: {{args}}</li>
-                    </ul>
+<app-header></app-header>
+<app-navbar></app-navbar>
+<div id="texto">
+    <div id="container">
+        <h2>Pedidos de Ligação Pendentes</h2>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-25">
+                        <label for="amigos">Amigos:</label>
+                    </div>
+                    <div class="col-75">
+                        <select id="amigos" class="selector" style="margin: 20px;" (change)="selectAmigo($event)">
+                            <option selected disabled="disabled">Selecione um pedido</option>
+                            <option *ngFor="let eachVal of ListaLigacoesPendentes" [ngValue]="eachVal">
+                                {{eachVal}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
             </div>
-        </div>
+            <p id="mensagem"><span>Selecionou: </span><b>{{selectPedido}}</b></p>
+            <button id="aceitar" type="submit" class="aceitar" (click)="aceitar()"><i class="fa fa-check"></i>Aceitar</button>
+            <button id="rejeitar" type="submit" class="rejeitar" (click)="rejeitar()"><i class="fa fa-times"></i>Rejeitar</button>
     </div>
-</main>
+</div>

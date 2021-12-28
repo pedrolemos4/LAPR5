@@ -113,10 +113,10 @@ export class HomeComponent implements OnInit {
           this.homeService.getJogadorAtual(PerfilNames.id).subscribe(Jogador2 => {
             this.homeService.registoLigacao({
               id: '',
-              TextoLigacao: 'Pedido enviado por: ' + Perfil.nome + '.',
-              EstadoLigacao: this.estadoLigacao,
-              Jogador1: Jogador.id,
-              Jogador2: Jogador2.id
+              textoLigacao: 'Pedido enviado por: ' + Perfil.nome + '.',
+              estado: this.estadoLigacao,
+              jogador1: Jogador.id,
+              jogador2: Jogador2.id 
             } as Ligacao).subscribe((result: any) => {
               console.log(result),
                 this.toastr.success("Pedido de Ligação realizado com sucesso!",undefined,{positionClass: 'toast-bottom-left'});
