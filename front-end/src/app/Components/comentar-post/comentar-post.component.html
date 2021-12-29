@@ -1,0 +1,20 @@
+<app-header></app-header>
+<app-navbar></app-navbar>
+<div id="texto">
+    <div id="container">
+        <h2>Comentar Post</h2>
+        <h4>Lista de posts disponiveis: </h4>
+        <div *ngFor="let post of listaPosts">
+            <p>Criado Por: {{post.email}}</p>
+            <p>{{post.description}}</p>
+            <form [formGroup]="comentarioForm" (ngSubmit)="onSubmit(post)">
+                <div class = "form-group">
+                <input id="comentario" type="text" placeholder="Escreva aqui o seu comentario..." formControlName="comentario"
+                    class ="form-control" required/>
+                    <button style="margin-left: 20px;" type="submit" id="submit" class="submit"> Adicionar Comentário</button>
+                </div>
+                    
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+#texto{
+    margin-left: 17%;
+    padding: 1px 16px;
+    height: 665px;
+    width: 89%;
+    display: inline-block;
+    vertical-align: top;
+    position: absolute;
+}
+
+#container{
+    border-radius: 8px;
+    background-color: #f2f2f2e7;
+    padding: 15px;
+    padding-top: 2px;
+    width: 70%;
+}
+
+.aceitar{
+    background-color: rgb(16, 219, 60);
+    color: white;
+    border: none;
+    padding: 7px 10px;
+    cursor: pointer;
+}
+
+.aceitar:hover{
+    background-color: rgb(21, 161, 52);
+}
+
+.rejeitar{
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 7px 10px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.rejeitar:hover{
+    background-color: rgb(172, 0, 0);
+}

@@ -36,6 +36,7 @@ import { FortalezaRedeComponent } from './Components/fortaleza-rede/fortaleza-re
 import { AmigosComumComponent } from './Components/amigos-comum/amigos-comum.component';
 import { CaminhoDiferenciadoComponent } from './Components/caminho-diferenciado/caminho-diferenciado.component';
 import { TagsTodasRelacoesComponent } from './Components/tags-todas-relacoes/tags-todas-relacoes.component';
+import { ComentarPostComponent } from './Components/comentar-post/comentar-post.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { TagsTodasRelacoesComponent } from './Components/tags-todas-relacoes/tag
     FortalezaRedeComponent,
     AmigosComumComponent,
     CaminhoDiferenciadoComponent,
-    TagsTodasRelacoesComponent
+    TagsTodasRelacoesComponent,
+    ComentarPostComponent
   ],
   imports: [
     BrowserModule,

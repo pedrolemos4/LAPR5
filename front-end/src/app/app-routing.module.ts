@@ -26,6 +26,7 @@ import { FortalezaRedeComponent } from './Components/fortaleza-rede/fortaleza-re
 import { AmigosComumComponent } from './Components/amigos-comum/amigos-comum.component';
 import { CaminhoDiferenciadoComponent } from './Components/caminho-diferenciado/caminho-diferenciado.component';
 import { TagsTodasRelacoesComponent } from './Components/tags-todas-relacoes/tags-todas-relacoes.component';
+import { ComentarPostComponent } from './Components/comentar-post/comentar-post.component';
 
 const routes: Routes = [
   { path: '', component: HomeInicialComponent },
@@ -54,7 +55,8 @@ const routes: Routes = [
   { path: 'tag_relacao_user', component: TagRelacaoUserComponent },
   { path: 'tags_jogadores', component: TagsTodosJogadoresComponent },
   { path: 'fortaleza_rede', component: FortalezaRedeComponent },
-  { path: 'caminho_diferenciado', component: CaminhoDiferenciadoComponent }
+  { path: 'caminho_diferenciado', component: CaminhoDiferenciadoComponent },
+  { path: 'comentar_post', component: ComentarPostComponent }
 ];
 
 
