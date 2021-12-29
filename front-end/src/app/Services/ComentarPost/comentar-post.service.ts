@@ -25,7 +25,6 @@ export class ComentarPostService {
         'Content-Type': 'application/json',
       })
     };
-    console.log(bodystr);
     return this.http.post<Comentario>(this.comentarPostUrl + 'comentarios', comentario);
   }
 

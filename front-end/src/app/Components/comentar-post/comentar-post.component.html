@@ -4,16 +4,23 @@
     <div id="container">
         <h2>Comentar Post</h2>
         <h4>Lista de posts disponiveis: </h4>
+        <div *ngIf="!listaPosts.length">Não tem posts para comentar!</div>
         <div *ngFor="let post of listaPosts">
-            <p>Criado Por: {{post.email}}</p>
+            <p style="font-weight: bold;">Criado Por: {{post.email}}</p>
             <p>{{post.description}}</p>
             <form [formGroup]="comentarioForm" (ngSubmit)="onSubmit(post)">
                 <div class = "form-group">
-                <input id="comentario" type="text" placeholder="Escreva aqui o seu comentario..." formControlName="comentario"
+                    <p style="font-weight: bold;">Comentários:</p>
+                    <div *ngFor="let com of listaComentarios">
+                        <div *ngIf="com.props.post == post.id">
+                            {{com.props.autor}} comentou: {{com.props.texto}}
+                        </div>
+                    </div>
+                    <br>
+                <input style="width: 300px;" id="comentario" type="text" placeholder="Escreva aqui o seu comentario..." formControlName="comentario"
                     class ="form-control" required/>
-                    <button style="margin-left: 20px;" type="submit" id="submit" class="submit"> Adicionar Comentário</button>
+                    <button style="margin-left: 20px;" type="submit" id="submit" class="aceitar"> Adicionar Comentário</button>
                 </div>
-                    
             </form>
         </div>
     </div>

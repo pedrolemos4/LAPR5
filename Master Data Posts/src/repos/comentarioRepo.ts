@@ -63,10 +63,8 @@ export default class ComentarioRepo implements IComentarioRepo {
   }
 
   public async findById (comentarioId: ComentarioId | string): Promise<Comentario> {
-
     const query = { domainId: comentarioId };
         const comentarioRecord = await this.comentarioSchema.findOne(query as FilterQuery<IComentarioPersistence & Document>);
-
         if (comentarioRecord != null) {
             return ComentarioMap.toDomain(comentarioRecord);
         } else

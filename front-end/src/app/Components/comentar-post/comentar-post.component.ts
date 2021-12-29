@@ -4,6 +4,7 @@ import { Post } from 'src/app/Models/Post';
 import { Comentario } from 'src/app/Models/Comentario';
 import { ComentarPostService } from 'src/app/Services/ComentarPost/comentar-post.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-comentar-post',
@@ -16,8 +17,9 @@ export class ComentarPostComponent implements OnInit {
   emailCurrentUser: string | undefined = '';
   listaPosts: Post[] = [];
   listaComentarios: Comentario[] = [];
+  listaAux: string[][] =[];
 
-  constructor(private formBuilder: FormBuilder, private comentarPostService: ComentarPostService, private toastr: ToastrService) { 
+  constructor(private formBuilder: FormBuilder, private comentarPostService: ComentarPostService, private toastr: ToastrService, private router: Router) { 
     this.comentarioForm = this.formBuilder.group({
       comentario: ['', Validators.required],
     })
@@ -32,11 +34,12 @@ export class ComentarPostComponent implements OnInit {
         if(!post.email.match(this.emailCurrentUser)){
           this.listaPosts.push(post);
           post.listaComentarios.forEach(comentario => {
-            
+            this.comentarPostService.getComentarioById(comentario).subscribe(com => {
+              this.listaComentarios.push(com);
+            })
           });
         }
       });
-      console.log(this.listaPosts.length);
     });
   }
 
@@ -50,6 +53,7 @@ export class ComentarPostComponent implements OnInit {
     } as Comentario).subscribe({
       next: () =>{
         this.toastr.success("Comentário adicionado com sucesso!", undefined,{positionClass: 'toast-bottom-left'});
+        this.router.navigateByUrl('/home');
       },
       error:() => {
         this.toastr.error("Falha na publicação do comentário.", undefined, { positionClass: 'toast-bottom-left' });

@@ -25,6 +25,17 @@ export default class ComentarioService implements IComentarioService {
         }
     }
 
+    public async getComentarioById(comentarioId: string): Promise<Result<Comentario>> {
+        const comentario = await this.comentarioRepo.findById( comentarioId );
+        const found = !!comentario;
+    
+        if (found) {
+          return Result.ok<Comentario>(comentario);
+        } else {
+          return Result.fail<Comentario>("Couldn't find comentario by id=" + comentarioId);
+        }
+      }
+
     public async createComentario(comentarioDTO: IComentarioDTO): Promise<Result<IComentarioDTO>> {
         try{
 
