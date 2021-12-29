@@ -25,10 +25,11 @@
 :-ensure_loaded("./AlgoritmoCaminhoSeguro.pl").
 :-ensure_loaded("./calcularTamanhoRede.pl").
 :-ensure_loaded("./CaminhoMaisForte.pl").
-:-ensure_loaded("./checktags.pl").
+:-ensure_loaded("./CheckTags.pl").
 :-ensure_loaded("./SugerirConexoesTagsNivel.pl").
 :-ensure_loaded("./FortalezaRede.pl").
 :-ensure_loaded("./CaminhoMaisCurto.pl").
+:-ensure_loaded("./AStarForcaRelacaoLigacao.pl").
 
 
 :-json_object objeto_json_tags(caminho:list(string)).
@@ -53,7 +54,23 @@ stop(Port):-
 :- http_handler('/api/CalcularTamanhoRede', tamRedeHandler, []).
 :- http_handler('/api/CaminhoMaisSeguro', caminhoSeguroHandler, []).
 :- http_handler('/api/SugerirConexoes', sugerirConexoesHandler,[]).
+:- http_handler('/api/ForcaLigacaoRelacao',forcaLigacaoRelacao,[]).
 :- http_handler('/api/FortalezaRede', fortalezaRedeHandler,[]).
+
+
+forcaLigacaoRelacao(Request):-
+    cors_enable,
+    removerBaseConhecimento(),!,
+    carregaDados(),!,
+    http_parameters(Request,
+    [orig(Orig,[string]),
+     dest(Dest,[string]),
+    nivelLimite(NivelLimite,[number])]),
+
+    aStarRelacaoLigacao(Orig,Dest,NivelLimite,Cam,_),
+    Reply = objeto_json_tags(Cam),
+    prolog_to_json(Reply,JSONObject),
+    reply_json(JSONObject,[json_object]).
 
 sugerirConexoesHandler(Request):-
     cors_enable,

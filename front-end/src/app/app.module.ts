@@ -37,6 +37,7 @@ import { AmigosComumComponent } from './Components/amigos-comum/amigos-comum.com
 import { CaminhoDiferenciadoComponent } from './Components/caminho-diferenciado/caminho-diferenciado.component';
 import { TagsTodasRelacoesComponent } from './Components/tags-todas-relacoes/tags-todas-relacoes.component';
 import { ComentarPostComponent } from './Components/comentar-post/comentar-post.component';
+import { VerCaminhosComponent } from './Components/ver-caminhos/ver-caminhos.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { ComentarPostComponent } from './Components/comentar-post/comentar-post.
     AmigosComumComponent,
     CaminhoDiferenciadoComponent,
     TagsTodasRelacoesComponent,
-    ComentarPostComponent
+    ComentarPostComponent,
+    VerCaminhosComponent
   ],
   imports: [
     BrowserModule,

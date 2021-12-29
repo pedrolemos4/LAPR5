@@ -27,9 +27,11 @@ import { AmigosComumComponent } from './Components/amigos-comum/amigos-comum.com
 import { CaminhoDiferenciadoComponent } from './Components/caminho-diferenciado/caminho-diferenciado.component';
 import { TagsTodasRelacoesComponent } from './Components/tags-todas-relacoes/tags-todas-relacoes.component';
 import { ComentarPostComponent } from './Components/comentar-post/comentar-post.component';
+import { VerCaminhosComponent } from './Components/ver-caminhos/ver-caminhos.component';
 
 const routes: Routes = [
   { path: '', component: HomeInicialComponent },
+  { path: 'ver_caminhos', component: VerCaminhosComponent },
   { path: 'tags_todas_relacoes', component: TagsTodasRelacoesComponent },
   { path: 'amigos_comum', component: AmigosComumComponent },
   { path: 'sugerir_amigos', component: SugerirAmigosComponent },
