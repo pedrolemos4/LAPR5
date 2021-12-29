@@ -165,7 +165,7 @@ export class RedeComponent implements OnInit {
                               gl_FragColor = vec4(mix(color1, color2, vUv.y), 1.0);
                           }
                       `,
-        wireframe: true
+        wireframe: false
       });
     } else {
       materialPlayer122 = new THREE.MeshPhongMaterial({ color: 'blue', flatShading: true })
@@ -303,7 +303,7 @@ export class RedeComponent implements OnInit {
 
     //Create light
     const light = new THREE.DirectionalLight(0xFFFFFF, 1);
-    light.position.set(-1, 2, 4);
+    light.position.set(20, 20, 0);
     this.scene.add(light);
 
     this.container = document.getElementById("canvas");
