@@ -18,9 +18,9 @@
 
 :- dynamic novo_jogador/2.
 :- dynamic novo_perfil/3.
-:- dynamic nova_relacao/3.
+:- dynamic nova_relacao/4.
 :- dynamic no/3.
-:- dynamic ligacao/4.
+:- dynamic ligacao/6.
 
 :-ensure_loaded("./AlgoritmoCaminhoSeguro.pl").
 :-ensure_loaded("./calcularTamanhoRede.pl").
@@ -197,27 +197,27 @@ carregaRelacoes(Data) :-
 
 parse_relacoes([]).
 parse_relacoes([H|List]):-
-    asserta(nova_relacao(H.get(jogador1),H.get(jogador2),H.get(forcaLigacao))),
+    asserta(nova_relacao(H.get(jogador1),H.get(jogador2),H.get(forcaLigacao),H.get(forcaRelacao))),
     parse_relacoes(List).
 
 
 carregaLigacoes([]):- !.
 carregaLigacoes([Jogador1|Lista]):-
-    nova_relacao(Jogador1,Jogador2,ForcaLigacao1),nova_relacao(Jogador2,Jogador1,ForcaLigacao2),
-    asserta(ligacao(Jogador1,Jogador2,ForcaLigacao1,ForcaLigacao2)),carregaLigacoes(Lista).
+    nova_relacao(Jogador1,Jogador2,ForcaLigacao1,ForcaRelacao1),nova_relacao(Jogador2,Jogador1,ForcaLigacao2,ForcaRelacao2),
+    asserta(ligacao(Jogador1,Jogador2,ForcaLigacao1,ForcaLigacao2,ForcaRelacao1,ForcaRelacao2)),carregaLigacoes(Lista).
 carregaLigacao([_|Lista]):-carregaLigacoes(Lista).
 
-adicionaLigacoes():- findall(Jogador1,nova_relacao(Jogador1,_,_),Lista),
+adicionaLigacoes():- findall(Jogador1,nova_relacao(Jogador1,_,_,_),Lista),
                         percorre_utilizadores(Lista).
 
 percorre_utilizadores([]):- !.
 percorre_utilizadores([X|ListaUtilizadores]):-
-    findall(Y,nova_relacao(X,Y,_),LigacoesDeX), percorre_lista_ligacoes_possiveis(X,LigacoesDeX),
+    findall(Y,nova_relacao(X,Y,_,_),LigacoesDeX), percorre_lista_ligacoes_possiveis(X,LigacoesDeX),
     percorre_utilizadores(ListaUtilizadores).
 
 % percorre lista de amigos do utilizador X e faz um asserta de um novo facto(ligacao1)
 percorre_lista_ligacoes_possiveis(_,[]):-!.
-percorre_lista_ligacoes_possiveis(X,[Y|Lista]):- nova_relacao(X,Y,F1), nova_relacao(Y,X,F2),asserta(ligacao(X,Y,F1,F2)), percorre_lista_ligacoes_possiveis(X,Lista).
+percorre_lista_ligacoes_possiveis(X,[Y|Lista]):- nova_relacao(X,Y,F1,R1), nova_relacao(Y,X,F2,R2),asserta(ligacao(X,Y,F1,F2,R1,R2)), percorre_lista_ligacoes_possiveis(X,Lista).
 
 
 carrega_no([]):- !.
@@ -243,6 +243,18 @@ carregaDados():-
 removerBaseConhecimento():-
         retractall(novo_jogador(_,_)),
         retractall(novo_perfil(_,_,_)),
-        retractall(nova_relacao(_,_,_)),
+        retractall(nova_relacao(_,_,_,_)),
         retractall(no(_,_,_)),
-        retractall(ligacao(_,_,_,_)).
+        retractall(ligacao(_,_,_,_,_,_)).
+
+
+
+
+
+
+
+
+
+
+
+
