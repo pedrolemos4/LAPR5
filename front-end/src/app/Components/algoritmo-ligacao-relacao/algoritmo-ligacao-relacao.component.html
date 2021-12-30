@@ -1,0 +1,32 @@
+<app-header></app-header>
+<app-navbar></app-navbar>
+<div id="texto">
+    <div id="container">
+        <h2>Calcular caminho mais forte</h2>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-25">
+                        <label for="amigos">Amigos:</label>
+                    </div>
+                    <div class="col-75">
+                        <select id="amigos" class="selector" style="margin: 20px;" (change)="selectAmigo($event)">
+                            <option selected disabled="disabled">Selecione um jogador</option>
+                            <option *ngFor="let eachVal of emailJogadores" [ngValue]="eachVal">
+                                {{eachVal}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <p id="mensagem" style="margin-left: 1%;"><span>Selecionou: </span><b>{{selectedJogador}}</b></p>
+            <div class="col-75">
+                <label for="numeroNiveis">Nível: </label>
+                <input type="text" id="numeroNiveis" formControlName="numeroNiveis" class="form-control" required />
+            </div>
+            <button id="submit" type="submit" class="submit" style="margin-top: 7%; margin-left: -74%;"> Ver solução </button>
+            <p id="mensagem1" style="margin-top: 2.5%; margin-left: 1%;"><span> Caminho: </span><b> {{Caminho}} </b></p>
+            <p id="mensagem2" style="margin-left: 1%;"><span> Custo: </span><b> {{Custo}} </b></p>
+        </form>
+    </div>
+</div>
