@@ -56,21 +56,17 @@ export class AlgoritmoLigacaoRelacaoComponent implements OnInit {
     this.service.getPerfilAtualEmail(this.selectedJogador).subscribe(PerfilSelecionado => {
       this.service.getJogador(PerfilSelecionado.id).subscribe(JogadorSelecionado => {
         this.service.getResultadosAlgoritmo(this.idCurrentJogador, JogadorSelecionado.id, this.nNiveis).subscribe(Resultado => {
-          console.log(Resultado);
-          console.log(Resultado[0]);
-          console.log(Resultado[1]);
-          console.log(Resultado[1]);
-          var camAux = Object.values(Resultado[0]);
-          var custoAux = Object.values(Resultado[1]);
-          console.log(camAux);
-          console.log(custoAux);
-          this.Custo = custoAux[0];
-          console.log(camAux[0]);
-          console.log(custoAux[1]);
-          if (camAux[0].length == 0) {
+          console.log(Resultado + " 59");
+          console.log(Resultado[0] + " 60");
+          console.log(Resultado[1] + " 61");
+          var aux = Object.values(Resultado);
+          this.Custo = aux[1];
+          console.log(aux[0] + " 64"); 
+          console.log(aux[1] + " 65");
+          if (aux[0].length == 0) {
             this.toastr.error("Selecione outro nível ou outro utilizador", undefined, { positionClass: 'toast-bottom-left' });
           } else {
-            this.Caminho = camAux[0];
+            this.Caminho = aux[0];
             this.toastr.success("Soluções encontradas", undefined, { positionClass: 'toast-bottom-left' });
           }
         });
