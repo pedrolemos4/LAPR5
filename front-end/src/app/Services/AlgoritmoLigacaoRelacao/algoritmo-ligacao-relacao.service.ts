@@ -27,6 +27,10 @@ export class AlgoritmoLigacaoRelacaoService {
     return this.httpClient.get<Jogador>(this.url + 'jogadores/GetJogadorByPerfil/' + idPerfil);
   }
 
+  getJogadorById(idJogador: any): Observable<Jogador> {
+    return this.httpClient.get<Jogador>(this.url + 'jogadores/GetJogador/' + idJogador);
+  }
+
   getAmigos(idJog: any): Observable<Jogador[]> {
     return this.httpClient.get<Jogador[]>(this.url + 'jogadores/GetAmigos/' + idJog);
   }

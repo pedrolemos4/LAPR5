@@ -15,7 +15,7 @@ export class AlgoritmoLigacaoRelacaoComponent implements OnInit {
   nNiveis: number;
   emailJogadores: string[] = new Array<string>();
   selectedJogador: string;
-  Caminho: string;
+  Caminho: string[] = new Array<string>();
   Custo: string;
   emailCurrentUser: string;
   idCurrentJogador: string;
@@ -56,17 +56,19 @@ export class AlgoritmoLigacaoRelacaoComponent implements OnInit {
     this.service.getPerfilAtualEmail(this.selectedJogador).subscribe(PerfilSelecionado => {
       this.service.getJogador(PerfilSelecionado.id).subscribe(JogadorSelecionado => {
         this.service.getResultadosAlgoritmo(this.idCurrentJogador, JogadorSelecionado.id, this.nNiveis).subscribe(Resultado => {
-          console.log(Resultado + " 59");
-          console.log(Resultado[0] + " 60");
-          console.log(Resultado[1] + " 61");
           var aux = Object.values(Resultado);
           this.Custo = aux[1];
-          console.log(aux[0] + " 64"); 
-          console.log(aux[1] + " 65");
           if (aux[0].length == 0) {
             this.toastr.error("Selecione outro nível ou outro utilizador", undefined, { positionClass: 'toast-bottom-left' });
           } else {
-            this.Caminho = aux[0];
+            var auxArray = aux[0].split(",");
+            auxArray.forEach((element: any) => {
+              this.service.getJogadorById(element).subscribe(Jogador => {
+                this.service.getPerfilJogador(Jogador.id).subscribe(Perfil => {
+                  this.Caminho.push(Perfil.email);
+                });
+              });
+            });
             this.toastr.success("Soluções encontradas", undefined, { positionClass: 'toast-bottom-left' });
           }
         });
