@@ -63,8 +63,8 @@ export class AlgoritmoLigacaoRelacaoComponent implements OnInit {
           } else {
             console.log(aux[0] + " 64");
             console.log(Object.values(aux[0]) + " 65");
-            var var1 = aux[0];
-            console.log(var1+ " 67")
+            var var1 = aux[0] + '';
+            console.log(var1+ " 67");
             var auxArray = var1.split(",");
             console.log(auxArray+" 69");
             console.log(auxArray.length+" 70");
