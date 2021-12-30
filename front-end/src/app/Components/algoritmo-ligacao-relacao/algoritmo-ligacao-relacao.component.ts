@@ -70,7 +70,9 @@ export class AlgoritmoLigacaoRelacaoComponent implements OnInit {
             console.log(auxArray.length+" 70");
             auxArray.forEach((element: any) => {
               this.service.getJogadorById(element).subscribe(Jogador => {
+                console.log(Jogador.id);
                 this.service.getPerfilJogador(Jogador.id).subscribe(Perfil => {
+                  console.log(Perfil.email);
                   this.Caminho.push(Perfil.email);
                 });
               });
