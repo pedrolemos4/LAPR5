@@ -36,6 +36,7 @@
 :-json_object objeto_json_rede(resultado:number).
 :-json_object objeto_json_seguro(caminho_seguro:list(string)).
 :-json_object objeto_json_fortaleza(resultado:number).
+:-json_object objeto_json_relacaoLigacao(caminho:list(string),custo:number).
 
 % Criacao de servidor HTTP no porto 'Port'
 server(Port) :-
@@ -67,8 +68,8 @@ forcaLigacaoRelacao(Request):-
      dest(Dest,[string]),
     nivelLimite(NivelLimite,[number])]),
 
-    aStarRelacaoLigacao(Orig,Dest,NivelLimite,Cam,_),
-    Reply = objeto_json_tags(Cam),
+    aStarRelacaoLigacao(Orig,Dest,NivelLimite,Cam,Custo),
+    Reply = objeto_json_relacaoLigacao(Cam,Custo),
     prolog_to_json(Reply,JSONObject),
     reply_json(JSONObject,[json_object]).
 

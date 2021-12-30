@@ -1,4 +1,4 @@
-percorre_niveis1(Numero,[],NivelAtual,Nivel, ListUtilizadores,ListaGuardaTodosNiveis, ListaARetornar):-  sort(ListUtilizadores,ListUtilizadores1),append(ListUtilizadores1,ListaGuardaTodosNiveis,ListaRes), sort(ListaRes,ListaRes1),NivelAtual1 is NivelAtual+1, ((NivelAtual1==Nivel,ListaARetornar = ListaRes1,!); percorre_niveis(Numero,ListUtilizadores1,NivelAtual1,Nivel,[],ListaRes1,ListaARetornar)).
+percorre_niveis1(Numero,[],NivelAtual,Nivel, ListUtilizadores,ListaGuardaTodosNiveis, ListaARetornar):-  sort(ListUtilizadores,ListUtilizadores1),append(ListUtilizadores1,ListaGuardaTodosNiveis,ListaRes), sort(ListaRes,ListaRes1),NivelAtual1 is NivelAtual+1, ((NivelAtual1==Nivel,ListaARetornar = ListaRes1,!); percorre_niveis1(Numero,ListUtilizadores1,NivelAtual1,Nivel,[],ListaRes1,ListaARetornar)).
 percorre_niveis1(Numero,[NUtilizador|ListaNivel],NivelAtual,Nivel, ListUtilizadores,ListaGuardaTodosNiveis,ListaARetornar):- findall(NX, ((ligacao(NUtilizador,NX,_,_,_,_);ligacao(NX,NUtilizador,_,_,_,_)), NX\==Numero), ListUtilizadoresNivel), append(ListUtilizadoresNivel,ListUtilizadores,Lista),
 percorre_niveis1(Numero,ListaNivel,NivelAtual,Nivel,Lista,ListaGuardaTodosNiveis,ListaARetornar).
 
@@ -35,9 +35,9 @@ findall((CEX,CaX,[X|LA]),
 converterLigacao(FX,FAct,F1), converterRelacao(RX,RY,R1),CaX is (F1 + R1)/2+ Ca, estimativa([X|LA],ListaForcas,EstX),
 CEX is CaX + EstX),Novos),
 append(Outros,Novos,Todos),
-write('Novos='),write(Novos),nl,
+%write('Novos='),write(Novos),nl,
 sort(Todos,TodosOrd), reverse(TodosOrd, Final),
-write('Final='),write(Final),nl,
+%write('Final='),write(Final),nl,
 aStar2(Dest,Final,Cam,Custo,ListaForcas,NivelLimite).
 
 
@@ -65,7 +65,7 @@ insert_item(X, List, [X|List]).
 estimativa(ListaCaminho,ListaForcas,Estimativa):-
 length(ListaCaminho,Contador), Diferenca is Contador - 2,
 altera_lista_forcas(ListaForcas,Diferenca,ListaFinal),
-write('ListaFinal='),write(ListaFinal),nl,
+%write('ListaFinal='),write(ListaFinal),nl,
 set_estimativa(ListaFinal,Estimativa).
 
 % modifica ListaFinal. Diferenca corresponde a um valor numerico que irá determinar o tamanho da lista Prefix.
