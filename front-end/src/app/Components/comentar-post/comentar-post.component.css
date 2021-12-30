@@ -29,16 +29,3 @@
 .aceitar:hover{
     background-color: rgb(21, 161, 52);
 }
-
-.rejeitar{
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 7px 10px;
-    margin-left: 15px;
-    cursor: pointer;
-}
-
-.rejeitar:hover{
-    background-color: rgb(172, 0, 0);
-}
