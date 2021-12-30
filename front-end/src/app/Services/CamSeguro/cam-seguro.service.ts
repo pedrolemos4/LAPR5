@@ -12,7 +12,7 @@ export class CamSeguroService {
 
   private readonly url = environment.apiUrl + 'jogadores';  // URL to web api
   private readonly urlPer = environment.apiUrl + 'Perfis';
-  private readonly urlPlan = 'http://localhost:4300';
+  private readonly urlPlan = environment.prologUrl;
 
   constructor(private httpClient: HttpClient) { }
 
