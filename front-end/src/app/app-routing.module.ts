@@ -28,9 +28,13 @@ import { CaminhoDiferenciadoComponent } from './Components/caminho-diferenciado/
 import { TagsTodasRelacoesComponent } from './Components/tags-todas-relacoes/tags-todas-relacoes.component';
 import { ComentarPostComponent } from './Components/comentar-post/comentar-post.component';
 import { VerCaminhosComponent } from './Components/ver-caminhos/ver-caminhos.component';
+import { VerAlgoritmosComponent } from './Components/ver-algoritmos/ver-algoritmos.component';
+import { AlgoritmoLigacaoRelacaoComponent } from './Components/algoritmo-ligacao-relacao/algoritmo-ligacao-relacao.component';
 
 const routes: Routes = [
   { path: '', component: HomeInicialComponent },
+  { path: 'ver_algoritmos', component: VerAlgoritmosComponent },
+  { path: 'algoritmo_relacao_ligacao', component: AlgoritmoLigacaoRelacaoComponent },
   { path: 'ver_caminhos', component: VerCaminhosComponent },
   { path: 'tags_todas_relacoes', component: TagsTodasRelacoesComponent },
   { path: 'amigos_comum', component: AmigosComumComponent },
