@@ -1,26 +1,26 @@
-percorre_niveis(Numero,[],NivelAtual,Nivel, ListUtilizadores,ListaGuardaTodosNiveis, ListaARetornar):-  sort(ListUtilizadores,ListUtilizadores1),append(ListUtilizadores1,ListaGuardaTodosNiveis,ListaRes), sort(ListaRes,ListaRes1),NivelAtual1 is NivelAtual+1, ((NivelAtual1==Nivel,ListaARetornar = ListaRes1,!); percorre_niveis(Numero,ListUtilizadores1,NivelAtual1,Nivel,[],ListaRes1,ListaARetornar)).
-percorre_niveis(Numero,[NUtilizador|ListaNivel],NivelAtual,Nivel, ListUtilizadores,ListaGuardaTodosNiveis,ListaARetornar):- findall(NX, ((ligacao(NUtilizador,NX,_,_,_,_);ligacao(NX,NUtilizador,_,_,_,_)), NX\==Numero), ListUtilizadoresNivel), append(ListUtilizadoresNivel,ListUtilizadores,Lista),
-percorre_niveis(Numero,ListaNivel,NivelAtual,Nivel,Lista,ListaGuardaTodosNiveis,ListaARetornar).
+percorre_niveis1(Numero,[],NivelAtual,Nivel, ListUtilizadores,ListaGuardaTodosNiveis, ListaARetornar):-  sort(ListUtilizadores,ListUtilizadores1),append(ListUtilizadores1,ListaGuardaTodosNiveis,ListaRes), sort(ListaRes,ListaRes1),NivelAtual1 is NivelAtual+1, ((NivelAtual1==Nivel,ListaARetornar = ListaRes1,!); percorre_niveis(Numero,ListUtilizadores1,NivelAtual1,Nivel,[],ListaRes1,ListaARetornar)).
+percorre_niveis1(Numero,[NUtilizador|ListaNivel],NivelAtual,Nivel, ListUtilizadores,ListaGuardaTodosNiveis,ListaARetornar):- findall(NX, ((ligacao(NUtilizador,NX,_,_,_,_);ligacao(NX,NUtilizador,_,_,_,_)), NX\==Numero), ListUtilizadoresNivel), append(ListUtilizadoresNivel,ListUtilizadores,Lista),
+percorre_niveis1(Numero,ListaNivel,NivelAtual,Nivel,Lista,ListaGuardaTodosNiveis,ListaARetornar).
 
 :-dynamic ligacao1/6.
 
 % percorre_niveis para ter acesso a uma lista com os utilizadores que fazem parte da rede do utilizador origem
-cria_novas_ligacoes(Orig, NivelLimite, ListaUtilizadores):- percorre_niveis(Orig,[Orig],0,NivelLimite,[],[],ListaUtilizadores).
+cria_novas_ligacoes1(Orig, NivelLimite, ListaUtilizadores):- percorre_niveis1(Orig,[Orig],0,NivelLimite,[],[],ListaUtilizadores).
 
 % percorre lista de utilizadores da rede do utilizador origem, incluindo-0
-% encontra uma lista de utilizadores com qual um certo utilizador(X) tem ligacao e percorremos essa lista com o predicado percorre_lista_ligacoes_possiveis
-percorre_utilizadores([]):- !.
-percorre_utilizadores([X|ListaUtilizadores]):-
-    findall(Y,ligacao(X,Y,_,_,_,_),LigacoesDeX), percorre_lista_ligacoes_possiveis(X,LigacoesDeX),
-    percorre_utilizadores(ListaUtilizadores).
+% encontra uma lista de utilizadores com qual um certo utilizador(X) tem ligacao e percorremos essa lista com o predicado percorre_lista_ligacoes_possiveis1
+percorre_utilizadores1([]):- !.
+percorre_utilizadores1([X|ListaUtilizadores]):-
+    findall(Y,ligacao(X,Y,_,_,_,_),LigacoesDeX), percorre_lista_ligacoes_possiveis1(X,LigacoesDeX),
+    percorre_utilizadores1(ListaUtilizadores).
 
 % percorre lista de amigos do utilizador X e faz um asserta de um novo facto(ligacao1)
-percorre_lista_ligacoes_possiveis(_,[]):-!.
-percorre_lista_ligacoes_possiveis(X,[Y|Lista]):- ligacao(X,Y,FX,FY,RX,RY), asserta(ligacao1(X,Y,FX,FY,RX,RY)), percorre_lista_ligacoes_possiveis(X,Lista).
+percorre_lista_ligacoes_possiveis1(_,[]):-!.
+percorre_lista_ligacoes_possiveis1(X,[Y|Lista]):- ligacao(X,Y,FX,FY,RX,RY), asserta(ligacao1(X,Y,FX,FY,RX,RY)), percorre_lista_ligacoes_possiveis1(X,Lista).
 
 
 aStarRelacaoLigacao(Orig,Dest,NivelLimite,Cam,Custo):-
-    cria_novas_ligacoes(Orig, NivelLimite, ListaUtilizadores), percorre_utilizadores([Orig|ListaUtilizadores]),
+    cria_novas_ligacoes1(Orig, NivelLimite, ListaUtilizadores), percorre_utilizadores1([Orig|ListaUtilizadores]),
     lista_forcas([Orig|ListaUtilizadores],[],ListaForcas), ordem_decrescente(ListaForcas,ListaDecrescente),
     aStar2(Dest,[(_,0,[Orig])],Cam,Custo,ListaDecrescente,NivelLimite),
     % necessário pois no inicio do predicado criamos o facto ligacao1 e se nao for feito o retractall, irao haver factos repetidos
@@ -44,13 +44,13 @@ aStar2(Dest,Final,Cam,Custo,ListaForcas,NivelLimite).
 % lista com todas as forças de ligaçao dos utilizadores na rede do utilizador inicial
 lista_forcas([],ListaAuxiliar, ListaForcas):- ListaForcas = ListaAuxiliar.
 lista_forcas([X|ListaUtilizadores],Lista, ListaForcas):-
-    findall(Y,ligacao1(X,Y,_,_,_,_),LigacoesDeX), percorre_lista_ligacoes_forca(X,LigacoesDeX,Lista,ListaAux),
+    findall(Y,ligacao1(X,Y,_,_,_,_),LigacoesDeX), percorre_lista_ligacoes_forca1(X,LigacoesDeX,Lista,ListaAux),
     lista_forcas(ListaUtilizadores,ListaAux, ListaForcas).
 
 % acrescenta à Lista todas as somas das forças de ligacao de uma ligacao
-percorre_lista_ligacoes_forca(_,[],ListaAuxiliar,Lista):- Lista = ListaAuxiliar.
-percorre_lista_ligacoes_forca(X,[Y|ListaUtilizadores],ListaAuxiliar,Lista):-
-    ligacao1(X,Y,FX,FY,RX,RY), converterLigacao(FX,FY,F1), converterRelacao(RX,RY,R1), Soma is (F1 + R1)/2, percorre_lista_ligacoes_forca(X,ListaUtilizadores,[Soma|ListaAuxiliar], Lista).
+percorre_lista_ligacoes_forca1(_,[],ListaAuxiliar,Lista):- Lista = ListaAuxiliar.
+percorre_lista_ligacoes_forca1(X,[Y|ListaUtilizadores],ListaAuxiliar,Lista):-
+    ligacao1(X,Y,FX,FY,RX,RY), converterLigacao(FX,FY,F1), converterRelacao(RX,RY,R1), Soma is (F1 + R1)/2, percorre_lista_ligacoes_forca1(X,ListaUtilizadores,[Soma|ListaAuxiliar], Lista).
 
 converterLigacao(FX,FY,F):- Aux is FX + FY + 200, F is (Aux*100)/400.
 converterRelacao(RX,RY,F):- F is RX + RY.
