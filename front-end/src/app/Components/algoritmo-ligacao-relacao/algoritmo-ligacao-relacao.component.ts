@@ -61,7 +61,9 @@ export class AlgoritmoLigacaoRelacaoComponent implements OnInit {
           if (aux[0].length == 0) {
             this.toastr.error("Selecione outro nível ou outro utilizador", undefined, { positionClass: 'toast-bottom-left' });
           } else {
-            var auxArray = Object.values(aux[0]);
+            console.log(aux[0] + " 64");
+            console.log(Object.values(aux[0]) + " 65");
+            var auxArray = aux[0].split(",");
             auxArray.forEach((element: any) => {
               this.service.getJogadorById(element).subscribe(Jogador => {
                 this.service.getPerfilJogador(Jogador.id).subscribe(Perfil => {
