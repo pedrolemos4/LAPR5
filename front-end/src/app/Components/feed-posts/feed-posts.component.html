@@ -1,0 +1,52 @@
+<app-header></app-header>
+<app-navbar></app-navbar>
+
+<div class="card2">
+  <div class="container">
+    <div class="card-body">
+
+      <div class="form-data">
+        <h4 class="card-header">Escolha um utilizador para ver os seus posts:</h4>
+        <select id="selector" (change)="selectChangeHandler($event)">
+          <option selected disabled="disabled">Escolha o utilizador...</option>
+          <option *ngFor="let perfil of listaPerfis">
+            {{perfil.nome}}, {{perfil.email}} </option>
+        </select>
+      </div>
+    </div>
+    <h3 class="card-lista">Lista de posts do utilizador:<b>{{selected}}</b></h3>
+    <div class="row">
+      <div class="lcards" *ngFor="let card of cards">
+        <h4 class="card-desc"> Descrição: <b>{{card.description}}</b></h4>
+        <h4 class="card-nLikes"> Número de Likes: <b>{{card.likes.length}}</b><button (click)="verLikes(card.likes)">Ver Likes</button> Número de Dislikes: <b>{{card.dislikes.length}}</b><button (click)="verDislikes(card.dislikes)">Ver Dislikes</button></h4>
+        <h4 class="card-desc"> Número de Comentarios: <b>{{card.listaComentarios.length}}</b><button (click)="verListaComentarios(card.listaComentarios)">Ver Lista de Comentários</button></h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card3" id="likes">
+  <h4 class="card-header">Lista de Likes:</h4>
+  <p *ngFor="let l of lLikes">
+    {{l}} </p>
+  <button type="button" class="btn-link2" (click)="onLikesVoltar()">Voltar</button>
+</div>
+
+<div class="card4" id="dislikes">
+  <h4 class="card-header">Lista de Dislikes:</h4>
+  <p *ngFor="let d of lDislikes">
+    {{d}} </p>
+  <button type="button" class="btn-link2" (click)="onDislikesVoltar()">Voltar</button>
+</div>
+
+<div class="card4" id="comentarios">
+  <h4 class="card-header">Lista de Comentários:</h4>
+  <div class="row">
+    <div class="lcards" *ngFor="let c of lComentarios">
+      <h4 class="card-desc"> Autor do Comentário: <b>{{c.props.autor}}</b></h4>
+      <h4 class="card-desc"> Comentário: <b>{{c.props.texto}}</b></h4>
+      <h4 class="card-comentario"><button (click)="verLikes(c.props.likes)">Ver Likes</button> <button (click)="verDislikes(c.props.dislikes)">Ver Dislikes</button></h4>
+    </div>
+  </div>
+  <button type="button" class="btn-link2" (click)="onListaComentariosVoltar()">Voltar</button>
+</div>

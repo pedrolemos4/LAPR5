@@ -30,6 +30,7 @@ import { ComentarPostComponent } from './Components/comentar-post/comentar-post.
 import { VerCaminhosComponent } from './Components/ver-caminhos/ver-caminhos.component';
 import { VerAlgoritmosComponent } from './Components/ver-algoritmos/ver-algoritmos.component';
 import { AlgoritmoLigacaoRelacaoComponent } from './Components/algoritmo-ligacao-relacao/algoritmo-ligacao-relacao.component';
+import { FeedPostsComponent } from './Components/feed-posts/feed-posts.component';
 
 const routes: Routes = [
   { path: '', component: HomeInicialComponent },
@@ -62,7 +63,8 @@ const routes: Routes = [
   { path: 'tags_jogadores', component: TagsTodosJogadoresComponent },
   { path: 'fortaleza_rede', component: FortalezaRedeComponent },
   { path: 'caminho_diferenciado', component: CaminhoDiferenciadoComponent },
-  { path: 'comentar_post', component: ComentarPostComponent }
+  { path: 'comentar_post', component: ComentarPostComponent },
+  { path: 'feed_posts', component: FeedPostsComponent }
 ];
 
 
