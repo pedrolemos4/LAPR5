@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 export class TamRedeService {
 
   private readonly url = environment.apiUrl;  // URL to web api
-  private readonly urlPlan = 'http://localhost:4300';
+  private readonly urlPlan = environment.prologUrl;
 
   constructor(private http: HttpClient) { }
   

@@ -19,7 +19,7 @@
 rede(ID,Nivel,Tam):-percorre_niveis(ID,[ID],0,Nivel,[],[],Res),!,length(Res,Tam).
 percorre_niveis(ID,[],NA,N,ListUsers,ListNiveis,Rede):-sort(ListUsers,ListUsers1),append(ListUsers1,ListNiveis,ListRes),sort(ListRes,ListRes1),
     NA1 is NA+1,((NA1==N,Rede = ListRes1);percorre_niveis(ID,ListUsers1,NA1,N,[],ListRes1,Rede)).
-percorre_niveis(ID,[NUtilizador|ListNivel],NA,N,ListUsers,ListNiveis,ListRes):-findall(NX,((ligacao(NUtilizador,NX,_,_);
-    ligacao(NX,NUtilizador,_,_)),NX\==ID), ListUserNivel),append(ListUserNivel,ListUsers,Lista),
+percorre_niveis(ID,[NUtilizador|ListNivel],NA,N,ListUsers,ListNiveis,ListRes):-findall(NX,((ligacao(NUtilizador,NX,_,_,_,_);
+    ligacao(NX,NUtilizador,_,_,_,_)),NX\==ID), ListUserNivel),append(ListUserNivel,ListUsers,Lista),
     percorre_niveis(ID,ListNivel,NA,N,Lista,ListNiveis,ListRes).
 
