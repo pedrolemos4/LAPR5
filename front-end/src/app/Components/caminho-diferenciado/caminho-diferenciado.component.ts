@@ -119,7 +119,7 @@ export class CaminhoDiferenciadoComponent implements OnInit {
                               gl_FragColor = vec4(mix(color1, color2, vUv.y), 1.0);
                           }
                       `,
-        wireframe: true
+        wireframe: false
       });
     } else if (peso21 > peso12) {
       materialPlayer122 = new THREE.ShaderMaterial({
@@ -149,7 +149,7 @@ export class CaminhoDiferenciadoComponent implements OnInit {
                               gl_FragColor = vec4(mix(color1, color2, vUv.y), 1.0);
                           }
                       `,
-        wireframe: true
+        wireframe: false
       });
     } else {
       materialPlayer122 = new THREE.MeshPhongMaterial({ color: 'blue', flatShading: true })
@@ -162,16 +162,9 @@ export class CaminhoDiferenciadoComponent implements OnInit {
     cylinder.rotateZ(-anguloEntreCirculos);
 
     var array = [];
-    // if(materialPlayer122.type == 'MeshPhongMaterial'){
-    //   array = new Array(email1, cylinder, email2, materialPlayer122.color);
-    // } else{
-    //   console.log("COR  " + materialPlayer122.uniforms.color1);
-    //   array = new Array(email1, cylinder, email2, materialPlayer122.uniforms.color1.value, materialPlayer122.uniforms.color2.value);
-    // }
 
     array = new Array(email1, cylinder, email2, peso12, peso21);
     this.arrayRelacoes.push(array);
-    console.log(this.arrayRelacoes);
 
     this.scene.add(cylinder);
   }
@@ -392,11 +385,9 @@ export class CaminhoDiferenciadoComponent implements OnInit {
 
       await this.getPerfil(this.relacao.jogador1);
       var email1 = this.perfilByJogador.email;
-      console.log("WHAT 1 " + email1);
 
       await this.getPerfil(this.relacao.jogador2);
       var email2 = this.perfilByJogador.email;
-      console.log("WHAT 2 " + email2);
 
       this.createRelationship(email1, email2, forca12, forca21, anguloEntreCirculos, pontoIntermedio.x, pontoIntermedio.y, pontoIntermedio.z, hipotenusa - (2 * radiusCircle));
     }
@@ -405,10 +396,8 @@ export class CaminhoDiferenciadoComponent implements OnInit {
   onClick(event: any) {
     event.preventDefault();
 
-    console.log("ONCLICK");
     this.raycaster.setFromCamera(this.mouse, this.camera);
     var intersects = this.raycaster.intersectObjects(this.scene.children, true);
-    console.log(intersects);
 
     if (intersects[0] != null) {
       this.selected = intersects[0].object;
@@ -433,7 +422,6 @@ export class CaminhoDiferenciadoComponent implements OnInit {
         this.toastr.success("Caminho mais curto calculado", undefined, { positionClass: 'toast-bottom-left' });
         this.diferenciarCaminho(this.caminho);
         await new Promise(r => setTimeout(r, 10000));
-        console.log("ESPERA");
         this.resetObjectColor(this.caminho);
       }
     });
@@ -452,7 +440,6 @@ export class CaminhoDiferenciadoComponent implements OnInit {
         var aux = i + 1;
         if (element[1].material.type == 'MeshPhongMaterial') {
           if ((caminho[i] == element[0] && caminho[aux] == element[2]) || (caminho[aux] == element[0] && caminho[i] == element[2])) {
-            console.log("MESHPHONG???");
             element[1].material.color.set('blue');
           }
         } else if (element[1].material.type == 'ShaderMaterial') {
