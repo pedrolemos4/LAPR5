@@ -70,6 +70,21 @@ export default class PostRepo implements IPostRepo {
             return null;
     }
 
+    public async getPostsByEmail(key: any) {
+        
+        const query = {email: key};
+        var posts = [];
+        const document = await this.postSchema.find(query);
+        if (document === null) {
+            return Result.fail<Array<IPostDTO>>("No Posts Found!");
+        } else {
+            for (var i = 0; i < document.length; i++) {
+                posts.push(PostMap.toDTO(PostMap.toDomain(document[i])));
+            }
+            return Result.ok<Array<IPostDTO>>(posts);
+        }
+    }
+
     public async getPosts() {
         const document = await this.postSchema.find();
         var posts = [];
