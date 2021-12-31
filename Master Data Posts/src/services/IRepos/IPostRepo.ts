@@ -5,6 +5,7 @@ import { PostId } from "../../domain/postId";
 
 
 export default interface IPostRepo extends Repo<Post>{
+    getPostsByEmail(key: any);
     save(post:Post):Promise<Post>;
     findById(postId: PostId|string): Promise<Post>;
     getPosts();

@@ -1,0 +1,137 @@
+.card2 {
+    padding: 15px;
+    text-align: center;
+    width: 55%;
+    background-color: #f2f2f2e7;
+    border-radius: 5px;
+    justify-content: center;
+    margin-left: 30%;
+    margin-top: 2%;
+    position: absolute;
+    height: 80%;
+    overflow-y: auto;
+  }
+
+  .card3 {
+    padding: 15px;
+    text-align: center;
+    width: 55%;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    justify-content: center;
+    margin-left: 30%;
+    margin-top: 2%;
+    position: absolute;
+    height: 80%;
+    overflow-y: auto;
+  }
+
+  .card4 {
+    padding: 15px;
+    text-align: center;
+    width: 55%;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    justify-content: center;
+    margin-left: 30%;
+    margin-top: 2%;
+    position: absolute;
+    height: 80%;
+    overflow-y: auto;
+  }
+
+  .lcards {
+    border-color: #76b5c5;
+    border-style: solid;
+    border-radius: 5px;
+    height: 50%;
+    margin-bottom: 2%;
+  }
+
+  .card-header{
+      text-align: left;
+    font-weight: bold;
+    padding-bottom: 0%;
+    width: 50%;
+    margin-left: 2%;
+    font-size: large;
+}
+
+.card-lista {
+    margin-top: 7%;
+    text-align: left;
+    font-weight: bold;
+    padding-bottom: 0%;
+    width: 98%;
+    margin-left: 2%;
+    font-size: large;
+}
+
+.card-lista b {
+    margin-left: 2%;
+    width: 100%;
+    font-weight: normal;
+}
+
+.card-body {
+    height: 50%;
+    width: 100%;
+    
+}
+
+#selector {
+    float: left;
+    width: 50%;
+    margin-top: 5px;
+    margin-left: 2%;
+    width: 40.5%;
+}
+
+.card-desc {
+    font-weight: bold;
+    font-size: medium;
+}
+
+.card-desc b{
+    font-weight: normal;
+    font-size: medium;
+    margin-right: 2%;
+}
+
+.card-desc button{
+    border-radius: 12px;
+    font-size: small;
+    border-color: #76b5c5;
+    border-style: solid;
+}
+
+.card-nLikes {
+    margin-left: 10%;
+    font-weight: bold;
+    font-size: medium;
+}
+
+.card-nLikes b{
+    font-weight: normal;
+    margin-right: 2%;
+    font-size: medium;
+}
+
+.card-nLikes button{
+    margin-right: 11%;
+    border-radius: 12px;
+    font-size: small;
+    border-color: #76b5c5;
+    border-style: solid;
+}
+
+.card-comentario button{
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: 5%;
+    border-radius: 12px;
+    font-size: small;
+    border-color: #76b5c5;
+    border-style: solid;
+}
+

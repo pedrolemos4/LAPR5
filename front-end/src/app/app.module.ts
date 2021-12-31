@@ -40,6 +40,7 @@ import { ComentarPostComponent } from './Components/comentar-post/comentar-post.
 import { VerCaminhosComponent } from './Components/ver-caminhos/ver-caminhos.component';
 import { VerAlgoritmosComponent } from './Components/ver-algoritmos/ver-algoritmos.component';
 import { AlgoritmoLigacaoRelacaoComponent } from './Components/algoritmo-ligacao-relacao/algoritmo-ligacao-relacao.component';
+import { FeedPostsComponent } from './Components/feed-posts/feed-posts.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { AlgoritmoLigacaoRelacaoComponent } from './Components/algoritmo-ligacao
     ComentarPostComponent,
     VerCaminhosComponent,
     VerAlgoritmosComponent,
-    AlgoritmoLigacaoRelacaoComponent
+    AlgoritmoLigacaoRelacaoComponent,
+    FeedPostsComponent
   ],
   imports: [
     BrowserModule,
