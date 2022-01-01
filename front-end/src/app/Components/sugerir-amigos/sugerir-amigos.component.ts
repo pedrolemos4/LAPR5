@@ -40,7 +40,7 @@ export class SugerirAmigosComponent implements OnInit {
     this.sugerirAmigosService.getPerfilAtual(this.emailCurrentUser).subscribe(Perfil => {
       this.idCurrentUser = Perfil.id;
       this.sugerirAmigosService.getJogador(Perfil.id).subscribe(Jogador => {
-        try {
+        if (this.nNiveis > 1) {
           this.sugerirAmigosService.getAmigosSugeridos(Jogador.id, this.nNiveis).subscribe(ListaAux => {
             this.aux1 = Object.values(ListaAux);
             this.aux = Object.values(this.aux1);
@@ -57,7 +57,7 @@ export class SugerirAmigosComponent implements OnInit {
             });
             this.toastr.success("Amigos sugeridos com base nas tags e nível listados.", undefined, { positionClass: 'toast-bottom-left' });
           });
-        } catch (Error) {
+        } else {
           this.sugerirAmigosService.getAllPerfis().subscribe(All => {
             All.forEach((element: Perfil) => {
               if (element.id != this.idCurrentUser) {
