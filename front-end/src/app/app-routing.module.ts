@@ -31,10 +31,12 @@ import { VerCaminhosComponent } from './Components/ver-caminhos/ver-caminhos.com
 import { VerAlgoritmosComponent } from './Components/ver-algoritmos/ver-algoritmos.component';
 import { AlgoritmoLigacaoRelacaoComponent } from './Components/algoritmo-ligacao-relacao/algoritmo-ligacao-relacao.component';
 import { FeedPostsComponent } from './Components/feed-posts/feed-posts.component';
+import { VerForcaRelacaoComponent } from './Components/ver-forca-relacao/ver-forca-relacao.component';
 
 const routes: Routes = [
   { path: '', component: HomeInicialComponent },
   { path: 'ver_algoritmos', component: VerAlgoritmosComponent },
+  { path: 'forca_relacao', component: VerForcaRelacaoComponent },
   { path: 'algoritmo_relacao_ligacao', component: AlgoritmoLigacaoRelacaoComponent },
   { path: 'ver_caminhos', component: VerCaminhosComponent },
   { path: 'tags_todas_relacoes', component: TagsTodasRelacoesComponent },

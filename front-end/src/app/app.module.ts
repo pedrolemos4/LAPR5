@@ -41,6 +41,7 @@ import { VerCaminhosComponent } from './Components/ver-caminhos/ver-caminhos.com
 import { VerAlgoritmosComponent } from './Components/ver-algoritmos/ver-algoritmos.component';
 import { AlgoritmoLigacaoRelacaoComponent } from './Components/algoritmo-ligacao-relacao/algoritmo-ligacao-relacao.component';
 import { FeedPostsComponent } from './Components/feed-posts/feed-posts.component';
+import { VerForcaRelacaoComponent } from './Components/ver-forca-relacao/ver-forca-relacao.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { FeedPostsComponent } from './Components/feed-posts/feed-posts.component
     VerCaminhosComponent,
     VerAlgoritmosComponent,
     AlgoritmoLigacaoRelacaoComponent,
-    FeedPostsComponent
+    FeedPostsComponent,
+    VerForcaRelacaoComponent
   ],
   imports: [
     BrowserModule,
