@@ -3,7 +3,7 @@ import { browser, by, element } from "protractor";
 export class PerfilPage {
     
     async navigateTo(){
-        return browser.get('/perfil');
+        return browser.get('/ver_perfil');
     }
 
     getNomeTextbox() {
