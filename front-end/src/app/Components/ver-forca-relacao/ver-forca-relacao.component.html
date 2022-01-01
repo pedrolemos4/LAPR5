@@ -1,0 +1,16 @@
+<app-header></app-header>
+<app-navbar></app-navbar>
+
+<div class="card">
+    <h2 style="margin-left: 34%;">Forças de Relação</h2>
+    <table style="width:100%">
+        <tr>
+            <th> Email → Força </th>
+        </tr>
+
+        <tr *ngFor="let args of nomes">
+            <td> {{args}} </td>
+        </tr>
+        
+    </table>
+</div>
