@@ -43,9 +43,11 @@ export class SugerirAmigosComponent implements OnInit {
         this.sugerirAmigosService.getAmigosSugeridos(Jogador.id, this.nNiveis).subscribe(ListaAux => {
           this.aux1 = Object.values(ListaAux);
           this.aux = Object.values(this.aux1);
+          console.log(this.aux+" 46");
           if (this.aux.length > 0) {
             document.getElementById("textoSugestoes").style.display = "block";
             this.aux.forEach((element: any) => {
+              console.log(element+" 50");
               this.sugerirAmigosService.getJogadorById(element).subscribe(Jogador => {
                 this.sugerirAmigosService.getPerfilById(Jogador.perfilId).subscribe(PerfilAux => {
                   this.lista.push(PerfilAux.email);
