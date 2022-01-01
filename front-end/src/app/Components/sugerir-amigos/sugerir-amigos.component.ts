@@ -40,14 +40,15 @@ export class SugerirAmigosComponent implements OnInit {
     this.sugerirAmigosService.getPerfilAtual(this.emailCurrentUser).subscribe(Perfil => {
       this.idCurrentUser = Perfil.id;
       this.sugerirAmigosService.getJogador(Perfil.id).subscribe(Jogador => {
-        this.sugerirAmigosService.getAmigosSugeridos(Jogador.id, this.nNiveis).subscribe(ListaAux => {
-          this.aux1 = Object.values(ListaAux);
-          this.aux = Object.values(this.aux1);
-          console.log(this.aux+" 46");
-          if (this.aux.length > 0) {
+        try {
+          this.sugerirAmigosService.getAmigosSugeridos(Jogador.id, this.nNiveis).subscribe(ListaAux => {
+            this.aux1 = Object.values(ListaAux);
+            this.aux = Object.values(this.aux1);
+            console.log(this.aux + " 46");
+            console.log(this.aux.length + " 47");
             document.getElementById("textoSugestoes").style.display = "block";
             this.aux.forEach((element: any) => {
-              console.log(element+" 50");
+              console.log(element + " 51");
               this.sugerirAmigosService.getJogadorById(element).subscribe(Jogador => {
                 this.sugerirAmigosService.getPerfilById(Jogador.perfilId).subscribe(PerfilAux => {
                   this.lista.push(PerfilAux.email);
@@ -55,17 +56,17 @@ export class SugerirAmigosComponent implements OnInit {
               });
             });
             this.toastr.success("Amigos sugeridos com base nas tags e nível listados.", undefined, { positionClass: 'toast-bottom-left' });
-          } else {
-            this.sugerirAmigosService.getAllPerfis().subscribe(All => {
-              All.forEach((element: Perfil) => {
-                if (element.id != this.idCurrentUser) {
-                  this.lista.push(element.email);
-                }
-              });
+          });
+        } catch (Error) {
+          this.sugerirAmigosService.getAllPerfis().subscribe(All => {
+            All.forEach((element: Perfil) => {
+              if (element.id != this.idCurrentUser) {
+                this.lista.push(element.email);
+              }
             });
-            this.toastr.error("Todos os jogadores do sistema sugeridos. Selecione outro nível para basear os resultados em tags e nível.", undefined, { positionClass: 'toast-bottom-left' });
-          }
-        });
+          });
+          this.toastr.error("Todos os jogadores do sistema sugeridos. Selecione outro nível para basear os resultados em tags e nível.", undefined, { positionClass: 'toast-bottom-left' });
+        }
       });
     });
   }
