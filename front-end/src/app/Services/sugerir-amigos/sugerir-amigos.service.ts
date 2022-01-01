@@ -35,4 +35,8 @@ export class SugerirAmigosService {
   getPerfilById(id: any): Observable<Perfil> {
     return this.http.get<Perfil>(this.url + 'perfis/GetPerfil/' + id);
   }
+
+  getAllPerfis(): Observable<Perfil[]> {
+    return this.http.get<Perfil[]>(this.url + 'perfis');
+  }
 }
