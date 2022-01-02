@@ -42,6 +42,7 @@ import { VerAlgoritmosComponent } from './Components/ver-algoritmos/ver-algoritm
 import { AlgoritmoLigacaoRelacaoComponent } from './Components/algoritmo-ligacao-relacao/algoritmo-ligacao-relacao.component';
 import { FeedPostsComponent } from './Components/feed-posts/feed-posts.component';
 import { VerForcaRelacaoComponent } from './Components/ver-forca-relacao/ver-forca-relacao.component';
+import { TagCloudPessoalComponent } from './Components/tag-cloud-pessoal/tag-cloud-pessoal.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { VerForcaRelacaoComponent } from './Components/ver-forca-relacao/ver-for
     VerAlgoritmosComponent,
     AlgoritmoLigacaoRelacaoComponent,
     FeedPostsComponent,
-    VerForcaRelacaoComponent
+    VerForcaRelacaoComponent,
+    TagCloudPessoalComponent
   ],
   imports: [
     BrowserModule,
