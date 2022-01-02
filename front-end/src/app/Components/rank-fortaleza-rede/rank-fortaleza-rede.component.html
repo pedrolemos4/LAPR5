@@ -1,0 +1,13 @@
+<app-header></app-header>
+<app-navbar></app-navbar>
+<div class="card">
+    <div class="card-body">
+        <div class="jogadores">
+            <h4>Leaderboard:</h4>
+            <div *ngFor="let key of mapJog">
+                <p>Email: {{key}}, Pontuação: {{mapJog.get(key)}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+

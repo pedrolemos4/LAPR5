@@ -43,6 +43,7 @@ import { AlgoritmoLigacaoRelacaoComponent } from './Components/algoritmo-ligacao
 import { FeedPostsComponent } from './Components/feed-posts/feed-posts.component';
 import { VerForcaRelacaoComponent } from './Components/ver-forca-relacao/ver-forca-relacao.component';
 import { TagCloudPessoalComponent } from './Components/tag-cloud-pessoal/tag-cloud-pessoal.component';
+import { RankFortalezaRedeComponent } from './Components/rank-fortaleza-rede/rank-fortaleza-rede.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { TagCloudPessoalComponent } from './Components/tag-cloud-pessoal/tag-clo
     AlgoritmoLigacaoRelacaoComponent,
     FeedPostsComponent,
     VerForcaRelacaoComponent,
-    TagCloudPessoalComponent
+    TagCloudPessoalComponent,
+    RankFortalezaRedeComponent
   ],
   imports: [
     BrowserModule,

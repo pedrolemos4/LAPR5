@@ -33,6 +33,7 @@ import { AlgoritmoLigacaoRelacaoComponent } from './Components/algoritmo-ligacao
 import { FeedPostsComponent } from './Components/feed-posts/feed-posts.component';
 import { VerForcaRelacaoComponent } from './Components/ver-forca-relacao/ver-forca-relacao.component';
 import { TagCloudPessoalComponent } from './Components/tag-cloud-pessoal/tag-cloud-pessoal.component';
+import { RankFortalezaRedeComponent} from './Components/rank-fortaleza-rede/rank-fortaleza-rede.component';
 
 const routes: Routes = [
   { path: '', component: HomeInicialComponent },
@@ -68,7 +69,8 @@ const routes: Routes = [
   { path: 'caminho_diferenciado', component: CaminhoDiferenciadoComponent },
   { path: 'comentar_post', component: ComentarPostComponent },
   { path: 'feed_posts', component: FeedPostsComponent },
-  { path: 'tag_cloud_pessoal', component: TagCloudPessoalComponent}
+  { path: 'tag_cloud_pessoal', component: TagCloudPessoalComponent},
+  { path: 'rank_fortaleza_rede', component: RankFortalezaRedeComponent}
 ];
 
 

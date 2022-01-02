@@ -1,0 +1,22 @@
+.card {
+    padding: 17px;
+    width: 50%;
+    background-color: #f2f2f2e7;
+    border-radius: 5px;
+    justify-content: center;
+    margin-left: 33%;
+    margin-top: 15px;
+    position: fixed;
+    height: 80%;
+    overflow-y: auto;
+}
+
+.jogadores {
+    margin-left: 3%;
+}
+
+.jogadores h4 {
+    margin-left: -3%;
+    color: black;
+    font-weight: bold
+}
