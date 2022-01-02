@@ -28,8 +28,8 @@ export class TamRedeService {
     return this.http.get<string>(urlAux);
   }
 
-  getTamRedeTotal(IdJogador: any): Observable<string> {
-    const urlAux = this.urlPlan + '/api/CalcularTamanhoRede?idJog=' + IdJogador + '&nivel=10';
+  getDimensaoTotal(): Observable<string> {
+    const urlAux = this.url + 'jogadores';
     return this.http.get<string>(urlAux);
   }
 }

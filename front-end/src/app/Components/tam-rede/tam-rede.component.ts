@@ -52,10 +52,8 @@ export class TamRedeComponent implements OnInit {
   }
 
   dimensaoRede(){
-    this.tamRedeService.getTamRedeTotal(this.idCurrentUser).subscribe(Rede => {
-      var res = Object.values(Rede);
-      var tamanho = res[0];
-      this.toastr.success("Dimensão Total da Rede: " + tamanho, undefined, { positionClass: 'toast-bottom-left' });
+    this.tamRedeService.getDimensaoTotal().subscribe(Rede => {
+      this.toastr.success("Dimensão Total da Rede: " + Rede.length, undefined, { positionClass: 'toast-bottom-left' });
     });
   }
 }
