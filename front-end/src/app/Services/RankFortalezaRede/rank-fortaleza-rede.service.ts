@@ -25,7 +25,7 @@ export class RankFortalezaRedeService {
   }
 
   getPerfil(id:any) : Observable<Perfil>{
-    return this.http.get<Perfil>(this.apiUrl+ 'GetPerfilJogador/' + id);
+    return this.http.get<Perfil>(this.apiUrl+ 'Jogadores/GetPerfilJogador/' + id);
   }
 
 }
