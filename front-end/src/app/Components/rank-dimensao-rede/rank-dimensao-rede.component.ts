@@ -9,9 +9,11 @@ import { RankDimensaoRedeService } from 'src/app/Services/RankDimensaoRede/rank-
 })
 export class RankDimensaoRedeComponent implements OnInit {
 
-  jogadores: Jogador[] = [];
+  jogadores: string[] = [];
   tamanho: number;
   mapJog = new Map();
+  mapFinal = new Map();
+  lista: string[]= [];
 
   constructor(private rankDimensaoRedeService: RankDimensaoRedeService) { }
 
@@ -24,7 +26,15 @@ export class RankDimensaoRedeComponent implements OnInit {
           this.rankDimensaoRedeService.getTamRede(element.id, "1").subscribe(Rede => {
             var res = Object.values(Rede);
             this.tamanho = parseInt(res[0]);
-            this.mapJog.set(Perfil.email,this.tamanho);
+            if(this.mapJog.has(this.tamanho)){
+              this.lista = this.mapJog.get(this.tamanho);
+              this.lista.push(Perfil.email);
+              this.lista = [];
+            } else{
+              this.lista = [];
+              this.lista.push(Perfil.email);
+              this.mapJog.set(this.tamanho,this.lista);
+            }
           });
         });
       });
