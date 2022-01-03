@@ -44,6 +44,7 @@ import { FeedPostsComponent } from './Components/feed-posts/feed-posts.component
 import { VerForcaRelacaoComponent } from './Components/ver-forca-relacao/ver-forca-relacao.component';
 import { TagCloudPessoalComponent } from './Components/tag-cloud-pessoal/tag-cloud-pessoal.component';
 import { RankFortalezaRedeComponent } from './Components/rank-fortaleza-rede/rank-fortaleza-rede.component';
+import { RankDimensaoRedeComponent } from './Components/rank-dimensao-rede/rank-dimensao-rede.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { RankFortalezaRedeComponent } from './Components/rank-fortaleza-rede/ran
     FeedPostsComponent,
     VerForcaRelacaoComponent,
     TagCloudPessoalComponent,
-    RankFortalezaRedeComponent
+    RankFortalezaRedeComponent,
+    RankDimensaoRedeComponent
   ],
   imports: [
     BrowserModule,

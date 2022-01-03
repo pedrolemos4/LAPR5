@@ -1,0 +1,25 @@
+<app-header></app-header>
+<app-navbar></app-navbar>
+<div class="card">
+    <div class="card-body">
+        <div class="jogadores">
+            <h4>Leaderboard:</h4>
+           <!-- <table>
+                <tr>
+                    <th>Jogadores</th>
+                    <th>Pontuação</th>
+                </tr>
+                <tr *ngFor="let jog of emailList">
+                    <th>{{jog}}</th>
+                </tr>
+                <tr *ngFor="let pont of pontuacaoList">
+                    <th>{{pont}}</th>
+                </tr>
+            </table>-->
+            <div *ngFor="let jog of mapJog | keyvalue">
+               <p> {{jog.key}} --> {{jog.value}} </p>
+            </div>
+        </div>
+    </div>
+</div>
+
