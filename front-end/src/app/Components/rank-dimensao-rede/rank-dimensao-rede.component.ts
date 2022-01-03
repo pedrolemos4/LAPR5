@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { delay } from 'rxjs';
 import { Jogador } from 'src/app/Models/Jogador';
 import { RankDimensaoRedeService } from 'src/app/Services/RankDimensaoRede/rank-dimensao-rede.service';
 
@@ -24,25 +25,26 @@ export class RankDimensaoRedeComponent implements OnInit {
         //this.jogadores.push(element);
         this.rankDimensaoRedeService.getPerfil(element.id).subscribe(Perfil => {
           console.log(Perfil.email + " 26");
-          this.rankDimensaoRedeService.getTamRede(element.id, 1).subscribe(Rede => {
+          this.rankDimensaoRedeService.getTamRede(element.id, 1).subscribe(async Rede => {
             var res = Object.values(Rede);
             console.log("Rede= " + Rede);
             console.log("res= " + res);
             this.tamanho = parseInt(res[0]);
-            console.log("tamanho= "+this.tamanho);
+            console.log("tamanho= " + this.tamanho);
             if (this.mapJog.has(this.tamanho)) {
               this.lista = this.mapJog.get(this.tamanho);
-              console.log("lista antes= "+this.lista);
+              console.log("lista antes= " + this.lista);
               this.lista.push(Perfil.email);
-              console.log("lista depois= "+this.lista);
+              console.log("lista depois= " + this.lista);
               this.lista = [];
             } else {
               this.lista = [];
-              console.log("lista antes= "+this.lista);
+              console.log("lista antes= " + this.lista);
               this.lista.push(Perfil.email);
-              console.log("lista depois= "+this.lista);
+              console.log("lista depois= " + this.lista);
               this.mapJog.set(this.tamanho, this.lista);
             }
+            await delay(1000);
           });
         });
       });
