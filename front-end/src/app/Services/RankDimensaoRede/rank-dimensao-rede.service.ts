@@ -20,9 +20,8 @@ export class RankDimensaoRedeService {
   }
 
   
-  getTamRede(IdJogador: any, Nivel: string): Observable<string> {
-    const urlAux = this.urlPlan + '/api/CalcularTamanhoRede?idJog=' + IdJogador + '&nivel=' + Nivel;
-    return this.http.get<string>(urlAux);
+  getTamRede(IdJogador: any, Nivel: number): Observable<string> {
+    return this.http.get<string>(this.urlPlan + '/api/CalcularTamanhoRede?idJog=' + IdJogador + '&nivel=' + Nivel);
   }
 
   getPerfil(id:any) : Observable<Perfil>{

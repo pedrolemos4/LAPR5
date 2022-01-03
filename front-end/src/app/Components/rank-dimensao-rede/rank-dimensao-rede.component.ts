@@ -23,7 +23,7 @@ export class RankDimensaoRedeComponent implements OnInit {
       Jogadores.forEach(element => {
         //this.jogadores.push(element);
         this.rankDimensaoRedeService.getPerfil(element.id).subscribe(Perfil => {
-          this.rankDimensaoRedeService.getTamRede(element.id, "1").subscribe(Rede => {
+          this.rankDimensaoRedeService.getTamRede(element.id,1).subscribe(Rede => {
             var res = Object.values(Rede);
             this.tamanho = parseInt(res[0]);
             if(this.mapJog.has(this.tamanho)){
