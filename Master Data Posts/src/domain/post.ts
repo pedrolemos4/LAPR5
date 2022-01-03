@@ -5,8 +5,6 @@ import IPostDTO from "../dto/IPostDTO";
 import { Result } from "../core/logic/Result";
 import { PostId } from "./postId";
 import { List } from "lodash";
-import { Comentario } from "./comentario";
-import { ComentarioId } from "./comentarioId";
 
 interface PostProps {
     description: string;
