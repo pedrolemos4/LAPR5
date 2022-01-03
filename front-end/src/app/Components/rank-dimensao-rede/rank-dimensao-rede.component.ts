@@ -10,11 +10,11 @@ import { RankDimensaoRedeService } from 'src/app/Services/RankDimensaoRede/rank-
 })
 export class RankDimensaoRedeComponent implements OnInit {
 
-  jogadores: string[] = [];
+  jogadores: string[] = new Array<string>();
   tamanho: number;
   mapJog = new Map();
   mapFinal = new Map();
-  lista: string[] = [];
+  lista: string[] = new Array<string>();
 
   constructor(private rankDimensaoRedeService: RankDimensaoRedeService) { }
 
@@ -24,27 +24,29 @@ export class RankDimensaoRedeComponent implements OnInit {
       Jogadores.forEach(element => {
         //this.jogadores.push(element);
         this.rankDimensaoRedeService.getPerfil(element.id).subscribe(Perfil => {
-          console.log(Perfil.email + " 26");
           this.rankDimensaoRedeService.getTamRede(element.id, 1).subscribe(async Rede => {
+            console.log("Email: "+Perfil.email);
             var res = Object.values(Rede);
-            console.log("Rede= " + Rede);
             console.log("res= " + res);
             this.tamanho = parseInt(res[0]);
             console.log("tamanho= " + this.tamanho);
             if (this.mapJog.has(this.tamanho)) {
               this.lista = this.mapJog.get(this.tamanho);
-              console.log("lista antes= " + this.lista);
+              console.log("Lista antes= " + this.lista);
               this.lista.push(Perfil.email);
-              console.log("lista depois= " + this.lista);
+              console.log("Lista depois= " + this.lista);
               this.lista = [];
             } else {
               this.lista = [];
-              console.log("lista antes= " + this.lista);
+              console.log("Lista antes= " + this.lista);
               this.lista.push(Perfil.email);
-              console.log("lista depois= " + this.lista);
+              console.log("Lista depois= " + this.lista);
               this.mapJog.set(this.tamanho, this.lista);
             }
-            await delay(1000);
+            console.log("Antes delay");
+            await delay(5000);
+            console.log("Depois delay");
+            console.log("==================================================0");
           });
         });
       });
