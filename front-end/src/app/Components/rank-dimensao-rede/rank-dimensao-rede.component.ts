@@ -13,7 +13,7 @@ export class RankDimensaoRedeComponent implements OnInit {
   tamanho: number;
   mapJog = new Map();
   mapFinal = new Map();
-  lista: string[]= [];
+  lista: string[] = [];
 
   constructor(private rankDimensaoRedeService: RankDimensaoRedeService) { }
 
@@ -23,17 +23,25 @@ export class RankDimensaoRedeComponent implements OnInit {
       Jogadores.forEach(element => {
         //this.jogadores.push(element);
         this.rankDimensaoRedeService.getPerfil(element.id).subscribe(Perfil => {
-          this.rankDimensaoRedeService.getTamRede(element.id,1).subscribe(Rede => {
+          console.log(Perfil.email + " 26");
+          this.rankDimensaoRedeService.getTamRede(element.id, 1).subscribe(Rede => {
             var res = Object.values(Rede);
+            console.log("Rede= " + Rede);
+            console.log("res= " + res);
             this.tamanho = parseInt(res[0]);
-            if(this.mapJog.has(this.tamanho)){
+            console.log("tamanho= "+this.tamanho);
+            if (this.mapJog.has(this.tamanho)) {
               this.lista = this.mapJog.get(this.tamanho);
+              console.log("lista antes= "+this.lista);
               this.lista.push(Perfil.email);
+              console.log("lista depois= "+this.lista);
               this.lista = [];
-            } else{
+            } else {
               this.lista = [];
+              console.log("lista antes= "+this.lista);
               this.lista.push(Perfil.email);
-              this.mapJog.set(this.tamanho,this.lista);
+              console.log("lista depois= "+this.lista);
+              this.mapJog.set(this.tamanho, this.lista);
             }
           });
         });
