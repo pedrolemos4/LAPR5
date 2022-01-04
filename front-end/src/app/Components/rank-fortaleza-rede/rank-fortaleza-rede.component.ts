@@ -48,6 +48,7 @@ export class RankFortalezaRedeComponent implements OnInit {
   }
 
   fortalezaRede() {
+    this.listaFinal = []; 
     var list: number[] = [];
     for (let key of this.mapJog.keys()) {
       list.push(key);

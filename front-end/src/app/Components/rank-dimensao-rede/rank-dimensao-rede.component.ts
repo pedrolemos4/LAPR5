@@ -46,6 +46,7 @@ export class RankDimensaoRedeComponent implements OnInit {
   }
   
   dimensaoRede() {
+    this.listaFinal = []; 
     var list: number[] = [];
     for (let key of this.mapJog.keys()) {
       list.push(key);
@@ -57,5 +58,7 @@ export class RankDimensaoRedeComponent implements OnInit {
     var length = this.sortedArray.length;
     for (var i = 0; i < length; i++) {
       this.listaFinal.push(this.sortedArray.shift() + "  -->  " + this.emailFinal.shift());
-    }  }
+    } 
+  
+  }
 }
