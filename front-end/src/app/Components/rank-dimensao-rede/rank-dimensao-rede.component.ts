@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { delay } from 'rxjs';
 import { Jogador } from 'src/app/Models/Jogador';
 import { RankDimensaoRedeService } from 'src/app/Services/RankDimensaoRede/rank-dimensao-rede.service';
@@ -18,8 +18,7 @@ export class RankDimensaoRedeComponent implements OnInit {
 
   constructor(private rankDimensaoRedeService: RankDimensaoRedeService) { }
 
-  ngOnInit(): void {
-
+  ngOnInit() {
     this.rankDimensaoRedeService.getAllJogadores().subscribe(Jogadores => {
       Jogadores.forEach(element => {
         //this.jogadores.push(element);
@@ -52,17 +51,8 @@ export class RankDimensaoRedeComponent implements OnInit {
       });
     });
   }
-
-  // onSubmit() {
-  //   //var nivel = document.getElementById("nivel") as HTMLInputElement;
-  //   if (nivel.value.match("1") || nivel.value.match("2") || nivel.value.match("3")) {
-  //     this.jogadores.forEach(jogador => {
-  //       this.rankDimensaoRedeService.getTamRede(jogador.id, nivel.value).subscribe(Rede => {
-  //         var res = Object.values(Rede);
-  //         this.tamanho = parseInt(res[0]);
-  //       })
-  //     })
-  //   }
-  // }
-
+  
+  dimensaoRede() {
+    this.mapFinal = this.mapJog;
+  }
 }

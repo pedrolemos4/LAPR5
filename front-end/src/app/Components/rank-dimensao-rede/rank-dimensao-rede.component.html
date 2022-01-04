@@ -2,7 +2,7 @@
 <app-navbar></app-navbar>
 <div class="card">
     <div class="card-body">
-        <div class="jogadores">
+        <div class="jogadores" >
             <h4>Leaderboard Dimensão da Rede</h4>
            <!-- <table>
                 <tr>
@@ -17,9 +17,12 @@
                 </tr>
             </table>-->
             <p> Dimensão --> Email </p>
-            <div *ngFor="let jog of mapJog | keyvalue">
+            <div *ngFor="let jog of mapFinal | keyvalue">
                <p> {{jog.key}} --> {{jog.value}} </p>
             </div>
+
+            <button type="submit" id="submit" (click)="dimensaoRede()" class="btn-primary"> Ver Ranking</button>
+
         </div>
     </div>
 </div>
