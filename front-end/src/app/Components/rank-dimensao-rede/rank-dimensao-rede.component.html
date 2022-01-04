@@ -16,9 +16,8 @@
                     <th>{{pont}}</th>
                 </tr>
             </table>-->
-            <p> Dimensão --> Email </p>
-            <div *ngFor="let jog of mapFinal | keyvalue">
-               <p> {{jog.key}} --> {{jog.value}} </p>
+            <div *ngFor = "let jog of listaFinal">
+                <p>{{jog}}</p>
             </div>
 
             <button type="submit" id="submit" (click)="dimensaoRede()" class="btn-primary"> Ver Ranking</button>

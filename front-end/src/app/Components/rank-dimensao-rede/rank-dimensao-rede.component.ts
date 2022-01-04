@@ -15,7 +15,10 @@ export class RankDimensaoRedeComponent implements OnInit {
   mapJog = new Map();
   mapFinal = new Map();
   lista: string[] = new Array<string>();
-
+  sortedArray: number[] = [];
+  listaFinal: string[] = [];
+  emailFinal: string[] = [];
+  
   constructor(private rankDimensaoRedeService: RankDimensaoRedeService) { }
 
   ngOnInit() {
@@ -24,28 +27,18 @@ export class RankDimensaoRedeComponent implements OnInit {
         //this.jogadores.push(element);
         this.rankDimensaoRedeService.getPerfil(element.id).subscribe(Perfil => {
           this.rankDimensaoRedeService.getTamRede(element.id, 1).subscribe(async Rede => {
-            console.log("Email: "+Perfil.email);
             var res = Object.values(Rede);
-            console.log("res= " + res);
             this.tamanho = parseInt(res[0]);
-            console.log("tamanho= " + this.tamanho);
             if (this.mapJog.has(this.tamanho)) {
               this.lista = this.mapJog.get(this.tamanho);
-              console.log("Lista antes= " + this.lista);
               this.lista.push(Perfil.email);
-              console.log("Lista depois= " + this.lista);
               this.lista = [];
             } else {
               this.lista = [];
-              console.log("Lista antes= " + this.lista);
               this.lista.push(Perfil.email);
-              console.log("Lista depois= " + this.lista);
               this.mapJog.set(this.tamanho, this.lista);
             }
-            console.log("Antes delay");
             await delay(5000);
-            console.log("Depois delay");
-            console.log("==================================================0");
           });
         });
       });
@@ -53,6 +46,16 @@ export class RankDimensaoRedeComponent implements OnInit {
   }
   
   dimensaoRede() {
-    this.mapFinal = this.mapJog;
-  }
+    var list: number[] = [];
+    for (let key of this.mapJog.keys()) {
+      list.push(key);
+    }
+    this.sortedArray = list.sort((n1, n2) => n2 - n1);
+    for (let number of this.sortedArray) {
+      this.emailFinal.push(this.mapJog.get(number));
+    }
+    var length = this.sortedArray.length;
+    for (var i = 0; i < length; i++) {
+      this.listaFinal.push(this.sortedArray.shift() + "  -->  " + this.emailFinal.shift());
+    }  }
 }
