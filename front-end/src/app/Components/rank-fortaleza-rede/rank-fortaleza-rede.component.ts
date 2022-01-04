@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { element } from 'protractor';
-import { map } from 'rxjs';
+import { delay, map } from 'rxjs';
 import { RankFortalezaRedeService } from 'src/app/Services/RankFortalezaRede/rank-fortaleza-rede.service';
 
 @Component({
@@ -11,48 +11,54 @@ import { RankFortalezaRedeService } from 'src/app/Services/RankFortalezaRede/ran
 export class RankFortalezaRedeComponent implements OnInit {
 
   mapJog = new Map();
+  mapFinal = new Map();
   //mapFinal = undefined;
   // mapFinal = new Map([...this.mapJog.entries()].sort((a,b) => b[1] - a[1]));
   emailList: string[] = [];
+  emailFinal: string[] = [];
   pontuacaoList: number[] = [];
   soma: number;
-  lista: string[]= [];
+  lista: string[] = [];
+  sortedArray: number[] = [];
+  listaFinal: string[] = [];
 
   constructor(private rankFortalezaRedeService: RankFortalezaRedeService) { }
 
   ngOnInit(): void {
-    
-    this.mapJog[Symbol.iterator] = function* () {
-      yield* [...this.entries()].sort((a, b) => b[1] - a[1]);
-    }
 
     this.rankFortalezaRedeService.getAllJogadores().subscribe(Jogadores => {
       Jogadores.forEach(element => {
         this.rankFortalezaRedeService.getPerfil(element.id).subscribe(Perfil => {
-          console.log(Perfil.email);
-          this.emailList.push(Perfil.email)
-          this.rankFortalezaRedeService.getFortalezaRede(element.id).subscribe(Rede => {
+          this.rankFortalezaRedeService.getFortalezaRede(element.id).subscribe(async Rede => {
             var res = Object.values(Rede);
             this.soma = parseInt(res[0]);
-            if(this.mapJog.has(this.soma)){
+            if (this.mapJog.has(this.soma)) {
               this.lista = this.mapJog.get(this.soma);
               this.lista.push(Perfil.email);
               this.lista = [];
-            } else{
+            } else {
               this.lista = [];
               this.lista.push(Perfil.email);
-              this.mapJog.set(this.soma,this.lista);
+              this.mapJog.set(this.soma, this.lista);
             }
           });
         });
       });
-      
- 
-    for (let [key, value] of this.mapJog) {     // get data sorted
-      console.log("Linha 4544");
-      console.log(key + ' ' + value);
-    }
     });
-    
+  }
+
+  fortalezaRede() {
+    var list: number[] = [];
+    for (let key of this.mapJog.keys()) {
+      list.push(key);
+    }
+    this.sortedArray = list.sort((n1, n2) => n2 - n1);
+    for (let number of this.sortedArray) {
+      this.emailFinal.push(this.mapJog.get(number));
+    }
+    var length = this.sortedArray.length;
+    for (var i = 0; i < length; i++) {
+      this.listaFinal.push(this.sortedArray.shift() + "  -->  " + this.emailFinal.shift());
+    }
   }
 }
