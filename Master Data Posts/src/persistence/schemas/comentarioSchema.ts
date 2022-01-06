@@ -8,6 +8,7 @@ const ComentarioSchema = new mongoose.Schema(
         autor: {type:String},
         post: {type: Schema.Types.ObjectId, ref: 'Post'},
         texto: {type:String},
+        tags: {type:[String]},
         likes: {type:[String]},
         dislikes: {type:[String]}
     },

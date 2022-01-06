@@ -51,6 +51,7 @@ export default class ComentarioRepo implements IComentarioRepo {
         comentarioDocument.autor = comentario.autor;
         comentarioDocument.post = comentario.post;
         comentarioDocument.texto = comentario.texto;
+        comentarioDocument.tags = comentario.tags;
         comentarioDocument.likes = comentario.likes;
         comentarioDocument.dislikes = comentario.dislikes;
         await comentarioDocument.save();

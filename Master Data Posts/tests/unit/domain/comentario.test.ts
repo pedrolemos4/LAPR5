@@ -10,13 +10,19 @@ describe('comentario test', function () {
 
     const assert = require('assert');
     it('should create comentario', async function () {
-        let body = {"id":"456", "autor":'teste2@gmail.com', "post":'123', "texto":'resposta teste' ,"likes":[], "dislikes":[]}
+        let body = {"id":"456", "autor":'teste2@gmail.com', "post":'123', "texto":'resposta teste', "tags":["musica"] ,"likes":[], "dislikes":[]}
         const comentario = Comentario.create(body as IComentarioDTO);
         assert.equal(comentario.isSuccess, true);
 	});
 
     it('should not create comentario - no texto', async function () {
-        let body = {"id":"456", "autor":'teste2@gmail.com', "post":'123', "texto":'' ,"likes":[], "dislikes":[]}
+        let body = {"id":"456", "autor":'teste2@gmail.com', "post":'123', "texto":'', "tags":["musica"] ,"likes":[], "dislikes":[]}
+        const comentario = Comentario.create(body as IComentarioDTO);
+        assert.equal(comentario.isSuccess, false);
+	});
+
+    it('should not create comentario - no tags', async function () {
+        let body = {"id":"456", "autor":'teste2@gmail.com', "post":'123', "texto":'resposta teste', "tags":[] ,"likes":[], "dislikes":[]}
         const comentario = Comentario.create(body as IComentarioDTO);
         assert.equal(comentario.isSuccess, false);
 	});

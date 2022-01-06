@@ -10,6 +10,7 @@ interface ComentarioProps {
   autor: string;
   post: string;
   texto: string;
+  tags: List<string>;
   likes: List<string>;
   dislikes: List<string>;
 }
@@ -35,6 +36,10 @@ export class Comentario extends AggregateRoot<ComentarioProps> {
     return this.props.texto;
   }
 
+  get tags (): List<string> {
+    return this.props.tags;
+  }
+
   get likes (): List<string> {
     return this.props.likes;
   }
@@ -48,16 +53,18 @@ export class Comentario extends AggregateRoot<ComentarioProps> {
   }
 
   public static create(comentarioDTO: IComentarioDTO, id?: UniqueEntityID): Result<Comentario> {
+
     const autor = comentarioDTO.autor;
     const post = comentarioDTO.post;
     const texto = comentarioDTO.texto;
+    const tags = comentarioDTO.tags;
     const likes = comentarioDTO.likes;
     const dislikes = comentarioDTO.dislikes;
 
     if (!!texto === false || texto.length === 0) {
         return Result.fail<Comentario>('Must provide texto')
     } else {
-        const comentario = new Comentario({ autor: autor, post: post, texto: texto, likes: likes, dislikes: dislikes }, id);
+        const comentario = new Comentario({ autor: autor, post: post, texto: texto, tags: tags, likes: likes, dislikes: dislikes }, id);
         return Result.ok<Comentario>(comentario)
     }
   }

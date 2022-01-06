@@ -24,6 +24,7 @@ export default (app: Router) => {
                 autor: Joi.string().required(),
                 post: Joi.string().required(),
                 texto: Joi.string().required(),
+                tags: Joi.array().items(Joi.string()),
                 likes: Joi.array().items(Joi.string()),
                 dislikes: Joi.array().items(Joi.string())
             })

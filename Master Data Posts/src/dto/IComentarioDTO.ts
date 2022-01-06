@@ -5,6 +5,7 @@ export interface IComentarioDTO {
     autor: string;
     post: string;
     texto: string;
+    tags: List<string>;
     likes: List<string>;
     dislikes: List<string>;
   }

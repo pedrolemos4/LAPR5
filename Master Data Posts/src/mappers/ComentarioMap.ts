@@ -17,6 +17,7 @@ export class ComentarioMap extends Mapper<Comentario> {
       autor: comentario.autor,
       post: comentario.post,
       texto: comentario.texto,
+      tags: comentario.tags,
       likes: comentario.likes,
       dislikes: comentario.dislikes
     } as IComentarioDTO;
@@ -40,6 +41,7 @@ export class ComentarioMap extends Mapper<Comentario> {
         autor: comentario.autor,
         post: comentario.post,
         texto: comentario.texto,
+        tags: comentario.tags,
         likes: comentario.likes,
         dislikes: comentario.dislikes
     }
