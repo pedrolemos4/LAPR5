@@ -19,12 +19,15 @@
                             <div *ngIf="!(com.props.autor == emailCurrentUser)">
                                 {{com.props.autor}} comentou: {{com.props.texto}}
                             </div>
+                            Tags: {{com.props.tags}}
                         </div>
                     </div>
                     <br>
                 <input style="width: 300px;" id="comentario" type="text" placeholder="Escreva aqui o seu comentario..." formControlName="comentario"
-                    class ="form-control" required/>
-                    <button style="margin-left: 20px;" type="submit" id="submit" class="aceitar"> Adicionar Comentário</button>
+                    class ="form-control" required/><br>
+                <input style="width: 300px;" id="tags" type="text" placeholder="Escreva aqui as tags comentario..." formControlName="tags"
+                    class ="form-control" required/><br><br>
+                    <button type="submit" id="submit" class="aceitar"> Adicionar Comentário</button>
                 </div>
             </form>
         </div>

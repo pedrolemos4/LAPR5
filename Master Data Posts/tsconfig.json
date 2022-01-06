@@ -24,7 +24,7 @@
   },
   "include": [
     "./src/**/*", "index.js"
-  ],
+  , "tests/unit/domain/post.test.ts" ],
   "exclude": [
     "node_modules",
     "tests"

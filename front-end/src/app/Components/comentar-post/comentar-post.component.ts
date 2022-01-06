@@ -18,10 +18,13 @@ export class ComentarPostComponent implements OnInit {
   listaPosts: Post[] = [];
   listaComentarios: Comentario[] = [];
   listaAux: string[][] =[];
+  tag: string = '';
+  tags: string[] = [];
 
   constructor(private formBuilder: FormBuilder, private comentarPostService: ComentarPostService, private toastr: ToastrService, private router: Router) { 
     this.comentarioForm = this.formBuilder.group({
       comentario: ['', Validators.required],
+      tags: ['', Validators.required]
     })
   }
 
@@ -44,21 +47,30 @@ export class ComentarPostComponent implements OnInit {
   }
 
   onSubmit(post: Post) {
-    this.comentarPostService.adicionarComentario({
-      autor: this.emailCurrentUser,
-      texto: this.comentarioForm.controls['comentario'].value,
-      post: post.id,
-      likes: [],
-      dislikes: []
-    } as Comentario).subscribe({
-      next: () =>{
-        this.toastr.success("Comentário adicionado com sucesso!", undefined,{positionClass: 'toast-bottom-left'});
-        this.router.navigateByUrl('/home');
-      },
-      error:() => {
-        this.toastr.error("Falha na publicação do comentário.", undefined, { positionClass: 'toast-bottom-left' });
-      }
-    })
+    this.tag = '';
+    this.tags = [];
+    this.tag = this.comentarioForm.controls['tags'].value;
+    this.tags = this.tag.toString().split(",");
+    if(this.tags.length > 0 || this.tags.includes('')) {
+      this.comentarPostService.adicionarComentario({
+        autor: this.emailCurrentUser,
+        texto: this.comentarioForm.controls['comentario'].value,
+        tags: this.tags,
+        post: post.id,
+        likes: [],
+        dislikes: []
+      } as Comentario).subscribe({
+        next: () =>{
+          this.toastr.success("Comentário adicionado com sucesso!", undefined,{positionClass: 'toast-bottom-left'});
+          this.router.navigateByUrl('/home');
+        },
+        error:() => {
+          this.toastr.error("Falha na publicação do comentário.", undefined, { positionClass: 'toast-bottom-left' });
+        }
+      })
+    } else {
+        this.toastr.error("Precisa de colocar tags!", undefined, { positionClass: 'toast-bottom-left' });
+    }
   }
 
 }
