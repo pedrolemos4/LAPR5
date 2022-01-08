@@ -118,6 +118,7 @@ export class PedidoLigacaoPendenteComponent implements OnInit {
       }
 
     });
+    console.log(this.tags2+" === 121");
     this.service.registoRelacao({
       id: '',
       jogador1: this.idJogador2,
