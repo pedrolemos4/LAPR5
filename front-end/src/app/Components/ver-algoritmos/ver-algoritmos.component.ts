@@ -17,4 +17,8 @@ export class VerAlgoritmosComponent implements OnInit {
     this.router.navigateByUrl('/algoritmo_relacao_ligacao');
   }
 
+  bestFirstRelLig(){
+    this.router.navigateByUrl('/bestfirst_ligacao_relacao');
+  }
+
 }

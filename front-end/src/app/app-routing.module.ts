@@ -35,6 +35,7 @@ import { VerForcaRelacaoComponent } from './Components/ver-forca-relacao/ver-for
 import { TagCloudPessoalComponent } from './Components/tag-cloud-pessoal/tag-cloud-pessoal.component';
 import { RankFortalezaRedeComponent } from './Components/rank-fortaleza-rede/rank-fortaleza-rede.component';
 import { RankDimensaoRedeComponent } from './Components/rank-dimensao-rede/rank-dimensao-rede.component';
+import { BestFirstLigacaoRelacaoComponent } from './Components/bestfirst-ligacao-relacao/bestfirst-ligacao-relacao.component';
 
 const routes: Routes = [
   { path: '', component: HomeInicialComponent },
@@ -72,7 +73,8 @@ const routes: Routes = [
   { path: 'feed_posts', component: FeedPostsComponent },
   { path: 'tag_cloud_pessoal', component: TagCloudPessoalComponent },
   { path: 'rank_fortaleza_rede', component: RankFortalezaRedeComponent },
-  { path: 'rank_dimensao_rede', component: RankDimensaoRedeComponent }
+  { path: 'rank_dimensao_rede', component: RankDimensaoRedeComponent },
+  { path: 'bestfirst_ligacao_relacao', component: BestFirstLigacaoRelacaoComponent }
 ];
 
 
