@@ -99,6 +99,8 @@ export class PedidoLigacaoPendenteComponent implements OnInit {
       }
 
     });
+    console.log(this.idJogador+ " 102");
+    console.log(this.idJogador2 + " 103");
     this.service.registoRelacao({
       id: '',
       jogador1: this.idJogador,
