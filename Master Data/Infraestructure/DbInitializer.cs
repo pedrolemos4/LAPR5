@@ -80,8 +80,8 @@ namespace DDDSample1.Infrastructure
             Relacao relacao7 = new Relacao(jogadores[4].Id,jogadores[3].Id,listaTags,5,40);
             Relacao relacao8 = new Relacao(jogadores[1].Id,jogadores[4].Id,listaTags,5,10);
             Relacao relacao9 = new Relacao(jogadores[4].Id,jogadores[1].Id,listaTags,10,5);
-            Ligacao ligacao = new Ligacao("texto","Pendente",jogadores[0].Id,jogadores[1].Id);
-            Ligacao ligacao1 = new Ligacao("texto","Pendente",jogadores[1].Id,jogadores[2].Id);
+            Ligacao ligacao = new Ligacao("texto","Pendente",jogadores[0].Id,jogadores[2].Id);
+            Ligacao ligacao1 = new Ligacao("texto","Pendente",jogadores[1].Id,jogadores[0].Id);
             context.Relacoes.Add(relacao);
             context.Relacoes.Add(relacao1);
             context.Relacoes.Add(relacao2);

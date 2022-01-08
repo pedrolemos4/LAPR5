@@ -91,23 +91,26 @@ export class PedidoLigacaoPendenteComponent implements OnInit {
       jogador2: this.LigacaoSelecionada.jogador2
     } as Ligacao).subscribe({
       next: () => {
-        this.toastr.success('Ligação aceite com sucesso!', undefined, { positionClass: 'toast-bottom-left' });
-        this.router.navigateByUrl('/home');
+        // this.toastr.success('Ligação aceite com sucesso!', undefined, { positionClass: 'toast-bottom-left' });
+        // this.router.navigateByUrl('/home');
       },
-      error: () => {
-        this.toastr.error("Erro: Serviço Não Disponível", undefined, { positionClass: 'toast-bottom-left' });
-      }
+      // error: () => {
+      //   this.toastr.error("Erro: Serviço Não Disponível", undefined, { positionClass: 'toast-bottom-left' });
+      // }
 
     });
     console.log(this.idJogador+ " 102");
     console.log(this.idJogador2 + " 103");
+    if(this.tags2.length==0){
+      this.tags2 = this.tags1;
+    }
     this.service.registoRelacao({
       jogador1: this.idJogador,
       jogador2: this.idJogador2,
       id: '',
       tags: this.tags2,
-      forcaRelacao: 0,
-      forcaLigacao: 0
+      forcaRelacao: 50,
+      forcaLigacao: 50
     } as Relacao).subscribe({
       next: () => {
         this.toastr.success('Relação foi criada com sucesso!', undefined, { positionClass: 'toast-bottom-left' });
