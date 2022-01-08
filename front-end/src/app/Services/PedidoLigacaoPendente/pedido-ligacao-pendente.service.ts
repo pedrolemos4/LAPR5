@@ -61,4 +61,8 @@ export class PedidoLigacaoPendenteService {
     return this.http.post<Relacao>(environment.apiUrl + 'Relacoes', bodystr, httpOptions);
   }
 
+  deleteLigacao(id: string){
+    return this.http.delete(this.url + id);
+  }
+
 }

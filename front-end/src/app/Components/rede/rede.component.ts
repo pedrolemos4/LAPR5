@@ -45,7 +45,6 @@ export class RedeComponent implements OnInit {
   raycaster: THREE.Raycaster = new THREE.Raycaster();
   controlsMiniMap: OrbitControls;
   playerTip = document.createElement('playerTip');
-  playerTipAvatar = document.createElement('playerTipAvatar');
 
   dragX?: any;
   dragY?: any;
@@ -367,8 +366,8 @@ export class RedeComponent implements OnInit {
       var calculoZ = radius * angulo;
 
       //Compara com a posição inicial da camera no Z
-      if (calculoZ <= 2.5) {
-        calculoZ -= 0.2;
+      if (calculoZ >= 2.5) {
+        calculoZ = 2.5 - calculoZ;
       }
 
       let pos = new THREE.Vector3(radius * Math.cos(angulo), radius * Math.sin(angulo), calculoZ);
@@ -410,8 +409,10 @@ export class RedeComponent implements OnInit {
               angulo = 14 * Math.PI / 11;
             }
 
-            if (calculoZ <= 2.5) {
-              calculoZ -= 0.5;
+            var calculoZ = (radius + cont) * angulo;
+
+            if (calculoZ >= 2.5) {
+              calculoZ = 2.5 - calculoZ;
             }
 
             let pos2 = new THREE.Vector3((radius + cont) * Math.cos(angulo), (radius + cont) * Math.sin(angulo), calculoZ);
@@ -494,6 +495,9 @@ export class RedeComponent implements OnInit {
               this.imagePreview = reader.result;
             };
             reader.readAsDataURL(avatarPostar);
+            
+            var playerTipAvatar = document.createElement('playerTipAvatar');
+            playerTipAvatar.innerHTML = "<img src=" + this.imagePreview + "\img>";
             this.playerTip.textContent = Perfil.estadoHumor;
           } else {
             // console.log("AAAAAAAAAAAAA");

@@ -91,17 +91,17 @@ export class PedidoLigacaoPendenteComponent implements OnInit {
       jogador2: this.LigacaoSelecionada.jogador2
     } as Ligacao).subscribe({
       next: () => {
-        // this.toastr.success('Ligação aceite com sucesso!', undefined, { positionClass: 'toast-bottom-left' });
-        // this.router.navigateByUrl('/home');
+        this.toastr.success('Ligação aceite com sucesso!', undefined, { positionClass: 'toast-bottom-left' });
+        this.router.navigateByUrl('/home');
       },
-      // error: () => {
-      //   this.toastr.error("Erro: Serviço Não Disponível", undefined, { positionClass: 'toast-bottom-left' });
-      // }
+      error: () => {
+        this.toastr.error("Erro: Serviço Não Disponível", undefined, { positionClass: 'toast-bottom-left' });
+      }
 
     });
-    console.log(this.idJogador+ " 102");
+    console.log(this.idJogador + " 102");
     console.log(this.idJogador2 + " 103");
-    if(this.tags2.length==0){
+    if (this.tags2.length == 0) {
       this.tags2 = this.tags1;
     }
     this.service.registoRelacao({
@@ -109,19 +109,19 @@ export class PedidoLigacaoPendenteComponent implements OnInit {
       jogador2: this.idJogador2,
       id: '',
       tags: this.tags2,
-      forcaRelacao: 50,
+      forcaRelacao: 0,
       forcaLigacao: 50
     } as Relacao).subscribe({
       next: () => {
         this.toastr.success('Relação foi criada com sucesso!', undefined, { positionClass: 'toast-bottom-left' });
-        this.router.navigateByUrl('/login');
+        this.router.navigateByUrl('/home');
       },
       error: () => {
         this.toastr.error("Erro: Serviço Não Disponível", undefined, { positionClass: 'toast-bottom-left' });
       }
 
     });
-    console.log(this.tags2+" === 121");
+    console.log(this.tags2 + " === 121");
     this.service.registoRelacao({
       id: '',
       jogador1: this.idJogador2,
@@ -141,6 +141,7 @@ export class PedidoLigacaoPendenteComponent implements OnInit {
       jogador2: this.LigacaoSelecionada.jogador2
     } as Ligacao).subscribe({
       next: () => {
+        this.service.deleteLigacao(this.LigacaoSelecionada.id);
         this.toastr.success('Ligação recusada com sucesso!', undefined, { positionClass: 'toast-bottom-left' });
         this.router.navigateByUrl('/home');
       },
