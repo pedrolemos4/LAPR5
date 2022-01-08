@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Perfil } from 'src/app/Models/Perfil';
 import { ToastrService } from 'ngx-toastr';
 import { Ligacao } from 'src/app/Models/Ligacao';
+import { Relacao } from 'src/app/Models/Relacao';
 
 @Component({
   selector: 'app-pedido-ligacao-pendente',
@@ -18,6 +19,8 @@ export class PedidoLigacaoPendenteComponent implements OnInit {
   idJogador: any;
   Perfil!: Perfil;
   ListaLigacoesPendentes: string[] = [];
+  tags1: string[] = [];
+  tags2: string[] = [];
   selectPedido: string | any;
   idJogador2: string | any;
   LigacaoSelecionada: Ligacao;
@@ -29,6 +32,7 @@ export class PedidoLigacaoPendenteComponent implements OnInit {
     const currentUser = localStorage.getItem('currentUser');
     this.emailUser = currentUser?.replace(/\"/g, "");
     this.service.getPerfilAtual(this.emailUser).subscribe(Perfil => {
+      this.tags1 = Perfil.tags;
       this.service.getJogadorAtual(Perfil.id).subscribe(Jogador => {
         this.idJogador = Jogador.id;
         this.service.getListaLigacoesPendentes(Jogador.id).subscribe(ListaLigacoes => {
@@ -60,6 +64,11 @@ export class PedidoLigacaoPendenteComponent implements OnInit {
     this.selectPedido = event.target.value;
     var aux = this.selectPedido.split(". Texto Ligação: ");
     this.service.getPerfilAtual(aux[0]).subscribe(Perfil => {
+      this.tags1.forEach((element: any) => {
+        if (Perfil.tags.includes(element)) {
+          this.tags2.push(element);
+        }
+      });
       this.service.getJogadorAtual(Perfil.id).subscribe(Jogador2 => {
         this.idJogador2 = Jogador2.id;
         console.log(this.idJogador2);
@@ -90,7 +99,31 @@ export class PedidoLigacaoPendenteComponent implements OnInit {
       }
 
     });
+    this.service.registoRelacao({
+      id: '',
+      jogador1: this.idJogador,
+      jogador2: this.idJogador2,
+      tags: this.tags2,
+      forcaRelacao: 0,
+      forcaLigacao: 0
+    } as Relacao).subscribe({
+      next: () => {
+        this.toastr.success('Relação foi criada com sucesso!', undefined, { positionClass: 'toast-bottom-left' });
+        this.router.navigateByUrl('/login');
+      },
+      error: () => {
+        this.toastr.error("Erro: Serviço Não Disponível", undefined, { positionClass: 'toast-bottom-left' });
+      }
 
+    });
+    this.service.registoRelacao({
+      id: '',
+      jogador1: this.idJogador2,
+      jogador2: this.idJogador,
+      tags: this.tags2,
+      forcaRelacao: 0,
+      forcaLigacao: 0
+    } as Relacao);
   }
 
   rejeitar() {
