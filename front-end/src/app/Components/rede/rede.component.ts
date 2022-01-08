@@ -342,7 +342,14 @@ export class RedeComponent implements OnInit {
         angulo = 14 * Math.PI / 11;
       }
 
-      let pos = new THREE.Vector3(radius * Math.cos(angulo), radius * Math.sin(angulo), radius * angulo);
+      var calculoZ = radius * angulo;
+
+      //Compara com a posição inicial da camera no Z
+      if (calculoZ <= 2.5) {
+        calculoZ -= 0.2;
+      }
+
+      let pos = new THREE.Vector3(radius * Math.cos(angulo), radius * Math.sin(angulo),calculoZ);
 
       this.relacao = this.listaRelacao[i];
 
@@ -381,7 +388,11 @@ export class RedeComponent implements OnInit {
               angulo = 14 * Math.PI / 11;
             }
 
-            let pos2 = new THREE.Vector3((radius + cont) * Math.cos(angulo), (radius + cont) * Math.sin(angulo), (radius + cont) * angulo);
+            if (calculoZ <= 2.5) {
+              calculoZ -= 0.5;
+            }
+
+            let pos2 = new THREE.Vector3((radius + cont) * Math.cos(angulo), (radius + cont) * Math.sin(angulo), calculoZ);
 
             await this.getPerfil(this.relacao.jogador2);
 
@@ -389,13 +400,15 @@ export class RedeComponent implements OnInit {
 
             var auxiliar12 = [pos2.x, pos2.y, pos2.z];
 
+            console.log(auxiliar12 + " "+this.perfilByJogador.nome)
+
             mapNodePosicao.set(this.relacao.jogador2, auxiliar12);
           }
           mapRelacao.push(this.relacao);
 
         }
       }
-      cont = cont + 0.2;
+      cont = cont + 0.5;
     }
 
     for (var k = 0; k < mapRelacao.length; k++) {
@@ -415,7 +428,7 @@ export class RedeComponent implements OnInit {
       let posicao1 = mapNodePosicao.get(this.relacao.jogador1);
       let posicao2 = mapNodePosicao.get(this.relacao.jogador2);
 
-      let hipotenusa = Math.pow(Math.pow(Math.abs(posicao2[0] - posicao1[0]), 2) + Math.pow(Math.abs(posicao2[1] - posicao1[1]) , 2)+ Math.pow(Math.abs(posicao2[2] - posicao1[2]) , 2) , 0.5);
+      let hipotenusa = Math.pow(Math.pow(Math.abs(posicao2[0] - posicao1[0]), 2) + Math.pow(Math.abs(posicao2[1] - posicao1[1]), 2) + Math.pow(Math.abs(posicao2[2] - posicao1[2]), 2), 0.5);
 
       //var distance = hipotenusa - (2 * radiusCircle);
 
