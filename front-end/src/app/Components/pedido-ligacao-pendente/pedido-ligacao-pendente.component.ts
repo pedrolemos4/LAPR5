@@ -19,8 +19,8 @@ export class PedidoLigacaoPendenteComponent implements OnInit {
   idJogador: any;
   Perfil!: Perfil;
   ListaLigacoesPendentes: string[] = [];
-  tags1: string[] = [];
-  tags2: string[] = [];
+  tags1: string[] = new Array<string>();
+  tags2: string[] = new Array<string>();
   selectPedido: string | any;
   idJogador2: string | any;
   LigacaoSelecionada: Ligacao;
