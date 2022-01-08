@@ -78,8 +78,8 @@ export class PedidoLigacaoPendenteComponent implements OnInit {
       id: this.LigacaoSelecionada.id,
       textoLigacao: this.LigacaoSelecionada.textoLigacao,
       estado: 'Aceite',
-      jogador1: this.LigacaoSelecionada.jogador1,
-      jogador2: this.LigacaoSelecionada.jogador2
+      jogador1: this.LigacaoSelecionada.jogador2,
+      jogador2: this.LigacaoSelecionada.jogador1
     } as Ligacao).subscribe({
       next: () => {
         this.toastr.success('Ligação aceite com sucesso!', undefined, { positionClass: 'toast-bottom-left' });

@@ -7,6 +7,7 @@ import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRe
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Relacao } from 'src/app/Models/Relacao';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SphereGeometry } from 'three';
 
 @Component({
   selector: 'app-rede',
@@ -16,6 +17,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RedeComponent implements OnInit {
 
   email: string | undefined = '';
+  imagePreview: string | ArrayBuffer = '';
+  selected: THREE.Mesh = null;
   idPerfilAtual: string | undefined = '';
   activePlayerObject!: Jogador;
   scene!: any;
@@ -31,12 +34,18 @@ export class RedeComponent implements OnInit {
   relacao!: Relacao;
   relacaoAux!: Relacao;
   listaRelacao: Relacao[] = [];
+  mapaNomePosicao = new Map();
+  raioCirculo: number = 0.15;
   container: any;
   insetWidth: any;
   insetHeight: any;
   checkForm: FormGroup;
   isCheckedBox: boolean = false;
+  mouse: THREE.Vector2 = new THREE.Vector2();
+  raycaster: THREE.Raycaster = new THREE.Raycaster();
   controlsMiniMap: OrbitControls;
+  playerTip = document.createElement('playerTip');
+  playerTipAvatar = document.createElement('playerTipAvatar');
 
   dragX?: any;
   dragY?: any;
@@ -188,7 +197,7 @@ export class RedeComponent implements OnInit {
       });
     });
     promise.then((sucess) => {
-      console.log("Promise resolved with: " + this.perfilByJogador.nome);
+      //console.log("Promise resolved with: " + this.perfilByJogador.nome);
     }).catch((error) => {
       console.log("Promise rejected with " + JSON.stringify(error));
     });
@@ -297,6 +306,17 @@ export class RedeComponent implements OnInit {
     this.scene.add(this.camera);
     this.scene.add(this.cameraAux);
 
+
+    //Create invisble label for players info
+
+    this.playerTip.className = 'playerTip';
+    this.playerTip.style.backgroundColor = "invisble";
+    this.playerTip.style.borderRadius = '12.5px';
+    this.playerTip.style.fontSize = '12px';
+    this.playerTip.style.marginTop = '20px';
+
+
+
     //Create panning and zoom controls
     //window.addEventListener('mousedown', event => this.mouseDown(event));
     //window.addEventListener('mouseup', event => this.mouseUp(event));
@@ -309,6 +329,8 @@ export class RedeComponent implements OnInit {
     this.container = document.getElementById("canvas");
     this.container.appendChild(this.renderer.domElement);
     this.container.appendChild(this.labelRenderer.domElement);
+
+    this.container.addEventListener('mousemove', event => this.onMouseMove(event), false);
 
     window.addEventListener('resize', this.windowResize, false);
     this.windowResize();
@@ -349,7 +371,7 @@ export class RedeComponent implements OnInit {
         calculoZ -= 0.2;
       }
 
-      let pos = new THREE.Vector3(radius * Math.cos(angulo), radius * Math.sin(angulo),calculoZ);
+      let pos = new THREE.Vector3(radius * Math.cos(angulo), radius * Math.sin(angulo), calculoZ);
 
       this.relacao = this.listaRelacao[i];
 
@@ -400,7 +422,7 @@ export class RedeComponent implements OnInit {
 
             var auxiliar12 = [pos2.x, pos2.y, pos2.z];
 
-            console.log(auxiliar12 + " "+this.perfilByJogador.nome)
+            console.log(auxiliar12 + " " + this.perfilByJogador.nome)
 
             mapNodePosicao.set(this.relacao.jogador2, auxiliar12);
           }
@@ -440,7 +462,78 @@ export class RedeComponent implements OnInit {
 
       this.createRelationship(forca12, forca21, anguloHorizontal, anguloVertical, pontoIntermedio.x, pontoIntermedio.y, pontoIntermedio.z, hipotenusa);
     }
+
   }
 
+  async onMouseMove(event: any) {
+    event.preventDefault();
+
+    var rect = document.getElementById("canvas").getBoundingClientRect();
+    this.mouse.x = ((event.clientX - rect.left) / rect.width) * 2.0 - 1.0;
+    this.mouse.y = -((event.clientY - rect.top) / rect.height) * 2.0 + 1.0;
+
+    this.raycaster.setFromCamera(this.mouse, this.camera);
+
+    var intersects = this.raycaster.intersectObjects(this.scene.children, true);
+
+    let playerLabelAux = new CSS2DObject(this.playerTip);
+    playerLabelAux.visible = false;
+
+    if (intersects.length > 0) {
+      this.selected = intersects[0].object;
+      if (this.selected.geometry.type == "SphereGeometry") {
+        var aux = this.selected.children[0].element.innerText;
+        var list = aux.split(" ");
+
+        this.redeService.getPerfilAtual(list[1]).subscribe(Perfil => {
+          if (Perfil.avatar.length!=0) {
+            const imageBlob = this.dataURItoBlob(Perfil.avatar);
+            var avatarPostar = new File([imageBlob], "avatar", { type: 'image/png' });
+            const reader = new FileReader();
+            reader.onload = () => {
+              this.imagePreview = reader.result;
+            };
+            reader.readAsDataURL(avatarPostar);
+            this.playerTip.textContent = Perfil.estadoHumor;
+          } else {
+            // console.log("AAAAAAAAAAAAA");
+            this.playerTip.textContent = Perfil.estadoHumor + ". Não tem avatar.";
+            // aux.innerHTML = "<img src=\"../imagens/default_picture.png\">";
+            //this.imagePreview = '../imagens/default_picture.png';
+          }
+
+        });
+
+        intersects[0].object.material.transparent = true;
+        intersects[0].object.material.opacity = 0.5;
+
+        playerLabelAux.visible = true;
+        playerLabelAux.position.set(this.selected.position.x, this.selected.position.y, this.selected.position.z);
+
+        this.scene.add(playerLabelAux);
+        // sleep
+        await new Promise(r => setTimeout(r, 1500));
+        intersects[0].object.material.opacity = 1.0;
+
+        playerLabelAux.visible = true;
+      }
+    }
+
+    playerLabelAux.visible = false;
+
+    this.renderer.render(this.scene, this.camera);
+    this.labelRenderer.render(this.scene, this.camera);
+  }
+
+  dataURItoBlob(dataURI) {
+    const byteString = window.atob(dataURI);
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const int8Array = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < byteString.length; i++) {
+      int8Array[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([int8Array], { type: 'image/png' });
+    return blob;
+  }
 
 }
