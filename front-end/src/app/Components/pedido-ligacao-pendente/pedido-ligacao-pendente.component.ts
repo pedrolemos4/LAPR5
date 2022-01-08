@@ -102,9 +102,9 @@ export class PedidoLigacaoPendenteComponent implements OnInit {
     console.log(this.idJogador+ " 102");
     console.log(this.idJogador2 + " 103");
     this.service.registoRelacao({
-      id: '',
       jogador1: this.idJogador,
       jogador2: this.idJogador2,
+      id: '',
       tags: this.tags2,
       forcaRelacao: 0,
       forcaLigacao: 0
