@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Ligacao } from 'src/app/Models/Ligacao';
 import { Perfil } from 'src/app/Models/Perfil';
 import { Jogador } from 'src/app/Models/Jogador';
+import { Relacao } from 'src/app/Models/Relacao';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,17 @@ export class PedidoLigacaoPendenteService {
     };
     console.log(id);
     return this.http.patch<Ligacao>(this.url + id, bodystr, httpOptions);
+  }
+
+  registoRelacao(perfil: Relacao): Observable<Relacao> {
+    let bodystr = JSON.stringify(perfil);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+    console.log(bodystr);
+    return this.http.post<Relacao>(environment.apiUrl + 'Relacoes/', bodystr, httpOptions);
   }
 
 }
