@@ -119,8 +119,8 @@ export class LigacaoComponent implements OnInit {
                     id : '',
                     textoLigacao: this.ligacaoForm.controls['TextoLigacao'].value,
                     estado: this.estadoLigacao,
-                    jogador1: r.id,
-                    jogador2: res.id
+                    jogador1: res.id,
+                    jogador2: r.id
                   } as Ligacao).subscribe((result: any) => {
                     console.log(result),
                     this.toastr.success("Pedido de Ligação realizado com sucesso!",undefined,{positionClass: 'toast-bottom-left'});
