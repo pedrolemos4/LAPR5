@@ -58,7 +58,7 @@ export class PedidoLigacaoPendenteService {
       })
     };
     console.log(bodystr);
-    return this.http.post<Relacao>(environment.apiUrl + 'Relacoes/', bodystr, httpOptions);
+    return this.http.post<Relacao>(environment.apiUrl + 'Relacoes', bodystr, httpOptions);
   }
 
 }
