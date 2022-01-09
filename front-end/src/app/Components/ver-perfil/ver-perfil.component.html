@@ -9,36 +9,32 @@
         <div class="email">
             <p><span>Email: </span><br><b>{{emailUser}}</b></p>
         </div>
-        <!-- <div class="telefone">
+        <div class="telefone">
             <p><span>Telefone: </span><br><b>{{telefone}}</b></p>
         </div>
-        <div class="dataNascimento">
+        <!-- <div class="dataNascimento">
             <p><span>Data Nascimento: </span><br><b>{{dataNascimento}}</b></p>
         </div> -->
         <div class="estadoHumor">
             <p><span>Estado de humor: </span><br><b>{{estadoHumor}}</b></p>
         </div>
-        <!-- <div class="cidade">
+        <div class="cidade">
             <p><span>Cidade: </span><br><b>{{cidade}}</b></p>
-        </div> -->
-        
+        </div>
+
         <div class="pais">
             <p><span>Pais: </span><br><b>{{pais}}</b></p>
         </div>
-        <!-- <div class="facebook">
+        <div class="facebook">
             <p><span>Nome de utilizador no Facebook: </span><br><b>{{facebook}}</b></p>
         </div>
         <div class="linkedin">
             <p><span>Nome de utilizador no Linkedin: </span><br><b>{{linkedin}}</b></p>
-        </div> -->
-        <div class="tags">
-            <p><span>Tags: </span>
-                <option *ngFor="let eachVal of tags">
-                    {{eachVal}}
-                </option>
-            </p>
         </div>
-        <div class="circular_image" id = "circular_image">
+        <div class="tags">
+            <p> <span> Tags: </span> <br> <b> {{tags}} </b> </p>
+        </div>
+        <div class="circular_image" id="circular_image">
             <img id="imagem" [src]="imagePreview">
         </div>
     </div>

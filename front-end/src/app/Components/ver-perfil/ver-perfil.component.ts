@@ -12,7 +12,7 @@ export class VerPerfilComponent implements OnInit {
   nome: string = '';
   telefone: number;
   cidade: string = '';
-  dataNascimento: string = '';
+  dataNascimento: Date;
   estadoHumor: string = '';
   pais: string = '';
   facebook: string = '';
@@ -42,7 +42,7 @@ export class VerPerfilComponent implements OnInit {
     this.perfilService.getPerfilAtual(this.emailUser).subscribe(Perfil => {
       this.nome = Perfil.nome;
 
-      if (Perfil.avatar.length!=0) {
+      if (Perfil.avatar.length != 0) {
         const imageBlob = this.dataURItoBlob(Perfil.avatar);
         this.avatar = new File([imageBlob], "avatar", { type: 'image/png' });
         const reader = new FileReader();
@@ -51,18 +51,16 @@ export class VerPerfilComponent implements OnInit {
         };
         reader.readAsDataURL(this.avatar);
       } else {
-        // console.log("AAAAAAAAAAAAA");
-        document.getElementById("circular_image").style.display='none';
-        // aux.innerHTML = "<img src=\"../imagens/default_picture.png\">";
-        //this.imagePreview = '../imagens/default_picture.png';
+        document.getElementById("circular_image").style.display = 'none';
       }
-      // this.telefone = Perfil.telefone;
-      // this.cidade = Perfil.cidade;
+      this.telefone = Perfil.telefone;
+      this.cidade = Perfil.cidade;
+      // console.log(Perfil.dataNascimento.toJSON());
       // this.dataNascimento = Perfil.dataNascimento;
       this.estadoHumor = Perfil.estadoHumor;
       this.pais = Perfil.pais;
-      // this.facebook = Perfil.perfilFacebook;
-      // this.linkedin = Perfil.perfilLinkedin;
+      this.facebook = Perfil.perfilFacebook;
+      this.linkedin = Perfil.perfilLinkedin;
       this.tags = Perfil.tags;
       error: () => {
         this.toastr.error("Email ou Password incorretos.", undefined, { positionClass: 'toast-bottom-left' });
