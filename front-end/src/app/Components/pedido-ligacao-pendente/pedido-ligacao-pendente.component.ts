@@ -141,7 +141,7 @@ export class PedidoLigacaoPendenteComponent implements OnInit {
       jogador2: this.LigacaoSelecionada.jogador2
     } as Ligacao).subscribe({
       next: () => {
-        this.service.deleteLigacao(this.LigacaoSelecionada.id);
+        //this.service.deleteLigacao(this.LigacaoSelecionada.id);
         this.toastr.success('Ligação recusada com sucesso!', undefined, { positionClass: 'toast-bottom-left' });
         this.router.navigateByUrl('/home');
       },

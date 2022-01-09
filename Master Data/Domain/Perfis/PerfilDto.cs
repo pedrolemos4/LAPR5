@@ -19,7 +19,14 @@ namespace DDDSample1.Domain.Perfis
 
         public string Pais { get; set; }
 
+        public string cidade { get; set; }
+
         public List<string> Tags { get; set; }
 
+        public long telefone { get; set; }
+        
+        public string perfilFacebook { get; set; }
+
+        public string perfilLinkedin { get; set; }
     }
 }

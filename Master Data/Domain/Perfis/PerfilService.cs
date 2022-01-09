@@ -24,7 +24,7 @@ namespace DDDSample1.Domain.Perfis
             if (per == null)
                 return null;
 
-            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country };
+            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country, cidade = per.cidade.City, perfilFacebook = per.perfilFacebook.PerfilFace, perfilLinkedin = per.perfilLinkedin.Linkedin, avatar = per.avatar.avatar, telefone = per.telefone.NumTelefone };
 
         }
 
@@ -32,7 +32,7 @@ namespace DDDSample1.Domain.Perfis
         {
             var list = await this._repo.GetAllAsync();
 
-            List<PerfilDto> listDto = list.ConvertAll<PerfilDto>(per => new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, dataN = per.dataNascimento.DataNasc, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country });
+            List<PerfilDto> listDto = list.ConvertAll<PerfilDto>(per => new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, dataN = per.dataNascimento.DataNasc, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country, cidade = per.cidade.City, perfilFacebook = per.perfilFacebook.PerfilFace, perfilLinkedin = per.perfilLinkedin.Linkedin, avatar = per.avatar.avatar, telefone = per.telefone.NumTelefone });
 
             return listDto;
         }
@@ -61,7 +61,7 @@ namespace DDDSample1.Domain.Perfis
             if (per == null)
                 return null;
 
-            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country };
+            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country, cidade = per.cidade.City, perfilFacebook = per.perfilFacebook.PerfilFace, perfilLinkedin = per.perfilLinkedin.Linkedin, avatar = per.avatar.avatar, telefone = per.telefone.NumTelefone };
         }
 
         public async Task<PerfilDto> AddAsync(CreatingPerfilDto perfilC)
@@ -78,7 +78,7 @@ namespace DDDSample1.Domain.Perfis
 
             await this._unitOfWork.CommitAsync();
 
-            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country };
+            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country, cidade = per.cidade.City, perfilFacebook = per.perfilFacebook.PerfilFace, perfilLinkedin = per.perfilLinkedin.Linkedin, avatar = per.avatar.avatar, telefone = per.telefone.NumTelefone };
         }
 
         public static List<string> converteParaListaString(List<Tag> lista)
@@ -98,7 +98,7 @@ namespace DDDSample1.Domain.Perfis
             if (per == null)
                 return null;
 
-            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country };
+            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country, cidade = per.cidade.City, perfilFacebook = per.perfilFacebook.PerfilFace, perfilLinkedin = per.perfilLinkedin.Linkedin, avatar = per.avatar.avatar, telefone = per.telefone.NumTelefone };
         }
 
         public async Task<PerfilDto> GetPerfilByEmail(string email)
@@ -108,7 +108,7 @@ namespace DDDSample1.Domain.Perfis
             if (per == null)
                 return null;
 
-            return new PerfilDto { avatar = per.avatar.avatar, Id = per.Id.AsGuid(), Nome = per.nome.Name, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country };
+            return new PerfilDto { avatar = per.avatar.avatar, Id = per.Id.AsGuid(), Nome = per.nome.Name, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country, cidade = per.cidade.City, perfilFacebook = per.perfilFacebook.PerfilFace, perfilLinkedin = per.perfilLinkedin.Linkedin, telefone = per.telefone.NumTelefone };
         }
 
         public async Task<List<PerfilDto>> GetPerfilByPais(string pais)
@@ -119,7 +119,7 @@ namespace DDDSample1.Domain.Perfis
             if (per == null)
                 return null;
 
-            List<PerfilDto> listDto = per.ConvertAll<PerfilDto>(per => new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country });
+            List<PerfilDto> listDto = per.ConvertAll<PerfilDto>(per => new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country, cidade = per.cidade.City, perfilFacebook = per.perfilFacebook.PerfilFace, perfilLinkedin = per.perfilLinkedin.Linkedin, avatar = per.avatar.avatar, telefone = per.telefone.NumTelefone });
 
             return listDto;
         }
@@ -136,7 +136,7 @@ namespace DDDSample1.Domain.Perfis
 
             await this._unitOfWork.CommitAsync();
 
-            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country };
+            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country, cidade = per.cidade.City, perfilFacebook = per.perfilFacebook.PerfilFace, perfilLinkedin = per.perfilLinkedin.Linkedin, avatar = per.avatar.avatar, telefone = per.telefone.NumTelefone };
         }
 
         public async Task<PerfilDto> UpdateAsync(PerfilDto dto)
@@ -152,7 +152,7 @@ namespace DDDSample1.Domain.Perfis
 
             await this._unitOfWork.CommitAsync();
 
-            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country };
+            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country, cidade = per.cidade.City, perfilFacebook = per.perfilFacebook.PerfilFace, perfilLinkedin = per.perfilLinkedin.Linkedin, avatar = per.avatar.avatar, telefone = per.telefone.NumTelefone };
         }
 
         public async Task<PerfilDto> DeleteAsync(PerfilId id)
@@ -168,7 +168,7 @@ namespace DDDSample1.Domain.Perfis
             this._repo.Remove(per);
             await this._unitOfWork.CommitAsync();
 
-            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country };
+            return new PerfilDto { Id = per.Id.AsGuid(), Nome = per.nome.Name, Email = per.email.EnderecoEmail, Tags = converteParaListaString(per.tags), EstadoHumor = per.estadoHumor.Estado, Pais = per.pais.Country, cidade = per.cidade.City, perfilFacebook = per.perfilFacebook.PerfilFace, perfilLinkedin = per.perfilLinkedin.Linkedin, avatar = per.avatar.avatar, telefone = per.telefone.NumTelefone };
         }
     }
 }

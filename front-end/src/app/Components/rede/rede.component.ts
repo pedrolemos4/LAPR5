@@ -7,7 +7,6 @@ import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRe
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Relacao } from 'src/app/Models/Relacao';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SphereGeometry } from 'three';
 
 @Component({
   selector: 'app-rede',
@@ -453,8 +452,6 @@ export class RedeComponent implements OnInit {
 
       let hipotenusa = Math.pow(Math.pow(Math.abs(posicao2[0] - posicao1[0]), 2) + Math.pow(Math.abs(posicao2[1] - posicao1[1]), 2) + Math.pow(Math.abs(posicao2[2] - posicao1[2]), 2), 0.5);
 
-      //var distance = hipotenusa - (2 * radiusCircle);
-
       var anguloHorizontal = Math.atan2((posicao1[0] - posicao2[0]), (posicao1[2] - posicao2[2]));
 
       var anguloVertical = Math.acos((posicao1[1] - posicao2[1]) / hipotenusa);
@@ -487,7 +484,7 @@ export class RedeComponent implements OnInit {
         var list = aux.split(" ");
 
         this.redeService.getPerfilAtual(list[1]).subscribe(Perfil => {
-          if (Perfil.avatar.length!=0) {
+          if (Perfil.avatar.length != 0) {
             const imageBlob = this.dataURItoBlob(Perfil.avatar);
             var avatarPostar = new File([imageBlob], "avatar", { type: 'image/png' });
             const reader = new FileReader();
@@ -495,15 +492,10 @@ export class RedeComponent implements OnInit {
               this.imagePreview = reader.result;
             };
             reader.readAsDataURL(avatarPostar);
-            
-            var playerTipAvatar = document.createElement('playerTipAvatar');
-            playerTipAvatar.innerHTML = "<img src=" + this.imagePreview + "\img>";
-            this.playerTip.textContent = Perfil.estadoHumor;
+            console.log(Perfil);
+            this.playerTip.textContent = Perfil.estadoHumor + ". Facebook: " + Perfil.perfilFacebook + ". \nLinkedIn: " + Perfil.perfilLinkedin + ". Telefone: " + Perfil.telefone;
           } else {
-            // console.log("AAAAAAAAAAAAA");
-            this.playerTip.textContent = Perfil.estadoHumor + ". Não tem avatar.";
-            // aux.innerHTML = "<img src=\"../imagens/default_picture.png\">";
-            //this.imagePreview = '../imagens/default_picture.png';
+            this.playerTip.textContent = Perfil.estadoHumor + ". Facebook: " + Perfil.perfilFacebook + ". \nLinkedIn: " + Perfil.perfilLinkedin + ". Telefone: " + Perfil.telefone + "\n. Não tem avatar.";
           }
 
         });
@@ -515,10 +507,17 @@ export class RedeComponent implements OnInit {
         playerLabelAux.position.set(this.selected.position.x, this.selected.position.y, this.selected.position.z);
 
         this.scene.add(playerLabelAux);
+        let playerTipAvatar = document.getElementById("playerTipAvatar");
+
+        let tipAvatar = new CSS2DObject(playerTipAvatar);
+
+        tipAvatar.position.set(this.selected.position.x, this.selected.position.y, this.selected.position.z);
+        this.scene.add(tipAvatar);
         // sleep
         await new Promise(r => setTimeout(r, 1500));
         intersects[0].object.material.opacity = 1.0;
 
+        tipAvatar.visible = false;
         playerLabelAux.visible = true;
       }
     }
