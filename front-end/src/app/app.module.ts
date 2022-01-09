@@ -46,6 +46,7 @@ import { TagCloudPessoalComponent } from './Components/tag-cloud-pessoal/tag-clo
 import { RankFortalezaRedeComponent } from './Components/rank-fortaleza-rede/rank-fortaleza-rede.component';
 import { RankDimensaoRedeComponent } from './Components/rank-dimensao-rede/rank-dimensao-rede.component';
 import { BestFirstLigacaoRelacaoComponent } from './Components/bestfirst-ligacao-relacao/bestfirst-ligacao-relacao.component';
+import { AStarLigacaoComponent } from './Components/a-star-ligacao/a-star-ligacao.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { BestFirstLigacaoRelacaoComponent } from './Components/bestfirst-ligacao
     TagCloudPessoalComponent,
     RankFortalezaRedeComponent,
     RankDimensaoRedeComponent,
-    BestFirstLigacaoRelacaoComponent
+    BestFirstLigacaoRelacaoComponent,
+    AStarLigacaoComponent
   ],
   imports: [
     BrowserModule,

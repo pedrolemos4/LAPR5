@@ -31,7 +31,7 @@
 :-ensure_loaded("./CaminhoMaisCurto.pl").
 :-ensure_loaded("./AStarForcaRelacaoLigacao.pl").
 :-ensure_loaded("./BestFirstLigacaoRelacao.pl").
-
+:-ensure_loaded("./AStarForcaLigacao.pl").
 
 :-json_object objeto_json_tags(caminho:list(string)).
 :-json_object objeto_json_rede(resultado:number).
@@ -58,6 +58,7 @@ stop(Port):-
 :- http_handler('/api/SugerirConexoes', sugerirConexoesHandler,[]).
 :- http_handler('/api/ForcaLigacaoRelacao',forcaLigacaoRelacao,[]).
 :- http_handler('/api/BestFirstLigacaoRelacao',bestfirstLigacaoRelacao,[]).
+:- http_handler('/api/AStarForcaLigacao',aStarForcaLigacao,[]).
 :- http_handler('/api/FortalezaRede', fortalezaRedeHandler,[]).
 
 
@@ -85,6 +86,20 @@ bestfirstLigacaoRelacao(Request):-
     ligacoes(Ligacoes,[number])]),
 
     bestfs1(Orig,Dest,Cam,Custo,Ligacoes),
+    Reply = objeto_json_relacaoLigacao(Cam,Custo),
+    prolog_to_json(Reply,JSONObject),
+    reply_json(JSONObject,[json_object]).
+
+aStarForcaLigacao(Request):-
+    cors_enable,
+    removerBaseConhecimento(),!,
+    carregaDados(),!,
+    http_parameters(Request,
+    [orig(Orig,[string]),
+     dest(Dest,[string]),
+    nivelLimite(NivelLimite,[number])]),
+
+    aStar(Orig,Dest,NivelLimite,Cam,Custo),
     Reply = objeto_json_relacaoLigacao(Cam,Custo),
     prolog_to_json(Reply,JSONObject),
     reply_json(JSONObject,[json_object]).

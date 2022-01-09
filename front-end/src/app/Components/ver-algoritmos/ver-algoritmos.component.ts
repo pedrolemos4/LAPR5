@@ -21,4 +21,8 @@ export class VerAlgoritmosComponent implements OnInit {
     this.router.navigateByUrl('/bestfirst_ligacao_relacao');
   }
 
+  aStarLigacao(){
+    this.router.navigateByUrl('/a_star_ligacao');
+  }
+
 }
