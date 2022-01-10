@@ -42,7 +42,8 @@ export class HomeComponent implements OnInit {
     this.emailUser = currentUser?.replace(/\"/g, "");
     this.homeService.getPerfilByEmail(this.emailUser).subscribe(Perfil => {
       this.nomes.push(Perfil.nome);
-      if (this.numeroTags < Perfil.tags.length) {
+      console.log(Perfil.tags.length + " ," + this.numeroTags + " 45");
+      if (this.numeroTags <= Perfil.tags.length) {
         this.homeService.getJogadorAtual(Perfil.id).subscribe(Jogador => {
           this.homeService.getRelacoesJogador(Jogador.id).subscribe(result => {
             if (result.length > 0) {
@@ -59,7 +60,8 @@ export class HomeComponent implements OnInit {
     const currentUser = localStorage.getItem('currentUser');
     this.emailUser = currentUser?.replace(/\"/g, "");
     this.homeService.getPerfilByEmail(this.emailUser).subscribe(Perfil => {
-      if (this.numeroTags < Perfil.tags.length) {
+      console.log(Perfil.tags.length + " ," + this.numeroTags + " 63");
+      if (this.numeroTags <= Perfil.tags.length) {
         this.homeService.getJogadorAtual(Perfil.id).subscribe(Jogador => {
           this.homeService.getRelacoesJogador(Jogador.id).subscribe(result => {
             if (result.length > 0) {
