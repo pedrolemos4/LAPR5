@@ -33,6 +33,7 @@
 :-ensure_loaded("./BestFirstLigacaoRelacao.pl").
 :-ensure_loaded("./AStarForcaLigacao.pl").
 :-ensure_loaded("./BestFirstLigacao.pl").
+:-ensure_loaded("./DfsForcaLigacaoRelacao.pl").
 
 :-json_object objeto_json_tags(caminho:list(string)).
 :-json_object objeto_json_rede(resultado:number).
@@ -62,6 +63,7 @@ stop(Port):-
 :- http_handler('/api/AStarForcaLigacao',aStarForcaLigacao,[]).
 :- http_handler('/api/FortalezaRede', fortalezaRedeHandler,[]).
 :- http_handler('/api/BestFirstLigacao',bestFirstLigacao,[]).
+:- http_handler('/api/DfsForcaLigacaoRelacao',dfsForcaLigacaoRelacao,[]).
 
 
 forcaLigacaoRelacao(Request):-
@@ -104,6 +106,20 @@ bestfirstLigacaoRelacao(Request):-
     prolog_to_json(Reply,JSONObject),
     reply_json(JSONObject,[json_object]).
 
+dfsForcaLigacaoRelacao(Request):-
+    cors_enable,
+    removerBaseConhecimento(),!,
+    carregaDados(),!,
+    http_parameters(Request,
+    [orig(Orig,[string]),
+    dest(Dest,[string]),
+    nivelLimite(NivelLimite,[number])]),
+
+    plan_forteLR(Orig,Dest,NivelLimite,LCaminho,Soma),
+    Reply = objeto_json_relacaoLigacao(LCaminho,Soma),
+    prolog_to_json(Reply,JSONObject),
+    reply_json(JSONObject,[json_object]).
+    
 aStarForcaLigacao(Request):-
     cors_enable,
     removerBaseConhecimento(),!,

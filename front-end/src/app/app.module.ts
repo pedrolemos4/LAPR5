@@ -48,6 +48,7 @@ import { RankDimensaoRedeComponent } from './Components/rank-dimensao-rede/rank-
 import { BestFirstLigacaoRelacaoComponent } from './Components/bestfirst-ligacao-relacao/bestfirst-ligacao-relacao.component';
 import { AStarLigacaoComponent } from './Components/a-star-ligacao/a-star-ligacao.component';
 import { BestfirstLigacaoComponent } from './Components/bestfirst-ligacao/bestfirst-ligacao.component';
+import { DfsLigacaoRelacaoComponent } from './Components/dfs-ligacao-relacao/dfs-ligacao-relacao.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { BestfirstLigacaoComponent } from './Components/bestfirst-ligacao/bestfi
     RankDimensaoRedeComponent,
     BestFirstLigacaoRelacaoComponent,
     AStarLigacaoComponent,
-    BestfirstLigacaoComponent
+    BestfirstLigacaoComponent,
+    DfsLigacaoRelacaoComponent
   ],
   imports: [
     BrowserModule,
