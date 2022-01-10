@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
     this.emailUser = currentUser?.replace(/\"/g, "");
     this.homeService.getPerfilByEmail(this.emailUser).subscribe(Perfil => {
       this.nomes.push(Perfil.nome);
-      console.log(Perfil.nome+" 45");
+      console.log(Perfil.nome + " 45");
       console.log(Perfil.tags.length + " ," + this.numeroTags + " 46");
       if (this.numeroTags <= Perfil.tags.length) {
         this.homeService.getJogadorAtual(Perfil.id).subscribe(Jogador => {
@@ -118,8 +118,8 @@ export class HomeComponent implements OnInit {
               id: '',
               textoLigacao: 'Pedido enviado por: ' + Perfil.nome + '.',
               estado: this.estadoLigacao,
-              jogador1: Jogador.id,
-              jogador2: Jogador2.id
+              jogador1: Jogador2.id,
+              jogador2: Jogador.id
             } as Ligacao).subscribe((result: any) => {
               console.log(result),
                 this.toastr.success("Pedido de Ligação realizado com sucesso!", undefined, { positionClass: 'toast-bottom-left' });
