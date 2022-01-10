@@ -5,16 +5,16 @@ dfs_forteLR(Orig,Dest,Cam,S,NivelLimite):-dfs2LR(Orig,Dest,[Orig],Cam,S,0,NivelL
 dfs2LR(Dest,Dest,LA,Cam,S,S1,_):-!,reverse(LA,Cam),S is S1.
 dfs2LR(Act,Dest,LA,Cam,S,Sfinal,NivelLimite):-no(NAct,Act,_),(ligacao(NAct,NX,FAct,FX,RX,RY);ligacao(NX,NAct,FX,FAct,RX,RY)),
 converterLigacao(FX,FAct,F1), converterRelacao(RX,RY,R1),Sfinal1 is Sfinal +(F1 + R1)/2,
-no(NX,X,_),\+ member(X,LA), length([X|LA],Contador), Contador =< NivelLimite + 1, dfs2(X,Dest,[X|LA],Cam,S,Sfinal1,NivelLimite).
+no(NX,X,_),\+ member(X,LA), length([X|LA],Contador), Contador =< NivelLimite + 1, dfs2LR(X,Dest,[X|LA],Cam,S,Sfinal1,NivelLimite).
 
 
-plan_forteLR(Orig,Dest,NivelLimite,LCaminho):-
-(caminho_mais_forteLR(Orig,Dest,NivelLimite);true),
-retract(melhor_sol_forte(LCaminho,_)).
+plan_forteLR(Orig,Dest,NivelLimite,LCaminho,Soma):-
+(caminho_mais_forteLR(Orig,Dest,NivelLimite,Soma);true),
+retract(melhor_sol_forte(LCaminho,Soma)).
 
-caminho_mais_forteLR(Orig,Dest,NivelLimite):-
+caminho_mais_forteLR(Orig,Dest,NivelLimite,Soma):-
 asserta(melhor_sol_forte(_,0)),
-dfs_forte(Orig,Dest,LCaminho,Soma,NivelLimite),
+dfs_forteLR(Orig,Dest,LCaminho,Soma,NivelLimite),
 atualiza_caminho_forteLR(LCaminho,Soma),
 fail.
 
