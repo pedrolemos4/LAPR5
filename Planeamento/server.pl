@@ -264,11 +264,11 @@ parse_relacoes([H|List]):-
     parse_relacoes(List).
 
 
-carregaLigacoes([]):- !.
+/*carregaLigacoes([]):- !.
 carregaLigacoes([Jogador1|Lista]):-
     nova_relacao(Jogador1,Jogador2,ForcaLigacao1,ForcaRelacao1),nova_relacao(Jogador2,Jogador1,ForcaLigacao2,ForcaRelacao2),
     asserta(ligacao(Jogador1,Jogador2,ForcaLigacao1,ForcaLigacao2,ForcaRelacao1,ForcaRelacao2)),carregaLigacoes(Lista).
-carregaLigacao([_|Lista]):-carregaLigacoes(Lista).
+carregaLigacao([_|Lista]):-carregaLigacoes(Lista).*/
 
 adicionaLigacoes():- findall(Jogador1,nova_relacao(Jogador1,_,_,_),Lista),
                         percorre_utilizadores(Lista).
@@ -287,7 +287,7 @@ carrega_no([]):- !.
 carrega_no([IdJ|Lista]):-novo_jogador(IdJ,IdP),
     novo_perfil(IdP,Email,Tags),
     asserta(no(IdJ,Email,Tags)),carrega_no(Lista).
-carrega_no([_|Lista]):-carregaLigacoes(Lista).
+%carrega_no([_|Lista]):-carregaLigacoes(Lista).
 
 adicionar_no():- findall(Jogador1,novo_jogador(Jogador1,_),Lista),
                         carrega_no(Lista).
