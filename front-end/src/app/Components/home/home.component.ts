@@ -42,6 +42,7 @@ export class HomeComponent implements OnInit {
     this.emailUser = currentUser?.replace(/\"/g, "");
     this.homeService.getPerfilByEmail(this.emailUser).subscribe(Perfil => {
       this.nomes.push(Perfil.nome);
+      console.log(Perfil.tags.length + " ," + this.numeroTags + " 45");
       if (this.numeroTags <= Perfil.tags.length) {
         this.homeService.getJogadorAtual(Perfil.id).subscribe(Jogador => {
           this.homeService.getRelacoesJogador(Jogador.id).subscribe(result => {
@@ -59,6 +60,7 @@ export class HomeComponent implements OnInit {
     const currentUser = localStorage.getItem('currentUser');
     this.emailUser = currentUser?.replace(/\"/g, "");
     this.homeService.getPerfilByEmail(this.emailUser).subscribe(Perfil => {
+      console.log(Perfil.tags.length + " ," + this.numeroTags + " 63");
       if (this.numeroTags <= Perfil.tags.length) {
         this.homeService.getJogadorAtual(Perfil.id).subscribe(Jogador => {
           this.homeService.getRelacoesJogador(Jogador.id).subscribe(result => {
@@ -84,7 +86,7 @@ export class HomeComponent implements OnInit {
                     }
                   }
                 } else {
-                  this.toastr.error("Não existem tags em comum.",undefined,{positionClass: 'toast-bottom-left'});
+                  this.toastr.error("Não existem tags em comum.", undefined, { positionClass: 'toast-bottom-left' });
                   this.homeService.getAllJogadores().subscribe(TodosJogadores => {
                     TodosJogadores.forEach((element: Jogador) => {
                       this.homeService.getPerfil(element.id).subscribe(Perfil1 => {
@@ -98,7 +100,7 @@ export class HomeComponent implements OnInit {
           });
         });
       } else {
-        this.toastr.error("Insira o número de tags que seja igual ou menor ao número de tags que possui.",undefined,{positionClass: 'toast-bottom-left'});
+        this.toastr.error("Insira o número de tags que seja igual ou menor ao número de tags que possui.", undefined, { positionClass: 'toast-bottom-left' });
       }
     });
   }
@@ -116,10 +118,10 @@ export class HomeComponent implements OnInit {
               textoLigacao: 'Pedido enviado por: ' + Perfil.nome + '.',
               estado: this.estadoLigacao,
               jogador1: Jogador.id,
-              jogador2: Jogador2.id 
+              jogador2: Jogador2.id
             } as Ligacao).subscribe((result: any) => {
               console.log(result),
-                this.toastr.success("Pedido de Ligação realizado com sucesso!",undefined,{positionClass: 'toast-bottom-left'});
+                this.toastr.success("Pedido de Ligação realizado com sucesso!", undefined, { positionClass: 'toast-bottom-left' });
             });
           });
         });

@@ -39,6 +39,15 @@ namespace DDDSample1.Controllers
 
             return ligacao;
         }
+
+        [HttpGet]
+        [Route("[action]/{id}")]
+        public async Task<ActionResult<List<LigacaoDto>>> GetLigacaoJogador(Guid id)
+        {
+            var ligacao = await _service.GetByIdJogadorAsync(new JogadorId(id));
+
+            return ligacao;
+        }
         
         [HttpGet]
         [Route("[action]/{id}")]

@@ -1,4 +1,4 @@
-.card{
+.card {
     padding: 17px;
     width: 50%;
     background-color: #f2f2f2e7;
@@ -7,64 +7,61 @@
     margin-left: 33%;
     margin-top: 15px;
     position: fixed;
-    height: 45%;
+    height: 65%;
     overflow-y: auto;
 }
 
-.card1{
+.card1 {
     margin-left: 3%;
     width: 95%;
 }
-
 
 .card2 {
     width: 100%;
 }
 
-.h41{
+.h41 {
     width: 50%;
     font-size: medium;
     height: 30px;
 }
 
-.h42{
+.h42 {
     text-align: center;
     width: 50%;
     height: 30px;
     font-size: medium;
     font-weight: bold;
-    margin-left: auto; 
+    margin-left: auto;
     margin-right: 0;
-    margin-top: -40px; 
+    margin-top: -40px;
 }
 
-
-.botao1{
+.botao1 {
     margin-top: -1%;
     width: 50%;
-    
 }
 
 .botao1 button {
     margin-left: 10%;
 }
 
-.botao2{
-    margin-left: auto; 
+.botao2 {
+    margin-left: auto;
     margin-right: 0;
     width: 50%;
     margin-top: -28px;
-    text-align:center;
-    
+    text-align: center;
 }
 
 .card4 {
     width: 50%;
 }
 
-.card4 button{
+.card4 button {
     margin-left: 10%;
 }
+
 
 /* .tags h2{
     margin-left: -3%;

@@ -32,6 +32,7 @@
 :-ensure_loaded("./AStarForcaRelacaoLigacao.pl").
 :-ensure_loaded("./BestFirstLigacaoRelacao.pl").
 :-ensure_loaded("./AStarForcaLigacao.pl").
+:-ensure_loaded("./BestFirstLigacao.pl").
 
 :-json_object objeto_json_tags(caminho:list(string)).
 :-json_object objeto_json_rede(resultado:number).
@@ -60,6 +61,7 @@ stop(Port):-
 :- http_handler('/api/BestFirstLigacaoRelacao',bestfirstLigacaoRelacao,[]).
 :- http_handler('/api/AStarForcaLigacao',aStarForcaLigacao,[]).
 :- http_handler('/api/FortalezaRede', fortalezaRedeHandler,[]).
+:- http_handler('/api/BestFirstLigacao',bestFirstLigacao,[]).
 
 
 forcaLigacaoRelacao(Request):-
@@ -71,6 +73,19 @@ forcaLigacaoRelacao(Request):-
      dest(Dest,[string]),
     nivelLimite(NivelLimite,[number])]),
     aStarRelacaoLigacao(Orig,Dest,NivelLimite,Cam,Custo),
+    Reply = objeto_json_relacaoLigacao(Cam,Custo),
+    prolog_to_json(Reply,JSONObject),
+    reply_json(JSONObject,[json_object]).
+
+bestFirstLIgacao(Request):-
+    cors_enable,
+    removerBaseConhecimento(),!,
+    carregaDados(),!,
+    http_parameters(Request,
+                    [orig(Orig,[string]),
+                     dest(Dest,[string]),
+                     nivelLimite(NivelLimite,[number])]),
+    bestfsLig(Orig,Dest,NivelLimite,Cam,Custo),
     Reply = objeto_json_relacaoLigacao(Cam,Custo),
     prolog_to_json(Reply,JSONObject),
     reply_json(JSONObject,[json_object]).

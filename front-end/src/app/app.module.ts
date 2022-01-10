@@ -47,6 +47,7 @@ import { RankFortalezaRedeComponent } from './Components/rank-fortaleza-rede/ran
 import { RankDimensaoRedeComponent } from './Components/rank-dimensao-rede/rank-dimensao-rede.component';
 import { BestFirstLigacaoRelacaoComponent } from './Components/bestfirst-ligacao-relacao/bestfirst-ligacao-relacao.component';
 import { AStarLigacaoComponent } from './Components/a-star-ligacao/a-star-ligacao.component';
+import { BestfirstLigacaoComponent } from './Components/bestfirst-ligacao/bestfirst-ligacao.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { AStarLigacaoComponent } from './Components/a-star-ligacao/a-star-ligaca
     RankFortalezaRedeComponent,
     RankDimensaoRedeComponent,
     BestFirstLigacaoRelacaoComponent,
-    AStarLigacaoComponent
+    AStarLigacaoComponent,
+    BestfirstLigacaoComponent
   ],
   imports: [
     BrowserModule,
