@@ -306,7 +306,8 @@ removerBaseConhecimento():-
         retractall(novo_perfil(_,_,_)),
         retractall(nova_relacao(_,_,_,_)),
         retractall(no(_,_,_)),
-        retractall(ligacao(_,_,_,_,_,_)).
+        retractall(ligacao(_,_,_,_,_,_)),
+        retractall(ligacao1(_,_,_,_,_,_)).
 
 
 
