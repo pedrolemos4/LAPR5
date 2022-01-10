@@ -79,29 +79,37 @@ export class VerPerfilComponent implements OnInit {
   sim() {
     this.perfilService.getPerfilAtual(this.emailUser).subscribe(Perfil => {
       this.nome = Perfil.nome;
-      this.perfilService.getJogador(Perfil.id).subscribe(Jogador => {
-        this.perfilService.getLigacoesJogador(Jogador.id).subscribe(Lis => {
-          Lis.forEach(async (element: Ligacao) => {
-            await this.perfilService.deleteLigacao(element.id).subscribe(aux => {
-              //console.log(aux + " 81");
+      this.perfilService.getJogador(Perfil.id).subscribe(async Jogador => {
+        try {
+          await this.perfilService.getLigacoesJogador(Jogador.id).subscribe(Lis => {
+            Lis.forEach(async (element: Ligacao) => {
+              await this.perfilService.deleteLigacao(element.id).subscribe(aux => {
+                //console.log(aux + " 81");
+              });
             });
           });
-          this.perfilService.getRelacoesDoJogador(Jogador.id).subscribe(async Relacoes => {
+        } catch (e) {
+          console.log("Não possui ligações.");
+        }
+        try {
+          await this.perfilService.getRelacoesDoJogador(Jogador.id).subscribe(async Relacoes => {
             Relacoes.forEach(async (element: Relacao) => {
               await this.perfilService.deleteRelacao(element.id).subscribe(aux => {
                 //console.log(aux + " 87");
               });
             });
-            await this.perfilService.deleteJogador(Jogador.id).subscribe(aux => {
-              //console.log(aux + " 91");
-            });;
-            await this.perfilService.deletePerfil(Perfil.id).subscribe(aux => {
-              //console.log(aux + " 94");
-            });;
-            this.toastr.success("Conta eliminada com sucesso.", undefined, { positionClass: 'toast-bottom-left' });
-            this.router.navigateByUrl('/');
           });
+        } catch (e) {
+          console.log("Não possui relações.");
+        }
+        await this.perfilService.deleteJogador(Jogador.id).subscribe(aux => {
+          //console.log(aux + " 91");
         });
+        await this.perfilService.deletePerfil(Perfil.id).subscribe(aux => {
+          //console.log(aux + " 94");
+        });
+        this.toastr.success("Conta eliminada com sucesso.", undefined, { positionClass: 'toast-bottom-left' });
+        this.router.navigateByUrl('/');
       });
     });
   }
