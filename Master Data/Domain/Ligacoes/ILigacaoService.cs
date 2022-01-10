@@ -14,5 +14,7 @@ namespace DDDSample1.Domain.Ligacoes
         Task<LigacaoDto> GetByIdAsync(LigacaoId ligacaoId);
         Task<LigacaoDto> UpdateAsync(LigacaoDto ligacao);
         Task<LigacaoDto> DeleteAsync(LigacaoId ligacaoId);
+
+        Task<List<LigacaoDto>> GetByIdJogadorAsync(JogadorId jogadorId);
     }
 }

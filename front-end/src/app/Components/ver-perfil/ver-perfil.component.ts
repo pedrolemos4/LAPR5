@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Ligacao } from 'src/app/Models/Ligacao';
+import { Relacao } from 'src/app/Models/Relacao';
 import { PerfilService } from 'src/app/Services/Perfil/perfil.service';
 
 @Component({
@@ -22,7 +25,7 @@ export class VerPerfilComponent implements OnInit {
   imagePreview: string | ArrayBuffer = '';
 
 
-  constructor(private perfilService: PerfilService, private toastr: ToastrService) { }
+  constructor(private perfilService: PerfilService, private toastr: ToastrService, private router: Router) { }
 
   dataURItoBlob(dataURI) {
     const byteString = window.atob(dataURI);
@@ -36,6 +39,7 @@ export class VerPerfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    document.getElementById('confirmacao').style.display = 'none';
     const currentUser = localStorage.getItem('currentUser');
     console.log(currentUser);
     this.emailUser = currentUser?.replace(/\"/g, "");
@@ -66,6 +70,44 @@ export class VerPerfilComponent implements OnInit {
         this.toastr.error("Email ou Password incorretos.", undefined, { positionClass: 'toast-bottom-left' });
       }
     });
+  }
+
+  removerConta() {
+    document.getElementById('confirmacao').style.display = 'block';
+  }
+
+  sim() {
+    this.perfilService.getPerfilAtual(this.emailUser).subscribe(Perfil => {
+      this.nome = Perfil.nome;
+      this.perfilService.getJogador(Perfil.id).subscribe(Jogador => {
+        this.perfilService.getLigacoesJogador(Jogador.id).subscribe(Lis => {
+          Lis.forEach(async (element: Ligacao) => {
+            await this.perfilService.deleteLigacao(element.id).subscribe(aux => {
+              //console.log(aux + " 81");
+            });
+          });
+          this.perfilService.getRelacoesDoJogador(Jogador.id).subscribe(async Relacoes => {
+            Relacoes.forEach(async (element: Relacao) => {
+              await this.perfilService.deleteRelacao(element.id).subscribe(aux => {
+                //console.log(aux + " 87");
+              });
+            });
+            await this.perfilService.deleteJogador(Jogador.id).subscribe(aux => {
+              //console.log(aux + " 91");
+            });;
+            await this.perfilService.deletePerfil(Perfil.id).subscribe(aux => {
+              //console.log(aux + " 94");
+            });;
+            this.toastr.success("Conta eliminada com sucesso.", undefined, { positionClass: 'toast-bottom-left' });
+            this.router.navigateByUrl('/');
+          });
+        });
+      });
+    });
+  }
+
+  nao() {
+    document.getElementById('confirmacao').style.display = 'none';
   }
 
 }

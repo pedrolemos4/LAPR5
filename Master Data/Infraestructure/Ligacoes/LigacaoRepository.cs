@@ -22,5 +22,10 @@ namespace DDDSample1.Infrastructure.Ligacoes
         {
             return await _context.Ligacoes.Where(r => (r.Jogador1.Equals(id) && (r.EstadoLigacao.Equals(Estado.Pendente)))).ToListAsync();
         }
+
+        public async Task<List<Ligacao>> GetByIdJogadorAsync(JogadorId id)
+        {
+            return await _context.Ligacoes.Where(r => (r.Jogador1.Equals(id) || r.Jogador2.Equals(id))).ToListAsync();
+        }
     }
 }

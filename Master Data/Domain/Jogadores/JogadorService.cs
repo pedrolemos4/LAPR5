@@ -326,8 +326,8 @@ namespace DDDSample1.Domain.Jogadores
             if (jog == null)
                 return null;
 
-            if (jog.Active)
-                throw new BusinessRuleValidationException("It is not possible to delete an active jogador.");
+            // if (jog.Active)
+            //     throw new BusinessRuleValidationException("It is not possible to delete an active jogador.");
 
             this._repo.Remove(jog);
             await this._unitOfWork.CommitAsync();
