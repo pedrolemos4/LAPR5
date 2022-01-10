@@ -77,7 +77,7 @@ forcaLigacaoRelacao(Request):-
     prolog_to_json(Reply,JSONObject),
     reply_json(JSONObject,[json_object]).
 
-bestFirstLIgacao(Request):-
+bestFirstLigacao(Request):-
     cors_enable,
     removerBaseConhecimento(),!,
     carregaDados(),!,

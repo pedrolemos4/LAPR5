@@ -63,7 +63,7 @@ calcula_custoLig([Act,X|L],S):-calcula_custoLig([X|L],S1),
 
 
 
-no(1,ana,[tag,musica,jogos,teatro]).
+/*no(1,ana,[tag,musica,jogos,teatro]).
 no(2,joana,[natureza,jogos,teatro]).
 no(3,joao,[pintura,jogos,teatro]).
 no(4,pedro,[cinema,teatro]).
@@ -74,5 +74,6 @@ ligacao(1,2,10,12,4,5).
 ligacao(1,3,30,10,4,4).
 ligacao(2,4,11,11,5,5).
 ligacao(3,5,10,11,55,5).
-ligacao(6,5,14,10,25,2).
+ligacao(6,5,14,10,25,2).*/
+
 
