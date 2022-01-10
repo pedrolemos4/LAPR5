@@ -28,4 +28,8 @@ export class VerAlgoritmosComponent implements OnInit {
   bestFirstLig(){
     this.router.navigateByUrl('/bestfirst_ligacao');
   }
+
+  dfsLigRel(){
+    this.router.navigateByUrl('/dfs_ligacao_relacao');
+  }
 }

@@ -3,6 +3,7 @@ import { AlgoritmoLigacaoRelacaoService } from 'src/app/Services/AlgoritmoLigaca
 import { Perfil } from 'src/app/Models/Perfil';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-algoritmo-ligacao-relacao',
@@ -20,7 +21,7 @@ export class AlgoritmoLigacaoRelacaoComponent implements OnInit {
   emailCurrentUser: string;
   idCurrentJogador: string;
 
-  constructor(private formBuilder: FormBuilder, private service: AlgoritmoLigacaoRelacaoService, private toastr: ToastrService) {
+  constructor(private router: Router, private formBuilder: FormBuilder, private service: AlgoritmoLigacaoRelacaoService, private toastr: ToastrService) {
     this.form = this.formBuilder.group({
       numeroNiveis: ['', Validators.required]
     });
@@ -86,4 +87,7 @@ export class AlgoritmoLigacaoRelacaoComponent implements OnInit {
     document.getElementById("mensagem2").style.display = "block";
   }
 
+  onVoltar() {
+    this.router.navigateByUrl('/ver_algoritmos');
+  }
 }

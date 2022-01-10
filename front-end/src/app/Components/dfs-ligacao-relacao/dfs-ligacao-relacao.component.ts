@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { BestfirstLigacaoRelacaoService } from 'src/app/Services/BestFirstLigacaoRelacao/bestfirst-ligacao-relacao.service';
-import { Perfil } from 'src/app/Models/Perfil';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { element } from 'protractor';
+import { Perfil } from 'src/app/Models/Perfil';
+import { DfsLigacaoRelacaoService } from 'src/app/Services/DFSLigacaoRelacao/dfs-ligacao-relacao.service';
 
 @Component({
-  selector: 'app-bestfirst-ligacao-relacao',
-  templateUrl: './bestfirst-ligacao-relacao.component.html',
-  styleUrls: ['./bestfirst-ligacao-relacao.component.css']
+  selector: 'app-dfs-ligacao-relacao',
+  templateUrl: './dfs-ligacao-relacao.component.html',
+  styleUrls: ['./dfs-ligacao-relacao.component.css']
 })
-export class BestFirstLigacaoRelacaoComponent implements OnInit {
+export class DfsLigacaoRelacaoComponent implements OnInit {
 
   form: FormGroup;
   nNiveis: number;
@@ -21,7 +21,7 @@ export class BestFirstLigacaoRelacaoComponent implements OnInit {
   emailCurrentUser: string;
   idCurrentJogador: string;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private service: BestfirstLigacaoRelacaoService, private toastr: ToastrService) {
+  constructor(private formBuilder: FormBuilder, private service: DfsLigacaoRelacaoService, private toastr: ToastrService) {
     this.form = this.formBuilder.group({
       numeroNiveis: ['', Validators.required]
     });
@@ -39,7 +39,7 @@ export class BestFirstLigacaoRelacaoComponent implements OnInit {
         this.service.getPerfis().subscribe(TodosPerfis => {
           TodosPerfis.forEach((element: Perfil) => {
             if (element.id != PerfilAtual.id) {
-              this.emailJogadores.push(element.email);
+              this.emailJogadores.push(element.email)
             }
           });
         });
@@ -52,28 +52,19 @@ export class BestFirstLigacaoRelacaoComponent implements OnInit {
     document.getElementById("mensagem").style.display = "block";
   }
 
-  onSubmit() {
+  onSubmit(){
     this.nNiveis = this.form.controls['numeroNiveis'].value;
-    this.service.getPerfilAtualEmail(this.selectedJogador).subscribe(PerfilSelecionado => {
-      this.service.getJogador(PerfilSelecionado.id).subscribe(JogadorSelecionado => {
-        this.service.getResultadosAlgoritmo(this.idCurrentJogador, JogadorSelecionado.id, this.nNiveis).subscribe(Resultado => {
+        this.service.getResultadosAlgoritmo(this.emailCurrentUser,this.selectedJogador,this.nNiveis).subscribe(Resultado =>{
           var aux = Object.values(Resultado);
-          this.Custo = aux[1];
-          if (aux[0].length == 0) {
+          this.Custo= aux[1];
+          if(aux[0].length == 0){
             this.toastr.error("Selecione outro nível ou outro utilizador", undefined, { positionClass: 'toast-bottom-left' });
-          } else {
-            console.log(aux[0] + " 64");
-            console.log(Object.values(aux[0]) + " 65");
-            var var1 = aux[0] + '';
-            console.log(var1+ " 67");
+          } else{
+            var var1 = aux[0] +'';
             var auxArray = var1.split(",");
-            console.log(auxArray+" 69");
-            console.log(auxArray.length+" 70");
-            auxArray.forEach((element: any) => {
-              this.service.getJogadorById(element).subscribe(Jogador => {
-                console.log(Jogador.id);
+            auxArray.forEach((element: any) =>{
+              this.service.getJogadorById(element).subscribe(Jogador =>{
                 this.service.getPerfilJogador(Jogador.id).subscribe(Perfil => {
-                  console.log(Perfil.email);
                   this.Caminho.push(Perfil.email);
                 });
               });
@@ -81,14 +72,7 @@ export class BestFirstLigacaoRelacaoComponent implements OnInit {
             this.toastr.success("Soluções encontradas", undefined, { positionClass: 'toast-bottom-left' });
           }
         });
-      });
-    });
-    document.getElementById("mensagem1").style.display = "block";
-    document.getElementById("mensagem2").style.display = "block";
+        document.getElementById("mensagem1").style.display = "block";
+        document.getElementById("mensagem2").style.display = "block";    
   }
-
-  onVoltar() {
-    this.router.navigateByUrl('/ver_algoritmos');
-  }
-
 }

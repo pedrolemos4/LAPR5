@@ -2,7 +2,7 @@
 <app-navbar></app-navbar>
 <div id="texto">
     <div id="container">
-        <h2>Calcular caminho mais forte</h2>
+        <h2>aStar - Força Ligação Relacao</h2>
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="form-group">
                 <div class="row">
@@ -22,8 +22,9 @@
             <p id="mensagem" style="margin-left: 1%;"><span>Selecionou: </span><b>{{selectedJogador}}</b></p>
             <div class="col-75">
                 <label for="numeroNiveis">Nível: </label>
-                <input type="text" id="numeroNiveis" formControlName="numeroNiveis" class="form-control" required />
-            </div>
+                <input type="text" id="numeroNiveis" formControlName="numeroNiveis" class="form-control" required /><br>
+                <input type="checkbox" id="estado" name="estado"> Considerar Estados Emocionais
+            </div><br><br>
             <button id="submit" type="submit" class="submit" style="margin-top: 7%; margin-left: -74%;"> Ver solução
             </button>
             <p id="mensagem1" style="margin-top: 2.5%; margin-left: 1%;"><span> Caminho: </span>
@@ -32,6 +33,7 @@
                 </option>
             </p>
             <p id="mensagem2" style="margin-left: 1%;"><span> Custo: </span><b> {{Custo}} </b></p>
-        </form>
+        </form><br>
+        <button type="button" class="btn-link2" (click)="onVoltar()">Voltar</button>
     </div>
 </div>
