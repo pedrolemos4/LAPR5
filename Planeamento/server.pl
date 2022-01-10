@@ -70,7 +70,6 @@ forcaLigacaoRelacao(Request):-
     [orig(Orig,[string]),
      dest(Dest,[string]),
     nivelLimite(NivelLimite,[number])]),
-
     aStarRelacaoLigacao(Orig,Dest,NivelLimite,Cam,Custo),
     Reply = objeto_json_relacaoLigacao(Cam,Custo),
     prolog_to_json(Reply,JSONObject),
@@ -278,8 +277,6 @@ carrega_no([_|Lista]):-carregaLigacoes(Lista).
 adicionar_no():- findall(Jogador1,novo_jogador(Jogador1,_),Lista),
                         carrega_no(Lista).
 
-
-
 carregaDados():-
     adicionaPerfis(),
     adicionaJogadores(),
@@ -295,6 +292,16 @@ removerBaseConhecimento():-
         retractall(nova_relacao(_,_,_,_)),
         retractall(no(_,_,_)),
         retractall(ligacao(_,_,_,_,_,_)).
+
+
+
+
+
+
+
+
+
+
 
 
 

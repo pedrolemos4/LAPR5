@@ -9,18 +9,18 @@ cria_novas_ligacoes(Orig, NivelLimite, ListaUtilizadores):- percorre_niveis(Orig
 
 % percorre lista de utilizadores da rede do utilizador origem, incluindo-0
 % encontra uma lista de utilizadores com qual um certo utilizador(X) tem ligacao e percorremos essa lista com o predicado percorre_lista_ligacoes_possiveis
-percorre_utilizadores([]):- !.
-percorre_utilizadores([X|ListaUtilizadores]):-
-    findall(Y,ligacao(X,Y,_,_,_,_),LigacoesDeX), percorre_lista_ligacoes_possiveis(X,LigacoesDeX),
-    percorre_utilizadores(ListaUtilizadores).
+percorre_utilizadores2([]):- !.
+percorre_utilizadores2([X|ListaUtilizadores]):-
+    findall(Y,ligacao(X,Y,_,_,_,_),LigacoesDeX), percorre_lista_ligacoes_possiveis2(X,LigacoesDeX),
+    percorre_utilizadores2(ListaUtilizadores).
 
 % percorre lista de amigos do utilizador X e faz um asserta de um novo facto(ligacao1)
-percorre_lista_ligacoes_possiveis(_,[]):-!.
-percorre_lista_ligacoes_possiveis(X,[Y|Lista]):- ligacao(X,Y,FX,FY,_,_), asserta(ligacao1(X,Y,FX,FY,_,_)), percorre_lista_ligacoes_possiveis(X,Lista).
+percorre_lista_ligacoes_possiveis2(_,[]):-!.
+percorre_lista_ligacoes_possiveis2(X,[Y|Lista]):- ligacao(X,Y,FX,FY,_,_), asserta(ligacao1(X,Y,FX,FY,_,_)), percorre_lista_ligacoes_possiveis2(X,Lista).
 
 
 aStar(Orig,Dest,NivelLimite,Cam,Custo):-
-    cria_novas_ligacoes(Orig, NivelLimite, ListaUtilizadores), percorre_utilizadores([Orig|ListaUtilizadores]),
+    cria_novas_ligacoes(Orig, NivelLimite, ListaUtilizadores), percorre_utilizadores2([Orig|ListaUtilizadores]),
     lista_forcas([Orig|ListaUtilizadores],[],ListaForcas), ordem_decrescente(ListaForcas,ListaDecrescente),
     aStar2(Dest,[(_,0,[Orig])],Cam,Custo,ListaDecrescente,NivelLimite),
     % necessário pois no inicio do predicado criamos o facto ligacao1 e se nao for feito o retractall, irao haver factos repetidos
@@ -35,9 +35,9 @@ findall((CEX,CaX,[X|LA]),
 CaX is FAct + FX + Ca, estimativa([X|LA],ListaForcas,EstX),
 CEX is CaX + EstX),Novos),
 append(Outros,Novos,Todos),
-write('Novos='),write(Novos),nl,
+%write('Novos='),write(Novos),nl,
 sort(Todos,TodosOrd), reverse(TodosOrd, Final),
-write('Final='),write(Final),nl,
+%write('Final='),write(Final),nl,
 aStar2(Dest,Final,Cam,Custo,ListaForcas,NivelLimite).
 
 
@@ -62,7 +62,7 @@ insert_item(X, List, [X|List]).
 estimativa(ListaCaminho,ListaForcas,Estimativa):-
 length(ListaCaminho,Contador), Diferenca is Contador - 2,
 altera_lista_forcas(ListaForcas,Diferenca,ListaFinal),
-write('ListaFinal='),write(ListaFinal),nl,
+%write('ListaFinal='),write(ListaFinal),nl,
 set_estimativa(ListaFinal,Estimativa).
 
 % modifica ListaFinal. Diferenca corresponde a um valor numerico que irá determinar o tamanho da lista Prefix.

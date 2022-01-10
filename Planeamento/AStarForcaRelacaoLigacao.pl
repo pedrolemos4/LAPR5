@@ -22,23 +22,21 @@ percorre_lista_ligacoes_possiveis1(X,[Y|Lista]):- ligacao(X,Y,FX,FY,RX,RY), asse
 aStarRelacaoLigacao(Orig,Dest,NivelLimite,Cam,Custo):-
     cria_novas_ligacoes1(Orig, NivelLimite, ListaUtilizadores), percorre_utilizadores1([Orig|ListaUtilizadores]),
     lista_forcas([Orig|ListaUtilizadores],[],ListaForcas), ordem_decrescente(ListaForcas,ListaDecrescente),
-    aStar2(Dest,[(_,0,[Orig])],Cam,Custo,ListaDecrescente,NivelLimite),
+    aStar21(Dest,[(_,0,[Orig])],Cam,Custo,ListaDecrescente,NivelLimite),
     % necessário pois no inicio do predicado criamos o facto ligacao1 e se nao for feito o retractall, irao haver factos repetidos
     retractall(ligacao1(_,_,_,_,_,_)).
 
-aStar2(Dest,[(_,Custo,[Dest|T])|_],Cam,Custo,_,_):- reverse([Dest|T],Cam).
+aStar21(Dest,[(_,Custo,[Dest|T])|_],Cam,Custo,_,_):- reverse([Dest|T],Cam).
 
-aStar2(Dest,[(_,Ca,LA)|Outros],Cam,Custo,ListaForcas,NivelLimite):-
+aStar21(Dest,[(_,Ca,LA)|Outros],Cam,Custo,ListaForcas,NivelLimite):-
 LA=[Act|_],length([X|LA],Contador),
 findall((CEX,CaX,[X|LA]),
 (Dest\==Act, Contador =< NivelLimite + 1,(ligacao1(Act,X,FAct,FX,RX,RY);ligacao1(X,Act,FX,FAct,RX,RY)),\+ member(X,LA),
 converterLigacao(FX,FAct,F1), converterRelacao(RX,RY,R1),CaX is (F1 + R1)/2+ Ca, estimativa([X|LA],ListaForcas,EstX),
 CEX is CaX + EstX),Novos),
 append(Outros,Novos,Todos),
-%write('Novos='),write(Novos),nl,
 sort(Todos,TodosOrd), reverse(TodosOrd, Final),
-%write('Final='),write(Final),nl,
-aStar2(Dest,Final,Cam,Custo,ListaForcas,NivelLimite).
+aStar21(Dest,Final,Cam,Custo,ListaForcas,NivelLimite).
 
 
 % lista com todas as forças de ligaçao dos utilizadores na rede do utilizador inicial
@@ -65,7 +63,6 @@ insert_item(X, List, [X|List]).
 estimativa(ListaCaminho,ListaForcas,Estimativa):-
 length(ListaCaminho,Contador), Diferenca is Contador - 2,
 altera_lista_forcas(ListaForcas,Diferenca,ListaFinal),
-%write('ListaFinal='),write(ListaFinal),nl,
 set_estimativa(ListaFinal,Estimativa).
 
 % modifica ListaFinal. Diferenca corresponde a um valor numerico que irá determinar o tamanho da lista Prefix.
