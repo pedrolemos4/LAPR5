@@ -63,12 +63,12 @@ export class DfsLigacaoRelacaoComponent implements OnInit {
             var var1 = aux[0] +'';
             var auxArray = var1.split(",");
             auxArray.forEach((element: any) =>{
-              this.service.getJogadorById(element).subscribe(Jogador =>{
-                this.service.getPerfilJogador(Jogador.id).subscribe(Perfil => {
-                  this.Caminho.push(Perfil.email);
+              //this.service.getJogadorById(element).subscribe(Jogador =>{
+               // this.service.getPerfilJogador(Jogador.id).subscribe(Perfil => {
+                  this.Caminho.push(element);
                 });
-              });
-            });
+              //});
+           // });
             this.toastr.success("Soluções encontradas", undefined, { positionClass: 'toast-bottom-left' });
           }
         });
