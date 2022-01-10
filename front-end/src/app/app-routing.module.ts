@@ -37,6 +37,7 @@ import { RankFortalezaRedeComponent } from './Components/rank-fortaleza-rede/ran
 import { RankDimensaoRedeComponent } from './Components/rank-dimensao-rede/rank-dimensao-rede.component';
 import { BestFirstLigacaoRelacaoComponent } from './Components/bestfirst-ligacao-relacao/bestfirst-ligacao-relacao.component';
 import { AStarLigacaoComponent } from './Components/a-star-ligacao/a-star-ligacao.component';
+import { BestfirstLigacaoComponent } from './Components/bestfirst-ligacao/bestfirst-ligacao.component';
 
 const routes: Routes = [
   { path: '', component: HomeInicialComponent },
@@ -76,7 +77,8 @@ const routes: Routes = [
   { path: 'rank_fortaleza_rede', component: RankFortalezaRedeComponent },
   { path: 'rank_dimensao_rede', component: RankDimensaoRedeComponent },
   { path: 'bestfirst_ligacao_relacao', component: BestFirstLigacaoRelacaoComponent },
-  { path: 'a_star_ligacao', component: AStarLigacaoComponent }
+  { path: 'a_star_ligacao', component: AStarLigacaoComponent },
+  { path: 'bestfirst_ligacao', component: BestfirstLigacaoComponent}
 ];
 
 
