@@ -3,6 +3,7 @@ import { BestfirstLigacaoRelacaoService } from 'src/app/Services/BestFirstLigaca
 import { Perfil } from 'src/app/Models/Perfil';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bestfirst-ligacao-relacao',
@@ -20,7 +21,7 @@ export class BestFirstLigacaoRelacaoComponent implements OnInit {
   emailCurrentUser: string;
   idCurrentJogador: string;
 
-  constructor(private formBuilder: FormBuilder, private service: BestfirstLigacaoRelacaoService, private toastr: ToastrService) {
+  constructor(private router: Router, private formBuilder: FormBuilder, private service: BestfirstLigacaoRelacaoService, private toastr: ToastrService) {
     this.form = this.formBuilder.group({
       numeroNiveis: ['', Validators.required]
     });
@@ -84,6 +85,10 @@ export class BestFirstLigacaoRelacaoComponent implements OnInit {
     });
     document.getElementById("mensagem1").style.display = "block";
     document.getElementById("mensagem2").style.display = "block";
+  }
+
+  onVoltar() {
+    this.router.navigateByUrl('/ver_algoritmos');
   }
 
 }
