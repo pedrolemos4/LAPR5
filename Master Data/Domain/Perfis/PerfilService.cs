@@ -162,8 +162,8 @@ namespace DDDSample1.Domain.Perfis
             if (per == null)
                 return null;
 
-            if (per.Active)
-                throw new BusinessRuleValidationException("It is not possible to delete an active perfil.");
+            // if (per.Active)
+            //     throw new BusinessRuleValidationException("It is not possible to delete an active perfil.");
 
             this._repo.Remove(per);
             await this._unitOfWork.CommitAsync();

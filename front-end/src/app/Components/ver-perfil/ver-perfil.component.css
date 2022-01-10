@@ -6,7 +6,6 @@
     border-radius: 5px;
     justify-content: center;
     margin-left: 39%;
-    margin-top: 32px;
     position: fixed;
 }
 
@@ -83,3 +82,33 @@
 .circular_image img{
    width:100%;
 }  
+
+#remover_botton {
+    margin-left: 80%;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#confirmacao{
+    margin-left: 20%;
+}
+
+#sim{
+    background-color: rgb(16, 219, 60);
+    color: white;
+    border: none;
+    padding: 7px 10px;
+    cursor: pointer;
+  }
+  
+  #nao{
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 7px 10px;
+    margin-left: 15px;
+    cursor: pointer;
+  }
+  

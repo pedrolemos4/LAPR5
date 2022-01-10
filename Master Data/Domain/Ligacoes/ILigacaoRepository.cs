@@ -9,5 +9,7 @@ namespace DDDSample1.Domain.Ligacoes
     public interface ILigacaoRepository : IRepository<Ligacao, LigacaoId>
     {
         Task<List<Ligacao>> GetLigacaoPendente(JogadorId id);
+
+        Task<List<Ligacao>> GetByIdJogadorAsync(JogadorId jogadorId);
     }
 }

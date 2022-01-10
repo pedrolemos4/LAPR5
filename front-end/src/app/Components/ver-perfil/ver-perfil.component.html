@@ -37,5 +37,13 @@
         <div class="circular_image" id="circular_image">
             <img id="imagem" [src]="imagePreview">
         </div>
+        <button id="remover_botton" (click)="removerConta()"> Remover Conta </button>
+        <div id="confirmacao">
+            <p><b style="margin-left: -20%; font: bold;">Pretende mesmo apagar a sua conta?</b></p>
+            <button id="sim" (click)="sim()" style="margin-left: -20%;"> Sim </button>
+            <button id="nao" (click)="nao()"> Não </button>
+        </div>
+    </div>
+    <div class="card1">
     </div>
 </div>

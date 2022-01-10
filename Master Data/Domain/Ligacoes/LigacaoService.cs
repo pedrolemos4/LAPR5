@@ -114,13 +114,23 @@ namespace DDDSample1.Domain.Ligacoes
             if (ligacao == null)
                 return null;
 
-            if (ligacao.Active)
-                throw new BusinessRuleValidationException("It is not possible to delete an active ligacao.");
+            // if (ligacao.Active)
+            //     throw new BusinessRuleValidationException("It is not possible to delete an active ligacao.");
 
             this._repo.Remove(ligacao);
             await this._unitOfWork.CommitAsync();
 
             return new LigacaoDto { Id = ligacao.Id.AsGuid(), TextoLigacao = ligacao.TextoLigacao.Texto, Estado = ligacao.EstadoLigacao.ToString(), Jogador1 = ligacao.Jogador1.AsGuid(), Jogador2 = ligacao.Jogador2.AsGuid() };
+        }
+
+        public async Task<List<LigacaoDto>> GetByIdJogadorAsync(JogadorId jogadorId)
+        {
+            var ligacao = await this._repo.GetByIdJogadorAsync(jogadorId);
+
+            if (ligacao == null)
+                return null;
+            List<LigacaoDto> listDto = ligacao.ConvertAll<LigacaoDto>(ligacao => new LigacaoDto { Id = ligacao.Id.AsGuid(), TextoLigacao = ligacao.TextoLigacao.Texto, Estado = ligacao.EstadoLigacao.ToString(), Jogador1 = ligacao.Jogador1.AsGuid(), Jogador2 = ligacao.Jogador2.AsGuid() });
+            return listDto;
         }
     }
 }
