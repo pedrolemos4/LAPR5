@@ -16,7 +16,11 @@ export default (app: Router) => {
 
     route.get('',(req,res,next)=> ctrl.getPosts(req,res,next));
 
-    route.get('/getPostsByEmail',(req,res,next) => ctrl.getPostsByEmail(req,res,next));
+    route.get('/getPostsByEmail',
+    celebrate({
+        body:Joi.object({
+            email:Joi.string().required()})
+        }),(req,res,next) => ctrl.getPostsByEmail(req,res,next));
 
     route.post('',
         celebrate({
