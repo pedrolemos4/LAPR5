@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { element } from 'protractor';
 import { Perfil } from 'src/app/Models/Perfil';
@@ -20,8 +21,9 @@ export class DfsLigacaoRelacaoComponent implements OnInit {
   Custo: string;
   emailCurrentUser: string;
   idCurrentJogador: string;
+  opcao: string = '2';
 
-  constructor(private formBuilder: FormBuilder, private service: DfsLigacaoRelacaoService, private toastr: ToastrService) {
+  constructor(private router: Router, private formBuilder: FormBuilder, private service: DfsLigacaoRelacaoService, private toastr: ToastrService) {
     this.form = this.formBuilder.group({
       numeroNiveis: ['', Validators.required]
     });
@@ -52,7 +54,16 @@ export class DfsLigacaoRelacaoComponent implements OnInit {
     document.getElementById("mensagem").style.display = "block";
   }
 
+  toggleEditable(event) {
+    if ( event.target.checked ) {
+      this.opcao = '1';
+    } else {
+      this.opcao = '2';
+    }
+  }
+
   onSubmit(){
+    console.log(this.opcao);
     this.nNiveis = this.form.controls['numeroNiveis'].value;
         this.service.getResultadosAlgoritmo(this.emailCurrentUser,this.selectedJogador,this.nNiveis).subscribe(Resultado =>{
           var aux = Object.values(Resultado);
@@ -74,5 +85,9 @@ export class DfsLigacaoRelacaoComponent implements OnInit {
         });
         document.getElementById("mensagem1").style.display = "block";
         document.getElementById("mensagem2").style.display = "block";    
+  }
+
+  onVoltar() {
+    this.router.navigateByUrl('/ver_algoritmos');
   }
 }

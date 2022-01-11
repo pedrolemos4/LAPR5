@@ -23,7 +23,7 @@
             <div class="col-75">
                 <label for="numeroNiveis">Nível: </label>
                 <input type="text" id="numeroNiveis" formControlName="numeroNiveis" class="form-control" required /><br>
-                <input type="checkbox" id="estado" name="estado"> Considerar Estados Emocionais
+                <input type="checkbox" id="estado" name="estado" (change)="toggleEditable($event)"> Considerar Estados Emocionais
             </div><br><br>
             <button id="submit" type="submit" class="submit" style="margin-top: 7%; margin-left: -74%;"> Ver solução
             </button>
