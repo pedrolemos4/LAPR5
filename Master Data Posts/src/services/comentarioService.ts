@@ -39,8 +39,8 @@ export default class ComentarioService implements IComentarioService {
     public async getComentarioByAutor(autor: any): Promise<Result<IComentarioDTO[]>> {
         try {
             var newKey = Object.values(autor)[0];
-            const posts = (await this.postRepo.getPostsByEmail(newKey)).getValue();
-            return Result.ok<Array<IComentarioDTO>>(posts);
+            const comentario = (await this.comentarioRepo.findByAutor(newKey)).getValue();
+            return Result.ok<Array<IComentarioDTO>>(comentario);
         } catch (e) {
             throw e;
         }

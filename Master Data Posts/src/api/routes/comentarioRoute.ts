@@ -16,7 +16,7 @@ export default (app: Router) => {
 
     route.get('',(req,res,next)=> ctrl.getComentarios(req,res,next));
 
-    route.get('/:id',(req,res,next)=> ctrl.getComentarioById(req,res,next));
+    route.get('/id',(req,res,next)=> ctrl.getComentarioById(req,res,next));
 
     route.get('/getComentariosByAutor',
     celebrate({
