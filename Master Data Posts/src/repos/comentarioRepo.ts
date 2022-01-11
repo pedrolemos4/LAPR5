@@ -16,32 +16,32 @@ export default class ComentarioRepo implements IComentarioRepo {
   private models: any;
 
   constructor(
-    @Inject('comentarioSchema') private comentarioSchema : Model<IComentarioPersistence & Document>,
-  ) {}
+    @Inject('comentarioSchema') private comentarioSchema: Model<IComentarioPersistence & Document>,
+  ) { }
 
-  private createBaseQuery (): any {
+  private createBaseQuery(): any {
     return {
       where: {},
     }
   }
 
   public async exists(comentario: Comentario): Promise<boolean> {
-    
+
     const idX = comentario.id instanceof ComentarioId ? (<ComentarioId>comentario.id) : comentario.id;
 
-    const query = { domainId: idX}; 
-    const comentarioDocument = await this.comentarioSchema.findOne( query as FilterQuery<IComentarioPersistence & Document>);
+    const query = { domainId: idX };
+    const comentarioDocument = await this.comentarioSchema.findOne(query as FilterQuery<IComentarioPersistence & Document>);
 
     return !!comentarioDocument === true;
   }
 
-  public async save (comentario: Comentario): Promise<Comentario> {
-    const query = { domainId: comentario.id.toString()}; 
+  public async save(comentario: Comentario): Promise<Comentario> {
+    const query = { domainId: comentario.id.toString() };
 
-    const comentarioDocument = await this.comentarioSchema.findOne( query );
+    const comentarioDocument = await this.comentarioSchema.findOne(query);
 
     try {
-      if (comentarioDocument === null ) {
+      if (comentarioDocument === null) {
         const rawComentario: any = ComentarioMap.toPersistence(comentario);
 
         const comentarioCreated = await this.comentarioSchema.create(rawComentario);
@@ -63,25 +63,39 @@ export default class ComentarioRepo implements IComentarioRepo {
     }
   }
 
-  public async findById (comentarioId: ComentarioId | string): Promise<Comentario> {
+  public async findById(comentarioId: ComentarioId | string): Promise<Comentario> {
     const query = { domainId: comentarioId };
-        const comentarioRecord = await this.comentarioSchema.findOne(query as FilterQuery<IComentarioPersistence & Document>);
-        if (comentarioRecord != null) {
-            return ComentarioMap.toDomain(comentarioRecord);
-        } else
-            return null;
-      }
+    const comentarioRecord = await this.comentarioSchema.findOne(query as FilterQuery<IComentarioPersistence & Document>);
+    if (comentarioRecord != null) {
+      return ComentarioMap.toDomain(comentarioRecord);
+    } else
+      return null;
+  }
 
-  public async getComentarios(){
+  public async findByAutor(autor: any) {
+    const query = { autor: autor };
+    var comentarios = [];
+    const document = await this.comentarioSchema.find(query);
+    if (document === null) {
+      return Result.fail<IComentarioDTO[]>("No comments found!");
+    } else {
+      for (var i = 0; i < document.length; i++) {
+        comentarios.push(ComentarioMap.toDTO(ComentarioMap.toDomain(document[i])));
+      }
+      return Result.ok<IComentarioDTO[]>(comentarios);
+    }
+  }
+
+  public async getComentarios() {
     const document = await this.comentarioSchema.find();
-    var comentarios = [] ;
-     if(document === null){
-        return Result.fail<IComentarioDTO[]>("No Comentarios Found!");
-     } else{
-         for(var i =0;i<document.length;i++){
-          comentarios.push(ComentarioMap.toDTO(ComentarioMap.toDomain(document[i])));
-         }
-        return Result.ok<IComentarioDTO[]>(comentarios);
+    var comentarios = [];
+    if (document === null) {
+      return Result.fail<IComentarioDTO[]>("No Comentarios Found!");
+    } else {
+      for (var i = 0; i < document.length; i++) {
+        comentarios.push(ComentarioMap.toDTO(ComentarioMap.toDomain(document[i])));
+      }
+      return Result.ok<IComentarioDTO[]>(comentarios);
     }
   }
 }

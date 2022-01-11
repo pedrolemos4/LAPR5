@@ -18,6 +18,12 @@ export default (app: Router) => {
 
     route.get('/:id',(req,res,next)=> ctrl.getComentarioById(req,res,next));
 
+    route.get('/getComentariosByAutor',
+    celebrate({
+        body:Joi.object({
+            autor:Joi.string().required()})
+        }),(req,res,next) => ctrl.getComentarioByAutor(req,res,next));
+
     route.post('',
         celebrate({
             body: Joi.object({

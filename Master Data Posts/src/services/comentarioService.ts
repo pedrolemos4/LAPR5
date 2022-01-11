@@ -20,28 +20,38 @@ export default class ComentarioService implements IComentarioService {
         try {
             const comentarios = (await this.comentarioRepo.getComentarios()).getValue();
             return Result.ok<IComentarioDTO[]>(comentarios);
-        } catch(e){
+        } catch (e) {
             throw e;
         }
     }
 
     public async getComentarioById(comentarioId: string): Promise<Result<Comentario>> {
-        const comentario = await this.comentarioRepo.findById( comentarioId );
+        const comentario = await this.comentarioRepo.findById(comentarioId);
         const found = !!comentario;
-    
+
         if (found) {
-          return Result.ok<Comentario>(comentario);
+            return Result.ok<Comentario>(comentario);
         } else {
-          return Result.fail<Comentario>("Couldn't find comentario by id=" + comentarioId);
+            return Result.fail<Comentario>("Couldn't find comentario by id=" + comentarioId);
         }
-      }
+    }
+
+    public async getComentarioByAutor(autor: any): Promise<Result<IComentarioDTO[]>> {
+        try {
+            var newKey = Object.values(autor)[0];
+            const posts = (await this.postRepo.getPostsByEmail(newKey)).getValue();
+            return Result.ok<Array<IComentarioDTO>>(posts);
+        } catch (e) {
+            throw e;
+        }
+    }
 
     public async createComentario(comentarioDTO: IComentarioDTO): Promise<Result<IComentarioDTO>> {
-        try{
+        try {
 
             const comentarioOrError = await Comentario.create(comentarioDTO);
 
-            if(comentarioOrError.isFailure){
+            if (comentarioOrError.isFailure) {
                 return Result.fail<IComentarioDTO>(comentarioOrError.errorValue());
             }
 
@@ -51,11 +61,11 @@ export default class ComentarioService implements IComentarioService {
             const id = comentarioResult.post.replace(/\'/g, "");
             const post = await this.postRepo.findById(id);
 
-            await this.postRepo.populate(post,comentarioResult.id.toString());
+            await this.postRepo.populate(post, comentarioResult.id.toString());
 
             const comentarioDTOResult = ComentarioMap.toDTO(comentarioResult) as IComentarioDTO;
             return Result.ok<IComentarioDTO>(comentarioDTOResult)
-        } catch(e){
+        } catch (e) {
             throw e;
         }
     }
