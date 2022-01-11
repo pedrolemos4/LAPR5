@@ -20,6 +20,7 @@ export class AStarLigacaoComponent implements OnInit {
   Custo: string;
   emailCurrentUser: string;
   idCurrentJogador: string;
+  opcao: string = '2';
 
   constructor(private formBuilder: FormBuilder, private service: AStarLigacaoService, private toastr: ToastrService, private router: Router) {
     this.form = this.formBuilder.group({
@@ -52,8 +53,16 @@ export class AStarLigacaoComponent implements OnInit {
     document.getElementById("mensagem").style.display = "block";
   }
 
+  toggleEditable(event) {
+    if ( event.target.checked ) {
+      this.opcao = '1';
+    } else {
+      this.opcao = '2';
+    }
+  }
+
   onSubmit() {
-    console.log(this.selectedJogador);
+    console.log(this.opcao);
     this.nNiveis = this.form.controls['numeroNiveis'].value;
     if(this.form.controls['numeroNiveis'].value != '' && this.selectedJogador != ''){
     this.service.getPerfilAtualEmail(this.selectedJogador).subscribe(PerfilSelecionado => {

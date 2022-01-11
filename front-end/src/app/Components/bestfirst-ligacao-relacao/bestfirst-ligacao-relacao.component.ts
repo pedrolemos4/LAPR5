@@ -20,10 +20,12 @@ export class BestFirstLigacaoRelacaoComponent implements OnInit {
   Custo: string;
   emailCurrentUser: string;
   idCurrentJogador: string;
+  opcao: string = '2';
 
   constructor(private router: Router, private formBuilder: FormBuilder, private service: BestfirstLigacaoRelacaoService, private toastr: ToastrService) {
     this.form = this.formBuilder.group({
-      numeroNiveis: ['', Validators.required]
+      numeroNiveis: ['', Validators.required],
+      estado: ['', Validators.required]
     });
   }
 
@@ -52,7 +54,16 @@ export class BestFirstLigacaoRelacaoComponent implements OnInit {
     document.getElementById("mensagem").style.display = "block";
   }
 
+  toggleEditable(event) {
+    if ( event.target.checked ) {
+      this.opcao = '1';
+    } else {
+      this.opcao = '2';
+    }
+  }
+
   onSubmit() {
+    console.log(this.opcao);
     this.nNiveis = this.form.controls['numeroNiveis'].value;
     this.service.getPerfilAtualEmail(this.selectedJogador).subscribe(PerfilSelecionado => {
       this.service.getJogador(PerfilSelecionado.id).subscribe(JogadorSelecionado => {
