@@ -22,11 +22,9 @@ export default class PostService implements IPostService {
         }
     }
 
-    public async getPostsByEmail(key: string) : Promise<Result<IPostDTO[]>> {
+    public async getPostsByEmail(key: any) : Promise<Result<IPostDTO[]>> {
         try {
-            key.concat('');
-            console.log(key);
-            var newKey= key.split(":")[1];
+            var newKey = Object.values(key)[0];
             const posts = (await this.postRepo.getPostsByEmail(newKey)).getValue();
             return Result.ok<Array<IPostDTO>>(posts);
         } catch(e){
