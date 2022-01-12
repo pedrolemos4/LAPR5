@@ -16,19 +16,11 @@ export default (app: Router) => {
 
     route.get('', (req, res, next) => ctrl.getComentarios(req, res, next));
 
-    route.get('/getById',(req,res,next)=> ctrl.getComentarioById(req,res,next));
+    route.get('/getById', (req, res, next) => ctrl.getComentarioById(req, res, next));
 
-    /*route.get('/getComentariosByAutor/',
-    celebrate({
-        body:Joi.object({
-            autor:Joi.string().required()})
-        }),(req,res,next) => ctrl.getComentarioByAutor(req,res,next));*/
-        
-    route.delete('/delete', celebrate({
-        body: Joi.object({
-            id: Joi.string().required()
-        })
-    }), (req, res, next) => ctrl.delete(req, res, next));
+    route.get('/getComentariosByAutor', (req, res, next) => ctrl.getComentarioByAutor(req, res, next));
+
+    route.delete('/delete', (req, res, next) => ctrl.delete(req, res, next));
 
     route.post('',
         celebrate({

@@ -70,10 +70,34 @@ export default class PostService implements IPostService {
         }
     }
 
+    public async atualizaComments(idPost: any, idComentario: any): Promise<Result<IPostDTO>> {
+        try {
+            var post = await this.postRepo.findById(idPost);
+
+            if (post === null) {
+                return Result.fail<IPostDTO>("Post not found");
+            } else {
+                var aux = post.listaComentarios;
+                const index = aux.indexOf(idComentario);
+                if (index > -1) {
+                    aux.splice(index, 1);
+                }
+
+                post.props.listaComentarios = aux;
+                await this.postRepo.save(post);
+
+                const postDTOResult = PostMap.toDTO(post) as IPostDTO;
+
+                return Result.ok<IPostDTO>(postDTOResult)
+            }
+        } catch (e) {
+            throw e;
+        }
+    }
+
     public async delete(id: string) {
         try {
-            var newKey = Object.values(id)[0];
-            const post = (await this.postRepo.delete(newKey)).getValue();
+            const post = (await this.postRepo.delete(id)).getValue();
             return Result.ok(post);
         } catch (e) {
             throw e;

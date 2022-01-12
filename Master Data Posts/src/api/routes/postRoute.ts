@@ -16,7 +16,9 @@ export default (app: Router) => {
 
     route.get('', (req, res, next) => ctrl.getPosts(req, res, next));
 
-    route.get('/getPostsByEmail',(req,res,next) => ctrl.getPostsByEmail(req,res,next));
+    route.get('/getPostsByEmail', (req, res, next) => ctrl.getPostsByEmail(req, res, next));
+
+    route.put('/atualizaComments', (req, res, next) => ctrl.atualizaComments(req, res, next));
 
     route.post('',
         celebrate({
@@ -41,9 +43,5 @@ export default (app: Router) => {
         }),
         (req, res, next) => ctrl.updatePost(req, res, next));
 
-    route.delete('/delete', celebrate({
-        body: Joi.object({
-            id: Joi.string().required()
-        })
-    }), (req, res, next) => ctrl.delete(req, res, next));
+    route.delete('/delete', (req, res, next) => ctrl.delete(req, res, next));
 };
