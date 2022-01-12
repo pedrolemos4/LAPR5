@@ -53,6 +53,7 @@ export class ComentarPostComponent implements OnInit {
     this.tags = this.tag.toString().split(",");
     if(this.tags.length > 0 || this.tags.includes('')) {
       this.comentarPostService.adicionarComentario({
+        id:'', 
         autor: this.emailCurrentUser,
         texto: this.comentarioForm.controls['comentario'].value,
         tags: this.tags,
