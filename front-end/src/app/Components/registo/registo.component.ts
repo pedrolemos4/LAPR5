@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Jogador } from 'src/app/Models/Jogador';
 import { mergeMap } from 'rxjs';
 import { Perfil } from 'src/app/Models/Perfil';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-registo',
@@ -15,17 +16,19 @@ import { Perfil } from 'src/app/Models/Perfil';
 export class RegistoComponent implements OnInit {
   registoForm: FormGroup;
   checkForm: FormGroup;
+  estadosForm: FormGroup;
   pontos: number = 0;
   listavazia: string[] = new Array<string>();
   selected: string = '';
   listaTags: string[] = new Array<string>();
   listaStringTags: string = '';
-  estado: string = '';
   perfil: string = '';
   file: File = null;
   imagePreview: string | ArrayBuffer = '';
   isCheckedBox: boolean = false;
   fileBase64: string = '';
+  arrayNomesEstados: string [] = ["Joyful", "Distressed", "Hopeful", "Fearful", "Relieve", "Disappointed", "Proud", "Remorseful", "Grateful", "Angry"];
+  arrayFinalEstados: string [] = [];
 
   constructor(private formBuilder: FormBuilder, private router: Router, private toastr: ToastrService, private registoService: RegistoService) {
     this.registoForm = this.formBuilder.group({
@@ -37,7 +40,6 @@ export class RegistoComponent implements OnInit {
       pais: '',
       cidade: '',
       dataNascimento: '',
-      estadoHumor: '',
       tags: '',
       perfilFb: '',
       perfilL: '',
@@ -46,6 +48,19 @@ export class RegistoComponent implements OnInit {
 
     this.checkForm = this.formBuilder.group({
       check: ['', Validators.requiredTrue]
+    });
+
+    this.estadosForm = this.formBuilder.group({
+      joyful: '0.50',
+      distressed: '0.50',
+      hopeful: '0.50',
+      fearful: '0.50',
+      relieve: '0.50',
+      disappointed: '0.50',
+      proud: '0.50',
+      remorseful: '0.50',
+      grateful: '0.50',
+      angry: '0.50'
     });
   }
 
@@ -57,6 +72,8 @@ export class RegistoComponent implements OnInit {
   ngOnInit(): void {
     const targetDiv = document.getElementById("politica");
     targetDiv.style.display = "none";
+    const targetDiv1 = document.getElementById("estados");
+    targetDiv1.style.display = "none";
 
   }
 
@@ -102,6 +119,11 @@ export class RegistoComponent implements OnInit {
     targetDiv.style.display = "none";
   }
 
+  onVoltarEstados(){
+    const targetDiv = document.getElementById("estados");
+    targetDiv.style.display = "none";
+  }
+
   isChecked() {
     this.isCheckedBox = true;
   }
@@ -109,16 +131,22 @@ export class RegistoComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.registoForm.controls; }
 
+
+  escolherEstados(){
+    const targetDiv = document.getElementById("estados");
+    if (targetDiv.style.display !== "none") {
+      targetDiv.style.display = "none";
+    } else {
+      targetDiv.style.display = "block";
+    }
+  }
+
   onSubmit() {
     if (this.isCheckedBox == true) {
 
       this.listaStringTags = this.f['tags'].value;
       this.listaTags = this.listaStringTags.toString().split(",");
       this.f['tags'].setValue(this.listaTags);
-
-      this.estado = this.selected.charAt(0).toUpperCase() + this.selected.slice(1);
-
-      this.f['estadoHumor'].setValue(this.estado);
 
       // valida Nome
       if (this.registoForm.controls['nome'].value != '') {
@@ -175,11 +203,6 @@ export class RegistoComponent implements OnInit {
         this.toastr.error("Data de Nascimento é obrigatória");
       }
 
-      // valida Estado de Humor
-      if (this.registoForm.controls['estadoHumor'].value == '') {
-        this.toastr.error("Estado de Humor é obrigatório");
-      }
-
       // valida Tags
       if (this.registoForm.controls['tags'].value == '') {
         this.toastr.error("Tags são obrigatórias");
@@ -200,6 +223,19 @@ export class RegistoComponent implements OnInit {
         this.toastr.error("Password é obrigatória");
       }
 
+      console.log(this.arrayNomesEstados);
+
+      var s, valor, stringFinal;
+      this.arrayNomesEstados.forEach(element => {
+        s = this.estadosForm.controls[element.toLowerCase()].value.toString();
+        valor = s.replace(".", ",");
+        stringFinal = element.concat(" ").concat(valor);
+        console.log(stringFinal);
+        this.arrayFinalEstados.push(stringFinal);
+      });
+
+      console.log(this.arrayFinalEstados);
+
         this.registoService.registoPerfil({
           id: '',
           nome: this.registoForm.controls['nome'].value,
@@ -209,7 +245,7 @@ export class RegistoComponent implements OnInit {
           pais: this.registoForm.controls['pais'].value,
           cidade: this.registoForm.controls['cidade'].value,
           dataNascimento: this.registoForm.controls['dataNascimento'].value,
-          estadoHumor: this.registoForm.controls['estadoHumor'].value,
+          estadoHumor: this.arrayFinalEstados,
           tags: this.registoForm.controls['tags'].value,
           perfilFacebook: this.registoForm.controls['perfilFb'].value,
           perfilLinkedin: this.registoForm.controls['perfilL'].value,

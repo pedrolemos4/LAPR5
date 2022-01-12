@@ -7,7 +7,7 @@ export interface Perfil{
     pais : string;
     cidade : string;
     dataNascimento : string;
-    estadoHumor : string;
+    estadoHumor : string [];
     password : string;
     tags : string [];
     perfilFacebook : string;

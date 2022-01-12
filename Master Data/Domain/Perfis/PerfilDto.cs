@@ -13,7 +13,7 @@ namespace DDDSample1.Domain.Perfis
 
         public DateTime dataN { get; set; }
 
-        public string EstadoHumor { get; set; }
+        public List<string> EstadoHumor { get; set; }
 
         public string Email { get; set; }
 

@@ -19,7 +19,7 @@ namespace DDDSample1.Domain.Perfis
 
         public string dataNascimento { get; set; }
 
-        public string estadoHumor { get; set; }
+        public List<string> estadoHumor { get; set; }
 
         public string password { get; set; }
 
@@ -29,7 +29,7 @@ namespace DDDSample1.Domain.Perfis
 
         public string perfilLinkedin { get; set; }
 
-        public CreatingPerfilDto(string avatar, string nome, string email, long telefone, List<string> tag, string data, string estado, string password, string pais, string cidade, string perfilFB, string perfilLI)
+        public CreatingPerfilDto(string avatar, string nome, string email, long telefone, List<string> tag, string data, List<string> estado, string password, string pais, string cidade, string perfilFB, string perfilLI)
         {
             this.avatar = (avatar);
             this.nome = (nome);

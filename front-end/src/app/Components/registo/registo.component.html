@@ -72,20 +72,7 @@
                     <label for="colFormLabel" class="col-sm-2 col-form-label">Estado de Humor</label>
                 </div>
                 <div class="col-75">
-                    <select name="estadoHumor" (change)="selectChangeHandler($event)">
-                        <option selected disabled="disabled">Choose...</option>
-                        <option value="joyful">Joyful</option>
-                        <option value="distressed">Distressed</option>
-                        <option value="hopeful">Hopeful</option>
-                        <option value="fearful">Fearful</option>
-                        <option value="relieve">Relieve</option>
-                        <option value="disappointed">Disappointed</option>
-                        <option value="proud">Proud</option>
-                        <option value="remorseful">Remorseful</option>
-                        <option value="grateful">Grateful</option>
-                        <option value="angry">Angry</option>
-                    </select>
-                    <span> Selecionado: </span><b>{{selected}}</b>
+                    <button (click)="escolherEstados()">Determinação dos Estados de Humor</button>
                 </div>
             </div>
             <div class="col-xs-2">
@@ -136,70 +123,161 @@
         
     </div>
 
-    <div class="card2" id="politica">
-        <h4 class="card-header">Política de Privacidade</h4>
-        <div class="card2-body">
-            <div class="card2-body">
-                <p>A Empresa Graphs4Social preocupa-se com a confidencialidade e a integridade dos dados pessoais dos seus clientes.</p>
-                <p>Cumprimos a legislação de proteção de dados pessoais em vigor, nomeadamente nas relações com os seus utilizadores, 
-                    fornecedores e subcontratados, em particular o Regulamento (UE) 2016/679 do Parlamento Europeu e do Conselho, de
-                     27 de abril de 2016 (“Regulamento” ou “RGPD”).</p>
-                <p>Compreendemos e aceitamos que a utilização dos seus dados pessoais requer a sua prévia autorização, 
-                    servindo neste caso, apenas para o contactar em caso de alguma alteração ou na utilização dos serviços oferecidos.</p>
-                <p>Utilizamos uma diversidade de medidas de segurança, incluindo encriptação e ferramentas de autenticação, 
-                    para ajudar a proteger e manter a segurança dos seus dados pessoais em conformidade
-                    com os requisitos de proteção de dados aplicáveis.</p>
-                <p>Os dados fornecidos à Empresa Graphs4Social apenas podem ser acedidos por
-                    pessoal restrito desde que seja para uma das finalidades comunicadas.
-                    A transferência de dados recolhidos é feita sempre de forma encriptada.</p>
-                <p>Os dados disponibilizados serão usados unicamente durante o período de tempo necessário à finalidade 
-                    para a qual foram disponibilizados, após o que serão destruídos de
-                    forma segura, salvo se, durante esse período, não tenha já retirado o seu consentimento.</p>
-                <p>Os seus dados pessoais fornecidos, salvo a sua autorização expressa em contrário, não serão
-                    transmitidos a terceiros.</p>
-                <p>Pode, em qualquer altura, alterar ou retirar o seu consentimento dos seus dados pessoais fornecidos.
-                    Com esta ação, os seus dados serão apagados de forma segura.</p>
-                <p>Para alterar ou retirar o seu consentimento dos dados fornecidos tem de contactar o 
-                    Responsável pelo Tratamento de Dados da Empresa, Arlindo Manuel dos Santos Pacheco, através do endereço de email arman@gmail.com.</p>
-                <h4>Que dados são recolhidos?</h4>
-                • Informação de identificação pessoal (Nome, Email, Cidade, País, Data de Nascimento, Telefone, Perfil do Facebook e Linkedin);<br><br>
-                <h4>Como são recolhidos os dados?</h4>
-                • No acto do registo na aplicação.<br><br>
-                <h4>Como serão usados os dados?</h4>
-                • Criar um novo utilizador da aplicação e guardar as suas informações;<br>
-                • Informar o utilizador de atualizações ou oportunidades relacionadas à aplicação.<br><br>
-                <h4>Como são armazenados os dados?</h4>
-                Os dados são armazenados em segurança no serviço de base de dados SQL Azure.
-                Este serviço cloud apresenta vários sistemas de segurança perante os dados guardados:<br>
-                • Segurança de Rede;<br>
-                • Gestão de Acesso;<br>
-                • Proteção de ameaças;<br>
-                • Proteção de informação.<br><br>
-                <h4>Quais são os direitos de proteção de dados?</h4>
-                • <b>Direito de Acesso</b> – o utilizador tem o direito de pedir uma
-                cópia dos seus dados pessoais.<br>
-                • <b>Direito de retificação</b> – o utilizador tem o direito de pedir a alteração
-                dos seus dados pessoais a qualquer momento. O utilizador tem também o direito de pedir para completar 
-                qualquer informação que esteja incompleta do seu perfil.<br>
-                • <b>Direito de Remoção</b> – o utlizador tem o direito de pedir que a Empresa
-                apague os seus dados sobre certas condições.<br>
-                • <b>Direito de restrição de processamento</b> – o utlizador tem o direito de pedir a restrição do processamento
-                 dos seus dados, sobre certas condições.<br>
-                • <b>Direito de portabilidade de dados</b> – o utilizador tem o direito de pedir a transferência dos dados
-                 recolhidos para outra organização, ou diretamente para o utilizador, sobre certas condições.<br>
-                • <b>Direito de Oposição</b> – o utlizador tem o direito de se opor em qualquer momento, por motivos relacionados com a
-                 sua situação particular, ao tratamento de dados pessoais que lhe digam respeito.<br><br>
-                Prazo de conservação dos dados pessoais: 1/02/2022.<br>
-                Se o utilizador pretender executar um dos pedidos apresentados, a Empresa Graphs4Social tem um limite de um mês
-                para responder.<br> Se pretender contactar-nos para exercer algum destes
-                direitos, por favor contactar:<br>
-                Ligue-nos em:  25 578 2319 <br>
-                
+
+</div>
+a
+<div class="card3" id="estados">
+    <h4 class="card-header">Determinação dos Estados de Humor</h4>
+    <div class="card-body">
+        <form [formGroup]="estadosForm">
+            <div class="form-group">
+                <div class="estadoClass">
+                    <label for="colFormLabel" class="labelEstado">Alegria</label>
+                    <input type="range" class="form-range" min="0.00" max="1.00" step="0.01" value="0.50"
+                        formControlName="joyful" oninput="alegria.innerText = this.value">
+                    <b>Valor: <span id="alegria">0.50</span></b>
+                </div>
             </div>
-            <button type="button" class="btn-link1" (click)="onVoltar()">Voltar</button>
-        </div>
+            <div class="form-group">
+                <div class="estadoClass">
+                    <label for="colFormLabel" class="labelEstado">Angústia</label>
+                    <input type="range" class="form-range" min="0.00" max="1.00" step="0.01" value="0.50"
+                        formControlName="distressed" oninput="angustia.innerText = this.value">
+                    <b>Valor: <span id="angustia">0.50</span></b>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="estadoClass">
+                    <label for="colFormLabel" class="labelEstado">Esperança</label>
+                    <input type="range" class="form-range" min="0.00" max="1.00" step="0.01" value="0.50"
+                        formControlName="hopeful" oninput="hopeful.innerText = this.value">
+                    <b>Valor: <span id="hopeful">0.50</span></b>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="estadoClass">
+                    <label for="colFormLabel" class="labelEstado">Medo</label>
+                    <input type="range" class="form-range" min="0.00" max="1.00" step="0.01" value="0.50"
+                        formControlName="fearful" oninput="fearful.innerText = this.value">
+                    <b>Valor: <span id="fearful">0.50</span></b>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="estadoClass">
+                    <label for="colFormLabel" class="labelEstado">Alívio</label>
+                    <input type="range" class="form-range" min="0.00" max="1.00" step="0.01" value="0.50"
+                        formControlName="relieve" oninput="relieve.innerText = this.value">
+                    <b>Valor: <span id="relieve">0.50</span></b>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="estadoClass">
+                    <label for="colFormLabel" class="labelEstado">Deceção</label>
+                    <input type="range" class="form-range" min="0.00" max="1.00" step="0.01" value="0.50"
+                        formControlName="disappointed" oninput="disappointed.innerText = this.value">
+                    <b>Valor: <span id="disappointed">0.50</span></b>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="estadoClass">
+                    <label for="colFormLabel" class="labelEstado">Orgulho</label>
+                    <input type="range" class="form-range" min="0.00" max="1.00" step="0.01" value="0.50"
+                        formControlName="proud" oninput="proud.innerText = this.value">
+                    <b>Valor: <span id="proud">0.50</span></b>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="estadoClass">
+                    <label for="colFormLabel" class="labelEstado">Remorsos</label>
+                    <input type="range" class="form-range" min="0.00" max="1.00" step="0.01" value="0.50"
+                        formControlName="remorseful" oninput="remorseful.innerText = this.value">
+                    <b>Valor: <span id="remorseful">0.50</span></b>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="estadoClass">
+                    <label for="colFormLabel" class="labelEstado">Gratidão</label>
+                    <input type="range" class="form-range" min="0.00" max="1.00" step="0.01" value="0.50"
+                        formControlName="grateful" oninput="grateful.innerText = this.value">
+                    <b>Valor: <span id="grateful">0.50</span></b>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="estadoClass">
+                    <label for="colFormLabel" class="labelEstado">Raiva</label>
+                    <input type="range" class="form-range" min="0.00" max="1.00" step="0.01" value="0.50"
+                        formControlName="angry" oninput="angry.innerText = this.value">
+                    <b>Valor: <span id="angry">0.50</span></b>
+                </div>
+            </div>
+            
+        </form>
     </div>
+    <button type="button" class="estadosButton" (click)="onVoltarEstados()">Voltar</button>
+</div>    
 
 
+<div class="card2" id="politica">
+    <h4 class="card-header">Política de Privacidade</h4>
+    <div class="card2-body">
+        <div class="card2-body">
+            <p>A Empresa Graphs4Social preocupa-se com a confidencialidade e a integridade dos dados pessoais dos seus clientes.</p>
+            <p>Cumprimos a legislação de proteção de dados pessoais em vigor, nomeadamente nas relações com os seus utilizadores, 
+                fornecedores e subcontratados, em particular o Regulamento (UE) 2016/679 do Parlamento Europeu e do Conselho, de
+                 27 de abril de 2016 (“Regulamento” ou “RGPD”).</p>
+            <p>Compreendemos e aceitamos que a utilização dos seus dados pessoais requer a sua prévia autorização, 
+                servindo neste caso, apenas para o contactar em caso de alguma alteração ou na utilização dos serviços oferecidos.</p>
+            <p>Utilizamos uma diversidade de medidas de segurança, incluindo encriptação e ferramentas de autenticação, 
+                para ajudar a proteger e manter a segurança dos seus dados pessoais em conformidade
+                com os requisitos de proteção de dados aplicáveis.</p>
+            <p>Os dados fornecidos à Empresa Graphs4Social apenas podem ser acedidos por
+                pessoal restrito desde que seja para uma das finalidades comunicadas.
+                A transferência de dados recolhidos é feita sempre de forma encriptada.</p>
+            <p>Os dados disponibilizados serão usados unicamente durante o período de tempo necessário à finalidade 
+                para a qual foram disponibilizados, após o que serão destruídos de
+                forma segura, salvo se, durante esse período, não tenha já retirado o seu consentimento.</p>
+            <p>Os seus dados pessoais fornecidos, salvo a sua autorização expressa em contrário, não serão
+                transmitidos a terceiros.</p>
+            <p>Pode, em qualquer altura, alterar ou retirar o seu consentimento dos seus dados pessoais fornecidos.
+                Com esta ação, os seus dados serão apagados de forma segura.</p>
+            <p>Para alterar ou retirar o seu consentimento dos dados fornecidos tem de contactar o 
+                Responsável pelo Tratamento de Dados da Empresa, Arlindo Manuel dos Santos Pacheco, através do endereço de email arman@gmail.com.</p>
+            <h4>Que dados são recolhidos?</h4>
+            • Informação de identificação pessoal (Nome, Email, Cidade, País, Data de Nascimento, Telefone, Perfil do Facebook e Linkedin);<br><br>
+            <h4>Como são recolhidos os dados?</h4>
+            • No acto do registo na aplicação.<br><br>
+            <h4>Como serão usados os dados?</h4>
+            • Criar um novo utilizador da aplicação e guardar as suas informações;<br>
+            • Informar o utilizador de atualizações ou oportunidades relacionadas à aplicação.<br><br>
+            <h4>Como são armazenados os dados?</h4>
+            Os dados são armazenados em segurança no serviço de base de dados SQL Azure.
+            Este serviço cloud apresenta vários sistemas de segurança perante os dados guardados:<br>
+            • Segurança de Rede;<br>
+            • Gestão de Acesso;<br>
+            • Proteção de ameaças;<br>
+            • Proteção de informação.<br><br>
+            <h4>Quais são os direitos de proteção de dados?</h4>
+            • <b>Direito de Acesso</b> – o utilizador tem o direito de pedir uma
+            cópia dos seus dados pessoais.<br>
+            • <b>Direito de retificação</b> – o utilizador tem o direito de pedir a alteração
+            dos seus dados pessoais a qualquer momento. O utilizador tem também o direito de pedir para completar 
+            qualquer informação que esteja incompleta do seu perfil.<br>
+            • <b>Direito de Remoção</b> – o utlizador tem o direito de pedir que a Empresa
+            apague os seus dados sobre certas condições.<br>
+            • <b>Direito de restrição de processamento</b> – o utlizador tem o direito de pedir a restrição do processamento
+             dos seus dados, sobre certas condições.<br>
+            • <b>Direito de portabilidade de dados</b> – o utilizador tem o direito de pedir a transferência dos dados
+             recolhidos para outra organização, ou diretamente para o utilizador, sobre certas condições.<br>
+            • <b>Direito de Oposição</b> – o utlizador tem o direito de se opor em qualquer momento, por motivos relacionados com a
+             sua situação particular, ao tratamento de dados pessoais que lhe digam respeito.<br><br>
+            Prazo de conservação dos dados pessoais: 1/02/2022.<br>
+            Se o utilizador pretender executar um dos pedidos apresentados, a Empresa Graphs4Social tem um limite de um mês
+            para responder.<br> Se pretender contactar-nos para exercer algum destes
+            direitos, por favor contactar:<br>
+            Ligue-nos em:  25 578 2319 <br>
+            
+        </div>
+        <button type="button" class="btn-link1" (click)="onVoltar()">Voltar</button>
+    </div>
 </div>
 </html>

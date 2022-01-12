@@ -16,7 +16,7 @@ export class VerPerfilComponent implements OnInit {
   telefone: number;
   cidade: string = '';
   dataNascimento: Date;
-  estadoHumor: string = '';
+  estadoHumor: string[] = [];
   pais: string = '';
   facebook: string = '';
   linkedin: string = '';
@@ -62,6 +62,7 @@ export class VerPerfilComponent implements OnInit {
       // console.log(Perfil.dataNascimento.toJSON());
       // this.dataNascimento = Perfil.dataNascimento;
       this.estadoHumor = Perfil.estadoHumor;
+      console.log(Perfil.estadoHumor);
       this.pais = Perfil.pais;
       this.facebook = Perfil.perfilFacebook;
       this.linkedin = Perfil.perfilLinkedin;

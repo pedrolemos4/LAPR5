@@ -21,7 +21,7 @@ namespace DDDSample1.Domain.Perfis
 
         public DataNascimento dataNascimento { get; private set; }
 
-        public EstadoHumor estadoHumor { get; private set; }
+        public List<EstadoHumor> estadoHumor { get; private set; }
 
         public Password password { get; private set; }
 
@@ -38,7 +38,7 @@ namespace DDDSample1.Domain.Perfis
             this.Active = true;
         }
 
-        public Perfil(string avatar, string nome, string email, long telefone, List<string> tag, string data, string estado, string password, string pais, string cidade, string perfilFB, string perfilLI)
+        public Perfil(string avatar, string nome, string email, long telefone, List<string> tag, string data, List<string> estado, string password, string pais, string cidade, string perfilFB, string perfilLI)
         {
             this.Id = new PerfilId(Guid.NewGuid());
             this.avatar = new Avatar(avatar);
@@ -48,7 +48,7 @@ namespace DDDSample1.Domain.Perfis
             this.dataNascimento = new DataNascimento(data);
             setTags(tag);
             this.password = new Password(password);
-            this.estadoHumor = new EstadoHumor(estado);
+            setEstadoHumor(estado);
             this.pais = new Pais(pais);
             this.cidade = new Cidade(cidade);
             this.perfilFacebook = new PerfilFacebook(perfilFB);
@@ -64,6 +64,18 @@ namespace DDDSample1.Domain.Perfis
                 tagsList.Add(new Tag(t));
             }
             this.tags = tagsList;
+        }
+
+        private void setEstadoHumor(List<string> estado){
+            List<EstadoHumor> estadoList = new List<EstadoHumor>();
+            foreach (string t in estado){
+                string[] array = t.Split(" ");
+                Console.WriteLine(array[0]);
+                Console.WriteLine(array[1]);
+                Console.WriteLine(decimal.Parse(array[1]));
+                estadoList.Add(new EstadoHumor(array[0], decimal.Parse(array[1])));
+            }
+            this.estadoHumor = estadoList;
         }
 
         public void Changenome(string nome)
@@ -94,11 +106,11 @@ namespace DDDSample1.Domain.Perfis
             this.dataNascimento = new DataNascimento(data);
         }
 
-        public void ChangeestadoHumor(string estado)
+        public void ChangeestadoHumor(List<string> estado)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to change the mood to an inactive profile.");
-            this.estadoHumor = new EstadoHumor(estado);
+            setEstadoHumor(estado);
         }
 
         public void ChangePerfilFacebook(string perfil)
