@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Comentario } from 'src/app/Models/Comentario';
 import { Ligacao } from 'src/app/Models/Ligacao';
+import { Post } from 'src/app/Models/Post';
 import { Relacao } from 'src/app/Models/Relacao';
 import { PerfilService } from 'src/app/Services/Perfil/perfil.service';
 
@@ -96,7 +98,7 @@ export class VerPerfilComponent implements OnInit {
           await this.perfilService.getRelacoesDoJogador(Jogador.id).subscribe(async Relacoes => {
             Relacoes.forEach(async (element: Relacao) => {
               await this.perfilService.deleteRelacao(element.id).subscribe(aux => {
-                //console.log(aux + " 87");
+                //console.log(aux + " 99");
               });
             });
           });
@@ -104,11 +106,36 @@ export class VerPerfilComponent implements OnInit {
           console.log("Não possui relações.");
         }
         await this.perfilService.deleteJogador(Jogador.id).subscribe(aux => {
-          //console.log(aux + " 91");
+          //console.log(aux + " 107");
         });
         await this.perfilService.deletePerfil(Perfil.id).subscribe(aux => {
-          //console.log(aux + " 94");
+          //console.log(aux + " 110");
         });
+        try {
+          await this.perfilService.getPostsJogador(Perfil.email).subscribe(Posts => {
+            Posts.forEach((element: Post) => {
+              this.perfilService.deletePosts(element.id).subscribe(aux => {
+                try {
+                  this.perfilService.getComentariosJogador(Perfil.email).subscribe(Comentarios => {
+                    Comentarios.forEach((elementComent: Comentario) => {
+                      this.perfilService.deleteComentarios(elementComent.id).subscribe(aux => {
+                        //console.log(aux + "121");
+                        this.perfilService.atualizaComentarios(element.id, elementComent.id).subscribe(Answer => {
+                          console.log(Answer + " 123");
+                        });
+                      });
+                    });
+                  });
+                } catch (e) {
+                  console.log("Não possui comentários.");
+                }
+              });
+            });
+          });
+        } catch (e) {
+          console.log("Não possui posts.");
+        }
+
         this.toastr.success("Conta eliminada com sucesso.", undefined, { positionClass: 'toast-bottom-left' });
         this.router.navigateByUrl('/');
       });

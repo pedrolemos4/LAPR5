@@ -25,21 +25,18 @@ export default class ComentarioService implements IComentarioService {
         }
     }
 
-    public async getComentarioById(comentarioId: string): Promise<Result<Comentario>> {
-        const comentario = await this.comentarioRepo.findById(comentarioId);
-        const found = !!comentario;
-
-        if (found) {
-            return Result.ok<Comentario>(comentario);
-        } else {
-            return Result.fail<Comentario>("Couldn't find comentario by id=" + comentarioId);
+    public async getComentarioById(comentarioId: any): Promise<Result<IComentarioDTO>> {
+        try {
+            const comentario = (await this.comentarioRepo.findById(comentarioId)).getValue();
+            return Result.ok<IComentarioDTO>(comentario);
+        } catch (e) {
+            throw e;
         }
     }
 
     public async getComentarioByAutor(autor: any): Promise<Result<IComentarioDTO[]>> {
         try {
-            var newKey = Object.values(autor)[0];
-            const comentario = (await this.comentarioRepo.findByAutor(newKey)).getValue();
+            const comentario = (await this.comentarioRepo.findByAutor(autor)).getValue();
             return Result.ok<Array<IComentarioDTO>>(comentario);
         } catch (e) {
             throw e;
@@ -72,11 +69,10 @@ export default class ComentarioService implements IComentarioService {
 
     public async delete(id: string) {
         try {
-            var newKey = Object.values(id)[0];
-            const comentarios = (await this.comentarioRepo.delete(newKey)).getValue();
+            const comentarios = (await this.comentarioRepo.delete(id)).getValue();
             return Result.ok(comentarios);
         } catch (e) {
             throw e;
         }
     }
-}
+} 

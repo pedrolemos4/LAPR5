@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class FeedPostsService {
-  
+
   private readonly perfilUrl = environment.apiUrl + 'Perfis';
   private readonly postUrl = environment.masterDataPostsUrl + 'posts/getPostsByEmail';
   private readonly comentarPostUrl = environment.masterDataPostsUrl;
@@ -28,8 +28,9 @@ export class FeedPostsService {
     return this.http.get<Post[]>(this.postUrl, { params });
   }
 
-  getComentarioById(id: any) : Observable<Comentario> {
-    return this.http.get<Comentario>(this.comentarPostUrl + 'comentarios/' + id);
+  getComentarioById(id: string): Observable<Comentario> {
+    const params = new HttpParams().append('id', id);
+    return this.http.get<Comentario>(this.comentarPostUrl + 'comentarios/getById', { params });
   }
 
 }

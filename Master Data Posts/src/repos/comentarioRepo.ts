@@ -63,13 +63,15 @@ export default class ComentarioRepo implements IComentarioRepo {
     }
   }
 
-  public async findById(comentarioId: ComentarioId | string): Promise<Comentario> {
+  public async findById(comentarioId: any) {
     const query = { domainId: comentarioId };
-    const comentarioRecord = await this.comentarioSchema.findOne(query as FilterQuery<IComentarioPersistence & Document>);
-    if (comentarioRecord != null) {
-      return ComentarioMap.toDomain(comentarioRecord);
-    } else
-      return null;
+    const document = await this.comentarioSchema.find(query);
+    if (document === null) {
+      return Result.fail<Array<IComentarioDTO>>("No Comentarios Found!");
+    } else {
+      var comentario = ComentarioMap.toDTO(ComentarioMap.toDomain(document[0]));
+      return Result.ok<IComentarioDTO>(comentario);
+    }
   }
 
   public async findByAutor(autor: any) {
@@ -77,12 +79,12 @@ export default class ComentarioRepo implements IComentarioRepo {
     var comentarios = [];
     const document = await this.comentarioSchema.find(query);
     if (document === null) {
-      return Result.fail<IComentarioDTO[]>("No comments found!");
+      return Result.fail<Array<IComentarioDTO>>("No Posts Found!");
     } else {
       for (var i = 0; i < document.length; i++) {
         comentarios.push(ComentarioMap.toDTO(ComentarioMap.toDomain(document[i])));
       }
-      return Result.ok<IComentarioDTO[]>(comentarios);
+      return Result.ok<Array<IComentarioDTO>>(comentarios);
     }
   }
 
