@@ -47,7 +47,7 @@ export class SugerirAmigosComponent implements OnInit {
             console.log(this.aux + " 46");
             console.log(this.aux.length + " 47");
             document.getElementById("textoSugestoes").style.display = "block";
-            if (this.aux.length == 0) {
+            if (this.aux.length == 1) {
               this.sugerirAmigosService.getAllPerfis().subscribe(All => {
                 All.forEach((element: Perfil) => {
                   if (element.id != this.idCurrentUser) {

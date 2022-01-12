@@ -1,0 +1,19 @@
+<app-header></app-header>
+<app-navbar></app-navbar>
+<div class="content">
+    <div id="card">
+        <h2 style ="font-weight:bold;"> Grupos</h2>
+        <p style= "font-weight: bold;">Introduza quantos utilizadores pretende que existam no grupo e quantas tags em comum</p>
+        <form [formGroup]="verGruposForm" (ngSubmit)="onSubmit()">
+            <div class ="form-group">
+                <label for="nUsers">Número de Utilizadores: </label>
+                <input type="text" id="nUsers" formControlName="nUsers" class="form-control" required/>
+            </div>
+            <div>
+                <label for="nTags">Número de Tags: </label>
+                <input type="text" id="nTags" formControlName="nTags" class="form-control" required/>
+            </div>
+            <button type="submit" id="submit" class="submit">Consultar Grupos</button>
+        </form>
+    </div>
+</div>
