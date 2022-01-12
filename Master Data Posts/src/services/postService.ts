@@ -17,27 +17,26 @@ export default class PostService implements IPostService {
         try {
             const posts = (await this.postRepo.getPosts()).getValue();
             return Result.ok<Array<IPostDTO>>(posts);
-        } catch(e){
+        } catch (e) {
             throw e;
         }
     }
 
-    public async getPostsByEmail(key: any) : Promise<Result<IPostDTO[]>> {
+    public async getPostsByEmail(key: any): Promise<Result<IPostDTO[]>> {
         try {
-            var newKey = Object.values(key)[0];
-            const posts = (await this.postRepo.getPostsByEmail(newKey)).getValue();
+            const posts = (await this.postRepo.getPostsByEmail(key)).getValue();
             return Result.ok<Array<IPostDTO>>(posts);
-        } catch(e){
+        } catch (e) {
             throw e;
         }
     }
 
     public async createPost(postDTO: IPostDTO): Promise<Result<IPostDTO>> {
-        try{
+        try {
 
             const postOrError = await Post.create(postDTO);
 
-            if(postOrError.isFailure){
+            if (postOrError.isFailure) {
                 return Result.fail<IPostDTO>(postOrError.errorValue());
             }
 
@@ -47,18 +46,18 @@ export default class PostService implements IPostService {
 
             const postDTOResult = PostMap.toDTO(postResult) as IPostDTO;
             return Result.ok<IPostDTO>(postDTOResult)
-        } catch(e){
+        } catch (e) {
             throw e;
         }
     }
 
     public async updatePost(postDTO: IPostDTO): Promise<Result<IPostDTO>> {
-        try{
+        try {
             const post = await this.postRepo.findById(postDTO.id);
 
-            if(post === null){
+            if (post === null) {
                 return Result.fail<IPostDTO>("Post not found");
-            } else{
+            } else {
                 post.description = postDTO.description;
                 await this.postRepo.save(post);
 
@@ -66,7 +65,7 @@ export default class PostService implements IPostService {
 
                 return Result.ok<IPostDTO>(postDTOResult)
             }
-        } catch(e){
+        } catch (e) {
             throw e;
         }
     }

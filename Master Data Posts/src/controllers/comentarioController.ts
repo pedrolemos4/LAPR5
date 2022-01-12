@@ -51,9 +51,9 @@ export default class ComentarioController implements IComentarioController {
         }
     }
 
-    public async getComentarioById(req: Request, res: Response, next: NextFunction) {
+    public async getComentarioById(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) {
         try {
-            const comentarioOrError = await this.comentarioServiceInstance.getComentarioById(req.params.id as string) as Result<Comentario>;
+            const comentarioOrError = await this.comentarioServiceInstance.getComentarioById(req.query.id);
 
             if (comentarioOrError.isFailure) {
                 return res.status(404).send();

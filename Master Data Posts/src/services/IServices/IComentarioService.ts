@@ -5,6 +5,6 @@ import { IComentarioDTO } from "../../dto/IComentarioDTO";
 export default interface IComentarioService {
     getComentarioByAutor(autor: any): Promise<Result<IComentarioDTO[]>>;
     createComentario(comentarioDTO: IComentarioDTO): Promise<Result<IComentarioDTO>>;
-    getComentarioById(comentarioId: string): Promise<Result<Comentario>>;
+    getComentarioById(comentarioId: any);
     getComentarios(): Promise<Result<IComentarioDTO[]>>;
 }
