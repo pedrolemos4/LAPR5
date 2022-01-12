@@ -118,7 +118,7 @@ namespace DDDSample1.Controllers
         }
 
         // PATCH: api/Perfis/5
-        [HttpPatch("{perfil}")]
+        [HttpPatch("{id}")]
         public async Task<ActionResult<PerfilDto>> PatchPerfil([FromRoute] Guid id, [FromBody] PerfilDto dto)
         {
             if (id != dto.Id)

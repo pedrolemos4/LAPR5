@@ -14,6 +14,7 @@ import { Comentario } from 'src/app/Models/Comentario';
   providedIn: 'root'
 })
 export class PerfilService {
+
   private readonly perfilUrl = environment.apiUrl + 'Perfis/';
   private readonly ligacoesUrl = environment.apiUrl + 'Ligacoes/';
   private readonly jogadoresUrl = environment.apiUrl + 'Jogadores/';
@@ -24,7 +25,19 @@ export class PerfilService {
   constructor(private http: HttpClient) {
   }
 
+  patchTags(id: any, selected: Perfil): Observable<Perfil> {
+    let bodystr = JSON.stringify(selected);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+    console.log(this.http.patch<Perfil>(this.perfilUrl + id, bodystr, httpOptions));
+    return this.http.patch<Perfil>(this.perfilUrl + id, bodystr, httpOptions);
+  }
+
   editarPerfil(id: any, perfil: Perfil): Observable<Perfil> {
+    console.log(perfil);
     return this.http.put<Perfil>(this.perfilUrl + id, perfil);
   }
 

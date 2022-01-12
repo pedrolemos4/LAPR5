@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { Jogador } from 'src/app/Models/Jogador';
 import { mergeMap } from 'rxjs';
 import { Perfil } from 'src/app/Models/Perfil';
-import { element } from 'protractor';
 
 @Component({
   selector: 'app-registo',

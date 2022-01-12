@@ -40,16 +40,18 @@ namespace DDDSample1.Domain.Perfis
 
         public async Task<List<string>> GetAllEmails()
         {
-            var list = await this._repo.GetAllAsync(); 
+            var list = await this._repo.GetAllAsync();
 
-            List<string> listEmails = GetAllEmailsDosPerfis(list); 
+            List<string> listEmails = GetAllEmailsDosPerfis(list);
 
             return listEmails;
         }
 
-        private static List<string> GetAllEmailsDosPerfis(List<Perfil> listPerfis){
+        private static List<string> GetAllEmailsDosPerfis(List<Perfil> listPerfis)
+        {
             List<string> listEmails = new List<string>();
-            foreach(Perfil p in listPerfis){
+            foreach (Perfil p in listPerfis)
+            {
                 listEmails.Add(p.email.EnderecoEmail);
             }
             return listEmails;
@@ -72,7 +74,8 @@ namespace DDDSample1.Domain.Perfis
             /*converteParaListaString(*/perfilC.tags, perfilC.dataNascimento, perfilC.estadoHumor, perfilC.password, perfilC.pais, perfilC.cidade, perfilC.perfilFacebook, perfilC.perfilLinkedin);
             var list = await this._repo.GetAllAsync();
             var listEmails = GetAllEmailsDosPerfis(list);
-            if(listEmails.Contains(perfilC.email)){
+            if (listEmails.Contains(perfilC.email))
+            {
                 return null;
             }
             await this._repo.AddAsync(per);
@@ -95,7 +98,8 @@ namespace DDDSample1.Domain.Perfis
         public static List<string> converteEstadoParaListaString(List<EstadoHumor> lista)
         {
             List<string> ls = new List<string>();
-            foreach (EstadoHumor estado in lista){
+            foreach (EstadoHumor estado in lista)
+            {
                 string e = String.Concat(estado.Estado, " " + estado.Valor);
                 ls.Add(e);
             }
@@ -144,6 +148,7 @@ namespace DDDSample1.Domain.Perfis
 
             // change all field
             per.ChangeestadoHumor(dto.EstadoHumor);
+            per.ChangeTags(dto.Tags);
 
             await this._unitOfWork.CommitAsync();
 

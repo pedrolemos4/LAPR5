@@ -1,19 +1,16 @@
 <app-header></app-header>
 <app-navbar></app-navbar>
     <div id="texto">
-        <h2>Bem-vindo
-            <!--{{username}}-->à sua página de perfil.</h2>
+        <!-- <h2>Bem-vindo {{username}} à sua página de perfil.</h2> -->
         <div class="card" style="width: 18rem; margin: auto;">
             <div class="card-body">
-                <!-- <h4 class="card-title">{{username}}</h4>
-                <h6 class="card-subtitle mb-2 text-muted">{{email}}</h6>-->
                 <br>
                 <br>
             </div>
         </div>
     </div>
    <div class="card1">
-        <h4 class="card-header">Editar Perfil Próprio</h4>
+        <h4 class="card-header">Editar Perfil</h4>
         <div class="card-body">
             <form [formGroup]="editarPerfilForm" (ngSubmit)="onSubmit()">
                 <div class = "form-group">
@@ -53,6 +50,16 @@
                         </div>
                         <div class="col-75">
                             <input id="estado" type="estadodehumor" placeholder="Insira o estado de humor" formControlName="estadodehumor" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class = "form-group">
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="estadodehumor">Tags</label>
+                        </div>
+                        <div class="col-75">
+                            <input id="estado" type="estadodehumor" placeholder="Insira as tags entre vírgulas" formControlName="tags" class="form-control" />
                         </div>
                     </div>
                 </div>

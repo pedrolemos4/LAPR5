@@ -66,9 +66,11 @@ namespace DDDSample1.Domain.Perfis
             this.tags = tagsList;
         }
 
-        private void setEstadoHumor(List<string> estado){
+        private void setEstadoHumor(List<string> estado)
+        {
             List<EstadoHumor> estadoList = new List<EstadoHumor>();
-            foreach (string t in estado){
+            foreach (string t in estado)
+            {
                 string[] array = t.Split(" ");
                 Console.WriteLine(array[0]);
                 Console.WriteLine(array[1]);
@@ -77,7 +79,12 @@ namespace DDDSample1.Domain.Perfis
             }
             this.estadoHumor = estadoList;
         }
-
+        public void ChangeTags(List<string> tags)
+        {
+            if (!this.Active)
+                throw new BusinessRuleValidationException("Não é possível alterar as tags de uma relação inativa.");
+            setTags(tags);
+        }
         public void Changenome(string nome)
         {
             if (!this.Active)
