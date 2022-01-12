@@ -71,8 +71,8 @@ export default class PostRepo implements IPostRepo {
     }
 
     public async getPostsByEmail(key: any) {
-        
-        const query = {email: key};
+
+        const query = { email: key };
         var posts = [];
         const document = await this.postSchema.find(query);
         if (document === null) {
@@ -101,7 +101,7 @@ export default class PostRepo implements IPostRepo {
     public async populate(post: Post, comentarioId: string): Promise<Post> {
 
         post.listaComentarios.push(comentarioId);
-        this.postSchema.findById({_id : post.id}, function(err,doc){
+        this.postSchema.findById({ _id: post.id }, function (err, doc) {
             doc.listaComentarios = post.listaComentarios;
             doc.save();
         });
@@ -110,6 +110,15 @@ export default class PostRepo implements IPostRepo {
         } else {
             return null;
         }
-        
+    }
+
+    public async delete(id: string) {
+        const query = { id: id };
+        const document = await this.postSchema.deleteOne(query);
+        if (document === null) {
+            return Result.fail<IPostDTO>("No posts found!");
+        } else {
+            return Result.ok();
+        }
     }
 }

@@ -98,4 +98,14 @@ export default class ComentarioRepo implements IComentarioRepo {
       return Result.ok<IComentarioDTO[]>(comentarios);
     }
   }
+
+  public async delete(id: string) {
+    const query = { id: id };
+    const document = await this.comentarioSchema.deleteOne(query);
+    if (document === null) {
+      return Result.fail<IComentarioDTO>("No comments found!");
+    } else {
+      return Result.ok();
+    }
+  }
 }

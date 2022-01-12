@@ -69,4 +69,14 @@ export default class ComentarioService implements IComentarioService {
             throw e;
         }
     }
+
+    public async delete(id: string) {
+        try {
+            var newKey = Object.values(id)[0];
+            const comentarios = (await this.comentarioRepo.delete(newKey)).getValue();
+            return Result.ok(comentarios);
+        } catch (e) {
+            throw e;
+        }
+    }
 }

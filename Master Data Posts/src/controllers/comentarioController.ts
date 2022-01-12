@@ -11,6 +11,7 @@ import IComentarioController from './IControllers/IComentarioController';
 import IComentarioService from '../services/IServices/IComentarioService';
 import { Comentario } from '../domain/comentario';
 import IEmailDTO from '../dto/IEmailDTO';
+import IIdDTO from '../dto/IIdDTO';
 
 
 @Service()
@@ -82,4 +83,19 @@ export default class ComentarioController implements IComentarioController {
             return next(e);
         }
     };
+
+    public async delete(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) {
+        try {
+            const comentarioOrError = this.comentarioServiceInstance.delete(req.body as IIdDTO) as Result<IComentarioDTO>;
+
+            if (comentarioOrError.isFailure) {
+                return res.status(404).send();
+            }
+
+            return res.json("Eliminado com sucesso.").status(201); //Corrigir para ok
+        }
+        catch (e) {
+            return next(e);
+        }
+    }
 }

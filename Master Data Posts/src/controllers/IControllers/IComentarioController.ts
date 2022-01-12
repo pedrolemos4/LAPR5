@@ -5,4 +5,5 @@ export default interface IComentarioController {
     getComentarioById(req: Request, res: Response, next: NextFunction);
     createComentario(req: Request, res: Response, next: NextFunction);
     getComentarioByAutor(req: Request, res: Response, next: NextFunction);
+    delete(req: Request, res: Response, next: NextFunction);
 }

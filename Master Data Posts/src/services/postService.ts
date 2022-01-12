@@ -70,4 +70,14 @@ export default class PostService implements IPostService {
             throw e;
         }
     }
+
+    public async delete(id: string) {
+        try {
+            var newKey = Object.values(id)[0];
+            const post = (await this.postRepo.delete(newKey)).getValue();
+            return Result.ok(post);
+        } catch (e) {
+            throw e;
+        }
+    }
 }

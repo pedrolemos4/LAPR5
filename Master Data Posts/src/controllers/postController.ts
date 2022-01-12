@@ -11,6 +11,7 @@ import { ParamsDictionary } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
 import { runInNewContext } from 'vm';
 import IEmailDTO from '../dto/IEmailDTO';
+import IIdDTO from '../dto/IIdDTO';
 
 @Service()
 export default class PostController implements IPostController{
@@ -76,4 +77,19 @@ export default class PostController implements IPostController{
             return next(e);
         }
     };
+
+    public async delete(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) {
+        try {
+            const comentarioOrError = this.postServiceInstance.delete(req.body as IIdDTO) as Result<IPostDTO>;
+
+            if (comentarioOrError.isFailure) {
+                return res.status(404).send();
+            }
+
+            return res.json("Eliminado com sucesso.").status(201); //Corrigir para ok
+        }
+        catch (e) {
+            return next(e);
+        }
+    }
 }
