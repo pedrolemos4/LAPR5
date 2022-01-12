@@ -5,4 +5,5 @@ export default interface IPostController {
     createPost(req:Request,res:Response,next:NextFunction);
     updatePost(req:Request,res:Response,next:NextFunction);
     getPostsByEmail(req:Request,res:Response,next:NextFunction);
+    delete(req:Request,res:Response,next:NextFunction);
 }

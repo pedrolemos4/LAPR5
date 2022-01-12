@@ -14,7 +14,7 @@ export default (app: Router) => {
 
     const ctrl = Container.get(config.controllers.post.name) as IPostController;
 
-    route.get('',(req,res,next)=> ctrl.getPosts(req,res,next));
+    route.get('', (req, res, next) => ctrl.getPosts(req, res, next));
 
     route.get('/getPostsByEmail',(req,res,next) => ctrl.getPostsByEmail(req,res,next));
 
@@ -40,4 +40,10 @@ export default (app: Router) => {
             }),
         }),
         (req, res, next) => ctrl.updatePost(req, res, next));
+
+    route.delete('/delete', celebrate({
+        body: Joi.object({
+            id: Joi.string().required()
+        })
+    }), (req, res, next) => ctrl.delete(req, res, next));
 };
