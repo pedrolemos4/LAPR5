@@ -4,4 +4,5 @@ export interface Comentario {
     tags: string[];
     likes: any;
     dislikes: any;
+    id: any | string;
 }

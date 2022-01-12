@@ -36,12 +36,10 @@ export default class ComentarioController implements IComentarioController {
 
     public async getComentarioByAutor(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) {
         try {
-            var x = req.body;
-            console.log(x);
-            const comentarioOrError = await this.comentarioServiceInstance.getComentarioByAutor(req.body as IEmailDTO) as Result<Array<IComentarioDTO>>;
+            const comentarioOrError = await this.comentarioServiceInstance.getComentarioByAutor(req.query.param);
 
             if (comentarioOrError.isFailure) {
-                return res.status(404).send();
+                return res.status(402).send();
             }
 
             const comentarioDTO = comentarioOrError.getValue();
@@ -86,7 +84,7 @@ export default class ComentarioController implements IComentarioController {
 
     public async delete(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) {
         try {
-            const comentarioOrError = this.comentarioServiceInstance.delete(req.body as IIdDTO) as Result<IComentarioDTO>;
+            const comentarioOrError = this.comentarioServiceInstance.delete(req.query.param);
 
             if (comentarioOrError.isFailure) {
                 return res.status(404).send();

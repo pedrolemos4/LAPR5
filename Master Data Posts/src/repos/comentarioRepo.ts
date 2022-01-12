@@ -79,12 +79,12 @@ export default class ComentarioRepo implements IComentarioRepo {
     var comentarios = [];
     const document = await this.comentarioSchema.find(query);
     if (document === null) {
-      return Result.fail<IComentarioDTO[]>("No comments found!");
+      return Result.fail<Array<IComentarioDTO>>("No Posts Found!");
     } else {
       for (var i = 0; i < document.length; i++) {
         comentarios.push(ComentarioMap.toDTO(ComentarioMap.toDomain(document[i])));
       }
-      return Result.ok<IComentarioDTO[]>(comentarios);
+      return Result.ok<Array<IComentarioDTO>>(comentarios);
     }
   }
 
