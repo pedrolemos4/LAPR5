@@ -32,12 +32,10 @@ export class PerfilService {
         'Content-Type': 'application/json',
       })
     };
-    console.log(this.http.patch<Perfil>(this.perfilUrl + id, bodystr, httpOptions));
     return this.http.patch<Perfil>(this.perfilUrl + id, bodystr, httpOptions);
   }
 
   editarPerfil(id: any, perfil: Perfil): Observable<Perfil> {
-    console.log(perfil);
     return this.http.put<Perfil>(this.perfilUrl + id, perfil);
   }
 
@@ -58,20 +56,17 @@ export class PerfilService {
   }
 
   getPostsJogador(email: any): Observable<Post[]> {
-    console.log(email);
     const params = new HttpParams().append('param', email);
-    console.log(params);
     return this.http.get<Post[]>(this.postUrl + 'getPostsByEmail', { params });
   }
 
   deletePosts(idPost: any) {
     const params = new HttpParams().append('param', idPost);
-    console.log(params);
     return this.http.delete<Post>(this.postUrl + 'delete', { params });
   }
 
-  getComentariosJogador(id: any): Observable<Comentario[]> {
-    const params = new HttpParams().append('id', id);
+  getComentariosJogador(email: any): Observable<Comentario[]> {
+    const params = new HttpParams().append('param', email);
     return this.http.get<Comentario[]>(this.comentarPostUrl + 'getComentariosByAutor', { params });
   }
 
@@ -80,14 +75,13 @@ export class PerfilService {
     return this.http.delete(this.comentarPostUrl + 'delete', { params });
   }
 
-  atualizaComentarios(idPost: any, idComentario: any) {
-    let bodystr = JSON.stringify(idPost + "/" + idComentario);
+  atualizaPostComentarios(idComentario: any) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       })
     };
-    return this.http.put(this.postUrl + 'atualizaComments', bodystr, httpOptions);
+    return this.http.put(this.postUrl + 'atualizaComments', { id: idComentario }, httpOptions);
   }
 
   deleteLigacao(id: string) {

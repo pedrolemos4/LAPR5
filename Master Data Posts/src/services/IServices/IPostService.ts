@@ -2,7 +2,7 @@ import { Result } from "../../core/logic/Result";
 import IPostDTO from "../../dto/IPostDTO";
 
 export default interface IPostService {
-    atualizaComments(idPost: any, idComentario: any);
+    atualizaComments(idComentario: any);
     delete(id: any);
     getPostsByEmail(key: any);
     createPost(postDTO: IPostDTO): Promise<Result<IPostDTO>>;

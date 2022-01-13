@@ -9,9 +9,6 @@ import { ParamsDictionary } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
 import IComentarioController from './IControllers/IComentarioController';
 import IComentarioService from '../services/IServices/IComentarioService';
-import { Comentario } from '../domain/comentario';
-import IEmailDTO from '../dto/IEmailDTO';
-import IIdDTO from '../dto/IIdDTO';
 
 
 @Service()

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { element } from 'protractor';
 import { Perfil } from 'src/app/Models/Perfil';
 import { DfsLigacaoRelacaoService } from 'src/app/Services/DFSLigacaoRelacao/dfs-ligacao-relacao.service';
 

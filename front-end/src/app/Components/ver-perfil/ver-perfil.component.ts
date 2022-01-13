@@ -115,26 +115,29 @@ export class VerPerfilComponent implements OnInit {
           await this.perfilService.getPostsJogador(Perfil.email).subscribe(Posts => {
             Posts.forEach((element: Post) => {
               this.perfilService.deletePosts(element.id).subscribe(aux => {
-                try {
-                  this.perfilService.getComentariosJogador(Perfil.email).subscribe(Comentarios => {
-                    Comentarios.forEach((elementComent: Comentario) => {
-                      this.perfilService.deleteComentarios(elementComent.id).subscribe(aux => {
-                        //console.log(aux + "121");
-                        this.perfilService.atualizaComentarios(element.id, elementComent.id).subscribe(Answer => {
-                          console.log(Answer + " 123");
-                        });
-                      });
-                    });
-                  });
-                } catch (e) {
-                  console.log("Não possui comentários.");
-                }
               });
             });
           });
         } catch (e) {
           console.log("Não possui posts.");
         }
+
+        await this.perfilService.getComentariosJogador(Perfil.email).subscribe(Comentarios => {
+          Comentarios.forEach(async (elementComent: Comentario) => {
+            console.log("id= " + Object.values(elementComent)[0]);
+            await this.perfilService.deleteComentarios(Object.values(elementComent)[0]).subscribe(Deleted => {
+              console.log(Deleted);
+            });
+            try {
+              console.log("132");
+              this.perfilService.atualizaPostComentarios(Object.values(elementComent)[0]).subscribe(Answer => {
+                console.log(Answer + " 134");
+              });
+            } catch (e) {
+              console.log(e);
+            }
+          });
+        });
 
         this.toastr.success("Conta eliminada com sucesso.", undefined, { positionClass: 'toast-bottom-left' });
         this.router.navigateByUrl('/');

@@ -9,6 +9,7 @@ import IPostDTO from '../dto/IPostDTO';
 import { Result } from "../core/logic/Result";
 import { ParamsDictionary } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
+import IIdDTO from '../dto/IIdDTO';
 
 @Service()
 export default class PostController implements IPostController {
@@ -78,10 +79,8 @@ export default class PostController implements IPostController {
 
     public async atualizaComments(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) {
         try {
-            var idPost = req.body.split('/')[0];
-            var idComentario = req.body.split('/')[1];
 
-            const postAtualizadoOrError = await this.postServiceInstance.atualizaComments(idPost, idComentario) as Result<IPostDTO>;
+            const postAtualizadoOrError = await this.postServiceInstance.atualizaComments(req.body as IIdDTO) as Result<IPostDTO>;
 
             if (postAtualizadoOrError.isFailure) {
                 return res.status(404).send();
