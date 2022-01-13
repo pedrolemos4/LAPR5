@@ -126,7 +126,7 @@ export default class PostRepo implements IPostRepo {
 
     public async atualizaComentarios(idPost: any, list: any) {
 
-        var document = await this.postSchema.updateOne({ id: idPost }, { $set: { listaComentarios: list } });
+        var document = await this.postSchema.updateOne({ _id: idPost }, { $set: { listaComentarios: list } });
 
         if (document != null) {
             return Result.ok(document);
@@ -136,7 +136,7 @@ export default class PostRepo implements IPostRepo {
     }
 
     public async delete(id: string) {
-        const query = { id: id };
+        const query = { _id: id };
         const document = await this.postSchema.deleteOne(query);
         if (document === null) {
             return Result.fail<IPostDTO>("No posts found!");

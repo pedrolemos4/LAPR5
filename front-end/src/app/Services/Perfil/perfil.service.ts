@@ -81,7 +81,7 @@ export class PerfilService {
         'Content-Type': 'application/json',
       })
     };
-    return this.http.put(this.postUrl + 'atualizaComments', { id: idComentario }, httpOptions);
+    return this.http.put(this.postUrl + 'atualizaComments', { domainId: idComentario }, httpOptions);
   }
 
   deleteLigacao(id: string) {

@@ -20,7 +20,7 @@ export default (app: Router) => {
 
     route.put('/atualizaComments', celebrate({
         body: Joi.object({
-            id: Joi.string().required(),
+            domainId: Joi.string().required(),
         })
     }), (req, res, next) => ctrl.atualizaComments(req, res, next));
 

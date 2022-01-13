@@ -101,6 +101,16 @@ export default class ComentarioRepo implements IComentarioRepo {
     }
   }
 
+  public async getDomainId(id: any) {
+    var document = await this.comentarioSchema.find({ id: id });
+
+    if (document === null) {
+        return Result.fail<IComentarioDTO>("Error!");
+    } else {
+        return document[0].domainId;
+    }
+}
+
   public async delete(id: string) {
     const query = { id: id };
     const document = await this.comentarioSchema.deleteOne(query);

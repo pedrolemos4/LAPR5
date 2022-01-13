@@ -122,17 +122,21 @@ export class VerPerfilComponent implements OnInit {
           console.log("Não possui posts.");
         }
 
+        // FAZER DELETE DOS COMENTÁRIOS NO POST DO JOGADOR A ELIMINIAR NO .GETPOSTJOGADOR
+
         await this.perfilService.getComentariosJogador(Perfil.email).subscribe(Comentarios => {
           Comentarios.forEach(async (elementComent: Comentario) => {
-            console.log("id= " + Object.values(elementComent)[0]);
-            await this.perfilService.deleteComentarios(Object.values(elementComent)[0]).subscribe(Deleted => {
-              console.log(Deleted);
-            });
+            console.log(Object.values(elementComent) + " VER");
             try {
               console.log("132");
+              console.log(Object.values(elementComent)[0] + " VER");
+
               this.perfilService.atualizaPostComentarios(Object.values(elementComent)[0]).subscribe(Answer => {
-                console.log(Answer + " 134");
+                this.perfilService.deleteComentarios(Object.values(elementComent)[0]).subscribe(Deleted => {
+                  console.log(Deleted);
+                });
               });
+
             } catch (e) {
               console.log(e);
             }

@@ -4,6 +4,7 @@ import { ComentarioId } from "../../domain/comentarioId";
 import { Post } from "../../domain/post";
 
 export default interface IComentarioRepo extends Repo<Comentario> {
+    getDomainId(id: any);
     delete(id: string);
     findByAutor(autor: any);
     findById(comentarioId: any);

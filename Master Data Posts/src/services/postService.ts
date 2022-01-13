@@ -6,11 +6,13 @@ import IPostRepo from "./IRepos/IPostRepo";
 import IPostService from "./IServices/IPostService";
 import { Result } from "../core/logic/Result";
 import { PostMap } from "../mappers/PostMap";
+import IComentarioRepo from "./IRepos/IComentarioRepo";
 
 @Service()
 export default class PostService implements IPostService {
     constructor(
-        @Inject(config.repos.post.name) private postRepo: IPostRepo
+        @Inject(config.repos.post.name) private postRepo: IPostRepo,
+        @Inject(config.repos.comentario.name) private comentRepo: IComentarioRepo
     ) { }
 
     public async getPosts(): Promise<Result<IPostDTO[]>> {
@@ -73,7 +75,11 @@ export default class PostService implements IPostService {
     public async atualizaComments(idComentario: any) {
         //var resultFinal = new Array<IPostDTO>();
         try {
+
             var post = await this.postRepo.getPosts();
+            var idComentarioString = await this.comentRepo.getDomainId((Object.values(idComentario)[0]));
+
+            var x = Object.values(idComentarioString)[3];
 
             if (post === null) {
                 return Result.fail<Array<IPostDTO>>("Post not found");
@@ -81,7 +87,6 @@ export default class PostService implements IPostService {
                 var aux = new Array<string>();
                 post.getValue().forEach(async (element: Post) => {
                     for (var i = 0; i < element.listaComentarios.length; i++) {
-                        var idComentarioString = Object.values(idComentario)[0];
                         if (element.listaComentarios[i] != idComentarioString) {
                             aux.push(element.listaComentarios[i]);
                         }
