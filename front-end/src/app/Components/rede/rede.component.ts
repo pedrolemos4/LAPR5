@@ -14,8 +14,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./rede.component.css']
 })
 export class RedeComponent implements OnInit {
-
+  aux: string[] = [];
   email: string | undefined = '';
+  estadoHumor: string[] = [];
   imagePreview: string | ArrayBuffer = '';
   selected: THREE.Mesh = null;
   idPerfilAtual: string | undefined = '';
@@ -75,9 +76,9 @@ export class RedeComponent implements OnInit {
     this.email = currentUser?.replace(/\"/g, "");
     this.redeService.getPerfilAtual(this.email).subscribe(Perfil => {
       this.idPerfilAtual = Perfil.id;
+      this.estadoHumor = Perfil.estadoHumor;
       this.redeService.getJogadorAtual(this.idPerfilAtual).subscribe(Jogador => {
         this.activePlayerObject = Jogador;
-        console.log(this.activePlayerObject.id);
         this.redeService.getPerfilAtual(this.email).subscribe(Perfil => {
           this.nome = Perfil.nome;
           this.initialize();
@@ -88,7 +89,7 @@ export class RedeComponent implements OnInit {
 
   }
 
-  createPlayer(playerName, email, centerx, centery, centerz, radiusCircle, color) {
+  createPlayer(playerName, email, estadoHumor, centerx, centery, centerz, radiusCircle, color) {
     let geometryPlayer12 = new THREE.SphereGeometry(radiusCircle, 15, 64);
     let materialPlayer12 = new THREE.MeshPhongMaterial({ color: color });
     let player = new THREE.Mesh(geometryPlayer12, materialPlayer12);
@@ -103,9 +104,125 @@ export class RedeComponent implements OnInit {
     playerDiv.style.borderRadius = '12.5px';
     playerDiv.style.fontSize = '12px';
 
+    var estado = '';
+    let maior = 0.0;
+    let estadoHumorDiv = document.createElement('div');
+    estadoHumor.forEach(element => {
+      this.aux = element.split(" ");
+      this.aux[1] = this.aux[1].replace(",",".");
+      if(parseFloat(this.aux[1]) > maior){
+        maior = parseFloat(this.aux[1]);
+        estado = this.aux[0];
+      }
+    });
+    
+    switch(estado) {
+      case 'Joyful': {
+        estadoHumorDiv.className = 'label';
+        estadoHumorDiv.textContent = '☀️';
+        estadoHumorDiv.style.marginLeft = '+3px';
+        estadoHumorDiv.style.marginRight = '+3px';
+        estadoHumorDiv.style.marginTop = '+25px';
+        estadoHumorDiv.style.backgroundColor = 'none';
+        estadoHumorDiv.style.fontSize = '35px';
+        break;
+      }
+      case 'Distressed': {
+        estadoHumorDiv.className = 'label';
+        estadoHumorDiv.textContent = '⛈️';
+        estadoHumorDiv.style.marginLeft = '+3px';
+        estadoHumorDiv.style.marginRight = '+3px';
+        estadoHumorDiv.style.marginTop = '+25px';
+        estadoHumorDiv.style.backgroundColor = 'none';
+        estadoHumorDiv.style.fontSize = '35px';
+        break;
+      }
+      case 'Hopeful': {
+        estadoHumorDiv.className = 'label';
+        estadoHumorDiv.textContent = '🤞';
+        estadoHumorDiv.style.marginLeft = '+3px';
+        estadoHumorDiv.style.marginRight = '+3px';
+        estadoHumorDiv.style.marginTop = '+25px';
+        estadoHumorDiv.style.backgroundColor = 'none';
+        estadoHumorDiv.style.fontSize = '35px';
+        break;
+      }
+      case 'Fearful': {
+        estadoHumorDiv.className = 'label';
+        estadoHumorDiv.textContent = '😱';
+        estadoHumorDiv.style.marginLeft = '+3px';
+        estadoHumorDiv.style.marginRight = '+3px';
+        estadoHumorDiv.style.marginTop = '+25px';
+        estadoHumorDiv.style.backgroundColor = 'none';
+        estadoHumorDiv.style.fontSize = '35px';
+        break;
+      }
+      case 'Relieved': {
+        estadoHumorDiv.className = 'label';
+        estadoHumorDiv.textContent = '😌';
+        estadoHumorDiv.style.marginLeft = '+3px';
+        estadoHumorDiv.style.marginRight = '+3px';
+        estadoHumorDiv.style.marginTop = '+25px';
+        estadoHumorDiv.style.backgroundColor = 'none';
+        estadoHumorDiv.style.fontSize = '35px';
+        break;
+      }
+      case 'Disappointed': {
+        estadoHumorDiv.className = 'label';
+        estadoHumorDiv.textContent = '😞';
+        estadoHumorDiv.style.marginLeft = '+3px';
+        estadoHumorDiv.style.marginRight = '+3px';
+        estadoHumorDiv.style.marginTop = '+25px';
+        estadoHumorDiv.style.backgroundColor = 'none';
+        estadoHumorDiv.style.fontSize = '35px';
+        break;
+      }
+      case 'Proud': {
+        estadoHumorDiv.className = 'label';
+        estadoHumorDiv.textContent = '😊';
+        estadoHumorDiv.style.marginLeft = '+3px';
+        estadoHumorDiv.style.marginRight = '+3px';
+        estadoHumorDiv.style.marginTop = '+25px';
+        estadoHumorDiv.style.backgroundColor = 'none';
+        estadoHumorDiv.style.fontSize = '35px';
+        break;
+      }
+      case 'Remorseful': {
+        estadoHumorDiv.className = 'label';
+        estadoHumorDiv.textContent = '😔';
+        estadoHumorDiv.style.marginLeft = '+3px';
+        estadoHumorDiv.style.marginRight = '+3px';
+        estadoHumorDiv.style.marginTop = '+25px';
+        estadoHumorDiv.style.backgroundColor = 'none';
+        estadoHumorDiv.style.fontSize = '35px';
+        break;
+      }
+      case 'Grateful': {
+        estadoHumorDiv.className = 'label';
+        estadoHumorDiv.textContent = '😄';
+        estadoHumorDiv.style.marginLeft = '+3px';
+        estadoHumorDiv.style.marginRight = '+3px';
+        estadoHumorDiv.style.marginTop = '+25px';
+        estadoHumorDiv.style.backgroundColor = 'none';
+        estadoHumorDiv.style.fontSize = '35px';
+        break;
+      }
+      case 'Angry': {
+        estadoHumorDiv.className = 'label';
+        estadoHumorDiv.textContent = '😡';
+        estadoHumorDiv.style.marginLeft = '+3px';
+        estadoHumorDiv.style.marginRight = '+3px';
+        estadoHumorDiv.style.marginTop = '+25px';
+        estadoHumorDiv.style.backgroundColor = 'none';
+        estadoHumorDiv.style.fontSize = '35px';
+      }
+    }
+
     let playerLabel = new CSS2DObject(playerDiv);
+    let estadoLabel = new CSS2DObject(estadoHumorDiv);
     //playerLabel.position.setZ(-0.35);
     player.add(playerLabel);
+    player.add(estadoLabel);
     this.scene.add(player);
   }
 
@@ -304,7 +421,6 @@ export class RedeComponent implements OnInit {
     this.scene.add(this.camera);
     this.scene.add(this.cameraAux);
 
-
     //Create invisble label for players info
 
     this.playerTip.className = 'playerTip';
@@ -337,7 +453,7 @@ export class RedeComponent implements OnInit {
 
     //Active player´s position, center
     const posicaoCentral = new THREE.Vector3(0, 0, 0);
-    this.createPlayer(this.nome, this.email, posicaoCentral.x, posicaoCentral.y, posicaoCentral.z, radiusCircle, 'white');
+    this.createPlayer(this.nome, this.email, this.estadoHumor, posicaoCentral.x, posicaoCentral.y, posicaoCentral.z, radiusCircle, 'white');
 
     //Vai buscar lista de relacoes
     await this.getRelacao(this.activePlayerObject.id);
@@ -375,7 +491,7 @@ export class RedeComponent implements OnInit {
 
       await this.getPerfil(this.relacao.jogador2);
 
-      this.createPlayer(this.perfilByJogador.nome, this.perfilByJogador.email, pos.x, pos.y, pos.z, radiusCircle, 'skyblue');
+      this.createPlayer(this.perfilByJogador.nome, this.perfilByJogador.email, this.perfilByJogador.estadoHumor, pos.x, pos.y, pos.z, radiusCircle, 'skyblue');
 
       var auxiliar = [pos.x, pos.y, pos.z];
 
@@ -418,7 +534,7 @@ export class RedeComponent implements OnInit {
 
             await this.getPerfil(this.relacao.jogador2);
 
-            this.createPlayer(this.perfilByJogador.nome, this.perfilByJogador.email, pos2.x, pos2.y, pos2.z, radiusCircle, color[f]);
+            this.createPlayer(this.perfilByJogador.nome, this.perfilByJogador.email, this.perfilByJogador.estadoHumor, pos2.x, pos2.y, pos2.z, radiusCircle, color[f]);
 
             var auxiliar12 = [pos2.x, pos2.y, pos2.z];
 
