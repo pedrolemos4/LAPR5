@@ -11,7 +11,8 @@
                     <tr>
                         <td>
                             <label>View:</label>
-                            <select id='view'>
+                            <select id='view' (change)="selectCamera($event)">
+                                <option selected disabled="disabled">Selecione uma câmera</option>
                                 <option value='fixed'>Fixed</option>
                                 <option value='first'>First-person</option>
                             </select>

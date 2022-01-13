@@ -25,6 +25,7 @@ export class RedeComponent implements OnInit {
   labelRenderer!: any;
   camera!: THREE.PerspectiveCamera;
   cameraAux!: THREE.PerspectiveCamera;
+  cameraAux2!: THREE.PerspectiveCamera;
   miniMapCamera!: THREE.OrthographicCamera;
   cameraPrimeiraPessoa!: THREE.PerspectiveCamera;
   arrayAmigos: Jogador[] = new Array<Jogador>();;
@@ -44,7 +45,7 @@ export class RedeComponent implements OnInit {
   raycaster: THREE.Raycaster = new THREE.Raycaster();
   controlsMiniMap: OrbitControls;
   playerTip = document.createElement('playerTip');
-
+  selectedCamera: string;
   dragX?: any;
   dragY?: any;
 
@@ -68,6 +69,31 @@ export class RedeComponent implements OnInit {
       this.scene.add(this.camera);
     }
 
+  }
+
+  selectCamera(event: any) {
+    let WIDTH = 1275;
+    let HEIGHT = 663;
+    const aspectRatio = WIDTH / HEIGHT;
+    this.selectedCamera = event.target.value;
+    if (this.selectedCamera == "fixed") {
+      console.log("linha 81");
+      this.camera = new THREE.PerspectiveCamera(70, aspectRatio, 0.01, 1000);
+      this.camera.position.z = 2.5;
+      const controls = new OrbitControls(this.camera, this.renderer.domElement);
+      this.scene.add(this.camera);
+    } else {
+      console.log("linha 84");
+      this.camera = new THREE.PerspectiveCamera(70, aspectRatio, 0.01, 1000);
+      this.camera.position.z = 0;
+
+      //  const controls = new OrbitControls(this.camera, this.renderer.domElement);
+
+      //  this.cameraAux2.add(this.camera);
+      this.scene.add(this.camera);
+      this.camera.updateProjectionMatrix()
+
+    }
   }
 
   ngOnInit(): void {
@@ -273,8 +299,10 @@ export class RedeComponent implements OnInit {
     this.cameraAux.add(this.miniMapCamera);
 
     //camera primeira pessoa
-    this.cameraPrimeiraPessoa = new THREE.PerspectiveCamera(60, aspectRatio, 0.01, 1000);
-    this.camera.add(this.cameraPrimeiraPessoa);
+    this.cameraAux2 = new THREE.PerspectiveCamera(0, aspectRatio, 0.01, 1000);
+    this.cameraPrimeiraPessoa = new THREE.PerspectiveCamera(40, aspectRatio, 0.01, 1000);
+    this.cameraPrimeiraPessoa.position.z = 0;
+    this.cameraAux2.add(this.cameraPrimeiraPessoa);
 
     // Create a renderer
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -301,8 +329,10 @@ export class RedeComponent implements OnInit {
 
     // Create a scene
     this.scene = new THREE.Scene();
+    // if(this.view) 
     this.scene.add(this.camera);
     this.scene.add(this.cameraAux);
+    this.scene.add(this.cameraAux2);
 
 
     //Create invisble label for players info
@@ -329,6 +359,7 @@ export class RedeComponent implements OnInit {
     this.container.appendChild(this.labelRenderer.domElement);
 
     this.container.addEventListener('mousemove', event => this.onMouseMove(event), false);
+    this.container.addEventListener('keypress', event => this.onKeyPressed(event), false);
 
     window.addEventListener('resize', this.windowResize, false);
     this.windowResize();
@@ -462,6 +493,42 @@ export class RedeComponent implements OnInit {
     }
 
   }
+
+  async onKeyPressed(event: KeyboardEvent) {
+   // if(this.selectedCamera==)
+    let key = event.key;
+
+    if (key == 'w') {
+      this.camera.translateZ(-1);
+      this.windowResize();
+    }
+    if (key == 'a') {
+      this.camera.translateX(-1);
+      this.windowResize();
+    }
+    if (key == 's') {
+      this.camera.translateZ(1);
+      this.windowResize();
+    }
+    if (key == 'd'){
+      this.camera.translateX(1);
+      this.windowResize();
+    }
+    if(key == 'p'){
+      this.camera.translateY(1);
+      this.windowResize();
+    }
+    if(key == 'l'){
+      this.camera.translateY(-1);
+      this.windowResize();
+    }
+  }
+
+  /*render(): void{
+    var left, bottom, width, height;
+
+    left = 1; bottom = 1; width = 
+  }*/
 
   async onMouseMove(event: any) {
     event.preventDefault();
