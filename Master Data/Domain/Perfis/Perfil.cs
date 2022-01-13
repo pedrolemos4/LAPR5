@@ -72,9 +72,6 @@ namespace DDDSample1.Domain.Perfis
             foreach (string t in estado)
             {
                 string[] array = t.Split(" ");
-                Console.WriteLine(array[0]);
-                Console.WriteLine(array[1]);
-                Console.WriteLine(decimal.Parse(array[1]));
                 estadoList.Add(new EstadoHumor(array[0], decimal.Parse(array[1])));
             }
             this.estadoHumor = estadoList;

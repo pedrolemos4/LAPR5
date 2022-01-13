@@ -18,7 +18,11 @@ export default (app: Router) => {
 
     route.get('/getPostsByEmail', (req, res, next) => ctrl.getPostsByEmail(req, res, next));
 
-    route.put('/atualizaComments', (req, res, next) => ctrl.atualizaComments(req, res, next));
+    route.put('/atualizaComments', celebrate({
+        body: Joi.object({
+            id: Joi.string().required(),
+        })
+    }), (req, res, next) => ctrl.atualizaComments(req, res, next));
 
     route.post('',
         celebrate({

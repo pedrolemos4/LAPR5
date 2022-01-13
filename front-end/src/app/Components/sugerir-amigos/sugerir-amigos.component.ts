@@ -68,6 +68,16 @@ export class SugerirAmigosComponent implements OnInit {
               this.toastr.success("Amigos sugeridos com base nas tags e nível listados.", undefined, { positionClass: 'toast-bottom-left' });
             }
           });
+        } else {
+          this.aux.forEach((element: any) => {
+            console.log(element + " 51");
+            this.sugerirAmigosService.getJogadorById(element).subscribe(Jogador => {
+              this.sugerirAmigosService.getPerfilById(Jogador.perfilId).subscribe(PerfilAux => {
+                this.lista.push(PerfilAux.email);
+              });
+            });
+          });
+          this.toastr.success("Amigos sugeridos com base nas tags e nível listados.", undefined, { positionClass: 'toast-bottom-left' });
         }
       });
     });

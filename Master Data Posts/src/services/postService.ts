@@ -70,25 +70,30 @@ export default class PostService implements IPostService {
         }
     }
 
-    public async atualizaComments(idPost: any, idComentario: any): Promise<Result<IPostDTO>> {
+    public async atualizaComments(idComentario: any) {
+        //var resultFinal = new Array<IPostDTO>();
         try {
-            var post = await this.postRepo.findById(idPost);
+            var post = await this.postRepo.getPosts();
 
             if (post === null) {
-                return Result.fail<IPostDTO>("Post not found");
+                return Result.fail<Array<IPostDTO>>("Post not found");
             } else {
-                var aux = post.listaComentarios;
-                const index = aux.indexOf(idComentario);
-                if (index > -1) {
-                    aux.splice(index, 1);
-                }
-
-                post.props.listaComentarios = aux;
-                await this.postRepo.save(post);
-
-                const postDTOResult = PostMap.toDTO(post) as IPostDTO;
-
-                return Result.ok<IPostDTO>(postDTOResult)
+                var aux = new Array<string>();
+                post.getValue().forEach(async (element: Post) => {
+                    for (var i = 0; i < element.listaComentarios.length; i++) {
+                        var idComentarioString = Object.values(idComentario)[0];
+                        if (element.listaComentarios[i] != idComentarioString) {
+                            aux.push(element.listaComentarios[i]);
+                        }
+                    }
+                    if (element.listaComentarios.length != aux.length) {
+                        await this.postRepo.atualizaComentarios(element.id, aux);
+                        //resultFinal.push(PostMap.toDTO(element) as IPostDTO);
+                    }
+                    aux = [];
+                });
+                //return Result.ok(resultFinal);
+                return Result.ok();
             }
         } catch (e) {
             throw e;

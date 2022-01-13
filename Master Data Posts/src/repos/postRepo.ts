@@ -124,6 +124,17 @@ export default class PostRepo implements IPostRepo {
             return Result.ok<Array<IPostDTO>>(posts);
         } */
 
+    public async atualizaComentarios(idPost: any, list: any) {
+
+        var document = await this.postSchema.updateOne({ id: idPost }, { $set: { listaComentarios: list } });
+
+        if (document != null) {
+            return Result.ok(document);
+        } else {
+            return Result.fail<IPostDTO>("Error!");;
+        }
+    }
+
     public async delete(id: string) {
         const query = { id: id };
         const document = await this.postSchema.deleteOne(query);

@@ -11,4 +11,5 @@ export default interface IPostRepo extends Repo<Post>{
     findById(postId: PostId|string): Promise<Post>;
     getPosts();
     populate(post: Post,comentarioId : string | ComentarioId):Promise<Post>;
+    atualizaComentarios(idPost: any, list: any);
 }

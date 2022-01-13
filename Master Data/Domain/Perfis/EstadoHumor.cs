@@ -27,7 +27,7 @@ namespace DDDSample1.Domain.Perfis
         }
         private void setEstadoHumor(string estado)
         {
-            List<string> lista = new List<string>() {"Joyful", "Distressed", "Hopeful", "Fearful", "Relieve", "Disappointed", "Proud", "Remorseful",
+            List<string> lista = new List<string>() {"Joyful", "Distressed", "Hopeful", "Fearful", "Relieved", "Disappointed", "Proud", "Remorseful",
             "Grateful", "Angry"};
             if (lista.Contains(estado))
             {
