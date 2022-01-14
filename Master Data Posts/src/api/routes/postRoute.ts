@@ -6,6 +6,7 @@ import { Container } from 'typedi';
 import IPostController from "../../controllers/IControllers/IPostController";
 
 import config from "../../../config";
+import { join } from "path/posix";
 
 const route = Router();
 
@@ -20,7 +21,8 @@ export default (app: Router) => {
 
     route.put('/atualizaComments', celebrate({
         body: Joi.object({
-            domainId: Joi.string().required(),
+            domainId: Joi.array().items(Joi.string())
+            //domainId: Joi.string().required(),
         })
     }), (req, res, next) => ctrl.atualizaComments(req, res, next));
 

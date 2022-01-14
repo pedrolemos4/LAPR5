@@ -7,6 +7,7 @@ import IPostService from "./IServices/IPostService";
 import { Result } from "../core/logic/Result";
 import { PostMap } from "../mappers/PostMap";
 import IComentarioRepo from "./IRepos/IComentarioRepo";
+import IListDTO from "../dto/IListDTO";
 
 @Service()
 export default class PostService implements IPostService {
@@ -72,33 +73,34 @@ export default class PostService implements IPostService {
         }
     }
 
-    public async atualizaComments(idComentario: any) {
-        //var resultFinal = new Array<IPostDTO>();
+    public async atualizaComments(idComentario: IListDTO) {
         try {
 
-            var post = await this.postRepo.getPosts();
-            var idComentarioString = await this.comentRepo.getDomainId((Object.values(idComentario)[0]));
-
-            var x = Object.values(idComentarioString)[3];
+            var post = (await this.postRepo.getPosts()).getValue();
+            var arrayComentariosJogador = new Array<string>();
+            idComentario.domainId.forEach(async (element: any) => {
+                var x = this.comentRepo.getDomainId(element);
+                arrayComentariosJogador.push(x);
+            });
 
             if (post === null) {
                 return Result.fail<Array<IPostDTO>>("Post not found");
             } else {
-                var aux = new Array<string>();
-                post.getValue().forEach(async (element: Post) => {
-                    for (var i = 0; i < element.listaComentarios.length; i++) {
-                        if (element.listaComentarios[i] != idComentarioString) {
-                            aux.push(element.listaComentarios[i]);
+                post.forEach(async (element: Post) => {
+                    var aux = new Array<string>();
+                    arrayComentariosJogador.forEach(async (elementIdComment: any) => {
+                        if (element.listaComentarios.includes(elementIdComment)) {
+                            element.listaComentarios.forEach(element2 => {
+                                if (element2 != elementIdComment) {
+                                    aux.push(element2);
+                                }
+                            });
                         }
-                    }
-                    if (element.listaComentarios.length != aux.length) {
-                        await this.postRepo.atualizaComentarios(element.id, aux);
-                        //resultFinal.push(PostMap.toDTO(element) as IPostDTO);
-                    }
-                    aux = [];
+                        this.postRepo.atualizaComentarios(element.id, aux);
+                    });
                 });
-                //return Result.ok(resultFinal);
-                return Result.ok();
+
+                return Result.ok((await this.postRepo.getPosts()).getValue());
             }
         } catch (e) {
             throw e;

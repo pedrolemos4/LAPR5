@@ -127,7 +127,7 @@ export default class PostRepo implements IPostRepo {
     public async atualizaComentarios(idPost: any, list: any) {
 
         var document = await this.postSchema.updateOne({ _id: idPost }, { $set: { listaComentarios: list } });
-
+        
         if (document != null) {
             return Result.ok(document);
         } else {

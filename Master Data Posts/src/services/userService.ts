@@ -60,7 +60,7 @@ export default class UserService implements IUserService{
 
       const salt = randomBytes(32);
       this.logger.silly('Hashing password');
-      const hashedPassword = await argon2.hash(userDTO.password, { salt });
+      const hashedPassword = "";//await argon2.hash(userDTO.password, { salt });
       this.logger.silly('Creating user db record');
 
       const password = await UserPassword.create({ value: hashedPassword, hashed: true}).getValue();
@@ -118,7 +118,7 @@ export default class UserService implements IUserService{
      * We use verify from argon2 to prevent 'timing based' attacks
      */
     this.logger.silly('Checking password');
-    const validPassword = await argon2.verify(user.password.value, password);
+    const validPassword = "";//await argon2.verify(user.password.value, password);
     if (validPassword) {
       this.logger.silly('Password is valid!');
       this.logger.silly('Generating JWT');

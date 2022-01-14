@@ -65,6 +65,11 @@ export class PerfilService {
     return this.http.delete<Post>(this.postUrl + 'delete', { params });
   }
 
+  getComentarioById(id: string): Observable<Comentario> {
+    const params = new HttpParams().append('id', id);
+    return this.http.get<Comentario>(this.comentarPostUrl + 'getById', { params });
+  }
+
   getComentariosJogador(email: any): Observable<Comentario[]> {
     const params = new HttpParams().append('param', email);
     return this.http.get<Comentario[]>(this.comentarPostUrl + 'getComentariosByAutor', { params });
@@ -75,7 +80,7 @@ export class PerfilService {
     return this.http.delete(this.comentarPostUrl + 'delete', { params });
   }
 
-  atualizaPostComentarios(idComentario: any) {
+  atualizaPostComentarios(idComentario: string[]) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

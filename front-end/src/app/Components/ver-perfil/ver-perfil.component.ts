@@ -61,10 +61,7 @@ export class VerPerfilComponent implements OnInit {
       }
       this.telefone = Perfil.telefone;
       this.cidade = Perfil.cidade;
-      // console.log(Perfil.dataNascimento.toJSON());
-      // this.dataNascimento = Perfil.dataNascimento;
       this.estadoHumor = Perfil.estadoHumor;
-      console.log(Perfil.estadoHumor);
       this.pais = Perfil.pais;
       this.facebook = Perfil.perfilFacebook;
       this.linkedin = Perfil.perfilLinkedin;
@@ -87,7 +84,7 @@ export class VerPerfilComponent implements OnInit {
           await this.perfilService.getLigacoesJogador(Jogador.id).subscribe(Lis => {
             Lis.forEach(async (element: Ligacao) => {
               await this.perfilService.deleteLigacao(element.id).subscribe(aux => {
-                //console.log(aux + " 81");
+                //console.log(aux);
               });
             });
           });
@@ -98,7 +95,7 @@ export class VerPerfilComponent implements OnInit {
           await this.perfilService.getRelacoesDoJogador(Jogador.id).subscribe(async Relacoes => {
             Relacoes.forEach(async (element: Relacao) => {
               await this.perfilService.deleteRelacao(element.id).subscribe(aux => {
-                //console.log(aux + " 99");
+                //console.log(aux);
               });
             });
           });
@@ -106,43 +103,56 @@ export class VerPerfilComponent implements OnInit {
           console.log("Não possui relações.");
         }
         await this.perfilService.deleteJogador(Jogador.id).subscribe(aux => {
-          //console.log(aux + " 107");
+          //console.log(aux);
         });
         await this.perfilService.deletePerfil(Perfil.id).subscribe(aux => {
-          //console.log(aux + " 110");
+          //console.log(aux);
         });
         try {
           await this.perfilService.getPostsJogador(Perfil.email).subscribe(Posts => {
             Posts.forEach((element: Post) => {
-              this.perfilService.deletePosts(element.id).subscribe(aux => {
+              console.log("Id= " + Object.values(element)[0]);
+              element.listaComentarios.forEach((elementComment: any) => {
+                console.log("Id comment = " + elementComment);
+                this.perfilService.getComentarioById(elementComment).subscribe(async Comentario => {
+                  console.log("Id duvidoso= "+Comentario.id);
+                  await this.perfilService.deleteComentarios(Comentario.id).subscribe(Answer => {
+                    console.log("Answer= "+Answer);
+                  });
+                  try {
+                    await this.perfilService.deletePosts(Object.values(element)[0]).subscribe(aux => {
+                    });
+                  } catch (e) {
+                    console.log("Post eliminado");
+                  }
+                });
+
               });
             });
+
           });
         } catch (e) {
           console.log("Não possui posts.");
         }
 
-        // FAZER DELETE DOS COMENTÁRIOS NO POST DO JOGADOR A ELIMINIAR NO .GETPOSTJOGADOR
-
-        await this.perfilService.getComentariosJogador(Perfil.email).subscribe(Comentarios => {
-          Comentarios.forEach(async (elementComent: Comentario) => {
-            console.log(Object.values(elementComent) + " VER");
-            try {
-              console.log("132");
-              console.log(Object.values(elementComent)[0] + " VER");
-
-              this.perfilService.atualizaPostComentarios(Object.values(elementComent)[0]).subscribe(Answer => {
-                this.perfilService.deleteComentarios(Object.values(elementComent)[0]).subscribe(Deleted => {
+        await this.perfilService.getComentariosJogador(Perfil.email).subscribe(async Comentarios => {
+          var array = new Array<string>();
+          Comentarios.forEach((elementComent: Comentario) => {
+            array.push(Object.values(elementComent)[0]);
+          });
+          try {
+            await this.perfilService.atualizaPostComentarios(array).subscribe(Answer => {
+              console.log(Answer)
+              array.forEach((element: any) => {
+                this.perfilService.deleteComentarios(element).subscribe(Deleted => {
                   console.log(Deleted);
                 });
               });
-
-            } catch (e) {
-              console.log(e);
-            }
-          });
+            });
+          } catch (e) {
+            console.log(e);
+          }
         });
-
         this.toastr.success("Conta eliminada com sucesso.", undefined, { positionClass: 'toast-bottom-left' });
         this.router.navigateByUrl('/');
       });
