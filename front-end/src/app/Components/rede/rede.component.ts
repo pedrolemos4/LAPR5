@@ -77,24 +77,24 @@ export class RedeComponent implements OnInit {
     let HEIGHT = 663;
     const aspectRatio = WIDTH / HEIGHT;
     this.selectedCamera = event.target.value;
-    if (this.selectedCamera == "fixed") {
-      console.log("linha 81");
-      this.camera = new THREE.PerspectiveCamera(70, aspectRatio, 0.01, 1000);
-      this.camera.position.z = 2.5;
-      const controls = new OrbitControls(this.camera, this.renderer.domElement);
-      this.scene.add(this.camera);
-    } else {
-      console.log("linha 84");
-      this.camera = new THREE.PerspectiveCamera(70, aspectRatio, 0.01, 1000);
-      this.camera.position.z = 0;
+    // if (this.selectedCamera == "fixed") {
+    //   console.log("linha 81");
+    //   this.camera = new THREE.PerspectiveCamera(70, aspectRatio, 0.01, 1000);
+    //   this.camera.position.z = 2.5;
+    //   const controls = new OrbitControls(this.camera, this.renderer.domElement);
+    //   this.scene.add(this.camera);
+    // } else {
+    //   console.log("linha 84");
+    //   this.cameraPrimeiraPessoa = new THREE.PerspectiveCamera(70, aspectRatio, 0.01, 1000);
+    //   this.cameraPrimeiraPessoa.position.z = 15;
 
-      //  const controls = new OrbitControls(this.camera, this.renderer.domElement);
+    //   //  const controls = new OrbitControls(this.camera, this.renderer.domElement);
 
-      //  this.cameraAux2.add(this.camera);
-      this.scene.add(this.camera);
-      this.camera.updateProjectionMatrix()
+    //   //  this.cameraAux2.add(this.camera);
+    //   this.scene.add(this.cameraPrimeiraPessoa);
+    //   this.cameraPrimeiraPessoa.updateProjectionMatrix()
 
-    }
+    // }
   }
 
   ngOnInit(): void {
@@ -135,14 +135,14 @@ export class RedeComponent implements OnInit {
     let estadoHumorDiv = document.createElement('div');
     estadoHumor.forEach(element => {
       this.aux = element.split(" ");
-      this.aux[1] = this.aux[1].replace(",",".");
-      if(parseFloat(this.aux[1]) > maior){
+      this.aux[1] = this.aux[1].replace(",", ".");
+      if (parseFloat(this.aux[1]) > maior) {
         maior = parseFloat(this.aux[1]);
         estado = this.aux[0];
       }
     });
-    
-    switch(estado) {
+
+    switch (estado) {
       case 'Joyful': {
         estadoHumorDiv.className = 'label';
         estadoHumorDiv.textContent = '☀️';
@@ -367,8 +367,15 @@ export class RedeComponent implements OnInit {
     this.renderer.setClearColor(0x000000);
 
     this.renderer.setViewport(0, 0, WIDTH, HEIGHT);
-    this.renderer.render(this.scene, this.camera);
-    this.labelRenderer.render(this.scene, this.camera);
+    if (this.selectedCamera == "fixed"  || this.selectedCamera == null) {
+      this.renderer.render(this.scene, this.camera);
+      this.labelRenderer.render(this.scene, this.camera);
+
+    } else {
+      this.renderer.render(this.scene, this.cameraPrimeiraPessoa);
+      this.labelRenderer.render(this.scene, this.cameraPrimeiraPessoa);
+
+    }
 
     this.renderer.setClearColor(0x333333);
 
@@ -416,10 +423,12 @@ export class RedeComponent implements OnInit {
     this.cameraAux.add(this.miniMapCamera);
 
     //camera primeira pessoa
-    this.cameraAux2 = new THREE.PerspectiveCamera(0, aspectRatio, 0.01, 1000);
-    this.cameraPrimeiraPessoa = new THREE.PerspectiveCamera(40, aspectRatio, 0.01, 1000);
+    // this.cameraAux2 = new THREE.PerspectiveCamera(0, aspectRatio, 0.01, 1000);
+    this.cameraPrimeiraPessoa = new THREE.PerspectiveCamera(70, aspectRatio, 0.01, 1000);
     this.cameraPrimeiraPessoa.position.z = 0;
-    this.cameraAux2.add(this.cameraPrimeiraPessoa);
+    // this.cameraAux2.add(this.cameraPrimeiraPessoa);
+
+
 
     // Create a renderer
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -449,7 +458,7 @@ export class RedeComponent implements OnInit {
     // if(this.view) 
     this.scene.add(this.camera);
     this.scene.add(this.cameraAux);
-    this.scene.add(this.cameraAux2);
+    this.scene.add(this.cameraPrimeiraPessoa);
 
     //Create invisble label for players info
 
@@ -626,31 +635,31 @@ export class RedeComponent implements OnInit {
   }
 
   async onKeyPressed(event: KeyboardEvent) {
-   // if(this.selectedCamera==)
+    // if(this.selectedCamera==)
     let key = event.key;
 
     if (key == 'w') {
-      this.camera.translateZ(-1);
+      this.cameraPrimeiraPessoa.translateZ(-1);
       this.windowResize();
     }
     if (key == 'a') {
-      this.camera.translateX(-1);
+      this.cameraPrimeiraPessoa.translateX(-1);
       this.windowResize();
     }
     if (key == 's') {
-      this.camera.translateZ(1);
+      this.cameraPrimeiraPessoa.translateZ(1);
       this.windowResize();
     }
-    if (key == 'd'){
-      this.camera.translateX(1);
+    if (key == 'd') {
+      this.cameraPrimeiraPessoa.translateX(1);
       this.windowResize();
     }
-    if(key == 'p'){
-      this.camera.translateY(1);
+    if (key == 'p') {
+      this.cameraPrimeiraPessoa.translateY(1);
       this.windowResize();
     }
-    if(key == 'l'){
-      this.camera.translateY(-1);
+    if (key == 'l') {
+      this.cameraPrimeiraPessoa.translateY(-1);
       this.windowResize();
     }
   }
@@ -691,9 +700,9 @@ export class RedeComponent implements OnInit {
             };
             reader.readAsDataURL(avatarPostar);
             console.log(Perfil);
-            this.playerTip.textContent = Perfil.estadoHumor + ". Facebook: " + Perfil.perfilFacebook + ". \nLinkedIn: " + Perfil.perfilLinkedin + ". Telefone: " + Perfil.telefone;
+            this.playerTip.textContent = "Nome: " + Perfil.nome + ". Tags: " + Perfil.tags;
           } else {
-            this.playerTip.textContent = Perfil.estadoHumor + ". Facebook: " + Perfil.perfilFacebook + ". \nLinkedIn: " + Perfil.perfilLinkedin + ". Telefone: " + Perfil.telefone + "\n. Não tem avatar.";
+            this.playerTip.textContent = "Nome: " + Perfil.nome + ". Tags: " + Perfil.tags +  " Não tem avatar.";
           }
 
         });
