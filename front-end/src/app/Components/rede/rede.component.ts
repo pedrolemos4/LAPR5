@@ -465,10 +465,25 @@ export class RedeComponent implements OnInit {
     //window.addEventListener('mousedown', event => this.mouseDown(event));
     //window.addEventListener('mouseup', event => this.mouseUp(event));
 
-    //Create light
-    const light = new THREE.DirectionalLight(0xFFFFFF, 1);
-    light.position.set(20, 20, 0);
+
+    //Create directional light
+    //verde
+    const light = new THREE.PointLight(0x00ff00, 1.2);
+    light.position.set(2, 2, 0);
     this.scene.add(light);
+    // const helper = new THREE.PointLightHelper(light);
+    // this.scene.add(helper);
+
+    //vermelho
+    const light1 = new THREE.PointLight(0xff0000, 1.2);
+    light1.position.set(-2, -2, 0);
+    this.scene.add(light1);
+    // const helper1 = new THREE.PointLightHelper(light1);
+    // this.scene.add(helper1);
+
+    // Ambient Light
+    const lightAmbient = new THREE.AmbientLight(0xFFFFFF, 0.5);
+    this.scene.add(lightAmbient);
 
     this.container = document.getElementById("canvas");
     this.container.appendChild(this.renderer.domElement);
