@@ -26,8 +26,8 @@ export class RegistoComponent implements OnInit {
   imagePreview: string | ArrayBuffer = '';
   isCheckedBox: boolean = false;
   fileBase64: string = '';
-  arrayNomesEstados: string [] = ["Joyful", "Distressed", "Hopeful", "Fearful", "Relieve", "Disappointed", "Proud", "Remorseful", "Grateful", "Angry"];
-  arrayFinalEstados: string [] = [];
+  arrayNomesEstados: string[] = ["Joyful", "Distressed", "Hopeful", "Fearful", "Relieved", "Disappointed", "Proud", "Remorseful", "Grateful", "Angry"];
+  arrayFinalEstados: string[] = [];
 
   constructor(private formBuilder: FormBuilder, private router: Router, private toastr: ToastrService, private registoService: RegistoService) {
     this.registoForm = this.formBuilder.group({
@@ -54,7 +54,7 @@ export class RegistoComponent implements OnInit {
       distressed: '0.50',
       hopeful: '0.50',
       fearful: '0.50',
-      relieve: '0.50',
+      relieved: '0.50',
       disappointed: '0.50',
       proud: '0.50',
       remorseful: '0.50',
@@ -118,7 +118,7 @@ export class RegistoComponent implements OnInit {
     targetDiv.style.display = "none";
   }
 
-  onVoltarEstados(){
+  onVoltarEstados() {
     const targetDiv = document.getElementById("estados");
     targetDiv.style.display = "none";
   }
@@ -131,7 +131,7 @@ export class RegistoComponent implements OnInit {
   get f() { return this.registoForm.controls; }
 
 
-  escolherEstados(){
+  escolherEstados() {
     const targetDiv = document.getElementById("estados");
     if (targetDiv.style.display !== "none") {
       targetDiv.style.display = "none";
@@ -161,9 +161,9 @@ export class RegistoComponent implements OnInit {
         let e: string = this.registoForm.controls['email'].value;
         // mudar para ir buscar lista de emails e depois verificar se e pertence a lista 
         this.registoService.getAllEmails().subscribe(
-          (res:any) => {
+          (res: any) => {
             console.log(res);
-            if(res.includes(e)){
+            if (res.includes(e)) {
               this.toastr.error("Email já se encontra na aplicação");
             }
           }
@@ -222,8 +222,6 @@ export class RegistoComponent implements OnInit {
         this.toastr.error("Password é obrigatória");
       }
 
-      console.log(this.arrayNomesEstados);
-
       var s, valor, stringFinal;
       this.arrayNomesEstados.forEach(element => {
         s = this.estadosForm.controls[element.toLowerCase()].value.toString();
@@ -233,43 +231,41 @@ export class RegistoComponent implements OnInit {
         this.arrayFinalEstados.push(stringFinal);
       });
 
-      console.log(this.arrayFinalEstados);
-
-        this.registoService.registoPerfil({
+      this.registoService.registoPerfil({
+        id: '',
+        nome: this.registoForm.controls['nome'].value,
+        avatar: this.fileBase64,
+        email: this.registoForm.controls['email'].value,
+        telefone: this.registoForm.controls['telefone'].value,
+        pais: this.registoForm.controls['pais'].value,
+        cidade: this.registoForm.controls['cidade'].value,
+        dataNascimento: this.registoForm.controls['dataNascimento'].value,
+        estadoHumor: this.arrayFinalEstados,
+        tags: this.registoForm.controls['tags'].value,
+        perfilFacebook: this.registoForm.controls['perfilFb'].value,
+        perfilLinkedin: this.registoForm.controls['perfilL'].value,
+        password: this.registoForm.controls['password'].value,
+      } as Perfil).pipe(
+        mergeMap((res: any) => this.registoService.registoJogador({
           id: '',
-          nome: this.registoForm.controls['nome'].value,
-          avatar: this.fileBase64,
-          email: this.registoForm.controls['email'].value,
-          telefone: this.registoForm.controls['telefone'].value,
-          pais: this.registoForm.controls['pais'].value,
-          cidade: this.registoForm.controls['cidade'].value,
-          dataNascimento: this.registoForm.controls['dataNascimento'].value,
-          estadoHumor: this.arrayFinalEstados,
-          tags: this.registoForm.controls['tags'].value,
-          perfilFacebook: this.registoForm.controls['perfilFb'].value,
-          perfilLinkedin: this.registoForm.controls['perfilL'].value,
-          password: this.registoForm.controls['password'].value,
-        } as Perfil).pipe(
-          mergeMap((res: any) => this.registoService.registoJogador({
-            id: '',
-            pontuacao: this.pontos,
-            perfilId: res.id,
-            listaRelacoes: this.listavazia,
-            listaMissoes: this.listavazia,
-            listaPosts: this.listavazia
-          } as Jogador)))
-          .subscribe({
-            next: () => {
-              this.toastr.success('Jogador foi criado com sucesso!', undefined, {positionClass: 'toast-bottom-left'});
-              this.router.navigateByUrl('/login');
-            },
-            error: () => {
-              this.toastr.error("Erro: Serviço Não Disponível", undefined, {positionClass: 'toast-bottom-left'});
-            }
+          pontuacao: this.pontos,
+          perfilId: res.id,
+          listaRelacoes: this.listavazia,
+          listaMissoes: this.listavazia,
+          listaPosts: this.listavazia
+        } as Jogador)))
+        .subscribe({
+          next: () => {
+            this.toastr.success('Jogador foi criado com sucesso!', undefined, { positionClass: 'toast-bottom-left' });
+            this.router.navigateByUrl('/login');
+          },
+          error: () => {
+            this.toastr.error("Erro: Serviço Não Disponível", undefined, { positionClass: 'toast-bottom-left' });
+          }
 
-          });
+        });
     } else {
-      this.toastr.error("Erro: É necessário o seu consentimento", undefined, {positionClass: 'toast-bottom-left'});
+      this.toastr.error("Erro: É necessário o seu consentimento", undefined, { positionClass: 'toast-bottom-left' });
     }
 
   }
