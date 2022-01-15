@@ -1,5 +1,5 @@
-calculaAlegriaAngustia(Utilizador,  NLikes, NDislikes, ValorNovoAlegria,ValorNovoAngustia):-no1(_,Utilizador,_,Alegria,Angustia,_,_,_,_,_,_,_,_), NLikes > NDislikes,! , Diferenca is NLikes - NDislikes, calculaAumento(Diferenca, Alegria, ValorNovoAlegria),  calculaDiminuicao(Diferenca, Angustia, ValorNovoAngustia),!.
-calculaAlegriaAngustia(Utilizador,  NLikes, NDislikes, ValorNovoAlegria,ValorNovoAngustia):-no1(_,Utilizador,_,Alegria,Angustia,_,_,_,_,_,_,_,_), NLikes < NDislikes,! , Diferenca is NDislikes - NLikes, calculaDiminuicao(Diferenca, Alegria, ValorNovoAlegria),  calculaAumento(Diferenca, Angustia, ValorNovoAngustia),!.
+calculaAlegriaAngustia(Utilizador,  NLikes, NDislikes, ValorNovoAlegria,ValorNovoAngustia):-no(_,Utilizador,_,Alegria,Angustia,_,_,_,_,_,_,_,_), NLikes > NDislikes,! , Diferenca is NLikes - NDislikes, calculaAumento(Diferenca, Alegria, ValorNovoAlegria),  calculaDiminuicao(Diferenca, Angustia, ValorNovoAngustia),!.
+calculaAlegriaAngustia(Utilizador,  NLikes, NDislikes, ValorNovoAlegria,ValorNovoAngustia):-no(_,Utilizador,_,Alegria,Angustia,_,_,_,_,_,_,_,_), NLikes < NDislikes,! , Diferenca is NDislikes - NLikes, calculaDiminuicao(Diferenca, Alegria, ValorNovoAlegria),  calculaAumento(Diferenca, Angustia, ValorNovoAngustia),!.
 calculaAlegriaAngustia(_,  _, _, ValorNovoAlegria,ValorNovoAngustia):- ValorNovoAlegria is 0.50, ValorNovoAngustia is 0.50.
 
 calculaAumento(Diferenca, Alegria, ValorNovoAlegria):- (Diferenca < 200, Valor is Diferenca; Valor is 200), ValorNovoAlegria is (Alegria + (1 - Alegria) * (Valor / 200)).

@@ -15,11 +15,11 @@ converterLigacao(FX,FAct,F1), converterRelacao(RX,RY,R1),Sfinal1 is Sfinal +(F1 
 no(NX,X,_,_,_,_,_,_,_,_,_,_,_),\+ member(X,LA),length([X|LA],Contador), Contador =< NivelLimite+1, dfs2LR(X,Dest,[X|LA],Cam,S,Sfinal1,NivelLimite,Op).
 
 
-plan_forteLR(Orig,Dest,NivelLimite,LCaminho,Op):-
-(caminho_mais_forteLR(Orig,Dest,NivelLimite,Op);true),
-retract(melhor_sol_forte(LCaminho,_)).
+plan_forteLR(Orig,Dest,NivelLimite,LCaminho,Soma,Op):-
+(caminho_mais_forteLR(Orig,Dest,NivelLimite,Soma,Op);true),
+retract(melhor_sol_forte(LCaminho,Soma)).
 
-caminho_mais_forteLR(Orig,Dest,NivelLimite,Op):-
+caminho_mais_forteLR(Orig,Dest,NivelLimite,Soma,Op):-
 asserta(melhor_sol_forte(_,0)),
 dfs_forteLR(Orig,Dest,LCaminho,Soma,NivelLimite,Op),
 atualiza_caminho_forteLR(LCaminho,Soma),

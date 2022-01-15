@@ -5,22 +5,22 @@ percorre_niveis(Numero,ListaNivel,NivelAtual,Nivel,Lista,ListaGuardaTodosNiveis,
 :-dynamic ligacao1/6.
 
 % percorre_niveis para ter acesso a uma lista com os utilizadores que fazem parte da rede do utilizador origem
-cria_novas_ligacoes(Orig, NivelLimite, ListaUtilizadores):- percorre_niveis(Orig,[Orig],0,NivelLimite,[],[],ListaUtilizadores).
+cria_novas_ligacoesBFL(Orig, NivelLimite, ListaUtilizadores):- percorre_niveis(Orig,[Orig],0,NivelLimite,[],[],ListaUtilizadores).
 
 % percorre lista de utilizadores da rede do utilizador origem, incluindo-0
 % encontra uma lista de utilizadores com qual um certo utilizador(X) tem ligacao e percorremos essa lista com o predicado percorre_lista_ligacoes_possiveis
-percorre_utilizadores([]):- !.
-percorre_utilizadores([X|ListaUtilizadores]):-
-    findall(Y,ligacao(X,Y,_,_,_,_),LigacoesDeX), percorre_lista_ligacoes_possiveis(X,LigacoesDeX),
+percorre_utilizadoresBFL([]):- !.
+percorre_utilizadoresBFL([X|ListaUtilizadores]):-
+    findall(Y,ligacao(X,Y,_,_,_,_),LigacoesDeX), percorre_lista_ligacoes_possiveisBFL(X,LigacoesDeX),
     percorre_utilizadores(ListaUtilizadores).
 
 % percorre lista de amigos do utilizador X e faz um asserta de um novo facto(ligacao1)
-percorre_lista_ligacoes_possiveis(_,[]):-!.
-percorre_lista_ligacoes_possiveis(X,[Y|Lista]):- ligacao(X,Y,FX,FY,_,_), asserta(ligacao1(X,Y,FX,FY,_,_)), percorre_lista_ligacoes_possiveis(X,Lista).
+percorre_lista_ligacoes_possiveisBFL(_,[]):-!.
+percorre_lista_ligacoes_possiveisBFL(X,[Y|Lista]):- ligacao(X,Y,FX,FY,_,_), asserta(ligacao1(X,Y,FX,FY,_,_)), percorre_lista_ligacoes_possiveisBFL(X,Lista).
 
 
 bestfsLig(Orig,Dest,NivelLimite,Cam,Custo,Op):-
-        cria_novas_ligacoes(Orig, NivelLimite, ListaUtilizadores), percorre_utilizadores([Orig|ListaUtilizadores]),
+        cria_novas_ligacoesBFL(Orig, NivelLimite, ListaUtilizadores), percorre_utilizadoresBFL([Orig|ListaUtilizadores]),
         bestfs12Lig(Dest,[[Orig]],Cam,Custo,NivelLimite,Op),
         retractall(ligacao1(_,_,_,_,_,_)).
 

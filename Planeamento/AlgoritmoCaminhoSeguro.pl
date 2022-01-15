@@ -31,12 +31,13 @@ asserta(melhor_sol_seguro(LCaminho,SomaFinal)).
 
 %mais seguro com findall
 plan_seguro_com_findall(Orig,Dest,LCaminho,MinForca):-
-get_time(Ti),
- findall(Caminho,dfs_seguro_com_findall(Orig,Dest,Caminho,MinForca),LCaminho),
- length(LCaminho,NLCam),get_time(Tf),
-write(' Foram encontradas '), write(NLCam),write(' solucoes em '),
-T is Tf-Ti,write(T),write(' segundos'),nl,
-write(' Lista de Caminhos possíveis: '),nl,nl.
+%get_time(Ti),
+ findall(Caminho,dfs_seguro_com_findall(Orig,Dest,Caminho,MinForca),LCaminho).
+% length(LCaminho,NLCam),get_time(Tf),
+%write(' Foram encontradas '), write(NLCam),write(' solucoes em '),
+%T is Tf-Ti,
+%write(T),write(' segundos'),nl,
+%write(' Lista de Caminhos possíveis: '),nl,nl.
 
 
 dfs_seguro_com_findall(Orig,Dest,Cam,MinForca):- dfs2_seguro_com_findall(Orig,Dest,[Orig],Cam,MinForca).

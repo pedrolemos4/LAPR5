@@ -10,18 +10,18 @@ cria_novas_ligacoes(Orig, NivelLimite, ListaUtilizadores):- percorre_niveis(Orig
 
 % percorre lista de utilizadores da rede do utilizador origem, incluindo-0
 % encontra uma lista de utilizadores com qual um certo utilizador(X) tem ligacao e percorremos essa lista com o predicado percorre_lista_ligacoes_possiveis
-percorre_utilizadores([]):- !.
-percorre_utilizadores([X|ListaUtilizadores]):-
-    findall(Y,ligacao(X,Y,_,_,_,_),LigacoesDeX), percorre_lista_ligacoes_possiveis(X,LigacoesDeX),
+percorre_utilizadores3([]):- !.
+percorre_utilizadores3([X|ListaUtilizadores]):-
+    findall(Y,ligacao(X,Y,_,_,_,_),LigacoesDeX), percorre_lista_ligacoes_possiveis3(X,LigacoesDeX),
     percorre_utilizadores(ListaUtilizadores).
 
 % percorre lista de amigos do utilizador X e faz um asserta de um novo facto(ligacao1)
-percorre_lista_ligacoes_possiveis(_,[]):-!.
-percorre_lista_ligacoes_possiveis(X,[Y|Lista]):- ligacao(X,Y,FX,FY,RX,RY), asserta(ligacao1(X,Y,FX,FY,RX,RY)), percorre_lista_ligacoes_possiveis(X,Lista).
+percorre_lista_ligacoes_possiveis3(_,[]):-!.
+percorre_lista_ligacoes_possiveis3(X,[Y|Lista]):- ligacao(X,Y,FX,FY,RX,RY), asserta(ligacao1(X,Y,FX,FY,RX,RY)), percorre_lista_ligacoes_possiveis3(X,Lista).
 
 
 bestfsLigRel(Orig,Dest,NivelLimite,Cam,Custo,Op):-
-        cria_novas_ligacoes(Orig, NivelLimite, ListaUtilizadores), percorre_utilizadores([Orig|ListaUtilizadores]),
+        cria_novas_ligacoes(Orig, NivelLimite, ListaUtilizadores), percorre_utilizadores3([Orig|ListaUtilizadores]),
         bestfs12LigRel(Dest,[[Orig]],Cam,Custo,NivelLimite,Op),
         retractall(ligacao1(_,_,_,_,_,_)).
 

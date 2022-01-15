@@ -6,8 +6,8 @@
 
 dfs_forte(Orig,Dest,Cam,S):-dfs2(Orig,Dest,[Orig],Cam,S,0).
 dfs2(Dest,Dest,LA,Cam,S,S1):-!,reverse(LA,Cam),S is S1.
-dfs2(Act,Dest,LA,Cam,S,Sfinal):-no(NAct,Act,_),(ligacao(NAct,NX,S1,S2,_,_);ligacao(NX,NAct,S1,S2,_,_)), Sfinal1 is Sfinal+S1+S2,
-no(NX,X,_),\+ member(X,LA),dfs2(X,Dest,[X|LA],Cam,S,Sfinal1).
+dfs2(Act,Dest,LA,Cam,S,Sfinal):-no(NAct,Act,_,_,_,_,_,_,_,_,_,_,_),(ligacao(NAct,NX,S1,S2,_,_);ligacao(NX,NAct,S1,S2,_,_)), Sfinal1 is Sfinal+S1+S2,
+no(NX,X,_,_,_,_,_,_,_,_,_,_,_),\+ member(X,LA),dfs2(X,Dest,[X|LA],Cam,S,Sfinal1).
 
 
 plan_forte(Orig,Dest,LCaminho):-
