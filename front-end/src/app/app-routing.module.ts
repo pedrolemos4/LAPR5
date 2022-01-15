@@ -41,6 +41,7 @@ import { BestfirstLigacaoComponent } from './Components/bestfirst-ligacao/bestfi
 import { DfsLigacaoRelacaoComponent } from './Components/dfs-ligacao-relacao/dfs-ligacao-relacao.component';
 import { VerAmigosGruposComponent } from './Components/ver-amigos-grupos/ver-amigos-grupos.component';
 import { SugerirGruposComponent } from './Components/sugerir-grupos/sugerir-grupos.component';
+import { DfsLigacaoComponent } from './Components/dfs-ligacao/dfs-ligacao.component';
 
 const routes: Routes = [
   { path: '', component: HomeInicialComponent },
@@ -84,7 +85,8 @@ const routes: Routes = [
   { path: 'bestfirst_ligacao', component: BestfirstLigacaoComponent},
   { path: 'dfs_ligacao_relacao', component: DfsLigacaoRelacaoComponent},
   { path: 'ver_amigos_grupos', component: VerAmigosGruposComponent},
-  { path: 'sugerir_grupos', component: SugerirGruposComponent}
+  { path: 'sugerir_grupos', component: SugerirGruposComponent},
+  { path: 'dfs_ligacao', component: DfsLigacaoComponent},
 ];
 
 

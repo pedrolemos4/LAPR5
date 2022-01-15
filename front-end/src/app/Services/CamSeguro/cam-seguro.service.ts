@@ -16,6 +16,10 @@ export class CamSeguroService {
 
   constructor(private httpClient: HttpClient) { }
 
+  getPerfis(): Observable<Perfil[]> {
+    return this.httpClient.get<Perfil[]>(this.urlPer);
+  }
+
   getPerfilByEmail(email:string): Observable<any> {
     return this.httpClient.get(this.urlPer + '/GetPerfilByEmail/' + email);
   }

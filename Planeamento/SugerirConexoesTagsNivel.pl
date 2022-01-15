@@ -1,5 +1,5 @@
 lista_utilizadores_com_tags_conexoes(NUtilizador,Nivel,ListaFinal1):-
-no(NUtilizador,_,ListaTags),
+no(NUtilizador,_,ListaTags,_,_,_,_,_,_,_,_,_,_),
 lista_todos_utilizadores(NUtilizador,ListaTodos),
 lista_utilizadores_sem_ligacao(NUtilizador,[],ListaTodos,ListaFinal),
 lista_tags_utilizador(ListaFinal,ListaTags,[],ListaResTags),
@@ -11,7 +11,7 @@ ver_caminhos(NUtilizador,ListaSemVerCaminho,ListaTags,[],ListaFinal1).
 % para obter lista com todos os utilizadores na base de conhecimento excepto o Utilizador do 1º argumento
 % 2º argumento retorna lista pretendida
 
-lista_todos_utilizadores(Utilizador,ListaTodos):- findall(NX, (no(NX,_,_)), List) ,delete(List,Utilizador,ListaTodos).
+lista_todos_utilizadores(Utilizador,ListaTodos):- findall(NX, (no(NX,_,_,_,_,_,_,_,_,_,_,_,_)), List) ,delete(List,Utilizador,ListaTodos).
 
 
 % para obter lista de utilizadores com quem nao tem relacao
@@ -67,7 +67,7 @@ dfs2(NAct,Dest,LA,Cam):-(ligacao(NAct,NX,_,_,_,_);ligacao(NX,NAct,_,_,_,_)),
 % o 4º argumento corresponde à lista que retorna completa com os jogadores
 ver_caminhos(_,[],_,ListaAPreencher,ListaFinalResultante):-
 ListaFinalResultante = ListaAPreencher.
-ver_caminhos(NUtilizador,[NX|ListaSemVerCaminho],ListaTags,ListaAPreencher,ListaFinalResultante):- no(NX,_,Lista), intersection(Lista,ListaTags,ListaTagsRes),
+ver_caminhos(NUtilizador,[NX|ListaSemVerCaminho],ListaTags,ListaAPreencher,ListaFinalResultante):- no(NX,_,Lista,_,_,_,_,_,_,_,_,_,_), intersection(Lista,ListaTags,ListaTagsRes),
 findall(Cam,dfs(NX,NUtilizador,Cam),LCam), ver_caminhos2(LCam,NX,ListaTagsRes,[],ListaFinal1),((ListaFinal1\==[], ver_caminhos(NUtilizador,ListaSemVerCaminho,ListaTags,[NX|ListaAPreencher],ListaFinalResultante));ver_caminhos(NUtilizador,ListaSemVerCaminho,ListaTags,ListaAPreencher,ListaFinalResultante)).
 
 
@@ -78,4 +78,4 @@ ver_caminhos2([Lista|LCam],NX,ListaTagsRes,ListaAPreencher,ListaFinal1):- ver_ca
 
 % de forma a percorrer uma lista de caminhos para verificar se todos os elementos da lista, que corresponde ao caminho encontrado, têm as tags encontradas em comum do jogador objetivo
 ver_caminhos_aux([],_,ListaAPreencher,ListaFinal1):- ListaFinal1 = ListaAPreencher.
-ver_caminhos_aux([NX|Lista],ListaTagsRes,ListaAPreencher,ListaFinal1):- no(NX,_,ListaTags), intersection(ListaTagsRes,ListaTags,ListaRes), ((ListaRes==ListaTagsRes, ver_caminhos_aux(Lista,ListaTagsRes,[NX|ListaAPreencher],ListaFinal1));(ListaFinal1=[],!)).
+ver_caminhos_aux([NX|Lista],ListaTagsRes,ListaAPreencher,ListaFinal1):- no(NX,_,ListaTags,_,_,_,_,_,_,_,_,_,_), intersection(ListaTagsRes,ListaTags,ListaRes), ((ListaRes==ListaTagsRes, ver_caminhos_aux(Lista,ListaTagsRes,[NX|ListaAPreencher],ListaFinal1));(ListaFinal1=[],!)).

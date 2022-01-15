@@ -17,10 +17,11 @@
 
 
 :- dynamic novo_jogador/2.
-:- dynamic novo_perfil/3.
+:- dynamic novo_perfil/13.
 :- dynamic nova_relacao/4.
-:- dynamic no/3.
+:- dynamic no/13.
 :- dynamic ligacao/6.
+:- dynamic ligacao1/6.
 
 :-ensure_loaded("./AlgoritmoCaminhoSeguro.pl").
 :-ensure_loaded("./calcularTamanhoRede.pl").
@@ -34,6 +35,9 @@
 :-ensure_loaded("./AStarForcaLigacao.pl").
 :-ensure_loaded("./BestFirstLigacao.pl").
 :-ensure_loaded("./DfsForcaLigacaoRelacao.pl").
+:-ensure_loaded("./DfsForcaLigacao.pl").
+
+
 
 :-json_object objeto_json_tags(caminho:list(string)).
 :-json_object objeto_json_rede(resultado:number).
@@ -64,6 +68,7 @@ stop(Port):-
 :- http_handler('/api/FortalezaRede', fortalezaRedeHandler,[]).
 :- http_handler('/api/BestFirstLigacao',bestFirstLigacao,[]).
 :- http_handler('/api/DfsForcaLigacaoRelacao',dfsForcaLigacaoRelacao,[]).
+:- http_handler('/api/DfsForcaLigacao',dfsForcaLigacao,[]).
 
 
 forcaLigacaoRelacao(Request):-
@@ -73,8 +78,9 @@ forcaLigacaoRelacao(Request):-
     http_parameters(Request,
     [orig(Orig,[string]),
      dest(Dest,[string]),
-    nivelLimite(NivelLimite,[number])]),
-    aStarRelacaoLigacao(Orig,Dest,NivelLimite,Cam,Custo),
+    nivelLimite(NivelLimite,[number]),
+    opcao(Op,[number])]),
+    aStarRelacaoLigacao(Orig,Dest,NivelLimite,Cam,Custo,Op),
     Reply = objeto_json_relacaoLigacao(Cam,Custo),
     prolog_to_json(Reply,JSONObject),
     reply_json(JSONObject,[json_object]).
@@ -86,8 +92,10 @@ bestFirstLigacao(Request):-
     http_parameters(Request,
                     [orig(Orig,[string]),
                      dest(Dest,[string]),
-                     nivelLimite(NivelLimite,[number])]),
-    bestfsLig(Orig,Dest,NivelLimite,Cam,Custo),
+                     nivelLimite(NivelLimite,[number]),
+    opcao(Op,[number])]),
+
+    bestfsLig(Orig,Dest,NivelLimite,Cam,Custo,Op),
     Reply = objeto_json_relacaoLigacao(Cam,Custo),
     prolog_to_json(Reply,JSONObject),
     reply_json(JSONObject,[json_object]).
@@ -99,9 +107,11 @@ bestfirstLigacaoRelacao(Request):-
     http_parameters(Request,
     [orig(Orig,[string]),
      dest(Dest,[string]),
-    ligacoes(Ligacoes,[number])]),
+     nivelLimite(NivelLimite,[number]),
+     opcao(Op,[number])]),
 
-    bestfs1(Orig,Dest,Cam,Custo,Ligacoes),
+
+    bestfsLigRel(Orig,Dest,NivelLimite,Cam,Custo,Op),
     Reply = objeto_json_relacaoLigacao(Cam,Custo),
     prolog_to_json(Reply,JSONObject),
     reply_json(JSONObject,[json_object]).
@@ -113,13 +123,31 @@ dfsForcaLigacaoRelacao(Request):-
     http_parameters(Request,
     [orig(Orig,[string]),
     dest(Dest,[string]),
-    nivelLimite(NivelLimite,[number])]),
+    nivelLimite(NivelLimite,[number]),
+    opcao(Op,[number])]),
 
-    plan_forteLR(Orig,Dest,NivelLimite,LCaminho,Soma),
+
+    plan_forteLR(Orig,Dest,NivelLimite,LCaminho,Soma,Op),
     Reply = objeto_json_relacaoLigacao(LCaminho,Soma),
     prolog_to_json(Reply,JSONObject),
     reply_json(JSONObject,[json_object]).
-    
+
+dfsForcaLigacao(Request):-
+    cors_enable,
+    removerBaseConhecimento(),!,
+    carregaDados(),!,
+    http_parameters(Request,
+    [orig(Orig,[string]),
+    dest(Dest,[string]),
+    nivelLimite(NivelLimite,[number]),
+    opcao(Op,[number])]),
+
+    plan_forte_ligacao(Orig,Dest,NivelLimite,LCaminho,Soma,Op),
+    Reply = objeto_json_relacaoLigacao(LCaminho,Soma),
+    prolog_to_json(Reply,JSONObject),
+    reply_json(JSONObject,[json_object]).
+
+
 aStarForcaLigacao(Request):-
     cors_enable,
     removerBaseConhecimento(),!,
@@ -127,9 +155,11 @@ aStarForcaLigacao(Request):-
     http_parameters(Request,
     [orig(Orig,[string]),
      dest(Dest,[string]),
-    nivelLimite(NivelLimite,[number])]),
+    nivelLimite(NivelLimite,[number]),
+    opcao(Op,[number])]),
 
-    aStar(Orig,Dest,NivelLimite,Cam,Custo),
+
+    aStar(Orig,Dest,NivelLimite,Cam,Custo,Op),
     Reply = objeto_json_relacaoLigacao(Cam,Custo),
     prolog_to_json(Reply,JSONObject),
     reply_json(JSONObject,[json_object]).
@@ -259,9 +289,10 @@ carregaPerfis(Data) :-
 ).
 
 parse_perfis([]).
-parse_perfis([H|List]):-
-    asserta(novo_perfil(H.get(id),H.get(email),H.get(tags))),
-    parse_perfis(List).
+parse_perfis([H|List]):- asserta(novo_perfil(H.get(id),H.get(email),H.get(tags),H.get(estadoHumor).get('Joyful'),
+                         H.get(estadoHumor).get('Distressed'),H.get(estadoHumor).get('Hopeful'), H.get(estadoHumor).get('Fearful'),
+                         H.get(estadoHumor).get('Relieved'), H.get(estadoHumor).get('Disappointed'), H.get(estadoHumor).get('Proud'),
+                         H.get(estadoHumor).get('Remorseful'), H.get(estadoHumor).get('Grateful'), H.get(estadoHumor).get('Angry'))),parse_perfis(List).
 
 adicionaRelacoes():-
     carregaRelacoes(Data),
@@ -279,13 +310,6 @@ parse_relacoes([H|List]):-
     asserta(nova_relacao(H.get(jogador1),H.get(jogador2),H.get(forcaLigacao),H.get(forcaRelacao))),
     parse_relacoes(List).
 
-
-/*carregaLigacoes([]):- !.
-carregaLigacoes([Jogador1|Lista]):-
-    nova_relacao(Jogador1,Jogador2,ForcaLigacao1,ForcaRelacao1),nova_relacao(Jogador2,Jogador1,ForcaLigacao2,ForcaRelacao2),
-    asserta(ligacao(Jogador1,Jogador2,ForcaLigacao1,ForcaLigacao2,ForcaRelacao1,ForcaRelacao2)),carregaLigacoes(Lista).
-carregaLigacao([_|Lista]):-carregaLigacoes(Lista).*/
-
 adicionaLigacoes():- findall(Jogador1,nova_relacao(Jogador1,_,_,_),Lista),
                         percorre_utilizadores(Lista).
 
@@ -301,9 +325,8 @@ percorre_lista_ligacoes_possiveis(X,[Y|Lista]):- nova_relacao(X,Y,F1,R1), nova_r
 
 carrega_no([]):- !.
 carrega_no([IdJ|Lista]):-novo_jogador(IdJ,IdP),
-    novo_perfil(IdP,Email,Tags),
-    asserta(no(IdJ,Email,Tags)),carrega_no(Lista).
-%carrega_no([_|Lista]):-carregaLigacoes(Lista).
+    novo_perfil(IdP, Email, Tags, Joyful, Distressed, Hopeful, Fearful, Relieved, Disappointed, Proud, Remorseful, Grateful, Angry),
+    asserta(no(IdJ, Email, Tags, Joyful, Distressed, Hopeful, Fearful, Relieved, Disappointed, Proud, Remorseful, Grateful, Angry)),carrega_no(Lista).
 
 adicionar_no():- findall(Jogador1,novo_jogador(Jogador1,_),Lista),
                         carrega_no(Lista).
@@ -319,9 +342,9 @@ carregaDados():-
 % Remover tudo da Base de Conhecimento
 removerBaseConhecimento():-
         retractall(novo_jogador(_,_)),
-        retractall(novo_perfil(_,_,_)),
+        retractall(novo_perfil(_,_,_,_,_,_,_,_,_,_,_,_,_)),
         retractall(nova_relacao(_,_,_,_)),
-        retractall(no(_,_,_)),
+        retractall(no(_,_,_,_,_,_,_,_,_,_,_,_,_)),
         retractall(ligacao(_,_,_,_,_,_)),
         retractall(ligacao1(_,_,_,_,_,_)).
 

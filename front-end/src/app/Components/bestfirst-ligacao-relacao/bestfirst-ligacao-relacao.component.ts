@@ -67,7 +67,7 @@ export class BestFirstLigacaoRelacaoComponent implements OnInit {
     this.nNiveis = this.form.controls['numeroNiveis'].value;
     this.service.getPerfilAtualEmail(this.selectedJogador).subscribe(PerfilSelecionado => {
       this.service.getJogador(PerfilSelecionado.id).subscribe(JogadorSelecionado => {
-        this.service.getResultadosAlgoritmo(this.idCurrentJogador, JogadorSelecionado.id, this.nNiveis).subscribe(Resultado => {
+        this.service.getResultadosAlgoritmo(this.idCurrentJogador, JogadorSelecionado.id, this.nNiveis, this.opcao).subscribe(Resultado => {
           var aux = Object.values(Resultado);
           this.Custo = aux[1];
           if (aux[0].length == 0) {

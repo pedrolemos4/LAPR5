@@ -16,7 +16,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RedeComponent implements OnInit {
   aux: string[] = [];
   email: string | undefined = '';
-  estadoHumor: string[] = [];
+  estadoHumor: any;
   imagePreview: string | ArrayBuffer = '';
   selected: THREE.Mesh = null;
   idPerfilAtual: string | undefined = '';
@@ -133,14 +133,12 @@ export class RedeComponent implements OnInit {
     var estado = '';
     let maior = 0.0;
     let estadoHumorDiv = document.createElement('div');
-    estadoHumor.forEach(element => {
-      this.aux = element.split(" ");
-      this.aux[1] = this.aux[1].replace(",", ".");
-      if (parseFloat(this.aux[1]) > maior) {
-        maior = parseFloat(this.aux[1]);
-        estado = this.aux[0];
+    for(let key in estadoHumor){
+      if (estadoHumor[key] > maior) {
+        maior = estadoHumor[key];
+        estado = key;
       }
-    });
+    }
 
     switch (estado) {
       case 'Joyful': {

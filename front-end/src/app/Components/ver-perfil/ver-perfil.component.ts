@@ -61,7 +61,9 @@ export class VerPerfilComponent implements OnInit {
       }
       this.telefone = Perfil.telefone;
       this.cidade = Perfil.cidade;
-      this.estadoHumor = Perfil.estadoHumor;
+      for (var key in Perfil.estadoHumor) {
+        this.estadoHumor.push(key.concat(" → ").concat(Perfil.estadoHumor[key]));
+      }
       this.pais = Perfil.pais;
       this.facebook = Perfil.perfilFacebook;
       this.linkedin = Perfil.perfilLinkedin;

@@ -1,8 +1,8 @@
 plan_x_tags(NTags,Res):-
-findall(Tag,(no(_,_,LTags), member(Tag,LTags)),LTodosTagsRep),
+findall(Tag,(no(_,_,LTags,_,_,_,_,_,_,_,_,_,_), member(Tag,LTags)),LTodosTagsRep),
 removeRepetidos(LTodosTagsRep,ListaTags),
 todas_combinacoes(NTags,ListaTags,ListaCombinacoes),
-findall(X,no(X,_,_),Lista),
+findall(X,no(X,_,_,_,_,_,_,_,_,_,_,_,_),Lista),
 ListaAux = [],
 comparar(ListaCombinacoes,Lista,ListaFinal,ListaAux,Res).
 

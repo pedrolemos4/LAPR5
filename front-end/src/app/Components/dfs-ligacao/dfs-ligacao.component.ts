@@ -3,14 +3,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Perfil } from 'src/app/Models/Perfil';
-import { BestfirstLigacaoService } from 'src/app/Services/BestFirstLigacao/bestfirst-ligacao.service';
+import { DfsLigacaoService } from 'src/app/Services/DfsLigacao/dfs-ligacao.service';
 
 @Component({
-  selector: 'app-bestfirst-ligacao',
-  templateUrl: './bestfirst-ligacao.component.html',
-  styleUrls: ['./bestfirst-ligacao.component.css']
+  selector: 'app-dfs-ligacao',
+  templateUrl: './dfs-ligacao.component.html',
+  styleUrls: ['./dfs-ligacao.component.css']
 })
-export class BestfirstLigacaoComponent implements OnInit {
+export class DfsLigacaoComponent implements OnInit {
 
   form: FormGroup;
   nNiveis: number;
@@ -22,7 +22,7 @@ export class BestfirstLigacaoComponent implements OnInit {
   idCurrentJogador: string;
   opcao: string = '2';
 
-  constructor(private formBuilder: FormBuilder, private service: BestfirstLigacaoService, private toastr: ToastrService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private service: DfsLigacaoService, private toastr: ToastrService, private router: Router) {
     this.form = this.formBuilder.group({
       numeroNiveis: ['', Validators.required]
     });
@@ -54,7 +54,7 @@ export class BestfirstLigacaoComponent implements OnInit {
   }
 
   toggleEditable(event) {
-    if ( event.target.checked ) {
+    if (event.target.checked) {
       this.opcao = '1';
     } else {
       this.opcao = '2';
@@ -62,7 +62,6 @@ export class BestfirstLigacaoComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.opcao);
     this.nNiveis = this.form.controls['numeroNiveis'].value;
     if (this.form.controls['numeroNiveis'].value != '' && this.selectedJogador != '') {
       this.service.getPerfilAtualEmail(this.selectedJogador).subscribe(PerfilSelecionado => {
@@ -89,12 +88,12 @@ export class BestfirstLigacaoComponent implements OnInit {
       });
       document.getElementById("mensagem1").style.display = "block";
       document.getElementById("mensagem2").style.display = "block";
-    } else{
-      this.toastr.error("Amigo e/ou Nível é obrigatório", undefined, { positionClass: 'toast-bottom-left' });
+    } else {
+      this.toastr.error("Amigo e/ou Nivel é obrigatório", undefined, { positionClass: 'toast-bottom-left' });
     }
   }
 
-  onVoltar(){
+  onVoltar() {
     this.router.navigateByUrl('/ver_algoritmos');
   }
 

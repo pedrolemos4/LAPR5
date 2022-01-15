@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class BestfirstLigacaoRelacaoService {
+export class DfsLigacaoService {
 
   private readonly urlProlog = environment.prologUrl;
   private readonly url = environment.apiUrl;
@@ -40,7 +40,7 @@ export class BestfirstLigacaoRelacaoService {
   }
 
   getResultadosAlgoritmo(orig: any, dest: any, nivel: any, opcao: any): Observable<string[]> {
-    const urlAux = this.urlProlog + '/api/BestFirstLigacaoRelacao?orig=' + orig + '&dest=' + dest + '&nivelLimite=' + nivel + '&opcao=' + opcao;
+    const urlAux = this.urlProlog + '/api/DfsForcaLigacao?orig=' + orig + '&dest=' + dest + '&nivelLimite=' + nivel + '&opcao=' + opcao;
     return this.httpClient.get<string[]>(urlAux);
   }
 }

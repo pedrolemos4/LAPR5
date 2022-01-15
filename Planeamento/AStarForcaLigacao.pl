@@ -12,23 +12,37 @@ cria_novas_ligacoes(Orig, NivelLimite, ListaUtilizadores):- percorre_niveis(Orig
 percorre_utilizadores2([]):- !.
 percorre_utilizadores2([X|ListaUtilizadores]):-
     findall(Y,ligacao(X,Y,_,_,_,_),LigacoesDeX), percorre_lista_ligacoes_possiveis2(X,LigacoesDeX),
-    percorre_utilizadores2(ListaUtilizadores).
+    percorre_utilizadores(ListaUtilizadores).
 
 % percorre lista de amigos do utilizador X e faz um asserta de um novo facto(ligacao1)
 percorre_lista_ligacoes_possiveis2(_,[]):-!.
 percorre_lista_ligacoes_possiveis2(X,[Y|Lista]):- ligacao(X,Y,FX,FY,_,_), asserta(ligacao1(X,Y,FX,FY,_,_)), percorre_lista_ligacoes_possiveis2(X,Lista).
 
 
-aStar(Orig,Dest,NivelLimite,Cam,Custo):-
+aStar(Orig,Dest,NivelLimite,Cam,Custo,Op):-
     cria_novas_ligacoes(Orig, NivelLimite, ListaUtilizadores), percorre_utilizadores2([Orig|ListaUtilizadores]),
     lista_forcas([Orig|ListaUtilizadores],[],ListaForcas), ordem_decrescente(ListaForcas,ListaDecrescente),
-    aStar2(Dest,[(_,0,[Orig])],Cam,Custo,ListaDecrescente,NivelLimite),
+    aStar2(Dest,[(_,0,[Orig])],Cam,Custo,ListaDecrescente,NivelLimite,Op),
     % necessário pois no inicio do predicado criamos o facto ligacao1 e se nao for feito o retractall, irao haver factos repetidos
     retractall(ligacao1(_,_,_,_,_,_)).
 
-aStar2(Dest,[(_,Custo,[Dest|T])|_],Cam,Custo,_,_):- reverse([Dest|T],Cam).
+aStar2(Dest,[(_,Custo,[Dest|T])|_],Cam,Custo,_,_,_):- reverse([Dest|T],Cam).
 
-aStar2(Dest,[(_,Ca,LA)|Outros],Cam,Custo,ListaForcas,NivelLimite):-
+aStar2(Dest,[(_,Ca,LA)|Outros],Cam,Custo,ListaForcas,NivelLimite,Op):-Op==1,
+LA=[Act|_],length([X|LA],Contador),
+findall((CEX,CaX,[X|LA]),
+(Dest\==Act, Contador =< NivelLimite + 1,(ligacao1(Act,X,FAct,FX,_,_);ligacao1(X,Act,FX,FAct,_,_)),\+ member(X,LA),
+ no(X,_,_,_,Angustia1,_,Medo1,_,Dececao1,_,Remorsos1,_,Raiva1),no(X,_,_,_,Angustia2,_,Medo2,_,Dececao2,_,Remorsos2,_,Raiva2),
+\+((Angustia1>0.5;Medo1>0.5;Dececao1>0.5;Remorsos1>0.5;Raiva1>0.5);(Angustia2>0.5;Medo2>0.5;Dececao2>0.5;Remorsos2>0.5;Raiva2>0.5)),
+CaX is FAct + FX + Ca, estimativa([X|LA],ListaForcas,EstX),
+CEX is CaX + EstX),Novos),
+append(Outros,Novos,Todos),
+%write('Novos='),write(Novos),nl,
+sort(Todos,TodosOrd), reverse(TodosOrd, Final),
+%write('Final='),write(Final),nl,
+aStar2(Dest,Final,Cam,Custo,ListaForcas,NivelLimite,Op).
+
+aStar2(Dest,[(_,Ca,LA)|Outros],Cam,Custo,ListaForcas,NivelLimite,Op):-Op==2,
 LA=[Act|_],length([X|LA],Contador),
 findall((CEX,CaX,[X|LA]),
 (Dest\==Act, Contador =< NivelLimite + 1,(ligacao1(Act,X,FAct,FX,_,_);ligacao1(X,Act,FX,FAct,_,_)),\+ member(X,LA),
@@ -38,7 +52,7 @@ append(Outros,Novos,Todos),
 %write('Novos='),write(Novos),nl,
 sort(Todos,TodosOrd), reverse(TodosOrd, Final),
 %write('Final='),write(Final),nl,
-aStar2(Dest,Final,Cam,Custo,ListaForcas,NivelLimite).
+aStar2(Dest,Final,Cam,Custo,ListaForcas,NivelLimite,Op).
 
 
 % lista com todas as forças de ligaçao dos utilizadores na rede do utilizador inicial
@@ -49,8 +63,7 @@ lista_forcas([X|ListaUtilizadores],Lista, ListaForcas):-
 
 % acrescenta à Lista todas as somas das forças de ligacao de uma ligacao
 percorre_lista_ligacoes_forca(_,[],ListaAuxiliar,Lista):- Lista = ListaAuxiliar.
-percorre_lista_ligacoes_forca(X,[Y|ListaUtilizadores],ListaAuxiliar,Lista):-
-    ligacao1(X,Y,FX,FY,_,_), Soma is FX + FY, percorre_lista_ligacoes_forca(X,ListaUtilizadores,[Soma|ListaAuxiliar], Lista).
+percorre_lista_ligacoes_forca(X,[Y|ListaUtilizadores],ListaAuxiliar,Lista):-ligacao1(X,Y,FX,FY,_,_), Soma is FX + FY, percorre_lista_ligacoes_forca(X,ListaUtilizadores,[Soma|ListaAuxiliar], Lista).
 
 % ordena de forma decrescente uma lista
 ordem_decrescente([H|List], Result) :- ordem_decrescente(List, Temp), insert_item(H, Temp, Result).

@@ -32,4 +32,8 @@ export class VerAlgoritmosComponent implements OnInit {
   dfsLigRel(){
     this.router.navigateByUrl('/dfs_ligacao_relacao');
   }
+
+  dfsLigacao(){
+    this.router.navigateByUrl('/dfs_ligacao');
+  }
 }

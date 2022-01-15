@@ -39,8 +39,8 @@ export class BestfirstLigacaoService {
     return this.httpClient.get<Perfil>(this.url + 'jogadores/GetPerfilJogador/' + id);
   }
 
-  getResultadosAlgoritmo(orig: any, dest: any, nivel: any): Observable<string[]> {
-    const urlAux = this.urlProlog + '/api/BestFirstLigacao?orig=' + orig + '&dest=' + dest + '&nivelLimite=' + nivel;
+  getResultadosAlgoritmo(orig: any, dest: any, nivel: any, opcao: any): Observable<string[]> {
+    const urlAux = this.urlProlog + '/api/BestFirstLigacao?orig=' + orig + '&dest=' + dest + '&nivelLimite=' + nivel + '&opcao=' + opcao;
     return this.httpClient.get<string[]>(urlAux);
   }
 }

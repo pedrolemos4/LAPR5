@@ -28,6 +28,7 @@ export class RegistoComponent implements OnInit {
   fileBase64: string = '';
   arrayNomesEstados: string[] = ["Joyful", "Distressed", "Hopeful", "Fearful", "Relieved", "Disappointed", "Proud", "Remorseful", "Grateful", "Angry"];
   arrayFinalEstados: string[] = [];
+  dict = {};
 
   constructor(private formBuilder: FormBuilder, private router: Router, private toastr: ToastrService, private registoService: RegistoService) {
     this.registoForm = this.formBuilder.group({
@@ -50,16 +51,16 @@ export class RegistoComponent implements OnInit {
     });
 
     this.estadosForm = this.formBuilder.group({
-      joyful: '0.50',
-      distressed: '0.50',
-      hopeful: '0.50',
-      fearful: '0.50',
-      relieved: '0.50',
-      disappointed: '0.50',
-      proud: '0.50',
-      remorseful: '0.50',
-      grateful: '0.50',
-      angry: '0.50'
+      joyful: 0.50,
+      distressed: 0.50,
+      hopeful: 0.50,
+      fearful: 0.50,
+      relieved: 0.50,
+      disappointed: 0.50,
+      proud: 0.50,
+      remorseful: 0.50,
+      grateful: 0.50,
+      angry: 0.50
     });
   }
 
@@ -222,13 +223,8 @@ export class RegistoComponent implements OnInit {
         this.toastr.error("Password é obrigatória");
       }
 
-      var s, valor, stringFinal;
       this.arrayNomesEstados.forEach(element => {
-        s = this.estadosForm.controls[element.toLowerCase()].value.toString();
-        valor = s.replace(".", ",");
-        stringFinal = element.concat(" ").concat(valor);
-        console.log(stringFinal);
-        this.arrayFinalEstados.push(stringFinal);
+        this.dict[element] = this.estadosForm.controls[element.toLowerCase()].value;
       });
 
       this.registoService.registoPerfil({
@@ -240,7 +236,7 @@ export class RegistoComponent implements OnInit {
         pais: this.registoForm.controls['pais'].value,
         cidade: this.registoForm.controls['cidade'].value,
         dataNascimento: this.registoForm.controls['dataNascimento'].value,
-        estadoHumor: this.arrayFinalEstados,
+        estadoHumor: this.dict,
         tags: this.registoForm.controls['tags'].value,
         perfilFacebook: this.registoForm.controls['perfilFb'].value,
         perfilLinkedin: this.registoForm.controls['perfilL'].value,

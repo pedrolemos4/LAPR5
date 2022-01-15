@@ -1,4 +1,5 @@
 .card {
+    top: 70px;
     padding: 18px;
     text-align: center;
     width: 40%;
@@ -11,40 +12,40 @@
 
 .card-header{
     font-weight: bold;
-    padding-bottom: 0%;
+    margin-top: 0%;
 }
 
-.name{
-    margin-right: 60%;
+.h41 {
+    width: 50%;
+    font-size: medium;
+    height: 25px;
 }
 
-.email{
-    margin-top: -10%;
-    margin-left: 60%;
+.h42 {
+    text-align: center;
+    width: 50%;
+    height: 25px;
+    font-size: medium;
+    margin-left: auto;
+    margin-right: 0;
+    margin-top: -35px;
 }
 
-.telefone{
-    margin-top: 7%;
-    margin-right: 60%;
+.botao1 {
+    margin-top: -1%;
+    width: 50%;
+}
+
+.botao2 {
+    margin-left: auto;
+    margin-right: 0;
+    width: 50%;
+    text-align: center;
+    margin-top: -22.5px;
 }
 
 .dataNascimento{
     margin-top: -6%;
-    margin-left: 60%;
-}
-
-.estadoHumor{
-    margin-top: 7%;
-    margin-right: 60%;
-}
-
-.cidade{
-    margin-top: -23%;
-    margin-left: 60%;
-}
-
-.pais{
-    margin-top: 7%;
     margin-left: 60%;
 }
 
@@ -53,18 +54,8 @@
     margin-left: 60%;
 }
 
- .facebook{
-    margin-top: 8%;
-    margin-right: -60%;
-}
-
-.linkedin{
-    margin-top: -9%;
-    margin-right: 60%;
-} 
-
 .tags{
-    margin-top: 7%;
+    margin-top: -1%;
 }
 
 .circular_image {
@@ -89,6 +80,7 @@
     color: white;
     border: none;
     cursor: pointer;
+    width: 130px;
 }
 
 #confirmacao{

@@ -42,17 +42,45 @@ namespace DDDSample1.Infrastructure
             List<string> listaTags3 = new List<string>() { "Atletismo", "Lisboa" };
             List<string> listaTags4 = new List<string>() { "Musica", "Arte" };
             List<string> listaTags5 = new List<string>() { "Musica", "Valongo" };
-            List<string> listaEstados = new List<string>() { "Joyful 0,7", "Distressed 0,5", "Hopeful 0,5", "Fearful 0,5", "Relieved 0,5", "Disappointed 0,5", "Proud 0,5", "Remorseful 0,5",
-            "Grateful 0,5", "Angry 0,5" };
-            List<string> listaEstados2 = new List<string>() { "Joyful 0,5", "Distressed 0,5", "Hopeful 0,5", "Fearful 0,5", "Relieved 0,5", "Disappointed 0,5", "Proud 0,5", "Remorseful 0,5",
-            "Grateful 0,5", "Angry 0,8" };
-            List<string> listaEstados3 = new List<string>() { "Joyful 0,5", "Distressed 0,5", "Hopeful 0,7", "Fearful 0,5", "Relieved 0,5", "Disappointed 0,5", "Proud 0,5", "Remorseful 0,5",
-            "Grateful 0,5", "Angry 0,5" };
-            Perfil p1 = new Perfil("", "Carlos", "carlos@gmail.com", 351936825014, listaTags, "2000-05-20", listaEstados, "carlos_Sport7", "en-PT", "Porto", "perfilFB", "perfilLink");
-            Perfil p2 = new Perfil("", "Fiona", "fiona@gmail.com", 351936825014, listaTags2, "2003-10-07", listaEstados, "super+Fifi48", "en-US", "Lisboa", "perfilFB2", "perfilLink2");
-            Perfil p3 = new Perfil("", "Joaquim", "joaquim@gmail.com", 351936825014, listaTags3, "2004-11-08", listaEstados2, "joq_Joquim12", "en-PT", "Porto", "perfilFB3", "perfilLink3");
-            Perfil p4 = new Perfil("", "Rui", "rui@gmail.com", 351935682105, listaTags4, "2001-06-02", listaEstados2, "Qwerty123+", "en-PT", "Porto", "perfilFB4", "perfilLink4");
-            Perfil p5 = new Perfil("", "Joana", "joana@gmail.com", 351935644105, listaTags5, "2002-02-12", listaEstados3, "Qwerty122223+", "en-PT", "Lisboa", "perfilFB5", "perfilLink5");
+
+            Dictionary<string, decimal> mapa = new Dictionary<string, decimal>();
+            mapa.Add("Joyful", 0.7m);
+            mapa.Add("Distressed", 0.5m);
+            mapa.Add("Hopeful", 0.5m);
+            mapa.Add("Fearful", 0.7m);
+            mapa.Add("Relieved", 0.5m);
+            mapa.Add("Disappointed", 0.7m);
+            mapa.Add("Proud", 0.7m);
+            mapa.Add("Remorseful", 0.7m);
+            mapa.Add("Grateful", 0.6m);
+            mapa.Add("Angry", 0.7m);
+            Dictionary<string, decimal> mapa1 = new Dictionary<string, decimal>();
+            mapa1.Add("Joyful", 0.5m);
+            mapa1.Add("Distressed", 0.5m);
+            mapa1.Add("Hopeful", 0.5m);
+            mapa1.Add("Fearful", 0.5m);
+            mapa1.Add("Relieved", 0.5m);
+            mapa1.Add("Disappointed", 0.5m);
+            mapa1.Add("Proud", 0.5m);
+            mapa1.Add("Remorseful", 0.5m);
+            mapa1.Add("Grateful", 0.5m);
+            mapa1.Add("Angry", 0.8m);
+            Dictionary<string, decimal> mapa2 = new Dictionary<string, decimal>();
+            mapa2.Add("Joyful", 0.5m);
+            mapa2.Add("Distressed", 0.5m);
+            mapa2.Add("Hopeful", 0.5m);
+            mapa2.Add("Fearful", 0.5m);
+            mapa2.Add("Relieved", 0.5m);
+            mapa2.Add("Disappointed", 0.5m);
+            mapa2.Add("Proud", 0.5m);
+            mapa2.Add("Remorseful", 0.5m);
+            mapa2.Add("Grateful", 0.5m);
+            mapa2.Add("Angry", 0.5m);
+            Perfil p1 = new Perfil("", "Carlos", "carlos@gmail.com", 351936825014, listaTags, "2000-05-20", mapa, "carlos_Sport7", "en-PT", "Porto", "perfilFB", "perfilLink");
+            Perfil p2 = new Perfil("", "Fiona", "fiona@gmail.com", 351936825014, listaTags2, "2003-10-07", mapa1, "super+Fifi48", "en-US", "Lisboa", "perfilFB2", "perfilLink2");
+            Perfil p3 = new Perfil("", "Joaquim", "joaquim@gmail.com", 351936825014, listaTags3, "2004-11-08", mapa2, "joq_Joquim12", "en-PT", "Porto", "perfilFB3", "perfilLink3");
+            Perfil p4 = new Perfil("", "Rui", "rui@gmail.com", 351935682105, listaTags4, "2001-06-02", mapa2, "Qwerty123+", "en-PT", "Porto", "perfilFB4", "perfilLink4");
+            Perfil p5 = new Perfil("", "Joana", "joana@gmail.com", 351935644105, listaTags5, "2002-02-12", mapa, "Qwerty122223+", "en-PT", "Lisboa", "perfilFB5", "perfilLink5");
 
             context.Perfis.Add(p1);
             context.Perfis.Add(p2);
