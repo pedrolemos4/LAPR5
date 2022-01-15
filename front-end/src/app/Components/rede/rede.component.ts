@@ -367,7 +367,7 @@ export class RedeComponent implements OnInit {
     this.renderer.setClearColor(0x000000);
 
     this.renderer.setViewport(0, 0, WIDTH, HEIGHT);
-    if (this.selectedCamera == "fixed"  || this.selectedCamera == null) {
+    if (this.selectedCamera == "fixed" || this.selectedCamera == null) {
       this.renderer.render(this.scene, this.camera);
       this.labelRenderer.render(this.scene, this.camera);
 
@@ -635,32 +635,117 @@ export class RedeComponent implements OnInit {
   }
 
   async onKeyPressed(event: KeyboardEvent) {
-    // if(this.selectedCamera==)
     let key = event.key;
-
+    const direction = new THREE.Vector3(0, 0, 0);
+    this.cameraPrimeiraPessoa.getWorldDirection(direction);
+    console.log(direction);
+    console.log("Position: " + this.cameraPrimeiraPessoa.position.z);
     if (key == 'w') {
-      this.cameraPrimeiraPessoa.translateZ(-1);
-      this.windowResize();
+      if (this.cameraPrimeiraPessoa.position.z <= 0 && (direction.z < 0.0 || (direction.z > 0.0 && direction.z < 0.4))) {//this.cameraPrimeiraPessoa.position.z - 1 > 0) {
+        console.log("W 1 IF");
+        this.cameraPrimeiraPessoa.position.z -= 1;
+        console.log("X: " + this.cameraPrimeiraPessoa.position.x);
+        console.log("Y: " + this.cameraPrimeiraPessoa.position.y);
+        console.log("Z: " + this.cameraPrimeiraPessoa.position.z);
+        this.windowResize();
+      } else if (direction.z > 0.0) {
+        console.log("W 2 IF");
+        this.cameraPrimeiraPessoa.position.z += 1;
+        console.log("X: " + this.cameraPrimeiraPessoa.position.x);
+        console.log("Y: " + this.cameraPrimeiraPessoa.position.y);
+        console.log("Z: " + this.cameraPrimeiraPessoa.position.z);
+        this.windowResize();
+      } else
+        if (this.cameraPrimeiraPessoa.position.z <= 0 && this.cameraPrimeiraPessoa.position.z + 1 < 0) {
+          console.log("W 3 IF");
+          this.cameraPrimeiraPessoa.position.z += 1;
+          console.log("X: " + this.cameraPrimeiraPessoa.position.x);
+          console.log("Y: " + this.cameraPrimeiraPessoa.position.y);
+          console.log("Z: " + this.cameraPrimeiraPessoa.position.z);
+          this.windowResize();
+        } else if (this.cameraPrimeiraPessoa.position.z - 1 < 0 && this.cameraPrimeiraPessoa.position.z != 0) {
+          console.log("W 4 IF");
+          this.cameraPrimeiraPessoa.position.z += 1;
+          console.log("X: " + this.cameraPrimeiraPessoa.position.x);
+          console.log("Y: " + this.cameraPrimeiraPessoa.position.y);
+          console.log("Z: " + this.cameraPrimeiraPessoa.position.z);
+          this.windowResize();
+        } else {
+          console.log("W 5 IF");
+          this.cameraPrimeiraPessoa.position.z -= 1;
+          console.log("X: " + this.cameraPrimeiraPessoa.position.x);
+          console.log("Y: " + this.cameraPrimeiraPessoa.position.y);
+          console.log("Z: " + this.cameraPrimeiraPessoa.position.z);
+          this.windowResize();
+        }
     }
     if (key == 'a') {
-      this.cameraPrimeiraPessoa.translateX(-1);
-      this.windowResize();
+      if (this.cameraPrimeiraPessoa.position.z == 0) {
+        this.cameraPrimeiraPessoa.rotateX(-1);
+        console.log("X: " + this.cameraPrimeiraPessoa.position.x);
+        console.log("Y: " + this.cameraPrimeiraPessoa.position.y);
+        console.log("Z: " + this.cameraPrimeiraPessoa.position.z);
+        this.windowResize();
+      }
     }
     if (key == 's') {
-      this.cameraPrimeiraPessoa.translateZ(1);
-      this.windowResize();
+      if (this.cameraPrimeiraPessoa.position.z < 0) {
+        console.log("S 1 if")
+        this.cameraPrimeiraPessoa.position.z += 1;
+        console.log("X: " + this.cameraPrimeiraPessoa.position.x);
+        console.log("Y: " + this.cameraPrimeiraPessoa.position.y);
+        console.log("Z: " + this.cameraPrimeiraPessoa.position.z);
+        this.windowResize();
+      } else if (this.cameraPrimeiraPessoa.position.x == 0 && this.cameraPrimeiraPessoa.position.z > 0 && direction.z < 0.0) {
+        console.log("S 2 if");
+        this.cameraPrimeiraPessoa.position.z += 1;
+        console.log("X: " + this.cameraPrimeiraPessoa.position.x);
+        console.log("Y: " + this.cameraPrimeiraPessoa.position.y);
+        console.log("Z: " + this.cameraPrimeiraPessoa.position.z);
+        this.windowResize();
+      } else if (this.cameraPrimeiraPessoa.position.x == 0 && this.cameraPrimeiraPessoa.position.z > 0 && direction.z > 0.0) {
+        console.log("S 3 IF");
+        this.cameraPrimeiraPessoa.position.z -= 1;
+        console.log("X: " + this.cameraPrimeiraPessoa.position.x);
+        console.log("Y: " + this.cameraPrimeiraPessoa.position.y);
+        console.log("Z: " + this.cameraPrimeiraPessoa.position.z);
+        
+      } else if (this.cameraPrimeiraPessoa.position.y == 0 && this.cameraPrimeiraPessoa.position.z > 0) {
+        console.log("S 4 if")
+        this.cameraPrimeiraPessoa.position.z += 1;
+        console.log("X: " + this.cameraPrimeiraPessoa.position.x);
+        console.log("Y: " + this.cameraPrimeiraPessoa.position.y);
+        console.log("Z: " + this.cameraPrimeiraPessoa.position.z);
+        this.windowResize();
+      }
+
     }
     if (key == 'd') {
-      this.cameraPrimeiraPessoa.translateX(1);
-      this.windowResize();
+      if (this.cameraPrimeiraPessoa.position.z == 0) {
+        this.cameraPrimeiraPessoa.rotateX(1);
+        console.log("X: " + this.cameraPrimeiraPessoa.position.x);
+        console.log("Y: " + this.cameraPrimeiraPessoa.position.y);
+        console.log("Z: " + this.cameraPrimeiraPessoa.position.z);
+        this.windowResize();
+      }
     }
     if (key == 'p') {
-      this.cameraPrimeiraPessoa.translateY(1);
-      this.windowResize();
+      if (this.cameraPrimeiraPessoa.position.z == 0) {
+        this.cameraPrimeiraPessoa.rotateY(1);
+        console.log("X: " + this.cameraPrimeiraPessoa.position.x);
+        console.log("Y: " + this.cameraPrimeiraPessoa.position.y);
+        console.log("Z: " + this.cameraPrimeiraPessoa.position.z);
+        this.windowResize();
+      }
     }
     if (key == 'l') {
-      this.cameraPrimeiraPessoa.translateY(-1);
-      this.windowResize();
+      if (this.cameraPrimeiraPessoa.position.z == 0) {
+        this.cameraPrimeiraPessoa.rotateY(-1);
+        console.log("X: " + this.cameraPrimeiraPessoa.position.x);
+        console.log("Y: " + this.cameraPrimeiraPessoa.position.y);
+        console.log("Z: " + this.cameraPrimeiraPessoa.position.z);
+        this.windowResize();
+      }
     }
   }
 
@@ -702,7 +787,7 @@ export class RedeComponent implements OnInit {
             console.log(Perfil);
             this.playerTip.textContent = "Nome: " + Perfil.nome + ". Tags: " + Perfil.tags;
           } else {
-            this.playerTip.textContent = "Nome: " + Perfil.nome + ". Tags: " + Perfil.tags +  " Não tem avatar.";
+            this.playerTip.textContent = "Nome: " + Perfil.nome + ". Tags: " + Perfil.tags + " Não tem avatar.";
           }
 
         });
