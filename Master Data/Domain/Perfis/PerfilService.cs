@@ -95,15 +95,39 @@ namespace DDDSample1.Domain.Perfis
             return ls;
         }
 
-        public static List<string> converteEstadoParaListaString(List<EstadoHumor> lista)
+        public static Dictionary<string,decimal> converteParaDictionary(List<string> lista)
+        {
+            List<EstadoHumor> ls = new List<EstadoHumor>();
+            Dictionary<string,decimal> mapa = new Dictionary<string, decimal>();
+            foreach (string estado in lista) {
+                string[] array = estado.Split(" ");
+                ls.Add(new EstadoHumor(array[0], decimal.Parse(array[1])));
+                mapa.Add(array[0], decimal.Parse(array[1]));
+            }
+            return mapa;
+        }
+
+        public static List<string> converteParaLista(List<EstadoHumor> lista)
         {
             List<string> ls = new List<string>();
-            foreach (EstadoHumor estado in lista)
-            {
+            Dictionary<string,decimal> mapa = new Dictionary<string, decimal>();
+            foreach (EstadoHumor estado in lista) {
                 string e = String.Concat(estado.Estado, " " + estado.Valor);
                 ls.Add(e);
             }
             return ls;
+        }
+
+        public static Dictionary<string,decimal> converteEstadoParaListaString(List<EstadoHumor> lista)
+        {
+            Dictionary<string,decimal> mapa = new Dictionary<string, decimal>();
+            foreach (EstadoHumor estado in lista)
+            {
+                mapa.Add(estado.Estado,estado.Valor);
+                // string e = String.Concat(estado.Estado, " " + estado.Valor);
+                // ls.Add(e);
+            }
+            return mapa;
         }
 
         public async Task<PerfilDto> getPerfilByNome(string nome)
@@ -163,8 +187,12 @@ namespace DDDSample1.Domain.Perfis
                 return null;
 
             // change all field
-            per.Changenome(dto.Nome.ToString());
-            per.Changeemail(dto.Email.ToString());
+            if(!dto.Nome.Equals(per.nome.Name)){
+                per.Changenome(dto.Nome);
+            }
+            if(!dto.Pais.Equals(per.pais.Country)){
+                per.Changenome(dto.Pais);
+            }
 
             await this._unitOfWork.CommitAsync();
 

@@ -3,33 +3,43 @@
 <div class="card">
     <h4 class="card-header">Perfil</h4>
     <div class="card-body">
-        <div class="name">
-            <p><span>Nome: </span><br><b>{{nome}}</b></p>
+        <h4 class="h41">Nome:</h4>
+        <h4 class="h42">Email:</h4>
+        <div class ="botao1">
+            <b>{{nome}}</b>
         </div>
-        <div class="email">
-            <p><span>Email: </span><br><b>{{emailUser}}</b></p>
+        <div class="botao2">
+            <b>{{emailUser}}</b>
         </div>
-        <div class="telefone">
-            <p><span>Telefone: </span><br><b>{{telefone}}</b></p>
+        <h4 class="h41">Telefone:</h4>
+        <h4 class="h42">Cidade:</h4>
+        <div class ="botao1">
+            <b>{{telefone}}</b>
+        </div>
+        <div class="botao2">
+            <b>{{cidade}}</b>
         </div>
         <!-- <div class="dataNascimento">
             <p><span>Data Nascimento: </span><br><b>{{dataNascimento}}</b></p>
         </div> -->
-        <div class="estadoHumor">
-            <p><span>Estado de humor: </span><br><b>{{estadoHumor}}</b></p>
+        <h4 class="h41">País:</h4>
+        <div class="botao1">
+            <b>{{pais}}</b>
         </div>
-        <div class="cidade">
-            <p><span>Cidade: </span><br><b>{{cidade}}</b></p>
+        <h4 class="h41">Estado de Humor:</h4>
+        
+        <div class ="botao1">
+            <div class="estados" *ngFor="let e of estadoHumor">
+                <b>{{e}}</b>
+            </div>
         </div>
-
-        <div class="pais">
-            <p><span>Pais: </span><br><b>{{pais}}</b></p>
+        <h4 class="h41">Facebook:</h4>
+        <h4 class="h42">Linkedin:</h4>
+        <div class ="botao1">
+            <b>{{facebook}}</b>
         </div>
-        <div class="facebook">
-            <p><span>Nome de utilizador no Facebook: </span><br><b>{{facebook}}</b></p>
-        </div>
-        <div class="linkedin">
-            <p><span>Nome de utilizador no Linkedin: </span><br><b>{{linkedin}}</b></p>
+        <div class="botao2">
+            <b>{{linkedin}}</b>
         </div>
         <div class="tags">
             <p> <span> Tags: </span> <br> <b> {{tags}} </b> </p>

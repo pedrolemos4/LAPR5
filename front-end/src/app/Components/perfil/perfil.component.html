@@ -1,35 +1,16 @@
 <app-header></app-header>
 <app-navbar></app-navbar>
-    <div id="texto">
-        <!-- <h2>Bem-vindo {{username}} à sua página de perfil.</h2> -->
-        <div class="card" style="width: 18rem; margin: auto;">
-            <div class="card-body">
-                <br>
-                <br>
-            </div>
-        </div>
-    </div>
    <div class="card1">
         <h4 class="card-header">Editar Perfil</h4>
         <div class="card-body">
-            <form [formGroup]="editarPerfilForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="editarPerfilForm">
                 <div class = "form-group">
                     <div class="row">
                         <div class="col-25">
                             <label for="nome">Nome</label>
                         </div>
                         <div class="col-75">
-                            <input id="nome" type="nome" placeholder="Insira o nome" formControlName="nome" class="form-control" />
-                        </div>
-                    </div>
-                </div>
-                <div class = "form-group">
-                    <div class="row">
-                        <div class="col-25">
-                            <label for="email">Email</label>
-                        </div>
-                        <div class="col-75">
-                            <input id="email" type="email" placeholder="Insira o email" formControlName="email" class="form-control" />
+                            <input id="nome" type="text" placeholder="Insira o nome" formControlName="nome" class="form-control" />
                         </div>
                     </div>
                 </div>
@@ -39,7 +20,7 @@
                             <label for="pais">País</label>
                         </div>
                         <div class="col-75">
-                            <input id="pais" type="pais" placeholder="Insira o país" formControlName="pais" class="form-control" />
+                            <input id="pais" type="text" placeholder="Insira o país" formControlName="pais" class="form-control" />
                         </div>
                     </div>
                 </div>
@@ -49,24 +30,114 @@
                             <label for="estadodehumor">Estado de Humor</label>
                         </div>
                         <div class="col-75">
-                            <input id="estado" type="estadodehumor" placeholder="Insira o estado de humor" formControlName="estadodehumor" class="form-control" />
+                            <button class="botaoInicial" (click)="escolherEstados()">Determinação dos Estados de Humor</button>    
                         </div>
                     </div>
                 </div>
                 <div class = "form-group">
                     <div class="row">
                         <div class="col-25">
-                            <label for="estadodehumor">Tags</label>
+                            <label for="tags">Tags</label>
                         </div>
                         <div class="col-75">
-                            <input id="estado" type="estadodehumor" placeholder="Insira as tags entre vírgulas" formControlName="tags" class="form-control" />
+                            <input id="tags" type="text" placeholder="Insira as tags entre vírgulas" formControlName="tags" class="form-control" />
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" id="submit" class="btn-primary">Editar</button>
+                    <button type="submit" id="submit" class="btn-primary" (click)="onSubmit()">Editar</button>
                 </div>
             </form>
         </div>
     </div>
 <!-- <button class="btn btn-danger" (click)="deleteUser()" style="float: right;"> Apagar Utilizador </button>-->
+
+<div class="card3" id="estados">
+    <h4 class="card-header1">Determinação dos Estados de Humor</h4>
+    <div class="card-body">
+        <form [formGroup]="estadosForm">
+            <div class="form-group">
+                <div class="estadoClass">
+                    <label for="colFormLabel" class="labelEstado">Alegria</label>
+                    <input type="range" class="form-range" min="0.00" max="1.00" step="0.01" value="0.50"
+                        formControlName="joyful" oninput="alegria.innerText = this.value">
+                    <b>Valor: <span id="alegria"></span></b>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="estadoClass">
+                    <label for="colFormLabel" class="labelEstado">Angústia</label>
+                    <input type="range" class="form-range" min="0.00" max="1.00" step="0.01" value="0.50"
+                        formControlName="distressed" oninput="angustia.innerText = this.value">
+                    <b>Valor: <span id="angustia"></span></b>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="estadoClass">
+                    <label for="colFormLabel" class="labelEstado">Esperança</label>
+                    <input type="range" class="form-range" min="0.00" max="1.00" step="0.01" value="0.50"
+                        formControlName="hopeful" oninput="hopeful.innerText = this.value">
+                    <b>Valor: <span id="hopeful"></span></b>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="estadoClass">
+                    <label for="colFormLabel" class="labelEstado">Medo</label>
+                    <input type="range" class="form-range" min="0.00" max="1.00" step="0.01" value="0.50"
+                        formControlName="fearful" oninput="fearful.innerText = this.value">
+                    <b>Valor: <span id="fearful"></span></b>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="estadoClass">
+                    <label for="colFormLabel" class="labelEstado">Alívio</label>
+                    <input type="range" class="form-range" min="0.00" max="1.00" step="0.01" value="0.50"
+                        formControlName="relieved" oninput="relieved.innerText = this.value">
+                    <b>Valor: <span id="relieved"></span></b>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="estadoClass">
+                    <label for="colFormLabel" class="labelEstado">Deceção</label>
+                    <input type="range" class="form-range" min="0.00" max="1.00" step="0.01" value="0.50"
+                        formControlName="disappointed" oninput="disappointed.innerText = this.value">
+                    <b>Valor: <span id="disappointed"></span></b>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="estadoClass">
+                    <label for="colFormLabel" class="labelEstado">Orgulho</label>
+                    <input type="range" class="form-range" min="0.00" max="1.00" step="0.01" value="0.50"
+                        formControlName="proud" oninput="proud.innerText = this.value">
+                    <b>Valor: <span id="proud"></span></b>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="estadoClass">
+                    <label for="colFormLabel" class="labelEstado">Remorsos</label>
+                    <input type="range" class="form-range" min="0.00" max="1.00" step="0.01" value="0.50"
+                        formControlName="remorseful" oninput="remorseful.innerText = this.value">
+                    <b>Valor: <span id="remorseful"></span></b>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="estadoClass">
+                    <label for="colFormLabel" class="labelEstado">Gratidão</label>
+                    <input type="range" class="form-range" min="0.00" max="1.00" step="0.01" value="0.50"
+                        formControlName="grateful" oninput="grateful.innerText = this.value">
+                    <b>Valor: <span id="grateful"></span></b>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="estadoClass">
+                    <label for="colFormLabel" class="labelEstado">Raiva</label>
+                    <input type="range" class="form-range" min="0.00" max="1.00" step="0.01" value="0.50"
+                        formControlName="angry" oninput="angry.innerText = this.value">
+                    <b>Valor: <span id="angry"></span></b>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+    <button type="button" class="estadosButton" (click)="onVoltarEstados()">Voltar</button>
+</div>    

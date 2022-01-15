@@ -1,29 +1,12 @@
-#texto {
-    margin-top: 5px;
-    margin-left: 17%;
-    padding: 1px 16px;
-    height: 665px;
-    width: 89%;
-    display: inline-block;
-    vertical-align: top;
-    position: absolute;
-}
-
-#texto h2{
-    color: black;
-    font-weight: bold;
-}
-
 /* Add padding to containers */
-
 .card1 {
     padding: 17px;
     text-align: center;
-    width: 35%;
+    width: 40%;
     background-color: #f2f2f2e7;
     border-radius: 5px;
     justify-content: center;
-    margin-left: 40%;
+    margin-left: 38%;
     margin-top: 2%;
     position: fixed;
 }
@@ -41,40 +24,36 @@ label {
 .col-25 {
     float: left;
     width: 25%;
-    margin-top: 6px;
+}
+
+.row {
+  margin-bottom: 1%;
 }
 
 .col-75 {
-    float: left;
-    width: 75%;
-    margin-top: 6px;
+  float: left;
+  width: 75%;
 }
 
 .row:after {
-    content: "";
-    display: table;
-    clear: both;
+  content: "";
+  display: table;
+  clear: both;
 }
 
-input[type=nome],
-input[type=email],
-input[type=pais],
-input[type=estadodehumor] {
-    width: 90%;
-    padding: 15px;
-    margin: 5px 0 22px;
-    border: none;
-    float: right;
-    background: #ffffff;
+input[type=text] {
+  margin-top: 2%;
+  width: 90%;
+  padding: 5px;
+  border: none;
+  float: right;
+  background: #ffffff;
 }
 
-input[type=nome]:focus,
-input[type=email]:focus,
-input[type=pais]:focus {
-    background-color: #ffffff;
-    outline: none;
+input[type=text]:focus {
+  background-color: #ffffff;
+  outline: none;
 }
-
 
 /* Set a style for the submit/register button */
 
@@ -96,4 +75,69 @@ input[type=pais]:focus {
 .card-header {
     font-weight: bold;
     padding-bottom: 7%;
+}
+
+.card3 {
+    padding: 17px;
+    text-align: center;
+    width: 50%;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    justify-content: center;
+    margin-left: 33%;
+    position: fixed;
+  }
+
+  .estadoClass {
+    margin-bottom: 1%;
+  }
+
+  .estadoClass b {
+    margin-left: 2%;
+  }
+
+  .labelEstado {
+    width: 30%;
+    margin-right: 20%;
+    position: relative;
+  }
+
+  input[type=range] {
+    -webkit-appearance: none;
+    width: 25%;
+    margin-left: -5%;
+  }
+  input[type=range]:focus {
+    outline: none;
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    background: #03a9f4;
+    border-radius: 25px;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 4px 0 rgba(0,0,0, 1);
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -8px;
+  }
+  input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #03a9f4;
+  }
+
+.card-header1 {
+    height: 40px;
+    text-align: center;
+    margin-bottom: 0%;
+    font-weight: bold;
+}
+
+.botaoInicial {
+  margin-top: 2%;
 }
