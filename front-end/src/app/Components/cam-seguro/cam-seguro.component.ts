@@ -44,20 +44,28 @@ export class CamSeguroComponent implements OnInit {
     this.camSeguroService.getPerfilByEmail(this.emailUser).subscribe(Perfil => {
       this.perfilUser = Perfil;
       this.idPerfilUser = Perfil.id;
-      this.camSeguroService.getJogadorByPerfil(this.idPerfilUser).subscribe(Response => {
-        this.currentUser = Response;
+      this.camSeguroService.getJogadorByPerfil(this.idPerfilUser).subscribe(Jogador => {
+        this.currentUser = Jogador;
         this.idCurrentUser = this.currentUser.id;
-        this.camSeguroService.getAmigosPossiveis(this.idCurrentUser).subscribe(Response => {
-          this.playersList = Response;
-          this.playersList.forEach((element: any) => {
-            this.perfilList.push(element.perfilId);
-          })
-          this.perfilList.forEach((id: any) => {
-            this.camSeguroService.getPerfilById(id).subscribe(Perfil => {
-              this.emailList.push(Perfil.email);
-            })
+        this.camSeguroService.getPerfis().subscribe(Perfis => {
+          Perfis.forEach(element => {
+            if (element.email != this.emailUser) {
+              this.emailList.push(element.email);
+            }
           });
         });
+        // this.camForteService.getAmigos(this.idCurrentUser).subscribe(Amigos => {
+        //   this.amigos = Amigos;
+        //   this.amigos.forEach((element: any) => {
+        //     this.amigosIdList.push(element.id);
+        //   });
+        //   this.amigosIdList.forEach((element: any) => {
+        //     this.camForteService.getPerfilJogador(element).subscribe(Perfil => {
+        //       this.amigosPerfilList.push(Perfil.id);
+        //       this.emailAmigos.push(Perfil.email);
+        //     });
+        //   });
+        // });
       });
     });
   }
