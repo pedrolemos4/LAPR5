@@ -51,6 +51,7 @@ import { BestfirstLigacaoComponent } from './Components/bestfirst-ligacao/bestfi
 import { DfsLigacaoRelacaoComponent } from './Components/dfs-ligacao-relacao/dfs-ligacao-relacao.component';
 import { VerAmigosGruposComponent } from './Components/ver-amigos-grupos/ver-amigos-grupos.component';
 import { SugerirGruposComponent } from './Components/sugerir-grupos/sugerir-grupos.component';
+import { DfsLigacaoComponent } from './Components/dfs-ligacao/dfs-ligacao.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { SugerirGruposComponent } from './Components/sugerir-grupos/sugerir-grup
     BestfirstLigacaoComponent,
     DfsLigacaoRelacaoComponent,
     VerAmigosGruposComponent,
-    SugerirGruposComponent
+    SugerirGruposComponent,
+    DfsLigacaoComponent
   ],
   imports: [
     BrowserModule,
