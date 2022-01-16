@@ -13,18 +13,18 @@ verificar_utilizadores([Tags,Utilizadores|ListaCheckTags],NUtilizadores,GrupoMai
    (verificar_utilizadores(ListaCheckTags,NUtilizadores,GrupoMaior,Maximo)).
 
 contaUtilizadores1(Utilizadores,NUtilizadores,N,0):-contaUtilizadores(Utilizadores,NUtilizadores,N,0),!.
-contaUtilizadores([],N,Final,C):- (C>N, true, Final is C, !) ; (false, !).
+contaUtilizadores([],N,Final,C):- (C>N, true, Final is C, !) ; (fail, !).
 contaUtilizadores([_|Lista],N,ContadorFinal,Contador):- Contador1 is Contador + 1, contaUtilizadores(Lista,N,ContadorFinal,Contador1).
 
-verificar_utilizadores1([]):-false,!.
+verificar_utilizadores1([]):-fail,!.
 verificar_utilizadores1(_):-!.
 
 verificar_tags_obrigatorias([],ListaFinal,Lista,_,_):- ListaFinal is Lista,!.
-verificar_tags_obrigatorias([Tags,Utilizadores|Lista],[Tag|TagsObrigatorias],ListaPreencher,ListaFinal,Aux):-
-    (compara_tags(Tags,Tag),verificar_tags_obrigatorias([Tags,Utilizadores|Lista],TagsObrigatorias,ListaPreencher,ListaFinal,Aux));
-    (verificar_tags_obrigatorias(Lista,Aux,ListaPreencher,ListaFinal,Aux)).
+verificar_tags_obrigatorias([Tags,Utilizadores|Lista],ListaFinal,ListaPreencher,[Tag|TagsObrigatorias],Aux):-
+    (compara_tags(Tags,Tag),verificar_tags_obrigatorias([Tags,Utilizadores|Lista],ListaFinal,ListaPreencher,TagsObrigatorias,Aux));
+    (verificar_tags_obrigatorias(Lista,ListaFinal,ListaPreencher,Aux,Aux)).
 
-compara_tags([],_):-false,!.
+compara_tags([],_):-fail,!.
 compara_tags([Tag|_],Tag):- true,!.
 compara_tags([_|Tags],T):-compara_tags(Tags,T).
 
