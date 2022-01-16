@@ -30,9 +30,9 @@ compara_tags(ListaTagsCheckTags,[Tag|TagsObrigatorias]):-
 	(compara_tags1(ListaTagsCheckTags,Tag),compara_tags(ListaTagsCheckTags,TagsObrigatorias));fail,!.
 
 %2 parametro tags obrigatorias
-compara_tags([],_):-fail,!.
-compara_tags([Tag|_],Tag):- true,!.
-compara_tags([_|Tags],T):-compara_tags(Tags,T).
+compara_tags1([],_):-fail,!.
+compara_tags1([Tag|_],Tag):- true,!.
+compara_tags1([_|Tags],T):-compara_tags(Tags,T).
 
 
 
