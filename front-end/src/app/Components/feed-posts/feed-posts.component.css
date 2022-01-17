@@ -135,3 +135,37 @@
     border-style: solid;
 }
 
+.fa {
+    font-size: 25px;
+    cursor: pointer;
+    user-select: none;
+    color: black;
+    margin-bottom: 10px;
+ }
+.fa-thumbs-o-up:hover {
+    color: blue;
+}
+.fa-thumbs-o-down:hover {
+   color: red;
+}
+
+.fa:hover {
+   transform: scale(1.2);
+}
+
+.like-outer {
+    text-align: left;
+}
+
+.like-outer i {
+    margin-left: 30px;
+}
+.like-outer span {
+    margin-left: 2px;
+    margin-right: -5px;
+    color: black;
+    border: none;
+    cursor: pointer;
+    padding: 3px 12px 3px 12px;
+    text-decoration: none;
+}

@@ -34,12 +34,24 @@ export class Post extends AggregateRoot<PostProps>{
         return this.props.listaComentarios;
     }
 
+    set listaComentarios(value: string[]){
+        this.props.listaComentarios = value;
+    }
+
     get likes():List<string>{
         return this.props.likes;
     }
 
+    set likes(value: List<string>){
+        this.props.likes = value;
+    }
+
     get dislikes():List<string>{
         return this.props.dislikes;
+    }
+
+    set dislikes(value: List<string>){
+        this.props.dislikes = value;
     }
     
     set description(value: string) {

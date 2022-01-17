@@ -54,15 +54,30 @@ export default class PostService implements IPostService {
         }
     }
 
-    public async updatePost(postDTO: IPostDTO): Promise<Result<IPostDTO>> {
+    public async updateLikePost(postDTO: IPostDTO): Promise<Result<IPostDTO>> {
         try {
             const post = await this.postRepo.findById(postDTO.id);
-
             if (post === null) {
                 return Result.fail<IPostDTO>("Post not found");
             } else {
-                post.description = postDTO.description;
-                await this.postRepo.save(post);
+                await this.postRepo.updateLikePost(post.id, postDTO.likes);
+
+                const postDTOResult = PostMap.toDTO(post) as IPostDTO;
+
+                return Result.ok<IPostDTO>(postDTOResult)
+            }
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    public async updateDislikePost(postDTO: IPostDTO): Promise<Result<IPostDTO>> {
+        try {
+            const post = await this.postRepo.findById(postDTO.id);
+            if (post === null) {
+                return Result.fail<IPostDTO>("Post not found");
+            } else {
+                await this.postRepo.updateDislikePost(post.id, postDTO.dislikes);
 
                 const postDTOResult = PostMap.toDTO(post) as IPostDTO;
 

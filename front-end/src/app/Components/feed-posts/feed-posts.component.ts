@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Perfil } from 'src/app/Models/Perfil';
+import { Post } from 'src/app/Models/Post';
 import { FeedPostsService } from 'src/app/Services/FeedPosts/feed-posts.service';
 
 @Component({
@@ -20,6 +21,7 @@ export class FeedPostsComponent implements OnInit {
   final1: string = '';
   array: string[] = [];
   cards: any[] = [];
+  emailUser: any = '';
 
 
   constructor(private feedPostsService: FeedPostsService, private toastr: ToastrService) { }
@@ -29,8 +31,7 @@ export class FeedPostsComponent implements OnInit {
     this.cards = [];
     //console.log(this.selected);
 
-    this.final1 = this.selected.replace(" ", "");
-    this.array = this.final1.split(",");
+    this.array = this.selected.split(" ");
 
     //console.log(this.array[1]);
     this.feedPostsService.getPosts(this.array[1]).subscribe(
@@ -58,13 +59,15 @@ export class FeedPostsComponent implements OnInit {
     this.feedPostsService.getAllPerfis().subscribe(
       (res2: any) =>
         res2.forEach((element: any) => {
+          if (element.nome.length == 0) {
+            element.nome = '-';
+          }
           this.listaPerfis.push(element);
         })
     );
   }
 
   verLikes(listaLikes: any[]) {
-    //console.log(listaLikes);
     this.lLikes = [];
     if (listaLikes.length != 0) {
       const targetDiv = document.getElementById("likes");
@@ -86,6 +89,29 @@ export class FeedPostsComponent implements OnInit {
     targetDiv.style.display = "none";
   }
 
+  darLike(post: Post, id: any) {
+    const currentUser = localStorage.getItem('currentUser');
+    this.emailUser = currentUser?.replace(/\"/g, "");
+    const t = document.getElementById(id);
+    
+    if (t.style.color == "black") {
+      t.style.color = 'blue';
+      post.likes.push(this.emailUser);
+    } else if (post.likes.includes(this.emailUser)) {
+      post.likes.splice(post.likes.indexOf(this.emailUser), 1);
+      t.style.color = 'black';
+    }
+    this.feedPostsService.updateLikePost(post).subscribe({
+      next: () => {
+        this.toastr.success("Likes atualizados!", undefined, { positionClass: 'toast-bottom-left' });
+      },
+      error: () => {
+        this.toastr.error("Erro: Serviço Não Disponível.", undefined, { positionClass: 'toast-bottom-left' });
+      }
+    });
+
+  }
+
   verDislikes(listaDislikes: any[]) {
     //console.log(listaDislikes);
     this.lDislikes = [];
@@ -104,11 +130,32 @@ export class FeedPostsComponent implements OnInit {
     }
   }
 
+  darDislike(post: any, id: any) {
+    const currentUser = localStorage.getItem('currentUser');
+    this.emailUser = currentUser?.replace(/\"/g, "");
+    const t = document.getElementById(id);
+    if (t.style.color == "black") {
+      t.style.color = 'red';
+      post.dislikes.push(this.emailUser);
+    } else if (post.dislikes.includes(this.emailUser)) {
+      post.dislikes.splice(post.dislikes.indexOf(this.emailUser), 1);
+      t.style.color = 'black';
+    }
+    console.log(post);
+    this.feedPostsService.updateDislikePost(post).subscribe({
+      next: () => {
+        this.toastr.success("Dislikes atualizados!", undefined, { positionClass: 'toast-bottom-left' });
+      },
+      error: () => {
+        this.toastr.error("Erro: Serviço Não Disponível.", undefined, { positionClass: 'toast-bottom-left' });
+      }
+    });
+  }
+
   onDislikesVoltar() {
     const targetDiv = document.getElementById("dislikes");
     targetDiv.style.display = "none";
   }
-
 
   verListaComentarios(listaComentarios: any[]) {
     //console.log(listaComentarios);
@@ -123,7 +170,6 @@ export class FeedPostsComponent implements OnInit {
       listaComentarios.forEach(element => {
         this.feedPostsService.getComentarioById(element).subscribe(
           (res: any) => {
-            //console.log(res);
             this.lComentarios.push(res);
           }
         )

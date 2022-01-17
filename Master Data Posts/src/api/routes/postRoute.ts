@@ -6,7 +6,6 @@ import { Container } from 'typedi';
 import IPostController from "../../controllers/IControllers/IPostController";
 
 import config from "../../../config";
-import { join } from "path/posix";
 
 const route = Router();
 
@@ -37,17 +36,31 @@ export default (app: Router) => {
         }),
         (req, res, next) => ctrl.createPost(req, res, next));
 
-    route.put('',
+    route.put('/updateLikes',
         celebrate({
             body: Joi.object({
                 id: Joi.string().required(),
                 description: Joi.string().required(),
                 email: Joi.string().required(),
+                listaComentarios: Joi.array().items(Joi.string()),
                 likes: Joi.array().items(Joi.string()),
                 dislikes: Joi.array().items(Joi.string())
-            }),
+            })
         }),
-        (req, res, next) => ctrl.updatePost(req, res, next));
+        (req, res, next) => ctrl.updateLikePost(req, res, next));
+
+    route.put('/updateDislikes',
+        celebrate({
+            body: Joi.object({
+                id: Joi.string().required(),
+                description: Joi.string().required(),
+                email: Joi.string().required(),
+                listaComentarios: Joi.array().items(Joi.string()),
+                likes: Joi.array().items(Joi.string()),
+                dislikes: Joi.array().items(Joi.string())
+            })
+        }),
+        (req, res, next) => ctrl.updateDislikePost(req, res, next));
 
     route.delete('/delete', (req, res, next) => ctrl.delete(req, res, next));
 };

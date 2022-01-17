@@ -34,7 +34,6 @@ export default class PostController implements IPostController {
 
     public async getPostsByEmail(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) {
         try {
-            console.log(req.query.param);
             var x = req.query.param;
             const postOrError = await this.postServiceInstance.getPostsByEmail(req.query.param);
 
@@ -64,9 +63,24 @@ export default class PostController implements IPostController {
         }
     };
 
-    public async updatePost(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) {
+    public async updateLikePost(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) {
         try {
-            const postOrError = await this.postServiceInstance.updatePost(req.body as IPostDTO) as Result<IPostDTO>;
+            const postOrError = await this.postServiceInstance.updateLikePost(req.body as IPostDTO) as Result<IPostDTO>;
+
+            if (postOrError.isFailure) {
+                return res.status(404).send();
+            }
+
+            const postDTO = postOrError.getValue();
+            return res.status(201).json(postDTO);
+        } catch (e) {
+            return next(e);
+        }
+    };
+
+    public async updateDislikePost(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) {
+        try {
+            const postOrError = await this.postServiceInstance.updateDislikePost(req.body as IPostDTO) as Result<IPostDTO>;
 
             if (postOrError.isFailure) {
                 return res.status(404).send();

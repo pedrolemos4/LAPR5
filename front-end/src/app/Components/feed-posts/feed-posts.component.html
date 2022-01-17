@@ -1,5 +1,7 @@
 <app-header></app-header>
 <app-navbar></app-navbar>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  type="text/css">
 
 <div class="card2">
   <div class="container">
@@ -10,16 +12,22 @@
         <select id="selector" (change)="selectChangeHandler($event)">
           <option selected disabled="disabled">Escolha o utilizador...</option>
           <option *ngFor="let perfil of listaPerfis">
-            {{perfil.nome}}, {{perfil.email}} </option>
+            {{perfil.nome}} {{perfil.email}} </option>
         </select>
       </div>
     </div>
     <h3 class="card-lista">Lista de posts do utilizador:<b>{{selected}}</b></h3>
     <div class="row">
-      <div class="lcards" *ngFor="let card of cards">
+      <div class="lcards" *ngFor="let card of cards; let i = index">
         <h4 class="card-desc"> Descrição: <b>{{card.description}}</b></h4>
-        <h4 class="card-nLikes"> Número de Likes: <b>{{card.likes.length}}</b><button (click)="verLikes(card.likes)">Ver Likes</button> Número de Dislikes: <b>{{card.dislikes.length}}</b><button (click)="verDislikes(card.dislikes)">Ver Dislikes</button></h4>
-        <h4 class="card-desc"> Número de Comentarios: <b>{{card.listaComentarios.length}}</b><button (click)="verListaComentarios(card.listaComentarios)">Ver Lista de Comentários</button></h4>
+        <div class="like-outer">
+          <i [attr.id]="i" style="color: black;" class="fa fa-thumbs-o-up" (click)="darLike(card,i)"></i>
+          <span class="like-no" (click)="verLikes(card.likes)">{{card.likes.length}}</span>
+          <i [attr.id]="card.id"  style="color: black;" class="fa fa-thumbs-o-down" (click)="darDislike(card, card.id)"></i>
+          <span class="like-no" (click)="verDislikes(card.dislikes)">{{card.dislikes.length}}</span>
+          <i class="fa fa-comments-o"></i>
+          <span class="like-no" (click)="verListaComentarios(card.listaComentarios)">{{card.listaComentarios.length}}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -45,7 +53,8 @@
     <div class="lcards" *ngFor="let c of lComentarios">
       <h4 class="card-desc"> Autor do Comentário: <b>{{c.autor}}</b></h4>
       <h4 class="card-desc"> Comentário: <b>{{c.texto}}</b></h4>
-      <h4 class="card-comentario"><button (click)="verLikes(c.likes)">Ver Likes</button> <button (click)="verDislikes(c.dislikes)">Ver Dislikes</button></h4>
+      <h4 class="card-comentario"><button (click)="verLikes(c.likes)">Ver Likes</button> <button
+          (click)="verDislikes(c.dislikes)">Ver Dislikes</button></h4>
     </div>
   </div>
   <button type="button" class="btn-link2" (click)="onListaComentariosVoltar()">Voltar</button>

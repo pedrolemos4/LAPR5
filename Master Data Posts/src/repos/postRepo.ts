@@ -9,6 +9,8 @@ import { Document, FilterQuery, Model } from 'mongoose';
 import { IPostPersistence } from "../dataschema/IPostPersistence";
 import { Result } from "../core/logic/Result";
 import IPostDTO from "../dto/IPostDTO";
+import { List } from "lodash";
+import { UniqueEntityID } from "../core/domain/UniqueEntityID";
 
 @Service()
 export default class PostRepo implements IPostRepo {
@@ -127,6 +129,26 @@ export default class PostRepo implements IPostRepo {
     public async atualizaComentarios(idPost: any, list: any) {
 
         var document = await this.postSchema.updateOne({ _id: idPost }, { $set: { listaComentarios: list } });
+        
+        if (document != null) {
+            return Result.ok(document);
+        } else {
+            return Result.fail<IPostDTO>("Error!");;
+        }
+    }
+
+    public async updateLikePost(id: UniqueEntityID, list: List<string>) {
+        var document = await this.postSchema.updateOne({ _id: id }, { $set: { likes: list } });
+        
+        if (document != null) {
+            return Result.ok(document);
+        } else {
+            return Result.fail<IPostDTO>("Error!");;
+        }
+    }
+
+    public async updateDislikePost(id: UniqueEntityID, list: List<string>) {
+        var document = await this.postSchema.updateOne({ _id: id }, { $set: { dislikes: list } });
         
         if (document != null) {
             return Result.ok(document);

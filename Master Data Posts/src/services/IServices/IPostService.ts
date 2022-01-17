@@ -7,6 +7,7 @@ export default interface IPostService {
     delete(id: any);
     getPostsByEmail(key: any);
     createPost(postDTO: IPostDTO): Promise<Result<IPostDTO>>;
-    updatePost(postDTO: IPostDTO): Promise<Result<IPostDTO>>;
+    updateLikePost(postDTO: IPostDTO): Promise<Result<IPostDTO>>;
+    updateDislikePost(postDTO: IPostDTO): Promise<Result<IPostDTO>>;
     getPosts(): Promise<Result<IPostDTO[]>>;
 }
