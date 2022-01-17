@@ -15,13 +15,11 @@ export class FazerPostService {
 
   publicarPost(post: Post): Observable<Post>{
     let bodystr = JSON.stringify(post);
-    console.log(bodystr);
     const httpOptions = {
       headers : new HttpHeaders({
         'Content-Type': 'application/json',
       })
     };
-    console.log(bodystr);
     return this.http.post<Post>(this.fazerPostUrl + 'posts', post);
   }
 }

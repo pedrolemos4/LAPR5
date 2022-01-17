@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Comentario } from 'src/app/Models/Comentario';
@@ -18,17 +18,19 @@ export class ComentarPostService {
     return this.http.get<Post[]>(this.comentarPostUrl + 'posts');
   }
 
-  adicionarComentario(comentario: Comentario): Observable<Comentario>{
+  adicionarComentario(comentario: any): Observable<Comentario>{
     let bodystr = JSON.stringify(comentario);
     const httpOptions = {
       headers : new HttpHeaders({
         'Content-Type': 'application/json',
       })
     };
-    return this.http.post<Comentario>(this.comentarPostUrl + 'comentarios', comentario);
+    console.log(comentario);  
+    return this.http.post<Comentario>(this.comentarPostUrl + 'comentarios/', comentario);
   }
 
   getComentarioById(id: string): Observable<Comentario> {
-    return this.http.get<Comentario>(this.comentarPostUrl + 'comentarios/' + id);
+    const params = new HttpParams().append('id',id);
+    return this.http.get<Comentario>(this.comentarPostUrl + 'comentarios/getById', {params});
   }
 }

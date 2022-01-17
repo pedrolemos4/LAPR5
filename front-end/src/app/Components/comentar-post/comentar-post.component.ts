@@ -37,6 +37,7 @@ export class ComentarPostComponent implements OnInit {
         if(!post.email.match(this.emailCurrentUser)){
           this.listaPosts.push(post);
           post.listaComentarios.forEach(comentario => {
+            console.log(comentario);
             this.comentarPostService.getComentarioById(comentario).subscribe(com => {
               this.listaComentarios.push(com);
             })
@@ -53,14 +54,13 @@ export class ComentarPostComponent implements OnInit {
     this.tags = this.tag.toString().split(",");
     if(this.tags.length > 0 || this.tags.includes('')) {
       this.comentarPostService.adicionarComentario({
-        id:'', 
         autor: this.emailCurrentUser,
         texto: this.comentarioForm.controls['comentario'].value,
         tags: this.tags,
         post: post.id,
         likes: [],
         dislikes: []
-      } as Comentario).subscribe({
+      }).subscribe({
         next: () =>{
           this.toastr.success("Comentário adicionado com sucesso!", undefined,{positionClass: 'toast-bottom-left'});
           this.router.navigateByUrl('/home');

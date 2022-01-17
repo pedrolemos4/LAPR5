@@ -12,14 +12,14 @@
                 <div class = "form-group">
                     <p style="font-weight: bold;">Comentários:</p>
                     <div *ngFor="let com of listaComentarios">
-                        <div *ngIf="com.props.post == post.id">
-                            <div *ngIf="com.props.autor == emailCurrentUser">
-                                Você comentou: {{com.props.texto}}
+                        <div *ngIf="com.post == post.id">
+                            <div *ngIf="com.autor == emailCurrentUser">
+                                Você comentou: {{com.texto}}
                             </div>
-                            <div *ngIf="!(com.props.autor == emailCurrentUser)">
-                                {{com.props.autor}} comentou: {{com.props.texto}}
+                            <div *ngIf="!(com.autor == emailCurrentUser)">
+                                {{com.autor}} comentou: {{com.texto}}
                             </div>
-                            Tags: {{com.props.tags}}
+                            Tags: {{com.tags}}
                         </div>
                     </div>
                     <br>
