@@ -133,7 +133,7 @@ export class RedeComponent implements OnInit {
     var estado = '';
     let maior = 0.0;
     let estadoHumorDiv = document.createElement('div');
-    for(let key in estadoHumor){
+    for (let key in estadoHumor) {
       if (estadoHumor[key] > maior) {
         maior = estadoHumor[key];
         estado = key;
@@ -144,103 +144,59 @@ export class RedeComponent implements OnInit {
       case 'Joyful': {
         estadoHumorDiv.className = 'label';
         estadoHumorDiv.textContent = '☀️';
-        estadoHumorDiv.style.marginLeft = '+3px';
-        estadoHumorDiv.style.marginRight = '+3px';
-        estadoHumorDiv.style.marginTop = '+25px';
-        estadoHumorDiv.style.backgroundColor = 'none';
-        estadoHumorDiv.style.fontSize = '35px';
         break;
       }
       case 'Distressed': {
         estadoHumorDiv.className = 'label';
         estadoHumorDiv.textContent = '⛈️';
-        estadoHumorDiv.style.marginLeft = '+3px';
-        estadoHumorDiv.style.marginRight = '+3px';
-        estadoHumorDiv.style.marginTop = '+25px';
-        estadoHumorDiv.style.backgroundColor = 'none';
-        estadoHumorDiv.style.fontSize = '35px';
         break;
       }
       case 'Hopeful': {
         estadoHumorDiv.className = 'label';
         estadoHumorDiv.textContent = '🤞';
-        estadoHumorDiv.style.marginLeft = '+3px';
-        estadoHumorDiv.style.marginRight = '+3px';
-        estadoHumorDiv.style.marginTop = '+25px';
-        estadoHumorDiv.style.backgroundColor = 'none';
-        estadoHumorDiv.style.fontSize = '35px';
         break;
       }
       case 'Fearful': {
         estadoHumorDiv.className = 'label';
         estadoHumorDiv.textContent = '😱';
-        estadoHumorDiv.style.marginLeft = '+3px';
-        estadoHumorDiv.style.marginRight = '+3px';
-        estadoHumorDiv.style.marginTop = '+25px';
-        estadoHumorDiv.style.backgroundColor = 'none';
-        estadoHumorDiv.style.fontSize = '35px';
         break;
       }
       case 'Relieved': {
         estadoHumorDiv.className = 'label';
         estadoHumorDiv.textContent = '😌';
-        estadoHumorDiv.style.marginLeft = '+3px';
-        estadoHumorDiv.style.marginRight = '+3px';
-        estadoHumorDiv.style.marginTop = '+25px';
-        estadoHumorDiv.style.backgroundColor = 'none';
-        estadoHumorDiv.style.fontSize = '35px';
         break;
       }
       case 'Disappointed': {
         estadoHumorDiv.className = 'label';
         estadoHumorDiv.textContent = '😞';
-        estadoHumorDiv.style.marginLeft = '+3px';
-        estadoHumorDiv.style.marginRight = '+3px';
-        estadoHumorDiv.style.marginTop = '+25px';
-        estadoHumorDiv.style.backgroundColor = 'none';
-        estadoHumorDiv.style.fontSize = '35px';
         break;
       }
       case 'Proud': {
         estadoHumorDiv.className = 'label';
         estadoHumorDiv.textContent = '😊';
-        estadoHumorDiv.style.marginLeft = '+3px';
-        estadoHumorDiv.style.marginRight = '+3px';
-        estadoHumorDiv.style.marginTop = '+25px';
-        estadoHumorDiv.style.backgroundColor = 'none';
-        estadoHumorDiv.style.fontSize = '35px';
         break;
       }
       case 'Remorseful': {
         estadoHumorDiv.className = 'label';
         estadoHumorDiv.textContent = '😔';
-        estadoHumorDiv.style.marginLeft = '+3px';
-        estadoHumorDiv.style.marginRight = '+3px';
-        estadoHumorDiv.style.marginTop = '+25px';
-        estadoHumorDiv.style.backgroundColor = 'none';
-        estadoHumorDiv.style.fontSize = '35px';
         break;
       }
       case 'Grateful': {
         estadoHumorDiv.className = 'label';
         estadoHumorDiv.textContent = '😄';
-        estadoHumorDiv.style.marginLeft = '+3px';
-        estadoHumorDiv.style.marginRight = '+3px';
-        estadoHumorDiv.style.marginTop = '+25px';
-        estadoHumorDiv.style.backgroundColor = 'none';
-        estadoHumorDiv.style.fontSize = '35px';
         break;
       }
       case 'Angry': {
         estadoHumorDiv.className = 'label';
         estadoHumorDiv.textContent = '😡';
-        estadoHumorDiv.style.marginLeft = '+3px';
-        estadoHumorDiv.style.marginRight = '+3px';
-        estadoHumorDiv.style.marginTop = '+25px';
-        estadoHumorDiv.style.backgroundColor = 'none';
-        estadoHumorDiv.style.fontSize = '35px';
       }
     }
+
+    estadoHumorDiv.style.marginLeft = '+3px';
+    estadoHumorDiv.style.marginRight = '+3px';
+    estadoHumorDiv.style.marginTop = '+30px';
+    estadoHumorDiv.style.backgroundColor = 'none';
+    estadoHumorDiv.style.fontSize = '35px';
 
     let playerLabel = new CSS2DObject(playerDiv);
     let estadoLabel = new CSS2DObject(estadoHumorDiv);
@@ -464,7 +420,8 @@ export class RedeComponent implements OnInit {
     this.playerTip.style.backgroundColor = "invisble";
     this.playerTip.style.borderRadius = '12.5px';
     this.playerTip.style.fontSize = '12px';
-    this.playerTip.style.marginTop = '20px';
+    this.playerTip.style.marginTop = '-20px';
+    this.playerTip.style.color = 'white';
 
 
 
@@ -707,7 +664,7 @@ export class RedeComponent implements OnInit {
         console.log("X: " + this.cameraPrimeiraPessoa.position.x);
         console.log("Y: " + this.cameraPrimeiraPessoa.position.y);
         console.log("Z: " + this.cameraPrimeiraPessoa.position.z);
-        
+
       } else if (this.cameraPrimeiraPessoa.position.y == 0 && this.cameraPrimeiraPessoa.position.z > 0) {
         console.log("S 4 if")
         this.cameraPrimeiraPessoa.position.z += 1;
@@ -785,7 +742,7 @@ export class RedeComponent implements OnInit {
             console.log(Perfil);
             this.playerTip.textContent = "Nome: " + Perfil.nome + ". Tags: " + Perfil.tags;
           } else {
-            this.playerTip.textContent = "Nome: " + Perfil.nome + ". Tags: " + Perfil.tags + " Não tem avatar.";
+            this.playerTip.textContent = "Nome: " + Perfil.nome + ". Tags: " + Perfil.tags + ". Não tem avatar.";
           }
 
         });

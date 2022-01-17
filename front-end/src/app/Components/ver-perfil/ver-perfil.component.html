@@ -22,12 +22,12 @@
         <!-- <div class="dataNascimento">
             <p><span>Data Nascimento: </span><br><b>{{dataNascimento}}</b></p>
         </div> -->
-        <h4 class="h41">País:</h4>
-        <div class="botao1">
-            <b>{{pais}}</b>
-        </div>
         <h4 class="h41">Estado de Humor:</h4>
-        
+        <h4 class="h42">País:
+            <div class="botao3">
+                <b>{{pais}}</b>
+            </div>
+        </h4>
         <div class ="botao1">
             <div class="estados" *ngFor="let e of estadoHumor">
                 <b>{{e}}</b>
@@ -47,7 +47,9 @@
         <div class="circular_image" id="circular_image">
             <img id="imagem" [src]="imagePreview">
         </div>
-        <button id="remover_botton" (click)="removerConta()"> Remover Conta </button>
+        <div class="remover">
+        <button (click)="removerConta()"> Remover Conta </button>
+    </div>
         <div id="confirmacao">
             <p><b style="margin-left: -20%; font: bold;">Pretende mesmo apagar a sua conta?</b></p>
             <button id="sim" (click)="sim()" style="margin-left: -20%;"> Sim </button>
