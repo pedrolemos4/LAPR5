@@ -44,6 +44,14 @@
     margin-top: -22.5px;
 }
 
+.botao3 {
+    margin-left: auto;
+    margin-right: 0;
+    width: 100%;
+    margin-top: 7px;
+    text-align: center;
+}
+
 .dataNascimento{
     margin-top: -6%;
     margin-left: 60%;
@@ -74,9 +82,14 @@
    width:100%;
 }  
 
-#remover_botton {
-    margin-left: 80%;
-    background-color: red;
+
+.remover{
+    background-color: yellowgreen;
+}
+
+.remover button{
+    margin-left: 70%;
+    background-color: rgb(255, 0, 0);
     color: white;
     border: none;
     cursor: pointer;
