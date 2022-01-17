@@ -46,7 +46,11 @@ export class VerPerfilComponent implements OnInit {
     console.log(currentUser);
     this.emailUser = currentUser?.replace(/\"/g, "");
     this.perfilService.getPerfilAtual(this.emailUser).subscribe(Perfil => {
-      this.nome = Perfil.nome;
+      if(Perfil.nome.length != 0){
+        this.nome = Perfil.nome;
+      } else{
+        this.nome = ' - ';
+      }
 
       if (Perfil.avatar.length != 0) {
         const imageBlob = this.dataURItoBlob(Perfil.avatar);
@@ -60,13 +64,29 @@ export class VerPerfilComponent implements OnInit {
         document.getElementById("circular_image").style.display = 'none';
       }
       this.telefone = Perfil.telefone;
-      this.cidade = Perfil.cidade;
+      if(Perfil.cidade.length != 0){
+        this.cidade = Perfil.cidade;
+      } else{
+        this.cidade = ' - ';
+      }
       for (var key in Perfil.estadoHumor) {
         this.estadoHumor.push(key.concat(" → ").concat(Perfil.estadoHumor[key]));
       }
-      this.pais = Perfil.pais;
-      this.facebook = Perfil.perfilFacebook;
-      this.linkedin = Perfil.perfilLinkedin;
+      if(Perfil.pais.length != 0){
+        this.pais = Perfil.pais;
+      } else{
+        this.pais = ' - ';
+      }
+      if(Perfil.perfilFacebook.length != 0){
+        this.facebook = Perfil.perfilFacebook;
+      } else{
+        this.facebook = ' - ';
+      }
+      if(Perfil.perfilLinkedin.length != 0){
+        this.linkedin = Perfil.perfilLinkedin;
+      } else{
+        this.linkedin = ' - ';
+      }
       this.tags = Perfil.tags;
       error: () => {
         this.toastr.error("Email ou Password incorretos.", undefined, { positionClass: 'toast-bottom-left' });
