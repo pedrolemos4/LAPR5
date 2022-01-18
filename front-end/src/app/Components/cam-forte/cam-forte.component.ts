@@ -4,6 +4,7 @@ import { Perfil } from 'src/app/Models/Perfil';
 import { Jogador } from 'src/app/Models/Jogador';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cam-forte',
@@ -27,12 +28,13 @@ export class CamForteComponent implements OnInit {
 
 
 
-  constructor(private formBuilder: FormBuilder, private camForteService: CamForteService, private toastr: ToastrService) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private camForteService: CamForteService, private toastr: ToastrService) {
     this.form = this.formBuilder.group({});
   }
 
   ngOnInit(): void {
-    document.getElementById("mensagem").style.display="none";
+    document.getElementById("mensagem").style.display = "none";
+    document.getElementById("mensagem1").style.display = "none";
     //document.getElementById("mensagem1").style.display="none";
     const currentUser = localStorage.getItem('currentUser');
     this.emailCurrentUser = currentUser?.replace(/\"/g, "");
@@ -67,25 +69,29 @@ export class CamForteComponent implements OnInit {
 
   selectAmigo(event: any) {
     this.selectedAmigo = event.target.value;
-    document.getElementById("mensagem").style.display="block";
+    document.getElementById("mensagem").style.display = "block";
   }
 
   onSubmit() {
     //this.camForteService.getPerfilAtual(this.selectedAmigo).subscribe(Perfil => {
-    //document.getElementById("mensagem1").style.display="block";
+    document.getElementById("mensagem1").style.display = "block";
     this.camForteService.getCaminhoForte(this.emailCurrentUser, this.selectedAmigo).subscribe(Cam => {
       console.log(Cam);
       var aux = Object.values(Cam);
       var valores = aux[0];
       console.log(aux);
       if (valores.length == 0) {
-        this.toastr.error("Não é possível calcular caminho. Selecione outro utilizador",undefined,{positionClass: 'toast-bottom-left'});
+        this.toastr.error("Não é possível calcular caminho. Selecione outro utilizador", undefined, { positionClass: 'toast-bottom-left' });
       } else {
         this.caminho = valores;
-        this.toastr.success("Caminho mais forte calculado",undefined,{positionClass: 'toast-bottom-left'});
+        this.toastr.success("Caminho mais forte calculado", undefined, { positionClass: 'toast-bottom-left' });
       }
     });
     //});
+  }
+
+  return() {
+    this.router.navigateByUrl("/ver_caminhos");
   }
 
 }

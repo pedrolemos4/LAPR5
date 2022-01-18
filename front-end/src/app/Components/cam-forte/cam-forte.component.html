@@ -2,16 +2,17 @@
 <app-navbar></app-navbar>
 <div id="texto">
     <div id="container">
-        <h2>Calcular caminho mais forte</h2>
+        <i id="return" type="submit" (click)="return()" class="fa fa-arrow-left"> Voltar </i>
+        <h2 style = "text-align: center; font-weight: bold;">Calcular caminho mais forte</h2>
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="form-group">
-                <div class = "row">
-                    <div class ="col-25">
-                        <label for="amigos">Amigos:</label>
-                    </div>
-                    <div class ="col-75">
-                        <select id="amigos" class="selector" style="margin: 20px;" (change) ="selectAmigo($event)">
-                            <option selected disabled="disabled">Selecione um amigo</option>
+                <div class="row">
+                    <!-- <div class="col-25">
+                        <label for="amigos">Jogadores:</label>
+                    </div> -->
+                    <div class="col-75">
+                        <select id="amigos" class="selector" style="margin: 20px; margin-left: 47%;" (change)="selectAmigo($event)">
+                            <option selected disabled="disabled">Selecione um jogador</option>
                             <option *ngFor="let eachVal of emailAmigos" [ngValue]="eachVal">
                                 {{eachVal}}
                             </option>
@@ -19,9 +20,10 @@
                     </div>
                 </div>
             </div>
-            <p id = "mensagem"><span>Selecionou: </span><b>{{selectedAmigo}}</b></p>
-            <button id="submit" type="submit" class="submit"> Calcular Caminho</button>
-            <p id = "mensagem1"><span>Caminho mais forte: </span><b>{{caminho}}</b></p>
+            <p id="mensagem"><span>Selecionou: </span><b>{{selectedAmigo}}</b></p>
+            <i id="Calcular" style="margin-left: 37%;" type="submit" (click)="onSubmit()" class="fa fa-calculator"> Calcular caminho </i>
+            <!-- <button id="submit" type="submit" style="margin-left: 38%;" class="submit"> Calcular Caminho </button> -->
+            <p id="mensagem1"><span>Caminho mais forte: </span><b>{{caminho}}</b></p>
         </form>
     </div>
 </div>

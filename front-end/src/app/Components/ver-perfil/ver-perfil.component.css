@@ -1,4 +1,6 @@
 .card {
+    border-color: #76b5c5;
+    border-style: solid;
     top: 70px;
     padding: 18px;
     text-align: center;

@@ -26,11 +26,13 @@ export class CamCurtoComponent implements OnInit {
   caminho: string;
 
 
-  constructor(private formBuilder: FormBuilder, private camCurtoService: CamCurtoService, private toastr: ToastrService) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private camCurtoService: CamCurtoService, private toastr: ToastrService) {
     this.caminhoMaisCurtoForm = this.formBuilder.group({});
   }
 
   ngOnInit(): void {
+    document.getElementById("mensagem").style.display = "none";
+    document.getElementById("mensagem1").style.display = "none";
     const currentUser = localStorage.getItem('currentUser');
     this.emailCurrentUser = currentUser?.replace(/\"/g, "");
     this.camCurtoService.getPerfilAtual(this.emailCurrentUser).subscribe(Perfil => {
@@ -42,7 +44,7 @@ export class CamCurtoComponent implements OnInit {
 
         this.camCurtoService.getPerfis().subscribe(Perfis => {
           Perfis.forEach(element => {
-            if(element.email != this.emailCurrentUser){
+            if (element.email != this.emailCurrentUser) {
               this.emailAmigos.push(element.email)
             }
           });
@@ -65,9 +67,11 @@ export class CamCurtoComponent implements OnInit {
 
   selectAmigo(event: any) {
     this.selectedAmigo = event.target.value;
+    document.getElementById("mensagem").style.display = "block";
   }
 
   onSubmit() {
+    document.getElementById("mensagem1").style.display = "block";
     this.camCurtoService.getCaminhoCurto(this.emailCurrentUser, this.selectedAmigo).subscribe(Cam => {
       console.log(Cam);
       var aux = Object.values(Cam);
@@ -81,4 +85,9 @@ export class CamCurtoComponent implements OnInit {
       }
     });
   }
+
+  return() {
+    this.router.navigateByUrl("/ver_caminhos");
+  }
+
 }
