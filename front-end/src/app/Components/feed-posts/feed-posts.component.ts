@@ -25,6 +25,7 @@ export class FeedPostsComponent implements OnInit {
   emailUser: any = '';
   tag: string = '';
   tags: string[] = [];
+  post: any = '';
   comentarioForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private feedPostsService: FeedPostsService, private toastr: ToastrService) {
@@ -246,8 +247,8 @@ export class FeedPostsComponent implements OnInit {
     targetDiv.style.display = "none";
   }
 
-  adicionarComentario(i: number) {
-    console.log(i);
+  adicionarComentario(post:Post) {
+    this.post = post;
     if (this.div == false) {
       this.div = true;
     } else {
