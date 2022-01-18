@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 })
 export class FeedPostsService {
 
-  private readonly perfilUrl = environment.apiUrl + 'Perfis';
+  private readonly perfilUrl = environment.apiUrl + 'Perfis/';
   private readonly postUrl = environment.masterDataPostsUrl + 'posts';
   private readonly comentarPostUrl = environment.masterDataPostsUrl + 'comentarios';
   private readonly urlProlog = environment.prologUrl;
@@ -61,6 +61,20 @@ export class FeedPostsService {
   updateEstadosJogador(email: string, nLikes: any, nDislikes: any) {
     const urlAux = this.urlProlog + '/api/CalculoNovosEstadosLikesDislikes?utilizador=' + email + '&nLikes=' + nLikes + '&nDislikes=' + nDislikes;
     return this.http.get<string[]>(urlAux);
+  }
+
+  getPerfilByEmail(email: string) {
+    return this.http.get<Perfil>(this.perfilUrl + 'GetPerfilByEmail/' + email);
+  }
+
+  updateEstadoPerfil(id: any, perfil: any): Observable<Perfil> {
+    let bodystr = JSON.stringify(perfil);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+    return this.http.patch<Perfil>(this.perfilUrl + id, bodystr, httpOptions);
   }
 
 }

@@ -112,14 +112,7 @@ export class FeedPostsComponent implements OnInit {
       }
       this.feedPostsService.updateLikePost(post).subscribe({
         next: () => {
-          // this.feedPostsService.updateEstadosJogador(post.email,post.likes.length,post.dislikes.length).subscribe({
-          //   next: () => {
-          //     this.toastr.success("Estado Alegria e Angustia do utilizador " + post.email + " atualizados!", undefined, { positionClass: 'toast-bottom-left' });
-          //   },
-          //   error: () => {
-          //     this.toastr.error("Erro: Serviço Não Disponível.", undefined, { positionClass: 'toast-bottom-left' });
-          //   }
-          // });
+          this.updateEstados(post.email,post.likes.length,post.dislikes.length);
           this.toastr.success("Likes atualizados!", undefined, { positionClass: 'toast-bottom-left' });
         },
         error: () => {
@@ -146,14 +139,7 @@ export class FeedPostsComponent implements OnInit {
       }
       this.feedPostsService.updateLikeComentario(comentario).subscribe({
         next: () => {
-          // this.feedPostsService.updateEstadosJogador(comentario.email,comentario.likes.length,comentario.dislikes.length).subscribe({
-          //   next: () => {
-          //     this.toastr.success("Estado Alegria e Angustia do utilizador " + comentario.email + " atualizados!", undefined, { positionClass: 'toast-bottom-left' });
-          //   },
-          //   error: () => {
-          //     this.toastr.error("Erro: Serviço Não Disponível.", undefined, { positionClass: 'toast-bottom-left' });
-          //   }
-          // });
+          this.updateEstados(comentario.autor,comentario.likes.length,comentario.dislikes.length);
           this.toastr.success("Likes atualizados!", undefined, { positionClass: 'toast-bottom-left' });
         },
         error: () => {
@@ -196,14 +182,7 @@ export class FeedPostsComponent implements OnInit {
       }
       this.feedPostsService.updateDislikePost(post).subscribe({
         next: () => {
-          // this.feedPostsService.updateEstadosJogador(post.email,post.likes.length,post.dislikes.length).subscribe({
-          //   next: () => {
-          //     this.toastr.success("Estado Alegria e Angustia do utilizador " + post.email + " atualizados!", undefined, { positionClass: 'toast-bottom-left' });
-          //   },
-          //   error: () => {
-          //     this.toastr.error("Erro: Serviço Não Disponível.", undefined, { positionClass: 'toast-bottom-left' });
-          //   }
-          // });
+          this.updateEstados(post.email,post.likes.length,post.dislikes.length);
           this.toastr.success("Dislikes atualizados!", undefined, { positionClass: 'toast-bottom-left' });
         },
         error: () => {
@@ -229,14 +208,7 @@ export class FeedPostsComponent implements OnInit {
       }
       this.feedPostsService.updateDislikeComentario(comentario).subscribe({
         next: () => {
-          // this.feedPostsService.updateEstadosJogador(comentario.email,comentario.likes.length,comentario.dislikes.length).subscribe({
-          //   next: () => {
-          //     this.toastr.success("Estado Alegria e Angustia do utilizador " + comentario.email + " atualizados!", undefined, { positionClass: 'toast-bottom-left' });
-          //   },
-          //   error: () => {
-          //     this.toastr.error("Erro: Serviço Não Disponível.", undefined, { positionClass: 'toast-bottom-left' });
-          //   }
-          // });
+          this.updateEstados(comentario.autor,comentario.likes.length,comentario.dislikes.length);
           this.toastr.success("Dislikes atualizados!", undefined, { positionClass: 'toast-bottom-left' });
         },
         error: () => {
@@ -312,6 +284,31 @@ export class FeedPostsComponent implements OnInit {
     } else {
       this.toastr.error("Precisa de colocar tags!", undefined, { positionClass: 'toast-bottom-left' });
     }
+  }
+
+  updateEstados(email: any, nLikes: any, nDislikes: any){
+    this.feedPostsService.updateEstadosJogador(email,nLikes,nDislikes).subscribe({
+      next: (res: any) => {
+        var array: number[] = Object.values(res);
+        console.log(Object.values(res));
+        this.feedPostsService.getPerfilByEmail(email).subscribe(
+          (res1: any) => {
+            var anteriorAlegria = res1.estadoHumor['Joyful'];
+            var anteriorAngustia = res1.estadoHumor['Distressed'];
+            res1.estadoHumor['Joyful'] = array[0].toFixed(2);
+            res1.estadoHumor['Distressed'] = array[1].toFixed(2);
+            this.feedPostsService.updateEstadoPerfil(res1.id, res1).subscribe(
+              () => {
+                this.toastr.success("Alegria: " + anteriorAlegria + " → " + array[0].toFixed(2) + " e Angustia: " + anteriorAngustia + " → " + array[1].toFixed(2) + " do utilizador " + email + " atualizados!", undefined, { positionClass: 'toast-bottom-left' });
+              }
+            )
+          }
+        );
+      },
+      error: () => {
+        this.toastr.error("Erro: Serviço Não Disponível.", undefined, { positionClass: 'toast-bottom-left' });
+      }
+    });
   }
 
 }
