@@ -9,14 +9,8 @@ export class PerfilPage {
     getNomeTextbox() {
         return element(by.id('nome'));
     }
-    getEmailTextbox() {
-        return element(by.id('email'));
-    }
     getPaisTextbox() {
         return element(by.id('pais'));
-    }
-    getEstadoTextbox() {
-        return element(by.id('estado'));
     }
     getButton(){
         return element(by.id('submit'));

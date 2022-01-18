@@ -1,9 +1,9 @@
 import { browser, by, element } from "protractor";
 
-export class ComentarPostPage {
+export class RankFortalezaRedePage {
     
     async navigateTo(){
-        return browser.get('/comentar_post');
+        return browser.get('/rank_fortaleza_rede');
     }
 
     getButton(){
