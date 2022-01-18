@@ -26,7 +26,6 @@ import { FortalezaRedeComponent } from './Components/fortaleza-rede/fortaleza-re
 import { AmigosComumComponent } from './Components/amigos-comum/amigos-comum.component';
 import { CaminhoDiferenciadoComponent } from './Components/caminho-diferenciado/caminho-diferenciado.component';
 import { TagsTodasRelacoesComponent } from './Components/tags-todas-relacoes/tags-todas-relacoes.component';
-import { ComentarPostComponent } from './Components/comentar-post/comentar-post.component';
 import { VerCaminhosComponent } from './Components/ver-caminhos/ver-caminhos.component';
 import { VerAlgoritmosComponent } from './Components/ver-algoritmos/ver-algoritmos.component';
 import { AlgoritmoLigacaoRelacaoComponent } from './Components/algoritmo-ligacao-relacao/algoritmo-ligacao-relacao.component';
@@ -75,7 +74,6 @@ const routes: Routes = [
   { path: 'tags_jogadores', component: TagsTodosJogadoresComponent },
   { path: 'fortaleza_rede', component: FortalezaRedeComponent },
   { path: 'caminho_diferenciado', component: CaminhoDiferenciadoComponent },
-  { path: 'comentar_post', component: ComentarPostComponent },
   { path: 'feed_posts', component: FeedPostsComponent },
   { path: 'tag_cloud_pessoal', component: TagCloudPessoalComponent },
   { path: 'rank_fortaleza_rede', component: RankFortalezaRedeComponent },

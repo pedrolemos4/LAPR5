@@ -54,8 +54,7 @@ export class FeedPostsService {
         'Content-Type': 'application/json',
       })
     };
-    console.log(comentario);  
-    return this.http.post<Comentario>(this.comentarPostUrl + 'comentarios/', comentario);
+    return this.http.post<Comentario>(this.comentarPostUrl + '/', comentario);
   }
 
 }
