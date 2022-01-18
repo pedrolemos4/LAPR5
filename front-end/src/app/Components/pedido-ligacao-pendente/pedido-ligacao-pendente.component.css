@@ -12,7 +12,17 @@
   border-radius: 8px;
   background-color: #f2f2f2e7;
   padding: 15px;
-  padding-top: 2px;
+  margin-top: 2%;
+  margin-left: 20%;
+  width: 50%;
+}
+
+#container-empty {
+  border-radius: 8px;
+  background-color: #f2f2f2e7;
+  padding: 15px;
+  margin-top: 2%;
+  margin-left: 25%;
   width: 50%;
 }
 
@@ -63,27 +73,31 @@ label {
   height: 30px;
 }
 
-.aceitar{
-  background-color: rgb(16, 219, 60);
-  color: white;
-  border: none;
-  padding: 7px 10px;
+.fa {
+  font-size: 25px;
   cursor: pointer;
+  user-select: none;
+  color: black;
+  margin-bottom: 10px;
 }
 
-.aceitar:hover{
-  background-color: rgb(21, 161, 52);
+.fa:hover {
+  transform: scale(1.2);
 }
 
-.rejeitar{
-  background-color: red;
-  color: white;
-  border: none;
-  padding: 7px 10px;
-  margin-left: 15px;
-  cursor: pointer;
+.fa-check-circle:hover {
+  color: green;
 }
 
-.rejeitar:hover{
-  background-color: rgb(172, 0, 0);
+.fa-times-circle:hover {
+ color: red;
+}
+
+.like-outer {
+  text-align: left;
+  margin-left: 80%;
+}
+
+.like-outer i {
+  margin-left: 30px;
 }

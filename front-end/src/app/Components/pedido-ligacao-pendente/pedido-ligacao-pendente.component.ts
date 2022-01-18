@@ -16,7 +16,7 @@ export class PedidoLigacaoPendenteComponent implements OnInit {
 
   editarPerfilForm: FormGroup;
   emailUser: string | undefined = '';
-  idJogador: any;
+  idJogador: any; 
   Perfil!: Perfil;
   ListaLigacoesPendentes: string[] = [];
   tags1: string[] = new Array<string>();
@@ -29,6 +29,8 @@ export class PedidoLigacaoPendenteComponent implements OnInit {
   constructor(private service: PedidoLigacaoPendenteService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    document.getElementById("container-empty").style.visibility="hidden";
+    document.getElementById("container").style.visibility="visible";
     const currentUser = localStorage.getItem('currentUser');
     this.emailUser = currentUser?.replace(/\"/g, "");
     this.service.getPerfilAtual(this.emailUser).subscribe(Perfil => {
@@ -37,24 +39,29 @@ export class PedidoLigacaoPendenteComponent implements OnInit {
         this.idJogador = Jogador.id;
         this.service.getListaLigacoesPendentes(Jogador.id).subscribe(ListaLigacoes => {
           this.LigacoesPendentes = ListaLigacoes;
-          ListaLigacoes.forEach((name: Ligacao) => {
-            console.log(name);
-            console.log(name.jogador1);
-            if (name.jogador1 != Jogador.id) {
-              this.service.getJogadorByIdJogador(name.jogador1).subscribe(PlayerAux => {
-                console.log(PlayerAux.perfilId);
-                this.service.getPerfilAtualId(PlayerAux.perfilId).subscribe(PerfilAux => {
-                  this.ListaLigacoesPendentes.push(PerfilAux.email + ". Texto Ligação: " + name.textoLigacao);
+          if (ListaLigacoes.length > 0) {
+            ListaLigacoes.forEach((name: Ligacao) => {
+              console.log(name);
+              console.log(name.jogador1);
+              if (name.jogador1 != Jogador.id) {
+                this.service.getJogadorByIdJogador(name.jogador1).subscribe(PlayerAux => {
+                  console.log(PlayerAux.perfilId);
+                  this.service.getPerfilAtualId(PlayerAux.perfilId).subscribe(PerfilAux => {
+                    this.ListaLigacoesPendentes.push(PerfilAux.email + ". Texto Ligação: " + name.textoLigacao);
+                  });
                 });
-              });
-            } else {
-              this.service.getJogadorByIdJogador(name.jogador2).subscribe(PlayerAux1 => {
-                this.service.getPerfilAtualId(PlayerAux1.perfilId).subscribe(PerfilAux1 => {
-                  this.ListaLigacoesPendentes.push(PerfilAux1.email + ". Texto Ligação: " + name.textoLigacao);
+              } else {
+                this.service.getJogadorByIdJogador(name.jogador2).subscribe(PlayerAux1 => {
+                  this.service.getPerfilAtualId(PlayerAux1.perfilId).subscribe(PerfilAux1 => {
+                    this.ListaLigacoesPendentes.push(PerfilAux1.email + ". Texto Ligação: " + name.textoLigacao);
+                  });
                 });
-              });
-            }
-          });
+              }
+            });
+          } else {
+            document.getElementById("container-empty").style.visibility="visible";
+            document.getElementById("container").style.visibility="hidden";
+          }
         });
       });
     });

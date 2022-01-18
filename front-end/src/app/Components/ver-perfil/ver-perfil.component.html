@@ -5,7 +5,7 @@
     <div class="card-body">
         <h4 class="h41">Nome:</h4>
         <h4 class="h42">Email:</h4>
-        <div class ="botao1">
+        <div class="botao1">
             <b>{{nome}}</b>
         </div>
         <div class="botao2">
@@ -13,7 +13,7 @@
         </div>
         <h4 class="h41">Telefone:</h4>
         <h4 class="h42">Cidade:</h4>
-        <div class ="botao1">
+        <div class="botao1">
             <b>{{telefone}}</b>
         </div>
         <div class="botao2">
@@ -28,14 +28,14 @@
                 <b>{{pais}}</b>
             </div>
         </h4>
-        <div class ="botao1">
+        <div class="botao1">
             <div class="estados" *ngFor="let e of estadoHumor">
                 <b>{{e}}</b>
             </div>
         </div>
         <h4 class="h41">Facebook:</h4>
         <h4 class="h42">Linkedin:</h4>
-        <div class ="botao1">
+        <div class="botao1">
             <b>{{facebook}}</b>
         </div>
         <div class="botao2">
@@ -48,14 +48,14 @@
             <img id="imagem" [src]="imagePreview">
         </div>
         <div class="remover">
-        <button (click)="removerConta()"> Remover Conta </button>
-    </div>
-        <div id="confirmacao">
-            <p><b style="margin-left: -20%; font: bold;">Pretende mesmo apagar a sua conta?</b></p>
-            <button id="sim" (click)="sim()" style="margin-left: -20%;"> Sim </button>
-            <button id="nao" (click)="nao()"> Não </button>
+            <i id="remover" (click)="removerConta()" class="fa fa-trash"> Remover Conta </i>
         </div>
     </div>
-    <div class="card1">
+    <div id="confirmacao">
+        <p><b style="margin-left: -20%; font: bold;">Pretende mesmo apagar a sua conta?</b></p>
+        <i id="sim" type="submit" (click)="sim()" class="fa fa-check-circle"></i>
+        <i id="nao" type="submit" (click)="nao()" class="fa fa-times-circle"></i>
+        <!-- <button id="sim" (click)="sim()" style="margin-left: -20%;"> Sim </button>
+        <button id="nao" (click)="nao()"> Não </button> -->
     </div>
 </div>

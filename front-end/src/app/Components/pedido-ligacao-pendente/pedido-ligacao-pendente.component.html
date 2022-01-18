@@ -1,25 +1,31 @@
 <app-header></app-header>
 <app-navbar></app-navbar>
 <div id="texto">
-    <div id="container">
+    <div id="container-empty">
+        <i id="empty" style="margin-top:2%; margin-left: 5%;" class="fa fa-folder-open"> Não existem pedidos pendentes
+        </i>
+    </div>
+    <div id="container" style="margin-top: -5%;">
         <h2>Pedidos de Ligação Pendentes</h2>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-25">
-                        <label for="amigos">Amigos:</label>
-                    </div>
-                    <div class="col-75">
-                        <select id="amigos" class="selector" style="margin: 20px;" (change)="selectAmigo($event)">
-                            <option selected disabled="disabled">Selecione um pedido</option>
-                            <option *ngFor="let eachVal of ListaLigacoesPendentes" [ngValue]="eachVal">
-                                {{eachVal}}
-                            </option>
-                        </select>
-                    </div>
+        <div class="form-group" id="form-group">
+            <div class="row">
+                <div class="col-25">
+                    <label for="amigos">Amigos:</label>
+                </div>
+                <div class="col-75">
+                    <select id="amigos" class="selector" style="margin: 20px;" (change)="selectAmigo($event)">
+                        <option selected disabled="disabled">Selecione um pedido</option>
+                        <option *ngFor="let eachVal of ListaLigacoesPendentes" [ngValue]="eachVal">
+                            {{eachVal}}
+                        </option>
+                    </select>
                 </div>
             </div>
-            <p id="mensagem"><span>Selecionou: </span><b>{{selectPedido}}</b></p>
-            <button id="aceitar" type="submit" class="aceitar" (click)="aceitar()"><i class="fa fa-check"></i>Aceitar</button>
-            <button id="rejeitar" type="submit" class="rejeitar" (click)="rejeitar()"><i class="fa fa-times"></i>Rejeitar</button>
+        </div>
+        <p id="mensagem"><span>Selecionou: </span><b>{{selectPedido}}</b></p>
+        <div class="like-outer" id="like-outer">
+            <i id="aceitar" type="submit" class="aceitar" (click)="aceitar()" class="fa fa-check-circle"></i>
+            <i id="rejeitar" type="submit" class="rejeitar" (click)="rejeitar()" class="fa fa-times-circle"></i>
+        </div>
     </div>
 </div>

@@ -83,37 +83,46 @@
 }  
 
 
-.remover{
-    background-color: yellowgreen;
-}
-
-.remover button{
+#remover{
     margin-left: 70%;
-    background-color: rgb(255, 0, 0);
-    color: white;
-    border: none;
-    cursor: pointer;
-    width: 130px;
-}
-
-#confirmacao{
-    margin-left: 20%;
+    font-size: 125%;
 }
 
 #sim{
-    background-color: rgb(16, 219, 60);
-    color: white;
-    border: none;
-    padding: 7px 10px;
+    margin-left: -22%;
+    font-size: 150%;
+}
+
+#nao{
+    margin-left: 5%;
+    font-size: 150%;
+}
+
+
+#confirmacao{
+    margin-left: 20%;
+} 
+
+  .fa {
+    font-size: 25px;
     cursor: pointer;
+    user-select: none;
+    color: black;
+    margin-bottom: 10px;
   }
   
-  #nao{
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 7px 10px;
-    margin-left: 15px;
-    cursor: pointer;
+  .fa:hover {
+    transform: scale(1.2);
   }
   
+  .fa-check-circle:hover {
+    color: green;
+  }
+  
+  .fa-times-circle:hover {
+   color: red;
+  }
+
+  .fa-trash:hover {
+    color: red;
+  }
