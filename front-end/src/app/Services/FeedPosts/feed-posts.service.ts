@@ -14,6 +14,7 @@ export class FeedPostsService {
   private readonly perfilUrl = environment.apiUrl + 'Perfis';
   private readonly postUrl = environment.masterDataPostsUrl + 'posts';
   private readonly comentarPostUrl = environment.masterDataPostsUrl + 'comentarios';
+  private readonly urlProlog = environment.prologUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -55,6 +56,11 @@ export class FeedPostsService {
       })
     };
     return this.http.post<Comentario>(this.comentarPostUrl + '/', comentario);
+  }
+
+  updateEstadosJogador(email: string, nLikes: any, nDislikes: any) {
+    const urlAux = this.urlProlog + '/api/CalculoNovosEstadosLikesDislikes?utilizador=' + email + '&nLikes=' + nLikes + '&nDislikes=' + nDislikes;
+    return this.http.get<string[]>(urlAux);
   }
 
 }

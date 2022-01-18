@@ -33,6 +33,7 @@
     position: absolute;
     height: 80%;
     overflow-y: auto;
+    z-index: 9;
   }
 
   .card4 {

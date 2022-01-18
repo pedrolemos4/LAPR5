@@ -36,6 +36,7 @@
 :-ensure_loaded("./BestFirstLigacao.pl").
 :-ensure_loaded("./DfsForcaLigacaoRelacao.pl").
 :-ensure_loaded("./DfsForcaLigacao.pl").
+:-ensure_loaded("./CalculoNovosEstados.pl").
 
 
 
@@ -44,6 +45,7 @@
 :-json_object objeto_json_seguro(caminho_seguro:list(string)).
 :-json_object objeto_json_fortaleza(resultado:number).
 :-json_object objeto_json_relacaoLigacao(caminho:list(string),custo:number).
+:-json_object objeto_json_alegriaAngustia(alegria:number,angustia:number).
 
 % Criacao de servidor HTTP no porto 'Port'
 server(Port) :-
@@ -69,6 +71,21 @@ stop(Port):-
 :- http_handler('/api/BestFirstLigacao',bestFirstLigacao,[]).
 :- http_handler('/api/DfsForcaLigacaoRelacao',dfsForcaLigacaoRelacao,[]).
 :- http_handler('/api/DfsForcaLigacao',dfsForcaLigacao,[]).
+:- http_handler('/api/CalculoNovosEstadosLikesDislikes',calculoNovosEstadosLikesDislikes,[]).
+
+calculoNovosEstadosLikesDislikes(Request):-
+    cors_enable,
+    removerBaseConhecimento(),!,
+    carregaDados(),!,
+    http_parameters(Request,
+    [utilizador(Utilizador,[string]),
+     nLikes(NLikes,[number]),
+     nDislikes(NDislikes, [number])]),
+
+    calculaAlegriaAngustia(Utilizador, NLikes, NDislikes, ValorNovoAlegria,ValorNovoAngustia),
+    Reply = objeto_json_alegriaAngustia(ValorNovoAlegria,ValorNovoAngustia),
+    prolog_to_json(Reply,JSONObject),
+    reply_json(JSONObject,[json_object]).
 
 
 forcaLigacaoRelacao(Request):-
