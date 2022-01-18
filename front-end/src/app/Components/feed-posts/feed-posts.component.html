@@ -22,9 +22,12 @@
         <h4 class="card-desc"> Post: <b>{{card.description}}</b></h4>
         <h4 class="card-desc"> Tags: <b>{{card.tags}}</b></h4>
         <div class="like-outer">
-          <i [attr.id]="i" style="color: black;" class="fa fa-thumbs-o-up" (click)="darLike(card,i)"></i>
+          <i *ngIf="card.likes.includes(emailUser)" [attr.id]="i" style="color: blue;" class="fa fa-thumbs-o-up" (click)="darLike(card,i)"></i>
+          <i *ngIf="!card.likes.includes(emailUser)" [attr.id]="i" style="color: black;" class="fa fa-thumbs-o-up" (click)="darLike(card,i)"></i>
           <span class="like-no" (click)="verLikes(card.likes)">{{card.likes.length}}</span>
-          <i [attr.id]="card.id" style="color: black;" class="fa fa-thumbs-o-down"
+          <i *ngIf="card.dislikes.includes(emailUser)" [attr.id]="card.id" style="color: red;" class="fa fa-thumbs-o-down"
+            (click)="darDislike(card, card.id)"></i>
+          <i *ngIf="!card.dislikes.includes(emailUser)" [attr.id]="card.id" style="color: black;" class="fa fa-thumbs-o-down"
             (click)="darDislike(card, card.id)"></i>
           <span class="like-no" (click)="verDislikes(card.dislikes)">{{card.dislikes.length}}</span>
           <i class="fa fa-comments-o" (click)="adicionarComentario(card)"></i>
