@@ -14,11 +14,13 @@ export class FazerPostComponent implements OnInit {
 
   postForm: FormGroup;
   emailCurrentUser: string | undefined = '';
-
+  tag: string = '';
+  tags: string[] = [];
 
   constructor(private formBuilder: FormBuilder, private fazerPostService: FazerPostService, private toastr: ToastrService, private router: Router) { 
     this.postForm = this.formBuilder.group({
       post: ['', Validators.required],
+      tags: ['',Validators.required],
     })
   }
 
@@ -28,9 +30,14 @@ export class FazerPostComponent implements OnInit {
   }
 
   onSubmit(){
+    this.tag = '';
+    this.tags = [];
+    this.tag = this.postForm.controls['tags'].value;
+    this.tags = this.tag.toString().split(",");
     this.fazerPostService.publicarPost({
       description: this.postForm.controls['post'].value,
       email: this.emailCurrentUser,
+      tags: this.tags,
       likes: [],
       dislikes: []
     } as Post).subscribe({

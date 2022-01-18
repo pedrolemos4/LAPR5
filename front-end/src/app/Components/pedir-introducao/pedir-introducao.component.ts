@@ -75,24 +75,33 @@ export class PedirIntroducaoComponent implements OnInit {
   selectJogadorObjetivo(event: any) {
     //update the ui
     this.selectedJogadorObjetivo = event.target.value;
-    this.pedirIntroducaoService.getPerfilAtual(this.selectedJogadorObjetivo).subscribe(Response => {
-      this.idPerfilJogObjetivo = Response.id;
-      this.pedirIntroducaoService.getJogador(this.idPerfilJogObjetivo).subscribe(Jogador => {
-        this.idJogObjetivo = Jogador.id;
-        this.pedirIntroducaoService.getAmigosEmComum(this.currentUser.id, this.idJogObjetivo).subscribe(Amigos => {
-          this.amigosEmComum = Amigos;
-          this.amigosEmComum.forEach((element: any) => {
-            this.amigosEmComumIdList.push(element.id);
-          });
-          this.amigosEmComumIdList.forEach((element: any) => {
-            this.pedirIntroducaoService.getPerfilJogador(element).subscribe(Perfil => {
-              this.amigosEmComumPerfilList.push(Perfil.id);
-              this.emailAmigosEmComum.push(Perfil.email);
+    try {
+      this.pedirIntroducaoService.getPerfilAtual(this.selectedJogadorObjetivo).subscribe(Response => {
+        this.idPerfilJogObjetivo = Response.id;
+        this.pedirIntroducaoService.getJogador(this.idPerfilJogObjetivo).subscribe(Jogador => {
+          this.idJogObjetivo = Jogador.id;
+          this.pedirIntroducaoService.getAmigosEmComum(this.currentUser.id, this.idJogObjetivo).subscribe(Amigos => {
+            this.amigosEmComum = Amigos;
+            this.amigosEmComum.forEach((element: any) => {
+              this.amigosEmComumIdList.push(element.id);
+            });
+            this.amigosEmComumIdList.forEach((element: any) => {
+              this.pedirIntroducaoService.getPerfilJogador(element).subscribe(Perfil => {
+                this.amigosEmComumPerfilList.push(Perfil.id);
+                this.emailAmigosEmComum.push(Perfil.email);
+              });
             });
           });
         });
+
       });
-    });
+    } catch (error) {
+      //if (error.status >= 400) {
+      this.toastr.error("Serviços Indisponíveis", undefined, { positionClass: 'toast-bottom-left' });
+      //} else {
+      //  console.log(error);
+      //}
+    }
   }
 
   selectJogadorIntrodutorio(event: any) {
