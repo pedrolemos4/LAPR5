@@ -12,8 +12,8 @@ import { environment } from 'src/environments/environment';
 export class FeedPostsService {
 
   private readonly perfilUrl = environment.apiUrl + 'Perfis';
-  private readonly postUrl = environment.masterDataPostsUrl;
-  private readonly comentarPostUrl = environment.masterDataPostsUrl;
+  private readonly postUrl = environment.masterDataPostsUrl + 'posts';
+  private readonly comentarPostUrl = environment.masterDataPostsUrl + 'comentarios';
 
   constructor(private http: HttpClient) { }
 
@@ -23,20 +23,28 @@ export class FeedPostsService {
 
   getPosts(email: string): Observable<Post[]> {
     const params = new HttpParams().append('param', email);
-    return this.http.get<Post[]>(this.postUrl + 'posts/getPostsByEmail', { params });
+    return this.http.get<Post[]>(this.postUrl + '/getPostsByEmail', { params });
   }
 
   getComentarioById(id: string): Observable<Comentario> {
     const params = new HttpParams().append('id', id);
-    return this.http.get<Comentario>(this.comentarPostUrl + 'comentarios/getById', { params });
+    return this.http.get<Comentario>(this.comentarPostUrl + '/getById', { params });
   }
 
   updateLikePost(post: Post): Observable<Post>{
-    return this.http.put<Post>(this.postUrl + 'posts/updateLikes', post);
+    return this.http.put<Post>(this.postUrl + '/updateLikes', post);
   }
 
   updateDislikePost(post: Post): Observable<Post>{
-    return this.http.put<Post>(this.postUrl + 'posts/updateDislikes', post);
+    return this.http.put<Post>(this.postUrl + '/updateDislikes', post);
+  }
+
+  updateLikeComentario(comentario: any) {
+    return this.http.put(this.comentarPostUrl + '/updateLikes', comentario);
+  }
+
+  updateDislikeComentario(comentario: Comentario) {
+    return this.http.put<Comentario>(this.comentarPostUrl + '/updateDislikes', comentario);
   }
 
 }

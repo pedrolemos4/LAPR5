@@ -19,7 +19,8 @@
     <h3 class="card-lista">Lista de posts do utilizador:<b>{{selected}}</b></h3>
     <div class="row">
       <div class="lcards" *ngFor="let card of cards; let i = index">
-        <h4 class="card-desc"> Descrição: <b>{{card.description}}</b></h4>
+        <h4 class="card-desc"> Post: <b>{{card.description}}</b></h4>
+        <h4 class="card-desc"> Tags: <b>{{card.tags}}</b></h4>
         <div class="like-outer">
           <i [attr.id]="i" style="color: black;" class="fa fa-thumbs-o-up" (click)="darLike(card,i)"></i>
           <span class="like-no" (click)="verLikes(card.likes)">{{card.likes.length}}</span>
@@ -53,8 +54,13 @@
     <div class="lcards" *ngFor="let c of lComentarios">
       <h4 class="card-desc"> Autor do Comentário: <b>{{c.autor}}</b></h4>
       <h4 class="card-desc"> Comentário: <b>{{c.texto}}</b></h4>
-      <h4 class="card-comentario"><button (click)="verLikes(c.likes)">Ver Likes</button> <button
-          (click)="verDislikes(c.dislikes)">Ver Dislikes</button></h4>
+      <h4 class="card-desc"> Tags: <b>{{c.tags}}</b></h4>
+      <div class="like-outer">
+        <i [attr.id]="c.id + 1" style="color: black;" class="fa fa-thumbs-o-up" (click)="darLikeComentario(c,c.id + 1)"></i>
+        <span class="like-no" (click)="verLikes(c.likes)">{{c.likes.length}}</span>
+        <i [attr.id]="c.id"  style="color: black;" class="fa fa-thumbs-o-down" (click)="darDislikeComentario(c, c.id)"></i>
+        <span class="like-no" (click)="verDislikes(c.dislikes)">{{c.dislikes.length}}</span>
+      </div>
     </div>
   </div>
   <button type="button" class="btn-link2" (click)="onListaComentariosVoltar()">Voltar</button>

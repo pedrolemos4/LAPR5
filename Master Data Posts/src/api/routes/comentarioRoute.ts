@@ -34,4 +34,32 @@ export default (app: Router) => {
             })
         }),
         (req, res, next) => ctrl.createComentario(req, res, next));
+
+    route.put('/updateLikes',
+        celebrate({
+            body: Joi.object({
+                id: Joi.string().required(),
+                autor: Joi.string().required(),
+                post: Joi.string().required(),
+                texto: Joi.string().required(),
+                tags: Joi.array().items(Joi.string()),
+                likes: Joi.array().items(Joi.string()),
+                dislikes: Joi.array().items(Joi.string())
+            })
+        }),
+        (req, res, next) => ctrl.updateLikes(req, res, next));
+
+    route.put('/updateDislikes',
+        celebrate({
+            body: Joi.object({
+                id: Joi.string().required(),
+                autor: Joi.string().required(),
+                post: Joi.string().required(),
+                texto: Joi.string().required(),
+                tags: Joi.array().items(Joi.string()),
+                likes: Joi.array().items(Joi.string()),
+                dislikes: Joi.array().items(Joi.string())
+            })
+        }),
+        (req, res, next) => ctrl.updateDislikes(req, res, next));
 };

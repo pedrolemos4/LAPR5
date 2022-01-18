@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import { ParsedQs } from "qs";
 
 export default interface IPostController {
     atualizaComments(req: Request, res: Response, next: NextFunction);

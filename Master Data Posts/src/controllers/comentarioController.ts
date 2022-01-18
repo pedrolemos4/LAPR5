@@ -93,4 +93,33 @@ export default class ComentarioController implements IComentarioController {
             return next(e);
         }
     }
+    public async updateLikes(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) {
+        try {
+            const postOrError = await this.comentarioServiceInstance.updateLikes(req.body as IComentarioDTO) as Result<IComentarioDTO>;
+
+            if (postOrError.isFailure) {
+                return res.status(404).send();
+            }
+
+            const postDTO = postOrError.getValue();
+            return res.status(201).json(postDTO);
+        } catch (e) {
+            return next(e);
+        }
+    };
+
+    public async updateDislikes(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) {
+        try {
+            const postOrError = await this.comentarioServiceInstance.updateDislikes(req.body as IComentarioDTO) as Result<IComentarioDTO>;
+
+            if (postOrError.isFailure) {
+                return res.status(404).send();
+            }
+
+            const postDTO = postOrError.getValue();
+            return res.status(201).json(postDTO);
+        } catch (e) {
+            return next(e);
+        }
+    };
 }

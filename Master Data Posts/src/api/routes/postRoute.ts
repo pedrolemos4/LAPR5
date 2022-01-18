@@ -43,6 +43,7 @@ export default (app: Router) => {
                 id: Joi.string().required(),
                 description: Joi.string().required(),
                 email: Joi.string().required(),
+                tags: Joi.array().items(Joi.string()),
                 listaComentarios: Joi.array().items(Joi.string()),
                 likes: Joi.array().items(Joi.string()),
                 dislikes: Joi.array().items(Joi.string())
@@ -56,6 +57,7 @@ export default (app: Router) => {
                 id: Joi.string().required(),
                 description: Joi.string().required(),
                 email: Joi.string().required(),
+                tags: Joi.array().items(Joi.string()),
                 listaComentarios: Joi.array().items(Joi.string()),
                 likes: Joi.array().items(Joi.string()),
                 dislikes: Joi.array().items(Joi.string())

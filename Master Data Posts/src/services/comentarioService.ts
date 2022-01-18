@@ -75,4 +75,38 @@ export default class ComentarioService implements IComentarioService {
             throw e;
         }
     }
+
+    public async updateLikes(comentarioDTO: IComentarioDTO): Promise<Result<IComentarioDTO>> {
+        try {
+            const comentario = (await this.comentarioRepo.findByComentarioId(comentarioDTO.id)).getValue();
+            if (comentario === null) {
+                return Result.fail<IComentarioDTO>("Comentario not found");
+            } else {
+                await this.comentarioRepo.updateLikes(comentario.id, comentarioDTO.likes);
+
+                const comentarioDTOResult = ComentarioMap.toDTO(comentario) as IComentarioDTO;
+
+                return Result.ok<IComentarioDTO>(comentarioDTOResult)
+            }
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    public async updateDislikes(comentarioDTO: IComentarioDTO): Promise<Result<IComentarioDTO>> {
+        try {
+            const comentario = (await this.comentarioRepo.findByComentarioId(comentarioDTO.id)).getValue();
+            if (comentario === null) {
+                return Result.fail<IComentarioDTO>("Comentario not found");
+            } else {
+                await this.comentarioRepo.updateDislikes(comentario.id, comentarioDTO.dislikes);
+
+                const comentarioDTOResult = ComentarioMap.toDTO(comentario) as IComentarioDTO;
+
+                return Result.ok<IComentarioDTO>(comentarioDTOResult)
+            }
+        } catch (e) {
+            throw e;
+        }
+    }
 } 

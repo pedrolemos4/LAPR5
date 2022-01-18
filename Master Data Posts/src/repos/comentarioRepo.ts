@@ -10,6 +10,8 @@ import { ComentarioId } from '../domain/comentarioId';
 import { IComentarioPersistence } from '../dataschema/IComentarioPersistence';
 import { Result } from '../core/logic/Result';
 import { IComentarioDTO } from '../dto/IComentarioDTO';
+import { List } from 'lodash';
+import { UniqueEntityID } from '../core/domain/UniqueEntityID';
 
 @Service()
 export default class ComentarioRepo implements IComentarioRepo {
@@ -74,6 +76,17 @@ export default class ComentarioRepo implements IComentarioRepo {
     }
   }
 
+  public async findByComentarioId(comentarioId: any) {
+    const query = { _id: comentarioId };
+    const document = await this.comentarioSchema.find(query);
+    if (document === null) {
+      return Result.fail<Array<IComentarioDTO>>("No Comentarios Found!");
+    } else {
+      var comentario = ComentarioMap.toDTO(ComentarioMap.toDomain(document[0]));
+      return Result.ok<IComentarioDTO>(comentario);
+    }
+  }
+
   public async findByAutor(autor: any) {
     const query = { autor: autor };
     var comentarios = [];
@@ -120,4 +133,24 @@ export default class ComentarioRepo implements IComentarioRepo {
       return Result.ok();
     }
   }
+
+  public async updateLikes(id: UniqueEntityID, list: List<string>) {
+    var document = await this.comentarioSchema.updateOne({ _id: id }, { $set: { likes: list } });
+    
+    if (document != null) {
+        return Result.ok(document);
+    } else {
+        return Result.fail<IComentarioDTO>("Error!");;
+    }
+}
+
+public async updateDislikes(id: UniqueEntityID, list: List<string>) {
+    var document = await this.comentarioSchema.updateOne({ _id: id }, { $set: { dislikes: list } });
+    
+    if (document != null) {
+        return Result.ok(document);
+    } else {
+        return Result.fail<IComentarioDTO>("Error!");;
+    }
+}
 }
