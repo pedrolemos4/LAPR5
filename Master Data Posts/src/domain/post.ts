@@ -10,6 +10,7 @@ interface PostProps {
     description: string;
     email: string;
     listaComentarios: string[];
+    tags: List<string>;
     likes: List<string>;
     dislikes: List<string>;
 }
@@ -62,6 +63,14 @@ export class Post extends AggregateRoot<PostProps>{
         this.props.email = value;
     }
 
+    get tags(): List<string>{
+        return this.props.tags;
+    }
+    
+    set tags(value: List<string>){
+        this.props.tags= value;
+        
+    }
     private constructor(props: PostProps, id?: UniqueEntityID) {
         super(props, id);
     }
@@ -70,13 +79,14 @@ export class Post extends AggregateRoot<PostProps>{
         const description = postDTO.description;
         const email = postDTO.email;
         const listaComentarios = postDTO.listaComentarios;
+        const tags = postDTO.tags;
         const likes = postDTO.likes;
         const dislikes = postDTO.dislikes;
 
         if (!!description === false || description.length === 0) {
             return Result.fail<Post>('Must provide description')
         } else {
-            const post = new Post({ description: description , email : email, listaComentarios : listaComentarios, likes : likes, dislikes: dislikes }, id);
+            const post = new Post({ description: description , email : email, listaComentarios : listaComentarios,tags: tags, likes : likes, dislikes: dislikes }, id);
             return Result.ok<Post>(post)
         }
     }

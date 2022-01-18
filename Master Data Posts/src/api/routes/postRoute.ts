@@ -30,6 +30,7 @@ export default (app: Router) => {
             body: Joi.object({
                 description: Joi.string().required(),
                 email: Joi.string().required(),
+                tags: Joi.array().items(Joi.string()),
                 likes: Joi.array().items(Joi.string()),
                 dislikes: Joi.array().items(Joi.string())
             })

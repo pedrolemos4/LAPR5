@@ -6,6 +6,7 @@ const PostSchema = new mongoose.Schema(
         domainId: { type: String, unique: true },
         description: { type: String },
         listaComentarios: [{type: Schema.Types.String, ref: 'Comentario'}],
+        tags: {type: [String]},
         likes: { type: [String] },
         dislikes: { type: [String] },
         email: {type: String}

@@ -5,6 +5,7 @@ export default interface IPostDTO{
     description: string;
     email: string;
     listaComentarios: string[];
+    tags: List<string>;
     likes: List<string>;
     dislikes: List<string>;
 }

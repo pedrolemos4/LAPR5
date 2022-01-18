@@ -50,6 +50,7 @@ export default class PostRepo implements IPostRepo {
                 postDocument.description = post.description;
                 postDocument.email = post.email;
                 postDocument.listaComentarios = post.listaComentarios;
+                postDocument.tags= post.tags;
                 postDocument.likes = post.likes;
                 postDocument.dislikes = post.dislikes;
                 await postDocument.save();

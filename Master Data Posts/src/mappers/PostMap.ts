@@ -16,6 +16,7 @@ export class PostMap extends Mapper<Post> {
             description: post.description,
             email: post.email,
             listaComentarios: post.listaComentarios,
+            tags: post.tags,
             likes: post.likes,
             dislikes: post.dislikes
         } as IPostDTO;
@@ -38,6 +39,7 @@ export class PostMap extends Mapper<Post> {
             description: post.description,
             listaComentarios: post.listaComentarios,
             email: post.email,
+            tags: post.tags,
             likes: post.likes,
             dislikes: post.dislikes
         }
