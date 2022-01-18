@@ -18,15 +18,28 @@
     </div>
     <h3 class="card-lista">Lista de posts do utilizador:<b>{{selected}}</b></h3>
     <div class="row">
-      <div class="lcards" *ngFor="let card of cards; let i = index">
+      <div class="lcards" *ngFor="let card of cards; index as i">
         <h4 class="card-desc"> Descrição: <b>{{card.description}}</b></h4>
         <div class="like-outer">
           <i [attr.id]="i" style="color: black;" class="fa fa-thumbs-o-up" (click)="darLike(card,i)"></i>
           <span class="like-no" (click)="verLikes(card.likes)">{{card.likes.length}}</span>
-          <i [attr.id]="card.id"  style="color: black;" class="fa fa-thumbs-o-down" (click)="darDislike(card, card.id)"></i>
+          <i [attr.id]="card.id" style="color: black;" class="fa fa-thumbs-o-down"
+            (click)="darDislike(card, card.id)"></i>
           <span class="like-no" (click)="verDislikes(card.dislikes)">{{card.dislikes.length}}</span>
-          <i class="fa fa-comments-o"></i>
-          <span class="like-no" (click)="verListaComentarios(card.listaComentarios)">{{card.listaComentarios.length}}</span>
+          <i class="fa fa-comments-o" (click)="adicionarComentario(i)"></i>
+          <span class="like-no"
+            (click)="verListaComentarios(card.listaComentarios)">{{card.listaComentarios.length}}</span>
+          <div *ngIf="div" id="divteste">
+            <form [formGroup]="comentarioForm">
+              <input style="width: 300px; margin-left: 10px; margin-bottom: 10px;" id="comentario"
+                type="text" placeholder="Escreva aqui o seu comentario..." formControlName="comentario"
+                class="form-control" required /><br>
+              <input style="width: 300px; margin-left: 10px; margin-bottom: 10px;" id="tags" type="text"
+                placeholder="Escreva aqui as tags do comentario..." formControlName="tags" class="form-control"
+                required /><br><br>
+              <button id="submit" class="aceitar" (click)="comentarPost(card)"> Adicionar Comentário</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

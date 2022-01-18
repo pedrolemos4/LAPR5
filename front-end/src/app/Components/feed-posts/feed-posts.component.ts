@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Perfil } from 'src/app/Models/Perfil';
 import { Post } from 'src/app/Models/Post';
@@ -10,7 +11,7 @@ import { FeedPostsService } from 'src/app/Services/FeedPosts/feed-posts.service'
   styleUrls: ['./feed-posts.component.css']
 })
 export class FeedPostsComponent implements OnInit {
-
+  div: boolean = false;
   selected: string = '';
   listaPerfis: Perfil[] = [];
   lLikes: string[] = [];
@@ -22,9 +23,16 @@ export class FeedPostsComponent implements OnInit {
   array: string[] = [];
   cards: any[] = [];
   emailUser: any = '';
+  tag: string = '';
+  tags: string[] = [];
+  comentarioForm: FormGroup;
 
-
-  constructor(private feedPostsService: FeedPostsService, private toastr: ToastrService) { }
+  constructor(private formBuilder: FormBuilder, private feedPostsService: FeedPostsService, private toastr: ToastrService) {
+    this.comentarioForm = this.formBuilder.group({
+      comentario: ['', Validators.required],
+      tags: ['', Validators.required]
+    })
+  }
 
   selectChangeHandler(event: any) {
     this.selected = event.target.value;
@@ -49,6 +57,8 @@ export class FeedPostsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const currentUser = localStorage.getItem('currentUser');
+    this.emailUser = currentUser?.replace(/\"/g, "");
     const targetDiv = document.getElementById("likes");
     targetDiv.style.display = "none";
     const targetDivd = document.getElementById("dislikes");
@@ -93,7 +103,7 @@ export class FeedPostsComponent implements OnInit {
     const currentUser = localStorage.getItem('currentUser');
     this.emailUser = currentUser?.replace(/\"/g, "");
     const t = document.getElementById(id);
-    
+
     if (t.style.color == "black") {
       t.style.color = 'blue';
       post.likes.push(this.emailUser);
@@ -182,6 +192,41 @@ export class FeedPostsComponent implements OnInit {
   onListaComentariosVoltar() {
     const targetDiv = document.getElementById("comentarios");
     targetDiv.style.display = "none";
+  }
+
+  adicionarComentario(i: number) {
+    console.log(i);
+    if (this.div == false) {
+      this.div = true;
+    } else {
+      this.div = false;
+    }
+  }
+
+  comentarPost(post: Post) {
+    this.tag = '';
+    this.tags = [];
+    this.tag = this.comentarioForm.controls['tags'].value;
+    this.tags = this.tag.toString().split(",");
+    if (this.tags.length > 0 || this.tags.includes('')) {
+      this.feedPostsService.adicionarComentario({
+        autor: this.emailUser,
+        texto: this.comentarioForm.controls['comentario'].value,
+        tags: this.tags,
+        post: post.id,
+        likes: [],
+        dislikes: []
+      }).subscribe({
+        next: () => {
+          this.toastr.success("Comentário adicionado com sucesso!", undefined, { positionClass: 'toast-bottom-left' });
+        },
+        error: () => {
+          this.toastr.error("Falha na publicação do comentário.", undefined, { positionClass: 'toast-bottom-left' });
+        }
+      })
+    } else {
+      this.toastr.error("Precisa de colocar tags!", undefined, { positionClass: 'toast-bottom-left' });
+    }
   }
 
 }
