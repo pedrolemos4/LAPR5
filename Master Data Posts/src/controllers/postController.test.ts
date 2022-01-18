@@ -35,7 +35,7 @@ describe('post controller', function () {
 		postServiceInstance = Container.get(config.services.post.name);
 		sinon.stub(postServiceInstance, "createPost").returns( Result.ok<IPostDTO>( 
             {"id":"123", "description": req.body.description, "email": req.body.email, "listaComentarios": req.body.listaComentarios,
-                "likes": req.body.likes, "dislikes": req.body.dislikes} ));
+                "tags": req.body.tags,"likes": req.body.likes, "dislikes": req.body.dislikes} ));
 
 		const ctrl = new PostController(postServiceInstance as IPostService);
 
@@ -43,7 +43,7 @@ describe('post controller', function () {
 
 		sinon.assert.calledOnce(res.json);
 		sinon.assert.calledWith(res.json, sinon.match({ "id":"123","description": req.body.description, "email": req.body.email, 
-        "listaComentarios": req.body.listaComentarios, "likes": req.body.likes, "dislikes": req.body.dislikes}));
+        "listaComentarios": req.body.listaComentarios, "tags": req.body.tags,"likes": req.body.likes, "dislikes": req.body.dislikes}));
 	});
 
     it('getPosts: returns posts', async function () {
