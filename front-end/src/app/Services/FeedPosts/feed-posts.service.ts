@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Comentario } from 'src/app/Models/Comentario';
@@ -45,6 +45,17 @@ export class FeedPostsService {
 
   updateDislikeComentario(comentario: Comentario) {
     return this.http.put<Comentario>(this.comentarPostUrl + '/updateDislikes', comentario);
+  }
+
+  adicionarComentario(comentario: any): Observable<Comentario>{
+    let bodystr = JSON.stringify(comentario);
+    const httpOptions = {
+      headers : new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+    console.log(comentario);  
+    return this.http.post<Comentario>(this.comentarPostUrl + 'comentarios/', comentario);
   }
 
 }
