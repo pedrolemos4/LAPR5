@@ -85,7 +85,7 @@ sugerirGrupo(Request):-
     tagsObg(TagsObg,[list(string)])]),
 
     sugerir_grupos(NTags,NUsers,TagsObg,Grupo),
-    Reply= = objeto_json_tags(Grupo),
+    Reply = objeto_json_tags(Grupo),
     prolog_to_json(Reply,JSONObject),
     reply_json(JSONObject,[json_object]).
 
