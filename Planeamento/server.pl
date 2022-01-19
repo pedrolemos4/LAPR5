@@ -79,12 +79,14 @@ sugerirGrupo(Request):-
     cors_enable,
     removerBaseConhecimento(),!,
     carregaDados(),!,
+   % http_read_json(Request,DictIn,[json_object(dict)]),
     http_parameters(Request,
     [nTags(NTags,[number]),
     nUsers(NUsers,[number]),
-    tagsObg(TagsObg,[list(string)])]),
+    tagsObg(TagsObg,[string])]),
 
-    sugerir_grupos(NTags,NUsers,TagsObg,Grupo),
+    split_string(TagsObg,",","",L),
+    sugerir_grupos(/*DictIn.get(nTags),DictIn.get(nUsers),DictIn.get(tagsObg),Grupo),*/NTags,NUsers,L,Grupo),
     Reply = objeto_json_tags(Grupo),
     prolog_to_json(Reply,JSONObject),
     reply_json(JSONObject,[json_object]).

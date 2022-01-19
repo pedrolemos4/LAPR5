@@ -32,7 +32,7 @@ lista_utilizadores_sem_ligacao(NUtilizador,ListaUtilizadores,ListaTodos,ListaFin
 % o 4º argumento corresponde à lista que retorna completa com todos os utilizadores que o utilizador inicial nao tem ligacao e que tenha 1 tag em comum da base de conhecimento
 lista_tags_utilizador([],_,ListaFinalUtilizadores,Lista):-
 reverse(ListaFinalUtilizadores,Lista).
-lista_tags_utilizador([Utilizador|ListaUtilizadores],ListaTags,ListaFinalUtilizadores,Lista):-no(Utilizador,_,Lista2), intersection(ListaTags,Lista2,ListaTagsRes), ((ListaTagsRes\==[],
+lista_tags_utilizador([Utilizador|ListaUtilizadores],ListaTags,ListaFinalUtilizadores,Lista):-no(Utilizador,_,Lista2,_,_,_,_,_,_,_,_,_,_), intersection(ListaTags,Lista2,ListaTagsRes), ((ListaTagsRes\==[],
 lista_tags_utilizador(ListaUtilizadores,ListaTags,[Utilizador|ListaFinalUtilizadores],Lista));lista_tags_utilizador(ListaUtilizadores,ListaTags,ListaFinalUtilizadores,Lista)).
 
 
