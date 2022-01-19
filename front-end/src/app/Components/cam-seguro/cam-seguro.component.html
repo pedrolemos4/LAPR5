@@ -6,26 +6,28 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <div id="container">
-        <h2>Calcular caminho mais seguro</h2>
+        <i id="return" type="submit" (click)="return()" class="fa fa-arrow-left"> Voltar </i>
+        <h2 style = "text-align: center; font-weight: bold;">Calcular caminho mais seguro</h2>
         <form [formGroup]="camSeguroForm" (ngSubmit)="onSubmit()">
             <div class="form-data">
-                <label for="jogador">Jogador Objetivo:</label>
+                <label  style="margin-left: 25%;" for="jogador">Jogador Objetivo:</label>
                 <select id="amigos" class="selector" style="margin: 20px;" placeholder="Escolha um jogador" (change)="selectChangeHandler($event)">
                     <option selected disabled="disabled"> Selecione um jogador</option>
                     <option *ngFor="let eachVal of emailList" [ngValue] = "eachVal">
                         {{eachVal}}
                     </option>
-                </select>
+                </select> 
             </div>
             <div class="form-data">
-                <label for="forca">Força Minima:</label>
-                <input id="forca" style="margin: 20px;" type="forca" placeholder="Insira o valor da força" formControlName="forca"/>
+                <label style="margin-left: 25%;" for="forca">Força Minima:</label>
+                <input id="forca" style="margin: 20px; margin-left: 6%;" type="forca" placeholder="Insira o valor da força" formControlName="forca"/>
                 <div *ngIf="camSeguroForm.controls['forca'].touched && camSeguroForm.controls['forca'].errors?.['required']"><i class="fa fa-warning"></i> Insira um valor!</div>
             </div>
-            <button id="submit" type="submit" class="submit"> Calcular Caminho</button>
+            <i id="Calcular" style="margin-left: 37%;" type="submit" (click)="onSubmit()" class="fa fa-calculator"> Calcular caminho </i>
+            <!-- <button id="submit" type="submit" class="submit"> Calcular Caminho</button> -->
             
         </form>
-        <div>
+        <div id="divCaminho">
             <p>Caminho Mais Seguro: </p>
             <div style="display: inline; padding-left: 5px; " *ngFor="let eachVal of emailListCaminho; last as isLast">
                 <span *ngIf="!isLast">{{eachVal}}  --></span>

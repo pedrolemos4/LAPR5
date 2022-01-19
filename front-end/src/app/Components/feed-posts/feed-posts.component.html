@@ -72,9 +72,11 @@
       <h4 class="card-desc"> Comentário: <b>{{c.texto}}</b></h4>
       <h4 class="card-desc"> Tags: <b>{{c.tags}}</b></h4>
       <div class="like-outer">
-        <i [attr.id]="c.id + 1" style="color: black;" class="fa fa-thumbs-o-up" (click)="darLikeComentario(c,c.id + 1)"></i>
+        <i *ngIf="c.likes.includes(emailUser)" [attr.id]="c.id + 1" style="color: blue;" class="fa fa-thumbs-o-up" (click)="darLikeComentario(c,c.id + 1)"></i>
+        <i *ngIf="!c.likes.includes(emailUser)" [attr.id]="c.id + 1" style="color: black;" class="fa fa-thumbs-o-up" (click)="darLikeComentario(c,c.id + 1)"></i>
         <span class="like-no" (click)="verLikes(c.likes)">{{c.likes.length}}</span>
-        <i [attr.id]="c.id"  style="color: black;" class="fa fa-thumbs-o-down" (click)="darDislikeComentario(c, c.id)"></i>
+        <i *ngIf="c.dislikes.includes(emailUser)" [attr.id]="c.id"  style="color: red;" class="fa fa-thumbs-o-down" (click)="darDislikeComentario(c, c.id)"></i>
+        <i *ngIf="!c.dislikes.includes(emailUser)" [attr.id]="c.id"  style="color: black;" class="fa fa-thumbs-o-down" (click)="darDislikeComentario(c, c.id)"></i>
         <span class="like-no" (click)="verDislikes(c.dislikes)">{{c.dislikes.length}}</span>
       </div>
     </div>
