@@ -29,6 +29,7 @@ export class SugerirAmigosService {
   }
 
   getJogadorById(id: any): Observable<Jogador> {
+    console.log(id);
     return this.http.get<Jogador>(this.url + 'jogadores/GetJogador/' + id);
   }
 

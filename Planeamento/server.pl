@@ -37,6 +37,7 @@
 :-ensure_loaded("./DfsForcaLigacaoRelacao.pl").
 :-ensure_loaded("./DfsForcaLigacao.pl").
 :-ensure_loaded("./CalculoNovosEstados.pl").
+:-ensure_loaded("./SugerirGrupos.pl").
 
 
 
@@ -72,6 +73,21 @@ stop(Port):-
 :- http_handler('/api/DfsForcaLigacaoRelacao',dfsForcaLigacaoRelacao,[]).
 :- http_handler('/api/DfsForcaLigacao',dfsForcaLigacao,[]).
 :- http_handler('/api/CalculoNovosEstadosLikesDislikes',calculoNovosEstadosLikesDislikes,[]).
+:- http_handler('/api/SugerirGrupo',sugerirGrupo,[]).
+
+sugerirGrupo(Request):-
+    cors_enable,
+    removerBaseConhecimento(),!,
+    carregaDados(),!,
+    http_parameters(Request,
+    [nTags(NTags,[number]),
+    nUsers(NUsers,[number]),
+    tagsObg(TagsObg,[list(string)])]),
+
+    sugerir_grupos(NTags,NUsers,TagsObg,Grupo),
+    Reply = objeto_json_tags(Grupo),
+    prolog_to_json(Reply,JSONObject),
+    reply_json(JSONObject,[json_object]).
 
 calculoNovosEstadosLikesDislikes(Request):-
     cors_enable,

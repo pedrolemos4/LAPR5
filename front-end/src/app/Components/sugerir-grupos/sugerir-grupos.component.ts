@@ -12,6 +12,8 @@ export class SugerirGruposComponent implements OnInit {
 
   nUsers: number;
   nTags: number;
+  tag: string = '';
+  tagsObg: string[] = [];
   verGruposForm: FormGroup;
   emailCurrentUser: string | undefined = '';
   idCurrentUser: string;
@@ -19,7 +21,8 @@ export class SugerirGruposComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private sugerirGruposService: SugerirGruposService, private toastr: ToastrService) {
     this.verGruposForm = this.formBuilder.group({
       nUsers: ['', Validators.required],
-      nTags: ['',Validators.required]
+      nTags: ['',Validators.required],
+      tagsObg: ['',Validators.required]
     })
    }
 
@@ -28,11 +31,15 @@ export class SugerirGruposComponent implements OnInit {
   }
 
   onSubmit(): void{
+    this.tag = '';
+    this.tagsObg = [];
+    this.tag = this.verGruposForm.controls['tagsObg'].value;
+    this.tagsObg = this.tag.toString().split(",");
     this.nUsers = this.verGruposForm.controls['nUsers'].value;
     this.nTags = this.verGruposForm.controls['nTags'].value;
     const currentUser = localStorage.getItem('currentUser');
     this.emailCurrentUser = currentUser?.replace(/\"/g,"");
-    this.sugerirGruposService.getGrupos(this.nTags,this.nUsers);
+    this.sugerirGruposService.getGrupos(this.nTags,this.nUsers,this.tagsObg);//.subscribe();
   }
 
 }

@@ -12,8 +12,11 @@ export class SugerirGruposService {
 
   constructor(private http: HttpClient) { }
 
-  getGrupos(nTags: any, nUsers: any){
+  getGrupos(nTags: any, nUsers: any,tagsObg: any){
     console.log(nTags);
     console.log(nUsers);
+    console.log(tagsObg);
+    const urlAux = this.urlPlan + '/api/SugerirGrupo?nTags='+nTags +'&nUsers=' + nUsers + '&tagsObg=' +tagsObg;
+    console.log(urlAux);
   }
 }
