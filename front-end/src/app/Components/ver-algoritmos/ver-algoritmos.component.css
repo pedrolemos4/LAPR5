@@ -1,4 +1,6 @@
 .card {
+    border-color: #76b5c5;
+    border-style: solid;
     padding: 17px;
     width: 50%;
     background-color: #f2f2f2e7;
@@ -21,12 +23,17 @@
 }
 
 .h41 {
+    border-color: #76b5c5;
+    border-style: solid;
+    text-align: center;
     width: 50%;
     font-size: medium;
     height: 30px;
 }
 
 .h42 {
+    border-color: #76b5c5;
+    border-style: solid;
     text-align: center;
     width: 50%;
     height: 30px;
@@ -40,11 +47,12 @@
 .botao1 {
     margin-top: -1%;
     width: 50%;
+    text-align: center;
 }
 
-.botao1 button {
+/* .botao1 button {
     margin-left: 10%;
-}
+} */
 
 .botao2 {
     margin-left: auto;
@@ -66,4 +74,18 @@
     margin-left: -3%;
     color: black;
     font-weight: bold
+}
+
+.fa {
+    margin-top: 2%;
+    font-size: 100%;
+    cursor: pointer;
+    user-select: none;
+    color: black;
+    margin-bottom: 10px;
+}
+  
+.fa:hover {
+    transform: scale(1.2);
+    color: #7692c5;
 }

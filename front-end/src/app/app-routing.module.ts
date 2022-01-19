@@ -22,7 +22,6 @@ import { PedidoLigacaoPendenteComponent } from './Components/pedido-ligacao-pend
 import { FazerPostComponent } from './Components/fazer-post/fazer-post.component';
 import { TagRelacaoUserComponent } from './Components/tag-relacao-user/tag-relacao-user.component';
 import { TagsTodosJogadoresComponent } from './Components/tags-todos-jogadores/tags-todos-jogadores.component';
-import { FortalezaRedeComponent } from './Components/fortaleza-rede/fortaleza-rede.component';
 import { AmigosComumComponent } from './Components/amigos-comum/amigos-comum.component';
 import { CaminhoDiferenciadoComponent } from './Components/caminho-diferenciado/caminho-diferenciado.component';
 import { TagsTodasRelacoesComponent } from './Components/tags-todas-relacoes/tags-todas-relacoes.component';
@@ -72,7 +71,6 @@ const routes: Routes = [
   { path: 'fazer_post', component: FazerPostComponent },
   { path: 'tag_relacao_user', component: TagRelacaoUserComponent },
   { path: 'tags_jogadores', component: TagsTodosJogadoresComponent },
-  { path: 'fortaleza_rede', component: FortalezaRedeComponent },
   { path: 'caminho_diferenciado', component: CaminhoDiferenciadoComponent },
   { path: 'feed_posts', component: FeedPostsComponent },
   { path: 'tag_cloud_pessoal', component: TagCloudPessoalComponent },

@@ -6,12 +6,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <div class="card-body">
         <div class="tags">
-            <h2>Tags de todos os Utilizadores:</h2>
-            <div *ngFor="let tag of listTags">
-                <p>{{tag}} <button (click)="jogadoresTag(tag)"
-                        style="cursor: pointer; margin-left: 80%; display: block; margin-top: -25px;">Ver
-                        Utilizadores</button></p>
-            </div>
+            <h2>Tag Cloud:</h2>
+            <i type="submit" (click)="reDraw()" class="fa">Todos os Utilizadores</i>
+            <angular-tag-cloud [data]="data" (clicked)="logClicked($event)" [width]="options.width" [height]="options.height" [overflow]="options.overflow"
+            [zoomOnHover]="options.zoomOnHover" [realignOnResize]="options.realignOnResize"></angular-tag-cloud>    
         </div>
         <div class="jogadores">
             <h4>Utilizadores com a tag selecionada:</h4>

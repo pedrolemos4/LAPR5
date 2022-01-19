@@ -3,6 +3,7 @@ import { SugerirAmigosService } from 'src/app/Services/sugerir-amigos/sugerir-am
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Perfil } from 'src/app/Models/Perfil';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sugerir-amigos',
@@ -20,7 +21,7 @@ export class SugerirAmigosComponent implements OnInit {
   aux1: string[] = new Array<string>();
 
 
-  constructor(private formBuilder: FormBuilder, private sugerirAmigosService: SugerirAmigosService, private toastr: ToastrService) {
+  constructor(private formBuilder: FormBuilder, private router: Router,private sugerirAmigosService: SugerirAmigosService, private toastr: ToastrService) {
 
     this.pedirNivel = this.formBuilder.group({
       numeroNiveis: ['', Validators.required]
@@ -81,6 +82,10 @@ export class SugerirAmigosComponent implements OnInit {
         }
       });
     });
+  }
+
+  return():void{
+    this.router.navigateByUrl("/ver_amigos_grupos");
   }
 
 }

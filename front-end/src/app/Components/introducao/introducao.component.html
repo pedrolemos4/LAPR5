@@ -2,22 +2,32 @@
 <app-navbar></app-navbar>
 <div id="texto">
     <div id="container">
-        <h2>Lista de introduções pendentes:</h2>
+        <h2 style="text-align: center; font-weight: bold;">Lista de introduções pendentes</h2>
         <div *ngIf="!listIntroducoes.length">Não tem introduções pendentes!</div>
-            <table style="width: 500px;">
-                <tr>
-                    <td *ngFor="let perfil of perfilIntrodutoresList">Introdutor: {{perfil}}</td>
-                </tr>
-                <tr>
-                    <td *ngFor="let perfil of perfilIniciaisList">Solicitante: {{perfil}}</td>
-                </tr>
-                <tr>
-                    <td *ngFor="let intro of listIntroducoes">
-                        <p>{{intro.textoIntroducao}}</p>
-                        <button id="aceitar" type="submit" class="aceitar" (click)="aceitar(intro)"><i class="fa fa-check"></i> Aceitar</button>
-                        <button id="rejeitar" type="submit" class="rejeitar" (click)="rejeitar(intro)"><i class="fa fa-times"></i> Rejeitar</button>
-                    </td>
-                </tr>
-              </table>
+        <table style="width: 500px;">
+            <!-- <tr>
+                <td *ngFor="let perfil of perfilIntrodutoresList">Introdutor: {{perfil}}</td>
+            </tr>
+            <tr>
+                <td *ngFor="let perfil of perfilIniciaisList">Solicitante: {{perfil}}</td>
+            </tr> -->
+            <!-- <tr>
+                <td *ngFor="let intro of listIntroducoes">
+                    <p>{{intro.textoIntroducao}}</p>
+                    <i id="aceitar" type="submit" (click)="aceitar(intro)" class="fa fa-check-circle"></i>
+                    <i id="rejeitar" style="margin-left: 10px;" type="submit" (click)="rejeitar(intro)" class="fa fa-times-circle"></i>
+                </td>
+            </tr> -->
+            <tr>
+                <td id="table" style="text-align: center;" *ngFor="let intro of perfilListAux">
+                    <p><b>Introdutor:</b> {{intro[0]}}</p>
+                    <p style="margin-top: -10px;"><b>Solicitante: </b> {{intro[1]}}</p>
+                    <p style="margin-top: 20px;">{{intro[2]}}</p>
+                    <i id="aceitar" type="submit" (click)="aceitar(intro[3])" class="fa fa-check-circle"></i>
+                    <i id="rejeitar" style="margin-left: 10px;" type="submit" (click)="rejeitar(intro[3])"
+                        class="fa fa-times-circle"></i>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>

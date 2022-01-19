@@ -3,14 +3,14 @@
 <div id="canvas"></div>
 <div id="texto">
     <div id="container">
-        <h2>Visualizar Rede</h2>
+        <h2 style="text-align: center; font-weight: bold;">Visualizar Rede</h2>
         <form [formGroup]="redeForm" (ngSubmit)="onSubmit()">
             <div class="form-data">
-                <label for="nivel">Nivel:</label>
-                <input id="nivel" style="margin: 20px;" type="nivel" placeholder="Insira o nivel máximo a ver" formControlName="nivel"/>
+                <!-- <label for="nivel">Nivel:</label> -->
+                <input id="nivel" style="margin: 20px; margin-left: 75px;" type="nivel" placeholder="Insira o nivel máximo a ver" formControlName="nivel"/>
                 <div *ngIf="redeForm.controls['nivel'].touched && redeForm.controls['nivel'].errors?.['required']"><i class="fa fa-warning"></i> Insira um valor!</div>
             </div>
-            <button id="submit" type="submit" class="submit"> Visualizar Rede</button>
+            <i id="submit" style="margin-left: 85px;" type="submit" (click)="onSubmit()" class="fa fa-calculator"> Calcular caminho </i>
         </form>
     </div>
 </div>

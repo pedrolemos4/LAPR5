@@ -1,17 +1,31 @@
 <app-header></app-header>
 <app-navbar></app-navbar>
+<div class="card2">
+    <h4 class="card-header">Fortaleza da Rede:</h4>
+    <div class="card-body">
+        <p id="mensagem1"><span>Soma das forças de ligação até ao nível 1: </span><b>{{soma}}</b></p>
+    </div>
+</div>
 <div id="texto">
     <div id="container">
-        <h2>Calcular tamanho da rede</h2>
+        <h2 style="text-align: center; font-weight: bold;">Calcular tamanho da rede</h2>
         <form [formGroup]="tamRedeForm" (ngSubmit)="onSubmit()">
             <div class="form-data">
-                <label for="nivel">Nivel Máximo:</label>
-                <input id="nivel" style="margin: 20px;" type="nivel" placeholder="Insira um valor de 1 a 3" formControlName="nivel"/>
-                <div *ngIf="tamRedeForm.controls['nivel'].touched && tamRedeForm.controls['nivel'].errors?.['required']"><i class="fa fa-warning"></i> Insira um valor de 1 a 3!</div>
+                <label style="margin-left: 45px;" for="nivel">Nivel Máximo:</label>
+                <input id="nivel" style="margin: 20px;" type="nivel" placeholder="Insira um valor de 1 a 3"
+                    formControlName="nivel" />
+                <div
+                    *ngIf="tamRedeForm.controls['nivel'].touched && tamRedeForm.controls['nivel'].errors?.['required']">
+                    <i class="fa fa-warning"></i> Insira um valor de 1 a 3!</div>
             </div>
-            <button id="submit" type="submit" class="submit"> Calcular Tamanho</button>
+
+            <i id="submit" style="margin-left: 130px;" type="submit" (click)="onSubmit()" class="fa fa-calculator">
+                Calcular tamanho </i>
+            <!-- <button id="submit" type="submit" class="submit"> Calcular Tamanho</button> -->
         </form>
         <br>
-        <button id="submit2" (click)="dimensaoRede()" class="submit"> Calcular Dimensão Total</button>
+        <i id="submit2" style="margin-left: 100px;" type="submit" (click)="dimensaoRede()" class="fa fa-calculator">
+            Calcular dimensão total </i>
+        <!-- <button id="submit2" (click)="dimensaoRede()" class="submit"> Calcular Dimensão Total</button> -->
     </div>
 </div>

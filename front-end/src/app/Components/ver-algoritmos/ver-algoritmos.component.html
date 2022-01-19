@@ -3,35 +3,50 @@
 <div class="card">
     <div class="card-body">
         <div class="card1">
-            <h2 style="margin-left: 34%;">Ver Algoritmos</h2>
-                <div class="card2">
-                    <h4 class="h41" style="margin-top: 6%; font-weight: bold;">aStar - Força Ligação Relação</h4>
-                    <h4 class="h42"> aStar - Força Ligação</h4>
-                    <div class="botao1">
-                        <button (click)="relacaoLigacao()">Ver soluções</button>
-                    </div>
-                    <div class="botao2">
-                        <button (click)="aStarLigacao()">Ver soluções</button>
-                    </div>
-              <!--  </div>-->
-            <!--<div class="card4">-->
-                <h4 class="h41" style="margin-top: 6%; font-weight: bold;">Best First - Força Ligação Relação</h4>
-                <h4 class="h42">Best First - Força Ligação</h4>
-                <div class ="botao1">
-                    <button (click)="bestFirstRelLig()">Ver soluções</button>
+            <h2 style="text-align: center; font-weight: bold;">Ver Algoritmos</h2>
+            <div class="card2">
+                <h4 class="h41" style="margin-top: 6%; font-weight: bold;">aStar - Força Ligação Relação</h4>
+                <h4 class="h42"> aStar - Força Ligação</h4>
+                <div class="botao1">
+                    <i id="submit" type="submit" (click)="relacaoLigacao()" class="fa fa-calculator">
+                        Ver soluções </i>
+                    <!-- <button (click)="relacaoLigacao()">Ver soluções</button> -->
                 </div>
                 <div class="botao2">
-                    <button (click)="bestFirstLig()"> Ver soluções</button>
+                    <i id="submit" style="margin-left: 0px;" type="submit" (click)="aStarLigacao()"
+                        class="fa fa-calculator">
+                        Ver soluções </i>
+                    <!-- <button (click)="aStarLigacao()">Ver soluções</button> -->
                 </div>
-                <h4 class ="h41" style="margin-top: 6%; font-weight: bold;">Depth First - Força Ligação Relação</h4>
+                <!--  </div>-->
+                <!--<div class="card4">-->
+                <h4 class="h41" style="margin-top: 6%; font-weight: bold;">Best First - Força Ligação Relação</h4>
+                <h4 class="h42">Best First - Força Ligação</h4>
+                <div class="botao1">
+                    <i id="submit" type="submit" (click)="bestFirstRelLig()" class="fa fa-calculator">
+                        Ver soluções </i>
+                    <!-- <button (click)="bestFirstRelLig()">Ver soluções</button> -->
+                </div>
+                <div class="botao2">
+                    <i id="submit" style="margin-left: 0px;" type="submit" (click)="bestFirstLig()"
+                        class="fa fa-calculator">
+                        Ver soluções </i>
+                    <!-- <button (click)="bestFirstLig()"> Ver soluções</button> -->
+                </div>
+                <h4 class="h41" style="margin-top: 6%; font-weight: bold;">Depth First - Força Ligação Relação</h4>
                 <h4 class="h42">Depth First - Força Ligação</h4>
-                <div class ="botao1">
-                    <button (click)="dfsLigRel()">Ver soluções</button>
+                <div class="botao1">
+                    <i id="submit" type="submit" (click)="dfsLigRel()" class="fa fa-calculator">
+                        Ver soluções </i>
+                    <!-- <button (click)="dfsLigRel()">Ver soluções</button> -->
                 </div>
-                <div class ="botao2">
-                    <button (click)="dfsLigacao()">Ver soluções</button>
+                <div class="botao2">
+                    <i id="submit" style="margin-left: 0px;" type="submit" (click)="dfsLigacao()"
+                        class="fa fa-calculator">
+                        Ver soluções </i>
+                    <!-- <button (click)="dfsLigacao()">Ver soluções</button> -->
                 </div>
-            <!--</div>-->
+                <!--</div>-->
+            </div>
         </div>
     </div>
-</div>

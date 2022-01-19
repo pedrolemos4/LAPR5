@@ -32,7 +32,6 @@ import { SugerirAmigosComponent } from './Components/sugerir-amigos/sugerir-amig
 import { FazerPostComponent } from './Components/fazer-post/fazer-post.component';
 import { TagRelacaoUserComponent } from './Components/tag-relacao-user/tag-relacao-user.component';
 import { TagsTodosJogadoresComponent } from './Components/tags-todos-jogadores/tags-todos-jogadores.component';
-import { FortalezaRedeComponent } from './Components/fortaleza-rede/fortaleza-rede.component';
 import { AmigosComumComponent } from './Components/amigos-comum/amigos-comum.component';
 import { CaminhoDiferenciadoComponent } from './Components/caminho-diferenciado/caminho-diferenciado.component';
 import { TagsTodasRelacoesComponent } from './Components/tags-todas-relacoes/tags-todas-relacoes.component';
@@ -80,7 +79,6 @@ import { DfsLigacaoComponent } from './Components/dfs-ligacao/dfs-ligacao.compon
     FazerPostComponent,
     TagRelacaoUserComponent,
     TagsTodosJogadoresComponent,
-    FortalezaRedeComponent,
     AmigosComumComponent,
     CaminhoDiferenciadoComponent,
     TagsTodasRelacoesComponent,

@@ -1,6 +1,6 @@
 #texto{
     margin-left: 17%;
-    padding: 1px 16px;
+    padding-top: 200px;
     height: 665px;
     width: 89%;
     display: inline-block;
@@ -9,25 +9,47 @@
 }
 
 #container{
+    border-color: #76b5c5;
+    border-style: solid;
     border-radius: 8px;
     background-color: #f2f2f2e7;
     padding: 15px;
-    padding-top: 2px;
+    transform: translateX(100%);
     width: 30%;
+}
+
+.card2 {
+    border-color: #76b5c5;
+    border-style: solid;
+    text-align: center;
+    width: 70%;
+    background-color: #f2f2f2e7;
+    border-radius: 5px;
+    justify-content: center;
+    margin-left: 23%;
+    margin-top: 2%;
+    position: absolute;
+  }
+
+.card-header{
+    font-weight: bold;
+    padding-bottom: 0%;
+    margin-left: 2%;
 }
 
 .form-data{
     margin-right: 20px;
 }
 
-.submit{
-    background-color: rgb(16, 219, 60);
-    color: white;
-    border: none;
-    padding: 9px 15px;
+.fa {
+    margin-top: 2%;
+    font-size: 130%;
     cursor: pointer;
+    user-select: none;
+    color: black;
+    margin-bottom: 10px;
 }
-
-.submit:hover{
-    background-color: rgb(21, 161, 52);
+  
+.fa:hover {
+    transform: scale(1.2);
 }

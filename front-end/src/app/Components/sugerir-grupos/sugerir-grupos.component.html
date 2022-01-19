@@ -1,9 +1,10 @@
 <app-header></app-header>
 <app-navbar></app-navbar>
-<div class="content">
+<div id="content">
     <div id="card">
+        <i id="return" type="submit" (click)="return()" class="fa fa-arrow-left"> Voltar </i>
         <h2 style ="font-weight:bold;"> Sugestão de Grupo</h2>
-        <p style= "font-weight: bold;">Introduza quantos utilizadores pretende que existam no grupo e quantas tags em comum</p>
+        <p style= "font-weight: bold;">Introduza quantos utilizadores pretende que existam no grupo, quantas tags em comum e quais as tags obrigatórias</p>
         <form [formGroup]="verGruposForm" (ngSubmit)="onSubmit()">
             <div class ="form-group">
                 <label for="nUsers">Número de Utilizadores: </label>
@@ -11,13 +12,13 @@
             </div>
             <div>
                 <label for="nTags">Número de Tags: </label>
-                <input style="margin-left: 17.5%" type="text" id="nTags" formControlName="nTags" class="form-control" required/>
+                <input style="margin-left: 16.8%" type="text" id="nTags" formControlName="nTags" class="form-control" required/>
             </div>
             <div>
                 <label for="tagsObg">Tags Obrigatórias: </label>
-                <input style="margin-left: 16%" type="text" id="tagsObg" formControlName="tagsObg" class="form-control" required/>
+                <input style="margin-left: 15.7%" type="text" id="tagsObg" formControlName="tagsObg" class="form-control" required/>
             </div> 
-            <button type="submit" id="submit" class="submit">Consultar Grupo</button>
+            <i id="Calcular" style ="margin-left: 40%;" type="submit"(click)="onSubmit()" class="fa fa-users"> Consultar Grupo</i>
         </form>
     </div>
 </div>

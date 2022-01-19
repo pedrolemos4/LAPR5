@@ -1,61 +1,59 @@
 <app-header></app-header>
 <app-navbar></app-navbar>
 
-<div class="card2">
-    <h4 class="card-header">Pesquisar Jogadores:</h4>
+<div id="cardPrincipal" class="card1">
+    <h4 class="card-header" style="font-size: 20px;">Pesquisa...</h4><br>
     <div class="card-body">
-        <div class="form-group">
-            <button type="submit" id="submit" class="btn-primary" (click)="peloNome()">Por Nome</button>
-            <button type="submit" id="submit1" class="btn1-primary" (click)="peloEmail()">Por Email</button>
-            <button type="submit" id="submit2" class="btn2-primary" (click)="peloPais()">Por Pais</button>
+        <div class="form-data">
+            <select id="selector" (change)="selectChangeHandlerParametro($event)">
+                <option selected disabled="disabled">Escolha o parâmetro de pesquisa...</option>
+                <option> Nome</option>
+                <option> Email</option>
+                <option> País</option>
+            </select>
         </div>
-    </div>
-</div>
-<div class="card1">
-    <h4 class="card-header">Pesquisa...</h4><br>
-    <div class="card-body">
-        <form [formGroup]="parametroForm" (ngSubmit)="pesquisar()">
+        <form [formGroup]="parametroForm" id="pesquisaJogadorParametro">
             <div class="form-group">
                 <div class="label1-maior">
-                    <label for="Parametro">Parametro para pesquisa: </label>
+                    <label for="Parametro" style="font-weight: bold;">{{parametroSelecionado}}: </label>
                 </div>
                 <div class="coluna1-menor">
                     <input id="parametro" type="text" placeholder="Insira parametro..." formControlName="Parametro"
-                        class="form-control" required />
-                    <div class="botao1">
-                        <button type="submit" id="botao" class="btn3-primary">Pesquisar</button>
-                    </div>
+                        class="form-control" />
+                    <i id="pesquisa" type="submit" (click)="pesquisar()" class="fa fa-search"> Pesquisar </i>
                 </div>
             </div>
         </form>
-    </div>
-</div>
-<div class="card">
-    <h4 class="card-header">Resultados da Pesquisa:</h4>
-    <div class="card-body">
-        <div class="form-data">
-            <select id="escolha" (change)="selectChangeHandler($event)">
-                <option selected disabled="disabled">Escolha...</option>
-                <option *ngFor="let perfil of listaPerfis">
-                    Nome: {{perfil.nome}}, Email: {{perfil.email}} </option>
-            </select>
-            <p><span>Jogador Selecionado:</span><br><b>{{selected}}</b></p>
+        <h4 id="resultadosPesquisa" class="card-header" style="margin-top: 20px; font-size: 20px;">Resultados da
+            Pesquisa:</h4>
+        <div id="resultadosPesquisaCard" class="card-body">
+            <div class="form-data">
+                <select id="escolha" (change)="selectChangeHandler($event)">
+                    <option selected>Escolha...</option>
+                    <option *ngFor="let perfil of listaPerfis">
+                        Nome: {{perfil.nome}}, Email: {{perfil.email}} </option>
+                </select>
+                <div id="jogadorParagrafo">
+                    <p><span>Jogador Selecionado:</span><b>{{selected}}</b></p>
+                    <i id="send" (click)="ligacao()" class="fa fa-paper-plane"> Mandar pedido de Ligação</i>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<div class="card3">
-    <h4 class="card-header">Efetuar Pedido de Ligação ao Jogador: <b>{{selected}}</b></h4>
-    <div class="card-body">
-        <form [formGroup]="ligacaoForm" (ngSubmit)="onSubmit()">
-            <div class="label-maior">
+<div id="cardLigacao" class="card2">
+    <i id="return" class="voltaBotao" type="submit" (click)="return()" class="fa fa-arrow-left"> Voltar </i>
+    <h4 style="font-size: 22px;" class="card-header">Efetuar Pedido de Ligação ao Jogador:<br><b
+            style="font-weight: normal; font-size: 17px;">{{selected}}</b></h4>
+    <div class="card-body1">
+        <form [formGroup]="ligacaoForm">
+            <div class="label1-maior">
                 <label for="TextoLigacao">Texto da Ligação: </label>
             </div>
-            <div class="coluna-menor">
+            <div class="coluna1-menor">
                 <input id="ligacao" type="text" placeholder="Insira texto de Ligação..." formControlName="TextoLigacao"
-                    class="form-control" required />
-                <div class="botao">
-                    <button type="submit" id="submit4" class="btn4-primary">Submit</button>
-                </div>
+                    class="form-control" />
+                <i id="ligacaoIcon" type="submit" (click)="onSubmit()" class="fa fa-paper-plane"> Enviar </i>
             </div>
         </form>
     </div>
