@@ -15,7 +15,7 @@ verificar_utilizadores([Utilizadores|ListaCheckTags],NUtilizadores,Aux,GrupoMaio
 
 % contaUtilizadores1(Utilizadores,NUtilizadores,N,0):-contaUtilizadores(Utilizadores,NUtilizadores,N,0),!.
 
-contaUtilizadores([],N,Final,C):- (C >= N, true, Final is C, !) ; (fail, !).
+contaUtilizadores([],N,Final,C):- (C > =N, true, Final is C, !) ; (fail, !).
 contaUtilizadores([_|Lista],N,ContadorFinal,Contador):- Contador1 is Contador + 1, contaUtilizadores(Lista,N,ContadorFinal,Contador1).
 
 verificar_utilizadores1([]):-fail,!.

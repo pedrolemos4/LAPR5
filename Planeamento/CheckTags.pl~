@@ -18,7 +18,7 @@ combinacao(X,[_|L],T):- combinacao(X,L,T).
 comparar([],_,_,ListaAux,ListaAux):-!.
 comparar([Comb|ListaCombinacoes],Lista,ListaFinal,ListaAux,Res):-comparar1(Comb,Lista,ListaFinal,_),comparar(ListaCombinacoes,Lista,_,[Comb,ListaFinal|ListaAux],Res),!.
 comparar1(_,[],[],_):-!.
-comparar1(Comb,[Id|Lista],ListaFinal,_):- no(Id,_,ListaTags,_,_,_,_,_,_,_,_,_,_),intersection(Comb,ListaTags,LInter),length(LInter,TamFinal),length(Comb,TamComb),(TamFinal \== TamComb),!,comparar1(Comb,Lista,ListaFinal,_).
+comparar1(Comb,[Id|Lista],ListaFinal,_):- no(Id,_,ListaTags),intersection(Comb,ListaTags,LInter),length(LInter,TamFinal),length(Comb,TamComb),(TamFinal \== TamComb),!,comparar1(Comb,Lista,ListaFinal,_).
 comparar1(Comb,[Id|Lista],[Id|ListaFinal],_):- comparar1(Comb,Lista,ListaFinal,_).
 
 

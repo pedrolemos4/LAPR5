@@ -1,4 +1,6 @@
 .card {
+    border-color: #76b5c5;
+    border-style: solid;
     padding: 17px;
     width: 50%;
     background-color: #f2f2f2e7;
@@ -7,7 +9,7 @@
     margin-left: 33%;
     margin-top: 15px;
     position: fixed;
-    height: 45%;
+    height: 30%;
     overflow-y: auto;
 }
 
@@ -18,5 +20,22 @@
 .tags h2 {
     margin-left: -3%;
     color: black;
-    font-weight: bold
+    font-weight: bold;
+    height: auto;
+}
+
+.fa {
+    font-size: 20px;
+    cursor: pointer;
+    user-select: none;
+    color: black;
+    margin-top: 7%;
+}
+
+.fa:hover {
+    transform: scale(1.2);
+}
+
+#over:hover {
+    color: #76b5c5;
 }

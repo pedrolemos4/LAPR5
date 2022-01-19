@@ -1,19 +1,21 @@
-<main>
-    <app-header></app-header>
-    <app-navbar></app-navbar>
+<app-header></app-header>
+<app-navbar></app-navbar>
     <div class="content">
         <div id="card">
-            <p>Escolha o nível até o qual pretende que seja sugerido o utilizador </p>
+            <i id="return" type="submit" (click)="return()" class="fa fa-arrow-left"> Voltar </i>
+            <h2 style = "text-align: center; font-weight: bold;"> Amigos Sugeridos</h2>
+            <p style = "margin-left: 1.5%; font-weight: bold;">Escolha o nível até o qual pretende que seja sugerido o utilizador </p>
             <form [formGroup]="pedirNivel">
                 <div class="form-group">
-                    <label for="numeroNiveis">Nível: </label>
+                    <label style="text-align:left" for="numeroNiveis">Nível: </label>
                     <input type="text" id="numeroNiveis" placeholder="Número inteiro maior que 1"
                         formControlName="numeroNiveis" class="form-control" required />
                 </div>
             </form>
-            <div class="form-group">
+            <!--<div class="form-group">
                 <button (click)="onSubmitNivel()" id="submit" class="btn-primary">Ok</button>
-            </div>
+            </div>-->
+            <i id="Calcular" style ="margin-left: 40%;" type="submit" (click)="onSubmitNivel()" class="fa fa-users"> Avançar </i>
             <div class="form-data">
                 <ul id="selector" class="selector" style="margin: 20px; margin-left: -10px;">
                     <p id = "textoSugestoes">Sugestões:</p>
@@ -24,5 +26,3 @@
             </div>
         </div>
     </div>
-    <router-outlet></router-outlet>
-</main>
