@@ -34,8 +34,9 @@
 
 .fa:hover {
     transform: scale(1.2);
+    color: #7692c5;
 }
 
-#over:hover {
+/* #over:hover {
     color:#76b5c5;
-}
+} */
