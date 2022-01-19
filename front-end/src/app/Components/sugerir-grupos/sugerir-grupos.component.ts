@@ -18,6 +18,7 @@ export class SugerirGruposComponent implements OnInit {
   verGruposForm: FormGroup;
   emailCurrentUser: string | undefined = '';
   idCurrentUser: string;
+  grupo;
   
   constructor(private formBuilder: FormBuilder, private router: Router,private sugerirGruposService: SugerirGruposService, private toastr: ToastrService) {
     this.verGruposForm = this.formBuilder.group({
@@ -29,9 +30,12 @@ export class SugerirGruposComponent implements OnInit {
 
 
   ngOnInit(): void {
+    document.getElementById("mensagem1").style.display = "none";
   }
 
   onSubmit(): void{
+    document.getElementById("mensagem1").style.display = "block";
+    this.grupo='';
     this.tag = '';
     this.tagsObg = [];
     this.tag = this.verGruposForm.controls['tagsObg'].value;
@@ -40,7 +44,18 @@ export class SugerirGruposComponent implements OnInit {
     this.nTags = this.verGruposForm.controls['nTags'].value;
     const currentUser = localStorage.getItem('currentUser');
     this.emailCurrentUser = currentUser?.replace(/\"/g,"");
-    this.sugerirGruposService.getGrupos(this.nTags,this.nUsers,this.tagsObg);//.subscribe();
+    this.sugerirGruposService.getGrupos(this.nTags,this.nUsers,this.tagsObg).subscribe(array=>{
+      console.log(array);
+      var aux = Object.values(array);
+      var valores = aux[0];
+      console.log(aux);
+      if (valores.length == 0) {
+        this.toastr.error("Não existe grupo tendo em conta os parâmetros definidos. Redefina-os por favor.", undefined, { positionClass: 'toast-bottom-left' });
+      } else {
+        this.grupo = valores;
+       // this.toastr.success("Caminho mais forte calculado", undefined, { positionClass: 'toast-bottom-left' });
+      }
+    });
   }
 
   return():void{

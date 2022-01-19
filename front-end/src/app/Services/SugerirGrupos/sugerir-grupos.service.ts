@@ -12,11 +12,15 @@ export class SugerirGruposService {
 
   constructor(private http: HttpClient) { }
 
-  getGrupos(nTags: any, nUsers: any,tagsObg: any){
+  getGrupos(nTags: any, nUsers: any,tagsObg: string[]){
     console.log(nTags);
     console.log(nUsers);
     console.log(tagsObg);
-    const urlAux = this.urlPlan + '/api/SugerirGrupo?nTags='+nTags +'&nUsers=' + nUsers + '&tagsObg=' +tagsObg;
-    console.log(urlAux);
+    if(tagsObg.toString() == ''){
+      console.log("linha")
+      let lista= JSON.stringify([]);
+      return this.http.get<string[]>(this.urlPlan + '/api/SugerirGrupo?nTags='+nTags +'&nUsers=' + nUsers + '&tagsObg='+lista);
+    }
+    return this.http.get<string[]>(this.urlPlan + '/api/SugerirGrupo?nTags='+nTags +'&nUsers=' + nUsers + '&tagsObg=' +tagsObg);
   }
 }
