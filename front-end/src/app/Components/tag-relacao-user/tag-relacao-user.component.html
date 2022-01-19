@@ -8,8 +8,10 @@
     <div id="container">
         <h2 style="font-weight: bold;">Tags das relações do utilizador:</h2>
         <div *ngIf="!listTags.length">Não tem relações com tags associadas!</div>
-        <div *ngFor="let tag of listTags">
-            <p style=" margin-left: 3%;">{{tag}} <button (click)="amigosTag(tag)" style="cursor: pointer; margin-left: 80%; display: block; margin-top: -25px;">Ver Amigos</button></p>
+        <div class="tags"><br>
+            <i type="submit" (click)="reDraw()" class="fa">Obter Tag Cloud</i>
+            <angular-tag-cloud [data]="data" (clicked)="logClicked($event)" [width]="options.width" [height]="options.height" [overflow]="options.overflow"
+            [zoomOnHover]="options.zoomOnHover" [realignOnResize]="options.realignOnResize"></angular-tag-cloud>    
         </div>
         <h4 style="font-weight: bold;">Amigos com a tag selecionada:</h4>
         <div *ngFor="let amigo of listAmigos">
