@@ -1,6 +1,8 @@
 :-ensure_loaded('./CheckTags.pl').
 
 sugerir_grupos(NTags,NUtilizadores,TagsObrigatorias,GrupoMaior):-
+    TagsAux = TagsObrigatorias,
+    (TagsAux == ["[]"],TagsAux2 = [],!;(TagsAux2 = TagsObrigatorias)),
     plan_x_tags(NTags,ListaCheckTags),
     verificar_tags_obrigatorias(ListaCheckTags,UtilizadoresETags,[],TagsObrigatorias,TagsObrigatorias),
     verificar_utilizadores(UtilizadoresETags,NUtilizadores,[],GrupoMaior,0),!.
@@ -15,7 +17,7 @@ verificar_utilizadores([Utilizadores|ListaCheckTags],NUtilizadores,Aux,GrupoMaio
 
 % contaUtilizadores1(Utilizadores,NUtilizadores,N,0):-contaUtilizadores(Utilizadores,NUtilizadores,N,0),!.
 
-contaUtilizadores([],N,Final,C):- (C > =N, true, Final is C, !) ; (fail, !).
+contaUtilizadores([],N,Final,C):- (C >= N, true, Final is C, !) ; (fail, !).
 contaUtilizadores([_|Lista],N,ContadorFinal,Contador):- Contador1 is Contador + 1, contaUtilizadores(Lista,N,ContadorFinal,Contador1).
 
 verificar_utilizadores1([]):-fail,!.

@@ -1,8 +1,10 @@
 :-ensure_loaded('./CheckTags.pl').
 
 sugerir_grupos(NTags,NUtilizadores,TagsObrigatorias,GrupoMaior):-
+    TagsAux = TagsObrigatorias,
+    (TagsAux == ["[]"],TagsAux2 = [],!;(TagsAux2 = TagsObrigatorias)),
     plan_x_tags(NTags,ListaCheckTags),
-    verificar_tags_obrigatorias(ListaCheckTags,UtilizadoresETags,[],TagsObrigatorias,TagsObrigatorias),
+    verificar_tags_obrigatorias(ListaCheckTags,UtilizadoresETags,[],TagsAux2,TagsAux2),
     verificar_utilizadores(UtilizadoresETags,NUtilizadores,[],GrupoMaior,0),!.
     %verificar_tags_obrigatorias(GrupoMaior,TagsObrigatorias,ListaFinal).
 
