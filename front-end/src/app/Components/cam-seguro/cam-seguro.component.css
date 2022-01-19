@@ -9,14 +9,17 @@
 }
 
 #container{
+    border-color: #76b5c5;
+    border-style: solid;
     border-radius: 8px;
     background-color: #f2f2f2e7;
     padding: 15px;
     padding-top: 2px;
+    margin-left: 25%;
     width: 50%;
 }
 
-#container2{
+#container2{ 
     margin-top: 20px;
     border-radius: 8px;
     background-color: #f2f2f2e7;
@@ -45,4 +48,17 @@
 .selector{
     width: 192px;
     height: 30px;
+}
+
+.fa {
+    margin-top: 2%;
+    font-size: 130%;
+    cursor: pointer;
+    user-select: none;
+    color: black;
+    margin-bottom: 10px;
+}
+  
+.fa:hover {
+    transform: scale(1.2);
 }
