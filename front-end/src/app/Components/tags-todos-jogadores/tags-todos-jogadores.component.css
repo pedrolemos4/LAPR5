@@ -18,7 +18,8 @@
 .tags h2{
     margin-left: -3%;
     color: black;
-    font-weight: bold
+    font-weight: bold;
+    margin-bottom: 30px;
 }
 
 .jogadores{
@@ -29,4 +30,16 @@
     margin-left: -3%;
     color: black;
     font-weight: bold
+}
+
+.fa {
+    font-size: 20px;
+    cursor: pointer;
+    user-select: none;
+    color: black;
+}
+
+.fa:hover {
+    transform: scale(1.2);
+    color: #7692c5;
 }
