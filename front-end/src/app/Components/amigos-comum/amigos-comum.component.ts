@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AmigosComumService } from 'src/app/Services/AmigosComum/amigos-comum.service';
 import { Relacao } from 'src/app/Models/Relacao';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-amigos-comum',
@@ -19,11 +20,13 @@ export class AmigosComumComponent implements OnInit {
   amigos: Perfil[] = [];
   listaAmigosComum: string[] = [];
 
-  constructor(private service: AmigosComumService, private formBuilder: FormBuilder, private toastr: ToastrService) {
+  constructor(private service: AmigosComumService,private router: Router, private formBuilder: FormBuilder, private toastr: ToastrService) {
     this.form = this.formBuilder.group({});
   }
 
   ngOnInit(): void {
+    document.getElementById("mensagem").style.display = "none";
+    document.getElementById("mensagem1").style.display = "block";
     const currentUser = localStorage.getItem('currentUser');
     this.emailCurrentUser = currentUser?.replace(/\"/g, "");
     this.service.getPerfilAtual(this.emailCurrentUser).subscribe(Perfil => {
@@ -50,9 +53,11 @@ export class AmigosComumComponent implements OnInit {
 
   selectAmigo(event: any) {
     this.selectedAmigo = event.target.value;
+    document.getElementById("mensagem").style.display = "block";
   }
 
   onSubmit() {
+    document.getElementById("mensagem1").style.display = "block";
     this.listaAmigosComum = [];
     this.service.getPerfilAtual(this.selectedAmigo).subscribe(Perfil => {
       this.service.getJogador(Perfil.id).subscribe(Jogador => {
@@ -77,6 +82,10 @@ export class AmigosComumComponent implements OnInit {
         });
       });
     });
+  }
+
+  return(){
+    this.router.navigateByUrl("/ver_amigos_grupos");
   }
 
 }
