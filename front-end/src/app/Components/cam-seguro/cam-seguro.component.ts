@@ -31,7 +31,7 @@ export class CamSeguroComponent implements OnInit {
   perfilList: Perfil[] = [];
   emailList: string[] = [];
   emailListCaminho: string[] = [];
-  constructor(private formBuilder: FormBuilder, private camSeguroService: CamSeguroService, private toastr: ToastrService) { 
+  constructor(private formBuilder: FormBuilder, private router: Router, private camSeguroService: CamSeguroService, private toastr: ToastrService) { 
     this.camSeguroForm = this.formBuilder.group({
       jogador: [''],
       forca: ['', Validators.required],
@@ -39,6 +39,7 @@ export class CamSeguroComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    document.getElementById("divCaminho").style.display = 'none';
     const currentUser = localStorage.getItem('currentUser');
     this.emailUser = currentUser?.replace(/\"/g, "");
     this.camSeguroService.getPerfilByEmail(this.emailUser).subscribe(Perfil => {
@@ -76,6 +77,7 @@ export class CamSeguroComponent implements OnInit {
   }
   
   onSubmit(){
+    document.getElementById("divCaminho").style.display = 'block';
     var forca = document.getElementById('forca') as HTMLInputElement;
     this.camSeguroService.getPerfilByEmail(this.selectedPlayer).subscribe(Perfil => {
       this.perfilSelectedUser = Perfil;
@@ -97,7 +99,10 @@ export class CamSeguroComponent implements OnInit {
         });
       });
     });
-    
+  }
+
+  return() {
+    this.router.navigateByUrl("/ver_caminhos");
   }
 
 }
