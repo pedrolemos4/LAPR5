@@ -26,7 +26,6 @@ export class AmigosComumComponent implements OnInit {
 
   ngOnInit(): void {
     document.getElementById("mensagem").style.display = "none";
-    document.getElementById("mensagem1").style.display = "block";
     const currentUser = localStorage.getItem('currentUser');
     this.emailCurrentUser = currentUser?.replace(/\"/g, "");
     this.service.getPerfilAtual(this.emailCurrentUser).subscribe(Perfil => {

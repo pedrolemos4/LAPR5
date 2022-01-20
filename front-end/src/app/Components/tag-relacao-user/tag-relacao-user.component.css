@@ -9,6 +9,22 @@
     overflow-y: auto;
 }
 
+.tags{
+    margin-left: 3%;
+}
+
+.fa {
+    font-size: 20px;
+    cursor: pointer;
+    user-select: none;
+    color: black;
+}
+
+.fa:hover {
+    transform: scale(1.2);
+    color: #7692c5;
+}
+
 #container{
     padding: 17px;
     width: 50%;
