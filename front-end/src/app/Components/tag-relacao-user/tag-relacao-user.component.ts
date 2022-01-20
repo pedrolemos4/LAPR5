@@ -39,7 +39,6 @@ export class TagRelacaoUserComponent implements OnInit {
   idPerfilUser: string = '';
   currentUser!: Jogador;
   idCurrentUser: string = '';
-  data2: CloudData[];
   data: CloudData[] = [{
     text: '',
     weight: 2,
@@ -48,7 +47,6 @@ export class TagRelacaoUserComponent implements OnInit {
     rotate: null
   }];
   dict = {};
-  a: CloudData;
   
   constructor(private router: Router, private toastr: ToastrService, private tagRelacaoUserService: TagRelacaoUserService) { }
 
@@ -128,7 +126,6 @@ export class TagRelacaoUserComponent implements OnInit {
           this.listRelacoes.forEach((relacao: any) => {
             this.listTagsAux.push(relacao.tags);
             var aux = this.listTagsAux[0];
-            console.log(aux);
             for(var i = 0; i < aux.length; i++){
               if (relacao.tags.includes(clicked.text)) {
                 this.tagRelacaoUserService.getPerfilJogador(relacao.jogador2).subscribe(Perfil => {
@@ -145,40 +142,5 @@ export class TagRelacaoUserComponent implements OnInit {
       });
     });
     this.listAmigos = [];
-  }
-  
-  amigosTag(tag: string){
-    this.listAmigosAux = new Array<string>();
-    this.listAmigos = new Array<Perfil>();
-    console.log(tag);
-    const currentUser = localStorage.getItem('currentUser');
-    this.emailUser = currentUser?.replace(/\"/g, "");
-    this.tagRelacaoUserService.getPerfilByEmail(this.emailUser).subscribe(Perfil => {
-      this.perfilUser = Perfil;
-      this.idPerfilUser = Perfil.id;
-      this.tagRelacaoUserService.getJogadorByPerfil(this.idPerfilUser).subscribe(Response => {
-        this.currentUser = Response;
-        this.idCurrentUser = this.currentUser.id;
-        this.tagRelacaoUserService.getRelacoesJogador(this.idCurrentUser).subscribe(Relacoes => {
-          this.listRelacoes = Relacoes
-          this.listRelacoes.forEach((relacao: any) => {
-            this.listTagsAux.push(relacao.tags);
-            var aux = this.listTagsAux[0];
-            console.log(aux);
-            for(var i = 0; i < aux.length; i++){
-              if(relacao.tags.indexOf(tag) > -1){
-                this.tagRelacaoUserService.getPerfilJogador(relacao.jogador2).subscribe(Perfil => {
-                  if(this.listAmigosAux.indexOf(Perfil.email) <= -1){
-                    this.listAmigosAux.push(Perfil.email);
-                    this.listAmigos.push(Perfil);
-                  }
-                })
-              }
-            }
-            this.listTagsAux.pop(); 
-          });
-        });
-      });
-    });
   }
 }

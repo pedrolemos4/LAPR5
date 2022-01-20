@@ -102,7 +102,6 @@ export class IntroducaoComponent implements OnInit {
   }
 
   rejeitar(intro: Introducao) {
-    console.log(intro);
     this.introducaoService.patchIntroducao(intro.id, {
       id: intro.id,
       jogadorInicial: intro.jogadorInicial,
@@ -112,7 +111,6 @@ export class IntroducaoComponent implements OnInit {
       textoIntroducao: "Mensagem"
     } as Introducao).subscribe({
       next: (result: any) => {
-        console.log(result);
         this.toastr.success("Introdução rejeitada com sucesso!", undefined, { positionClass: 'toast-bottom-left' });
         this.router.navigateByUrl('/home');
       },
