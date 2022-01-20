@@ -68,8 +68,8 @@ percorre_lista_ligacoes_forca1(_,[],ListaAuxiliar,Lista):- Lista = ListaAuxiliar
 percorre_lista_ligacoes_forca1(X,[Y|ListaUtilizadores],ListaAuxiliar,Lista):-
     ligacao1(X,Y,FX,FY,RX,RY), converterLigacao(FX,FY,F1), converterRelacao(RX,RY,R1), Soma is (F1 + R1)/2, percorre_lista_ligacoes_forca1(X,ListaUtilizadores,[Soma|ListaAuxiliar], Lista).
 
-converterLigacao(RX,RY,F):- F is RX + RY.
-converterRelacao(FX,FY,F):- Aux is FX + FY + 200, F is (Aux*100)/400.
+converterLigacao(RX,RY,F):- Aux is RX + RY, F is Aux/2.
+converterRelacao(FX,FY,F):- Aux1 is FX + FY + 200, Aux is Aux1/2, F is (Aux*100)/400.
 
 % ordena de forma decrescente uma lista
 ordem_decrescente([H|List], Result) :- ordem_decrescente(List, Temp), insert_item(H, Temp, Result).
