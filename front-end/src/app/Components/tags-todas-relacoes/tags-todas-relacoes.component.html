@@ -1,27 +1,21 @@
 <app-header></app-header>
 <app-navbar></app-navbar>
-<div id="texto">
-    <div id="container">
-        <h2 style="margin-left: 30%;">Tag Todas Relações</h2>
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            <div class="form-group">
-                <div class = "row">
-                    <!-- <div class ="col-25">
-                        <label for="amigos">Relações:</label>
-                    </div> -->
-                    <div class ="col-75">
-                        <select id="amigos" class="selector" style="margin-left: 46%; margin-top: 5%;" (change) ="selectAmigo($event)">
-                            <option selected disabled="disabled">Selecione uma relação</option>
-                            <option *ngFor="let eachVal of listaRelacoes" [ngValue]="eachVal">
-                                {{eachVal}}
-                            </option>
-                        </select>
-                    </div>
-                </div>
+<div class="card">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <div class="card-body">
+        <div class="tags">
+            <h2>Tag Cloud:</h2>
+            <i type="submit" (click)="reDraw()" class="fa">Apresentar todas as relações</i>
+            <angular-tag-cloud [data]="data" (clicked)="logClicked($event)" [width]="options.width" [height]="options.height" [overflow]="options.overflow"
+            [zoomOnHover]="options.zoomOnHover" [realignOnResize]="options.realignOnResize"></angular-tag-cloud>    
+        </div>
+        <div class="relacoes">
+            <h4>Relações com a tag selecionada:</h4>
+            <div *ngFor="let rel of listaRelacoes">
+                <p> {{rel[0]}} → {{rel[1]}} </p>
             </div>
-            <p id = "mensagem" style="margin-top: 5%; margin-left: 20%;"><span>Selecionou: </span><b>{{relacaoSelecionada}}</b></p>
-            <button id="submit" type="submit" class="submit" style="margin-top: 5%; margin-left: 32.5%;"> Apresentar Tags da Relação: </button>
-            <p id = "mensagem1" style="margin-top: 5%; margin-left: 25%;"><span> Tags: </span><b>{{tagsRelacao}}</b></p>
-        </form>
+        </div>
     </div>
 </div>
