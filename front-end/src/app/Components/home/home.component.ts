@@ -55,6 +55,7 @@ export class HomeComponent implements OnInit {
   }
 
   onSubmitTags() {
+    this.showNames = [];
     this.numeroTags = this.ntagsForm.controls['ntags'].value;
     const currentUser = localStorage.getItem('currentUser');
     this.emailUser = currentUser?.replace(/\"/g, "");
@@ -72,12 +73,10 @@ export class HomeComponent implements OnInit {
                   for (var i = 0; i < aux12.length; i++) {
                     if (i % 2 != 0) {
                       var aux = aux12[i];
-                      if (aux.includes(Jogador.id)) {
+                      if (aux.includes(Perfil.email)) {
                         for (var k = 0; k < aux.length; k++) {
-                          if (aux[k] != Jogador.id) {
-                            this.homeService.getPerfil(aux[k]).subscribe(Perfil1 => {
-                              this.showNames.push(Perfil1.email);
-                            });
+                          if (aux[k] != Perfil.email) {
+                            this.showNames.push(aux[k]);
                           }
                         }
                       }
