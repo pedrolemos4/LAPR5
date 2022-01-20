@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~13.0.0",
     "@angular/router": "~13.0.0",
     "@types/three": "^0.134.0",
+    "angular-tag-cloud-module": "^13.0.0",
     "cors": "^2.8.5",
     "graphology": "^0.23.1",
     "ngx-toastr": "^14.2.1",

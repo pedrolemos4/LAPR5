@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TagCloudComponent } from 'angular-tag-cloud-module';
-import { ToastrService } from 'ngx-toastr';
 import { Jogador } from 'src/app/Models/Jogador';
 import { Perfil } from 'src/app/Models/Perfil';
 import { TagsTodosJogadoresService } from 'src/app/Services/TagsTodosJogadores/tags-todos-jogadores.service';
@@ -35,7 +34,6 @@ export class TagsTodosJogadoresComponent implements OnInit {
   idPerfilUser: string = '';
   currentUser!: Jogador;
   idCurrentUser: string = '';
-  data2: CloudData[];
   data: CloudData[] = [{
     text: '',
     weight: 2,
@@ -44,7 +42,6 @@ export class TagsTodosJogadoresComponent implements OnInit {
     rotate: null
   }];
   dict = {};
-  a: CloudData;
 
   constructor(private tagsTodosJogadoresService: TagsTodosJogadoresService) { }
 
@@ -79,18 +76,6 @@ export class TagsTodosJogadoresComponent implements OnInit {
 
   reDraw() {
     this.tagCloudComponent.reDraw();
-  }
-
-  jogadoresTag(tag: string) {
-    this.tagsTodosJogadoresService.getAllPerfis().subscribe(
-      (res: any) => {
-        res.forEach(element => {
-          if (element.tags.includes(tag)) {
-            this.listJogadores.push(element);
-          }
-        });
-      });
-    this.listJogadores = [];
   }
 
   putOnCloud(texto: any, peso: any, color1: any){
