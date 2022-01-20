@@ -7,7 +7,8 @@ percorre_niveis1(Numero,ListaNivel,NivelAtual,Nivel,Lista,ListaGuardaTodosNiveis
 :-dynamic ligacao1/6.
 
 % percorre_niveis para ter acesso a uma lista com os utilizadores que fazem parte da rede do utilizador origem
-cria_novas_ligacoes1(Orig, NivelLimite, ListaUtilizadores):- percorre_niveis1(Orig,[Orig],0,NivelLimite,[],[],ListaUtilizadores).
+% cria_novas_ligacoes1(Orig, NivelLimite, ListaUtilizadores):-
+% percorre_niveis1(Orig,[Orig],0,NivelLimite,[],[],ListaUtilizadores).
 
 % percorre lista de utilizadores da rede do utilizador origem, incluindo-0
 % encontra uma lista de utilizadores com qual um certo utilizador(X) tem ligacao e percorremos essa lista com o predicado percorre_lista_ligacoes_possiveis1
