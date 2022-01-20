@@ -43,7 +43,6 @@ export class FeedPostsComponent implements OnInit {
 
     this.feedPostsService.getPosts(this.array[1]).subscribe(
       (res: any) => {
-        console.log(res);
         if (res.length == 0) {
           this.toastr.error("O utilizador " + this.array[1] + " ainda não tem posts criados por si", undefined, { positionClass: 'toast-bottom-left' });
         } else {
@@ -290,7 +289,6 @@ export class FeedPostsComponent implements OnInit {
     this.feedPostsService.updateEstadosJogador(email,nLikes,nDislikes).subscribe({
       next: (res: any) => {
         var array: number[] = Object.values(res);
-        console.log(Object.values(res));
         this.feedPostsService.getPerfilByEmail(email).subscribe(
           (res1: any) => {
             var anteriorAlegria = res1.estadoHumor['Joyful'];
