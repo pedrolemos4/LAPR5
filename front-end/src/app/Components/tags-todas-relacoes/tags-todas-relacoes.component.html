@@ -7,7 +7,7 @@
     <div class="card-body">
         <div class="tags">
             <h2>Tag Cloud:</h2>
-            <i type="submit" (click)="reDraw()" class="fa">Apresentar tags de todas as relações do Utilizador</i>
+            <i type="submit" (click)="reDraw()" class="fa">Apresentar tags de todas as relações</i>
             <angular-tag-cloud [data]="data" (clicked)="logClicked($event)" [width]="options.width" [height]="options.height" [overflow]="options.overflow"
             [zoomOnHover]="options.zoomOnHover" [realignOnResize]="options.realignOnResize"></angular-tag-cloud>    
         </div>

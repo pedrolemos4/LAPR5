@@ -47,6 +47,8 @@
 :-json_object objeto_json_fortaleza(resultado:number).
 :-json_object objeto_json_relacaoLigacao(caminho:list(string),custo:number).
 :-json_object objeto_json_alegriaAngustia(alegria:number,angustia:number).
+:-json_object objeto_json_esperancaMedoAlivioDececao(esperanca:number,alivio:number,medo:number,dececao:number).
+
 
 % Criacao de servidor HTTP no porto 'Port'
 server(Port) :-
@@ -74,6 +76,8 @@ stop(Port):-
 :- http_handler('/api/DfsForcaLigacao',dfsForcaLigacao,[]).
 :- http_handler('/api/CalculoNovosEstadosLikesDislikes',calculoNovosEstadosLikesDislikes,[]).
 :- http_handler('/api/SugerirGrupo',sugerirGrupo,[]).
+:- http_handler('/api/CalculoNovosEstadosEsperancaAlivioMedoDececao',calculoNovosEstadosEsperancaAlivioMedoDececao,[]).
+
 
 sugerirGrupo(Request):-
     cors_enable,
@@ -107,6 +111,22 @@ calculoNovosEstadosLikesDislikes(Request):-
     Reply = objeto_json_alegriaAngustia(ValorNovoAlegria,ValorNovoAngustia),
     prolog_to_json(Reply,JSONObject),
     reply_json(JSONObject,[json_object]).
+
+calculoNovosEstadosEsperancaAlivioMedoDececao(Request):-
+    cors_enable,
+    removerBaseConhecimento(),!,
+    carregaDados(),!,
+    http_parameters(Request,
+    [utilizador(Utilizador,[string]),
+     listaSugerida(ListaSugerida,[list]),
+     listaPretendida(ListaPretendida,[list]),
+     listaNaoDesejada(ListaNaoDesejada,[list])]),
+
+    calculaEsperancaMedoAlivioDececao(Utilizador,ListaSugerida,ListaPretendida,ListaNaoDesejada,ValorNovoEsperanca,ValorNovoAlivio,ValorNovoMedo,ValorNovoDececao),
+    Reply = objeto_json_esperancaMedoAlivioDececao(ValorNovoEsperanca,ValorNovoAlivio,ValorNovoMedo,ValorNovoDececao),
+    prolog_to_json(Reply,JSONObject),
+    reply_json(JSONObject,[json_object]).
+
 
 
 forcaLigacaoRelacao(Request):-

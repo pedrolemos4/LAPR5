@@ -7,13 +7,32 @@ calculaAumento(Diferenca, Alegria, ValorNovoAlegria):- (Diferenca < 200, Valor i
 calculaDiminuicao(Diferenca, Angustia, ValorNovoAngustia):- (Diferenca < 200, Valor is Diferenca; Valor is 200), ValorNovoAngustia is (Angustia * (1 - (Valor / 200))).
 
 
-calculaEsperancaMedoAlivioDececao(ListaSugerida, ListaEsperanca, ListaMedo, ValorNovoEsperancaAlivio, ValorNovoMedoDececao):- length(ListaEsperanca, ContadorTotalEsperanca), length(ListaMedo, ContadorTotalMedo), intersection(ListaSugerida, ListaEsperanca, ListaFinalEsperanca), intersection(ListaSugerida, ListaMedo, ListaFinalMedo), length(ListaFinalEsperanca, ContadorIncluidosEsperanca), length(ListaFinalMedo, ContadorIncluidosMedo), calcula(ContadorTotalEsperanca, ContadorIncluidosEsperanca, ValorNovoEsperancaAlivio), calcula(ContadorTotalMedo, ContadorIncluidosMedo, ValorNovoMedoDececao).
+calculaEsperancaMedoAlivioDececao(Utilizador,ListaSugerida, ListaPretendida, ListaNaoDesejados, ValorNovoEsperanca, ValorNovoAlivio, ValorNovoMedo, ValorNovoDececao):-
+no(_,Utilizador,_,_,_,Esperanca,Medo,Alivio,Dececao,_,_,_,_),
+length(ListaPretendida, ContadorTotalPretendida), length(ListaNaoDesejados, ContadorTotalNaoDesejados),
+intersection(ListaSugerida, ListaPretendida, ListaFinalPretendidos),
+intersection(ListaSugerida, ListaNaoDesejados, ListaFinalNaoDesejados),
+length(ListaFinalPretendidos, ContadorIncluidosPretendidos),
+length(ListaFinalNaoDesejados, ContadorIncluidosNaoDesejados),
+calcula(ContadorTotalPretendida, ContadorIncluidosPretendidos, QuocienteEsperanca),
+calcula(ContadorTotalNaoDesejados, ContadorTotalNaoDesejados - ContadorIncluidosNaoDesejados,QuocienteAlivio),
+calcula(ContadorTotalNaoDesejados, ContadorIncluidosNaoDesejados,QuocienteMedo),
+calcula(ContadorTotalPretendida, ContadorTotalPretendida - ContadorIncluidosPretendidos, QuocienteDececao),
+Media1 is ((QuocienteEsperanca + QuocienteDececao) / 2), Media2 is ((QuocienteAlivio + QuocienteMedo) / 2),
+calculaNovaEmocao(Esperanca,Media1,QuocienteEsperanca,ValorNovoEsperanca),
+calculaNovaEmocao(Alivio,Media2,QuocienteAlivio,ValorNovoAlivio),
+calculaNovaEmocao(Medo,Media2,QuocienteMedo,ValorNovoMedo),
+calculaNovaEmocao(Dececao,Media1,QuocienteDececao,ValorNovoDececao).
 
-calcula(ContadorTotalEsperanca, ContadorIncluidosEsperanca, ValorNovoEsperanca):-  ValorNovoEsperanca is (ContadorIncluidosEsperanca / ContadorTotalEsperanca).
 
-% sempre que o predicado dos grupos for chamado este também tem que ser chamado
-%ListaIncluida altera valores orgulho e gratidao
-%ListaImpedida altera valores remorsos e raiva
+calcula(ContadorTotalEsperanca, ContadorIncluidosEsperanca, ValorNovoEsperanca):-
+ValorNovoEsperanca is (ContadorIncluidosEsperanca / ContadorTotalEsperanca).
 
-%denominador é tamanho da listaSugerida ou da lista da intersection?
-calculaOrgulhoRemorsosGratidaoRaiva(ListaSugerida,ListaImpedida, ListaIncluida, ValorNovoOrgulhoGratidao, ValorNovoRemorsosRaiva):- length(ListaSugerida, ContadorTotal), intersection(ListaSugerida, ListaImpedida, ListaFinalImpedida), intersection(ListaSugerida, ListaIncluida, ListaFinalIncluida), length(ListaFinalImpedida, ContadorImpedidos), length(ListaFinalIncluida, ContadorIncluidos), calcula(ContadorTotal, ContadorIncluidos, ValorNovoOrgulhoGratidao), calcula(ContadorTotal, ContadorImpedidos, ValorNovoRemorsosRaiva).
+calculaNovaEmocao(Esperanca,Media1,QuocienteEsperanca,ValorNovoEsperanca):-
+QuocienteEsperanca > Media1,!,
+ValorNovoEsperanca is (Esperanca + (1 - Esperanca) * QuocienteEsperanca).
+calculaNovaEmocao(Esperanca,Media1,QuocienteEsperanca,ValorNovoEsperanca):-
+QuocienteEsperanca < Media1,!,
+ValorNovoEsperanca is (Esperanca * (1 - QuocienteEsperanca)).
+calculaNovaEmocao(Esperanca,_,_,ValorNovoEsperanca):-
+ValorNovoEsperanca is Esperanca.
