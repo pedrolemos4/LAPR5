@@ -15,9 +15,9 @@
                 [realignOnResize]="options.realignOnResize"></angular-tag-cloud>
         </div>
         <div id="mostrarTags" style="display: none;" class="relacao">
-            <h4 style="font-weight: bold;">Amigos com a tag selecionada:</h4>
-            <div *ngFor="let amigo of listAmigos">
-                <p>Nome: {{amigo.nome}}, Email: {{amigo.email}}</p>
+            <h4 style="font-weight: bold;">Relações com a tag selecionada:</h4>
+            <div *ngFor="let rel of listRelacoesAux">
+                <p> {{rel[0]}} → {{rel[1]}} </p>
             </div>
         </div>
     </div>

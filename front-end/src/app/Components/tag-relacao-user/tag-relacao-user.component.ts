@@ -31,8 +31,10 @@ export class TagRelacaoUserComponent implements OnInit {
   listTags: string[] = new Array<string>();
   listTagsAux: string[] = new Array<string>();
   listRelacoes: Relacao[] = new Array<Relacao>();
+  listRelacoesAux: string[][] = new Array<string[]>();
   listAmigosAux: string[] = new Array<string>();
   listAmigos: Perfil[] = new Array<Perfil>();
+  listaVerificar: string[] = new Array<string>();
 
   emailUser: string = '';
   perfilUser!: Perfil;
@@ -135,12 +137,14 @@ export class TagRelacaoUserComponent implements OnInit {
             var aux = this.listTagsAux[0];
             for(var i = 0; i < aux.length; i++){
               if (relacao.tags.includes(clicked.text)) {
-                this.tagRelacaoUserService.getPerfilJogador(relacao.jogador2).subscribe(Perfil => {
-                  if(this.listAmigosAux.indexOf(Perfil.email) <= -1){
-                    this.listAmigosAux.push(Perfil.email);
-                    this.listAmigos.push(Perfil);
-                  }
-                })
+                this.tagRelacaoUserService.getPerfilJogador(relacao.jogador1).subscribe(Perfil1 => {
+                  this.tagRelacaoUserService.getPerfilJogador(relacao.jogador2).subscribe(Perfil2 => {
+                    if (!this.listaVerificar.includes(Perfil2.email + Perfil1.email)) {
+                      this.listRelacoesAux.push([Perfil1.email, Perfil2.email]);
+                      this.listaVerificar.push(Perfil2.email + Perfil1.email);
+                    }
+                  });
+                });
               }
             }
             this.listTagsAux.pop(); 
@@ -148,6 +152,7 @@ export class TagRelacaoUserComponent implements OnInit {
         });
       });
     });
-    this.listAmigos = [];
+    this.listaVerificar = [];
+    this.listRelacoesAux = [];
   }
 }
