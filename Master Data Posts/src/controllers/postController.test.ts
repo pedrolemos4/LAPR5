@@ -4,69 +4,123 @@ import * as sinon from 'sinon';
 
 import { Response, Request, NextFunction } from 'express';
 
-import { Container } from 'typedi';
-import config from "../../config";
-
-import { Result } from '../core/logic/Result';
-
-import IPostDTO from '../dto/IPostDTO';
-import PostController from './postController';
 import IPostService from '../services/IServices/IPostService';
 import "reflect-metadata";
+import { assert } from 'console';
+import IPostRepo from '../services/IRepos/IPostRepo';
+import IPostController from './IControllers/IPostController';
+import PostRepo from '../repos/postRepo';
+import PostService from '../services/postService';
+import IComentarioRepo from '../services/IRepos/IComentarioRepo';
+import ComentarioRepo from '../repos/comentarioRepo';
+import PostController from './postController';
 
 describe('post controller', function () {
+	let postRepo: IPostRepo
+	let comentarioRepo: IComentarioRepo
+	let service: IPostService
+	let ctrl: IPostController
+
 	beforeEach(function() {
+		postRepo = new PostRepo(null);
+		comentarioRepo = new ComentarioRepo(null);
+		service = new PostService(postRepo, comentarioRepo);
+		ctrl = new PostController(service);
     });
 
     it('createPost: returns json with id + values', async function () {
-        let body = { "description":'post1', "email":'teste@gmail.com', "listaComentarios":'[]' ,"likes":'[]', "dislikes":'[]' };
+        let body = {"id":"123", "description":'post1', "email":'teste@gmail.com', "listaComentarios":[], "tags":['musica','Valongo'], "likes":[], "dislikes":[]}
         let req: Partial<Request> = {};
 		req.body = body;
 
         let res: Partial<Response> = {
-			json: sinon.spy()
+			json: sinon.spy(),
+			status: sinon.spy(),
         };
-		let next: Partial<NextFunction> = () => {};
-        
-		let postServiceClass = require(config.services.post.path).default;
-		let postServiceInstance = Container.get(postServiceClass)
-		Container.set(config.services.post.name, postServiceInstance);
+		let next: Partial<NextFunction> = () => {return true};
 
-		postServiceInstance = Container.get(config.services.post.name);
-		sinon.stub(postServiceInstance, "createPost").returns( Result.ok<IPostDTO>( 
-            {"id":"123", "description": req.body.description, "email": req.body.email, "listaComentarios": req.body.listaComentarios,
-                "tags": req.body.tags,"likes": req.body.likes, "dislikes": req.body.dislikes} ));
-
-		const ctrl = new PostController(postServiceInstance as IPostService);
-
-		await ctrl.createPost(<Request>req, <Response>res, <NextFunction>next);
-
-		sinon.assert.calledOnce(res.json);
-		sinon.assert.calledWith(res.json, sinon.match({ "id":"123","description": req.body.description, "email": req.body.email, 
-        "listaComentarios": req.body.listaComentarios, "tags": req.body.tags,"likes": req.body.likes, "dislikes": req.body.dislikes}));
+		sinon.stub(postRepo, "save").throws();
+		const result = await ctrl.createPost(<Request>req, <Response>res, <NextFunction>next);
+		assert(result);
 	});
 
-    it('getPosts: returns posts', async function () {
-        let body = "";
+	it('getPosts: returns posts', async function () {
+        let body = {}
         let req: Partial<Request> = {};
 		req.body = body;
 
         let res: Partial<Response> = {
-			json: sinon.spy()
+			json: sinon.spy(),
+			status: sinon.spy(),
         };
-		let next: Partial<NextFunction> = () => {};
+		let next: Partial<NextFunction> = () => {return true};
 
-		let postServiceClass = require(config.services.post.path).default;
-		let postServiceInstance = Container.get(postServiceClass)
-		Container.set(config.services.post.name, postServiceInstance);
+		sinon.stub(postRepo, "getPosts").throws();
+		const result = await ctrl.getPosts(<Request>req, <Response>res, <NextFunction>next);
+		assert(result);
+	});
 
-		postServiceInstance = Container.get(config.services.post.name);
-		sinon.stub(postServiceInstance, "getPosts").returns( Result.ok<IPostDTO[]>());
+	it('getPostsByEmail: returns posts', async function () {
+        let body = {"email":'teste@gmail.com'}
+        let req: Partial<Request> = {};
+		req.body = body;
 
-		const ctrl = new PostController(postServiceInstance as IPostService);
+        let res: Partial<Response> = {
+			json: sinon.spy(),
+			status: sinon.spy(),
+        };
+		let next: Partial<NextFunction> = () => {return true};
 
-		await ctrl.getPosts(<Request>req, <Response>res, <NextFunction>next);
+		sinon.stub(postRepo, "getPostsByEmail").throws();
+		const result = await ctrl.getPostsByEmail(<Request>req, <Response>res, <NextFunction>next);
+		assert(result);
+	});
 
-		sinon.assert.calledOnce(res.json);
+	it('updateLikePost: updates posts', async function () {
+        let body = {"likes":['like1','like2']}
+        let req: Partial<Request> = {};
+		req.body = body;
+
+        let res: Partial<Response> = {
+			json: sinon.spy(),
+			status: sinon.spy(),
+        };
+		let next: Partial<NextFunction> = () => {return true};
+
+		sinon.stub(postRepo, "updateLikePost").throws();
+		const result = await ctrl.updateLikePost(<Request>req, <Response>res, <NextFunction>next);
+		assert(result);
+	});
+
+	it('updateDislikePost: updates posts', async function () {
+        let body = {"dislikes":['like1','like2']}
+        let req: Partial<Request> = {};
+		req.body = body;
+
+        let res: Partial<Response> = {
+			json: sinon.spy(),
+			status: sinon.spy(),
+        };
+		let next: Partial<NextFunction> = () => {return true};
+
+		sinon.stub(postRepo, "updateDislikePost").throws();
+		const result = await ctrl.updateDislikePost(<Request>req, <Response>res, <NextFunction>next);
+		assert(result);
+	});
+
+	it('atualizaComments: updates posts', async function () {
+        let body = {"listaComentarios":['comentario1','comentario2']}
+        let req: Partial<Request> = {};
+		req.body = body;
+
+        let res: Partial<Response> = {
+			json: sinon.spy(),
+			status: sinon.spy(),
+        };
+		let next: Partial<NextFunction> = () => {return true};
+
+		sinon.stub(postRepo, "atualizaComentarios").throws();
+		const result = await ctrl.atualizaComments(<Request>req, <Response>res, <NextFunction>next);
+		assert(result);
 	});
 });

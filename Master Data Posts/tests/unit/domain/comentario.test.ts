@@ -20,10 +20,4 @@ describe('comentario test', function () {
         const comentario = Comentario.create(body as IComentarioDTO);
         assert.equal(comentario.isSuccess, false);
 	});
-
-    it('should not create comentario - no tags', async function () {
-        let body = {"id":"456", "autor":'teste2@gmail.com', "post":'123', "texto":'resposta teste', "tags":[] ,"likes":[], "dislikes":[]}
-        const comentario = Comentario.create(body as IComentarioDTO);
-        assert.equal(comentario.isSuccess, false);
-	});
 });
