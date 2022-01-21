@@ -4,6 +4,7 @@ import { Jogador } from 'src/app/Models/Jogador';
 import { Perfil } from 'src/app/Models/Perfil';
 import { TagsTodosJogadoresService } from 'src/app/Services/TagsTodosJogadores/tags-todos-jogadores.service';
 import { CloudData, CloudOptions } from 'angular-tag-cloud-module';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-tags-todos-jogadores',
@@ -43,42 +44,50 @@ export class TagsTodosJogadoresComponent implements OnInit {
   }];
   dict = {};
 
-  constructor(private tagsTodosJogadoresService: TagsTodosJogadoresService) { }
+  constructor(private tagsTodosJogadoresService: TagsTodosJogadoresService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.tagsTodosJogadoresService.getAllPerfis().subscribe(
-      (res: any) => {
-        res.forEach(element => {
-          this.listaAux.push(element.tags);
-        });
-        // passar lista de listas para string
-        var lista = this.listaAux.join(",");
+    const targetDiv3 = document.getElementById("mostrarTags");
+    targetDiv3.style.display = "none";
 
-        // passar string para lista
-        var lista1 = lista.split(",");
-        lista1.forEach(element => {
-          if (this.listTags.includes(element) == false) {
-            this.listTags.push(element);
-            this.dict[element] = 0;
+    this.tagsTodosJogadoresService.getAllPosts().subscribe(
+      (res: any) => {
+        if (res.length == 0) {
+          this.toastr.error("Não existem posts publicados", undefined, { positionClass: 'toast-bottom-left' });
+        } else {
+          res.forEach(element => {
+            this.listaAux.push(element.tags);
+          });
+          // passar lista de listas para string
+          var lista = this.listaAux.join(",");
+
+          // passar string para lista
+          var lista1 = lista.split(",");
+          lista1.forEach(element => {
+            if (this.listTags.includes(element) == false) {
+              this.listTags.push(element);
+              this.dict[element] = 0;
+            }
+            var x = this.dict[element];
+            this.dict[element] = x + 1;
+          });
+          for (let key in this.dict) {
+            var color: string = this.generateRandomCode();
+            this.putOnCloud(key, this.dict[key], color);
           }
-          var x = this.dict[element];
-          this.dict[element] = x + 1;
-        });
-        for (let key in this.dict) {
-          var color: string = this.generateRandomCode();
-          this.putOnCloud(key, this.dict[key], color);
-          
         }
       }
     );
-    
+
   }
 
   reDraw() {
+    const targetDiv3 = document.getElementById("mostrarTags");
+    targetDiv3.style.display = "none";
     this.tagCloudComponent.reDraw();
   }
 
-  putOnCloud(texto: any, peso: any, color1: any){
+  putOnCloud(texto: any, peso: any, color1: any) {
     var x: CloudData = {
       text: texto,
       weight: peso,
@@ -90,12 +99,14 @@ export class TagsTodosJogadoresComponent implements OnInit {
   }
 
   generateRandomCode() {
-    var myRandomColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+    var myRandomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
     return myRandomColor;
   }
 
-  logClicked(clicked: CloudData){
-    this.tagsTodosJogadoresService.getAllPerfis().subscribe(
+  logClicked(clicked: CloudData) {
+    const targetDiv3 = document.getElementById("mostrarTags");
+    targetDiv3.style.display = "block";
+    this.tagsTodosJogadoresService.getAllPosts().subscribe(
       (res: any) => {
         res.forEach(element => {
           if (element.tags.includes(clicked.text)) {

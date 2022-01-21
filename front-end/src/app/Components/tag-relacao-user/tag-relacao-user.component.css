@@ -13,11 +13,22 @@
     margin-left: 3%;
 }
 
+.relacao{
+    margin-left: 3%;
+}
+
+.relacao h4{
+    margin-left: -3%;
+    color: black;
+    font-weight: bold
+}
+
 .fa {
     font-size: 20px;
     cursor: pointer;
     user-select: none;
     color: black;
+    margin-left: 30px;
 }
 
 .fa:hover {
@@ -29,33 +40,13 @@
     padding: 17px;
     width: 50%;
     background-color: #f2f2f2e7;
-    border-radius: 5px;
     justify-content: center;
-    margin-left: 15%;
-    margin-top: 14px;
     position: fixed;
-    height: 80%;
     overflow-y: auto;
-}
-
-.form-data{
-    text-align: left;
-    margin-right: 20px;
-}
-
-.submit{
-    background-color: rgb(16, 219, 60);
-    color: white;
-    border: none;
-    padding: 9px 15px;
-    cursor: pointer;
-}
-
-.submit:hover{
-    background-color: rgb(21, 161, 52);
-}
-
-.selector{
-    width: 192px;
-    height: 30px;
+    border-color: #76b5c5;
+    border-style: solid;
+    border-radius: 8px;
+    top: 45%;
+    left: 58%;
+    transform: translateX(-50%) translateY(-50%);
 }

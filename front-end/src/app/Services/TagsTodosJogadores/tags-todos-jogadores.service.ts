@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Perfil } from 'src/app/Models/Perfil';
+import { Post } from 'src/app/Models/Post';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -8,11 +10,16 @@ import { environment } from 'src/environments/environment';
 })
 export class TagsTodosJogadoresService {
 
-  private readonly perfilUrl = environment.apiUrl + 'Perfis/';
+  private readonly perfilUrl = environment.apiUrl + 'Perfis';
+  private readonly postUrl = environment.masterDataPostsUrl + 'posts';
 
   constructor(private http: HttpClient) { }
 
-  getAllPerfis() {
-    return this.http.get<Perfil[]>(this.perfilUrl);
+  getAllPosts(): Observable<Post[]> {
+    return this.http.get<Post[]>(this.postUrl);
+  }
+
+  getPerfilByEmail(email: any){
+    return this.http.get<Perfil>(this.perfilUrl + '/GetPerfilByEmail/' + email);
   }
 }

@@ -6,16 +6,19 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <div id="container">
-        <h2 style="font-weight: bold;">Tags das relações do utilizador:</h2>
+        <h2 style="font-weight: bold;">Tag Cloud:</h2>
         <div *ngIf="!listTags.length">Não tem relações com tags associadas!</div>
         <div class="tags"><br>
-            <i type="submit" (click)="reDraw()" class="fa">Obter Tag Cloud</i>
-            <angular-tag-cloud [data]="data" (clicked)="logClicked($event)" [width]="options.width" [height]="options.height" [overflow]="options.overflow"
-            [zoomOnHover]="options.zoomOnHover" [realignOnResize]="options.realignOnResize"></angular-tag-cloud>    
+            <i type="submit" (click)="reDraw()" class="fa">Apresentar tags das relações do Utilizador</i>
+            <angular-tag-cloud [data]="data" (clicked)="logClicked($event)" [width]="options.width"
+                [height]="options.height" [overflow]="options.overflow" [zoomOnHover]="options.zoomOnHover"
+                [realignOnResize]="options.realignOnResize"></angular-tag-cloud>
         </div>
-        <h4 style="font-weight: bold;">Amigos com a tag selecionada:</h4>
-        <div *ngFor="let amigo of listAmigos">
-            <p>Nome: {{amigo.nome}}, Email: {{amigo.email}}</p>
+        <div id="mostrarTags" style="display: none;" class="relacao">
+            <h4 style="font-weight: bold;">Amigos com a tag selecionada:</h4>
+            <div *ngFor="let amigo of listAmigos">
+                <p>Nome: {{amigo.nome}}, Email: {{amigo.email}}</p>
+            </div>
         </div>
     </div>
 </div>

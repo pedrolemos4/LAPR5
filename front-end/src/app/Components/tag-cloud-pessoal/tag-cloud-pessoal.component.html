@@ -5,10 +5,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <div id="container">
-        <h2 style ="font-weight: bold;"> Tag Cloud Pessoal:</h2>
+        <h2 style ="font-weight: bold;"> Tag Cloud:</h2>
         <div *ngIf="!listTags.length">Não tem posts com tags associadas!</div>
         <div class ="tags"><br>
-            <i type="submit" (click)="reDraw()" class="fa"> Obter Tag Cloud</i>
+            <i type="submit" (click)="reDraw()" class="fa"> Apresentar tags pessoais</i>
             <angular-tag-cloud [data]="data" [width]="options.width" [height]="options.height" [overflow]="options.overflow"
             [zoomOnHover]="options.zoomOnHover" [realignOnResize]="options.realignOnResize"></angular-tag-cloud> 
         </div>

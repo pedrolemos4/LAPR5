@@ -51,6 +51,8 @@ export class TagRelacaoUserComponent implements OnInit {
   constructor(private router: Router, private toastr: ToastrService, private tagRelacaoUserService: TagRelacaoUserService) { }
 
   ngOnInit(): void {
+    const targetDiv3 = document.getElementById("mostrarTags");
+    targetDiv3.style.display = "none";
     const currentUser = localStorage.getItem('currentUser');
     this.emailUser = currentUser?.replace(/\"/g, "");
     this.tagRelacaoUserService.getPerfilByEmail(this.emailUser).subscribe(Perfil => {
@@ -107,10 +109,15 @@ export class TagRelacaoUserComponent implements OnInit {
   }
 
   reDraw() {
+    const targetDiv3 = document.getElementById("mostrarTags");
+    targetDiv3.style.display = "none";
     this.tagCloudComponent.reDraw();
   }
 
   logClicked(clicked: CloudData){
+    const targetDiv3 = document.getElementById("mostrarTags");
+    targetDiv3.style.display = "block";
+    
     this.listAmigosAux = new Array<string>();
     this.listAmigos = new Array<Perfil>();
     const currentUser = localStorage.getItem('currentUser');

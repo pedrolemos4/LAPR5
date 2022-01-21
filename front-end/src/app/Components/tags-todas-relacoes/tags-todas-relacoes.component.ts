@@ -42,6 +42,8 @@ export class TagsTodasRelacoesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const targetDiv3 = document.getElementById("mostrarTags");
+    targetDiv3.style.display = "none";
     this.service.getRelacoes().subscribe(
       (res: any) => {
         res.forEach(element => {
@@ -71,6 +73,8 @@ export class TagsTodasRelacoesComponent implements OnInit {
   }
 
   reDraw() {
+    const targetDiv3 = document.getElementById("mostrarTags");
+    targetDiv3.style.display = "none";
     this.tagCloudComponent.reDraw();
   }
 
@@ -91,6 +95,9 @@ export class TagsTodasRelacoesComponent implements OnInit {
   }
 
   logClicked(clicked: CloudData) {
+    const targetDiv3 = document.getElementById("mostrarTags");
+    targetDiv3.style.display = "block";
+
     this.service.getRelacoes().subscribe(Relacoes => {
       Relacoes.forEach((element: Relacao) => {
         if (element.tags.includes(clicked.text)) {
