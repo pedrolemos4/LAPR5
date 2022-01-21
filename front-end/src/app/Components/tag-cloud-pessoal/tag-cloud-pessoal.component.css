@@ -1,11 +1,22 @@
-.card {
+#texto {
+    margin-left: 17%;
+    padding: 1px 16px;
+    height: 665px;
+    width: 89%;
+    display: inline-block;
+    vertical-align: top;
+    position: absolute;
+    overflow-y: auto;
+}
+
+#container {
     padding: 17px;
     width: 50%;
     background-color: #f2f2f2e7;
     border-radius: 5px;
     justify-content: center;
-    margin-left: 33%;
-    margin-top: 15px;
+    margin-left: 15%;
+    margin-top: 14px;
     position: fixed;
     height: 80%;
     overflow-y: auto;
@@ -15,18 +26,14 @@
     margin-left: 3%;
 }
 
-.tags h2 {
-    margin-left: -3%;
+.fa {
+    font-size: 20px;
+    cursor: pointer;
+    user-select: none;
     color: black;
-    font-weight: bold
 }
 
-.jogadores {
-    margin-left: 3%;
-}
-
-.jogadores h4 {
-    margin-left: -3%;
-    color: black;
-    font-weight: bold
+.fa:hover {
+    transform: scale(1.2);
+    color: #7692c5;
 }
