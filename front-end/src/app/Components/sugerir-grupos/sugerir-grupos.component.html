@@ -5,18 +5,43 @@
         <i id="return" type="submit" (click)="return()" class="fa fa-arrow-left"> Voltar </i>
         <h2 style ="font-weight:bold;"> Sugestão de Grupo</h2>
         <p style= "font-weight: bold;">Introduza quantos utilizadores pretende que existam no grupo, quantas tags em comum e quais as tags obrigatórias</p>
-        <form [formGroup]="verGruposForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="verGruposForm">
             <div class ="form-group">
                 <label for="nUsers">Número de Utilizadores: </label>
                 <input type="text" id="nUsers" formControlName="nUsers" class="form-control" required/>
             </div>
             <div>
                 <label for="nTags">Número de Tags: </label>
-                <input style="margin-left: 16.8%" type="text" id="nTags" formControlName="nTags" class="form-control" required/>
+                <input type="text" id="nTags" formControlName="nTags" class="form-control" required/>
             </div>
             <div>
                 <label for="tagsObg">Tags Obrigatórias: </label>
-                <input style="margin-left: 15.7%" type="text" id="tagsObg" formControlName="tagsObg" class="form-control" required/>
+                <input type="text" id="tagsObg" formControlName="tagsObg" class="form-control" required/>
+            </div> 
+            <div>
+                <label for="listaPretendida">Lista Pretendida: </label>
+                <select id="selector" (change)="selectChangeHandler($event)">
+                    <option selected disabled="disabled">Escolha...</option>
+                    <option *ngFor="let perfil of listaPerfis">
+                        {{perfil.email}} </option>
+                </select>
+                <i type="submit" (click)="adicionaUtilizadorPretendido(selected)" class="fa fa-user-plus"> Adicionar</i>
+                <i type="submit" (click)="removeUtilizadorPretendido(selected)" class="fa fa-user-times"> Remover</i>
+                <p class="paragrafo"><span>Lista Selecionada:</span><br><b *ngFor="let perfil of listaSelecionadaPretendida">{{perfil}}</b></p>
+                <!-- <input style="margin-left: 15.7%" type="text" id="listaPretendida" formControlName="listaPretendida" class="form-control" required/> -->
+            </div> 
+            <div>
+                <label for="listaNaoDesejada">Lista Não Desejada: </label>
+                <select id="selector" (change)="selectChangeHandler($event)">
+                    <option selected disabled="disabled">Escolha...</option>
+                    <option *ngFor="let perfil of listaPerfis">
+                        {{perfil.email}} </option>
+                </select>
+                <i type="submit" (click)="adicionaUtilizador(selected)" class="fa fa-user-plus"> Adicionar</i>
+                <i type="submit" (click)="removeUtilizador(selected)" class="fa fa-user-times"> Remover</i>
+                <p class="paragrafo"><span> Lista Selecionada:</span><br><b *ngFor="let perfil of listaSelecionada">{{perfil}}</b></p>
+                
+                <!-- <input style="margin-left: 15.7%" type="select" id="listaNaoDesejada" formControlName="listaNaoDesejada" class="form-control" required/> -->
             </div> 
             <i id="Calcular" style ="margin-left: 40%;" type="submit"(click)="onSubmit()" class="fa fa-users"> Consultar Grupo</i>
             <p id="mensagem1"><span>Grupo: </span><b>{{grupo}}</b></p>

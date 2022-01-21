@@ -11,19 +11,24 @@
 label {
     padding: 12px 12px 12px 12px;
     display: inline-block;
+    width: 250px;
     /*float: left;
     /*margin-right: 10px;*/
 }
 
 #card {
+    padding: 17px;
+    width: 52%;
+    background-color: #f2f2f2e7;
+    justify-content: center;
+    position: fixed;
+    overflow-y: auto;
     border-color: #76b5c5;
     border-style: solid;
     border-radius: 8px;
-    background-color: #f2f2f2e7;
-    padding: 15px;
-    padding-top: 2px;
-    margin-left: 25%;
-    width: 50%;
+    top: 50%;
+    left: 58%;
+    transform: translateX(-50%) translateY(-50%);
 }
 
 .h2 {
@@ -33,7 +38,7 @@ label {
 }
 
 input {
-    margin-left: 10%;
+    /*margin-left: 10%;*/
     display: inline-block;
 }
 
@@ -47,19 +52,7 @@ input {
     cursor: pointer;
     width: 100%;
     opacity: 0.9;
-}*/
-
-.submit {
-    background-color: rgb(16, 219, 60);
-    color: white;
-    border: none;
-    padding: 9px 15px;
-    cursor: pointer;
-}
-
-.submit:hover {
-    background-color: rgb(21, 161, 52);
-}
+*/
 
 .fa {
     margin-top: 2%;
@@ -68,8 +61,13 @@ input {
     user-select: none;
     color: black;
     margin-bottom: 10px;
+    margin-left: 30px;
 }
 
 .fa:hover {
     transform: scale(1.2);
+}
+
+.paragrafo {
+    padding: 3px 12px 3px 12px;
 }

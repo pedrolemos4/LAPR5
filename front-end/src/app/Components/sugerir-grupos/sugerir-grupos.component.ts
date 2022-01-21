@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Perfil } from 'src/app/Models/Perfil';
 import { SugerirGruposService } from 'src/app/Services/SugerirGrupos/sugerir-grupos.service';
 
 @Component({
@@ -19,6 +20,10 @@ export class SugerirGruposComponent implements OnInit {
   emailCurrentUser: string | undefined = '';
   idCurrentUser: string;
   grupo;
+  selected = '';
+  listaSelecionada: string[] = [];
+  listaSelecionadaPretendida: string[] = [];
+  listaPerfis: Perfil[] = [];
   
   constructor(private formBuilder: FormBuilder, private router: Router,private sugerirGruposService: SugerirGruposService, private toastr: ToastrService) {
     this.verGruposForm = this.formBuilder.group({
@@ -28,12 +33,90 @@ export class SugerirGruposComponent implements OnInit {
     })
    }
 
+   selectChangeHandler(event: any) {
+    this.selected = event.target.value;
+  }
+
+  adicionaUtilizador(utilizador: any){
+    if(!this.listaSelecionada.includes(utilizador) && utilizador != ""){
+      if(this.listaSelecionada.length == 0){
+        this.listaSelecionada.push(utilizador);
+      } else {
+        var u = ("; ").concat(utilizador);
+        this.listaSelecionada.push(u);
+      }
+    }
+  }
+
+  adicionaUtilizadorPretendido(utilizador: any){
+    if(!this.listaSelecionadaPretendida.includes(utilizador) && utilizador != ""){
+      if(this.listaSelecionadaPretendida.length == 0){
+        this.listaSelecionadaPretendida.push(utilizador);
+      } else {
+        var u = ("; ").concat(utilizador);
+        this.listaSelecionadaPretendida.push(u);
+      }
+    }
+  }
+
+  removeUtilizadorPretendido(utilizador: any){
+    var u = ("; ").concat(utilizador);
+    if(this.listaSelecionadaPretendida.includes(utilizador) || this.listaSelecionadaPretendida.includes(u)){
+      if(this.listaSelecionadaPretendida.indexOf(utilizador) == 0){
+        var s = this.listaSelecionadaPretendida[this.listaSelecionadaPretendida.indexOf(utilizador) + 1].replace("; ","");
+        this.listaSelecionadaPretendida[this.listaSelecionadaPretendida.indexOf(utilizador) + 1] = s;
+        this.listaSelecionadaPretendida.splice(this.listaSelecionadaPretendida.indexOf(utilizador), 1);
+      } else {
+        this.listaSelecionadaPretendida.splice(this.listaSelecionadaPretendida.indexOf(u), 1);
+      }
+    }
+  }
+
+  removeUtilizador(utilizador: any){
+    var u = ("; ").concat(utilizador);
+    if(this.listaSelecionada.includes(utilizador) || this.listaSelecionada.includes(u)){
+      if(this.listaSelecionada.indexOf(utilizador) == 0){
+        var s = this.listaSelecionada[this.listaSelecionada.indexOf(utilizador) + 1].replace("; ","");
+        this.listaSelecionada[this.listaSelecionada.indexOf(utilizador) + 1] = s;
+        this.listaSelecionada.splice(this.listaSelecionada.indexOf(utilizador), 1);
+      } else {
+        this.listaSelecionada.splice(this.listaSelecionada.indexOf(u), 1);
+      }
+    }
+  }
+
+
 
   ngOnInit(): void {
     document.getElementById("mensagem1").style.display = "none";
+    this.sugerirGruposService.getAllPerfis().subscribe(
+      (res: any) => {
+        res.forEach(element => {
+          this.listaPerfis.push(element);
+        });
+      }
+    );
+  }
+
+  porListaCorreta(lista: any): string[] {
+    var listaPretendida: string[] = [];
+    lista.forEach(element => {
+      if(this.listaSelecionadaPretendida.indexOf(element) != 0){
+        listaPretendida.push(element.replace("; ",""));
+      } else {
+        listaPretendida.push(element);
+      }
+    });
+    return listaPretendida;
   }
 
   onSubmit(): void{
+    
+    var listaPretendida = this.porListaCorreta(this.listaSelecionadaPretendida);
+    var listaNaoDesejados = this.porListaCorreta(this.listaSelecionada);
+
+    console.log(listaNaoDesejados);
+    console.log(listaPretendida);
     document.getElementById("mensagem1").style.display = "block";
     this.grupo='';
     this.tag = '';
@@ -53,6 +136,13 @@ export class SugerirGruposComponent implements OnInit {
         this.toastr.error("Não existe grupo tendo em conta os parâmetros definidos. Redefina-os por favor.", undefined, { positionClass: 'toast-bottom-left' });
       } else {
         this.grupo = valores;
+        /*this.sugerirGruposService.alteraEstados(this.emailCurrentUser, valores, listaPretendida, listaNaoDesejados).subscribe(
+          (res: any) => {
+            console.log(res);
+            var a = Object.values(res);
+            console.log(a);
+          }
+        );*/
        // this.toastr.success("Caminho mais forte calculado", undefined, { positionClass: 'toast-bottom-left' });
       }
     });

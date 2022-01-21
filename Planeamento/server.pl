@@ -122,10 +122,11 @@ calculoNovosEstadosEsperancaAlivioMedoDececao(Request):-
      listaPretendida(ListaPretendida,[list]),
      listaNaoDesejada(ListaNaoDesejada,[list])]),
 
+    split_string(ListaSugerida,",","",LSugerida),
     split_string(ListaPretendida,",","",LPretendida),
     split_string(ListaNaoDesejada,",","",LNaoDesejada),
 
-    calculaEsperancaMedoAlivioDececao(Utilizador,ListaSugerida,LPretendida,LNaoDesejada,ValorNovoEsperanca,ValorNovoAlivio,ValorNovoMedo,ValorNovoDececao),
+    calculaEsperancaMedoAlivioDececao(Utilizador,LSugerida,LPretendida,LNaoDesejada,ValorNovoEsperanca,ValorNovoAlivio,ValorNovoMedo,ValorNovoDececao),
     Reply = objeto_json_esperancaMedoAlivioDececao(ValorNovoEsperanca,ValorNovoAlivio,ValorNovoMedo,ValorNovoDececao),
     prolog_to_json(Reply,JSONObject),
     reply_json(JSONObject,[json_object]).
