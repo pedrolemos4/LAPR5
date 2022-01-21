@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Perfil } from 'src/app/Models/Perfil';
@@ -33,5 +33,19 @@ export class SugerirGruposService {
 
   alteraEstados(emailCurrentUser: string, valores: string, listaPretendida: string[], listaNaoDesejados: string[]) {
     return this.http.get<string[]>(this.urlPlan + '/api/CalculoNovosEstadosEsperancaAlivioMedoDececao?utilizador='+emailCurrentUser +'&listaSugerida=' + valores + '&listaPretendida=' +listaPretendida.toString()+ '&listaNaoDesejada=' +listaNaoDesejados.toString());
+  }
+
+  getPerfilByEmail(email: string) {
+    return this.http.get<Perfil>(this.urlPerfil + '/GetPerfilByEmail/' + email);
+  }
+
+  updateEstadoPerfil(id: any, perfil: any): Observable<Perfil> {
+    let bodystr = JSON.stringify(perfil);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+    return this.http.patch<Perfil>(this.urlPerfil +'/' + id, bodystr, httpOptions);
   }
 }

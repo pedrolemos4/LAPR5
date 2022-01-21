@@ -136,13 +136,30 @@ export class SugerirGruposComponent implements OnInit {
         this.toastr.error("Não existe grupo tendo em conta os parâmetros definidos. Redefina-os por favor.", undefined, { positionClass: 'toast-bottom-left' });
       } else {
         this.grupo = valores;
-        /*this.sugerirGruposService.alteraEstados(this.emailCurrentUser, valores, listaPretendida, listaNaoDesejados).subscribe(
+        this.sugerirGruposService.alteraEstados(this.emailCurrentUser, valores, listaPretendida, listaNaoDesejados).subscribe(
           (res: any) => {
             console.log(res);
-            var a = Object.values(res);
-            console.log(a);
+            var array:number[] = Object.values(res);
+            console.log(array);
+            this.sugerirGruposService.getPerfilByEmail(this.emailCurrentUser).subscribe(
+              (res1: any) => {
+                var anteriorEsperanca = res1.estadoHumor['Hopeful'];
+                var anteriorAlivio = res1.estadoHumor['Relieved'];
+                var anteriorMedo = res1.estadoHumor['Fearful'];
+                var anteriorDececao = res1.estadoHumor['Disappointed'];
+                res1.estadoHumor['Hopeful'] = array[0].toFixed(2);
+                res1.estadoHumor['Relieved'] = array[1].toFixed(2);
+                res1.estadoHumor['Fearful'] = array[2].toFixed(2);
+                res1.estadoHumor['Disappointed'] = array[3].toFixed(2);
+                this.sugerirGruposService.updateEstadoPerfil(res1.id, res1).subscribe(
+                  () => {
+                    this.toastr.success("Esperança: " + anteriorEsperanca + " → " + array[0].toFixed(2) + ", Alívio: " + anteriorAlivio + " → " + array[1].toFixed(2) + ", Medo: " + anteriorMedo + " → " + array[2].toFixed(2) + " e Deceção: " + anteriorDececao + " → " + array[3].toFixed(2) +" do utilizador " + this.emailCurrentUser + " atualizados!", undefined, { positionClass: 'toast-bottom-left' });
+                  }
+                )
+              }
+            );
           }
-        );*/
+        );
        // this.toastr.success("Caminho mais forte calculado", undefined, { positionClass: 'toast-bottom-left' });
       }
     });
