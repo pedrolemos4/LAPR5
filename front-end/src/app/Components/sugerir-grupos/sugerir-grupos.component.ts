@@ -24,22 +24,22 @@ export class SugerirGruposComponent implements OnInit {
   listaSelecionada: string[] = [];
   listaSelecionadaPretendida: string[] = [];
   listaPerfis: Perfil[] = [];
-  
-  constructor(private formBuilder: FormBuilder, private router: Router,private sugerirGruposService: SugerirGruposService, private toastr: ToastrService) {
+
+  constructor(private formBuilder: FormBuilder, private router: Router, private sugerirGruposService: SugerirGruposService, private toastr: ToastrService) {
     this.verGruposForm = this.formBuilder.group({
       nUsers: ['', Validators.required],
-      nTags: ['',Validators.required],
-      tagsObg: ['',Validators.required]
+      nTags: ['', Validators.required],
+      tagsObg: ['', Validators.required]
     })
-   }
+  }
 
-   selectChangeHandler(event: any) {
+  selectChangeHandler(event: any) {
     this.selected = event.target.value;
   }
 
-  adicionaUtilizador(utilizador: any){
-    if(!this.listaSelecionada.includes(utilizador) && utilizador != ""){
-      if(this.listaSelecionada.length == 0){
+  adicionaUtilizador(utilizador: any) {
+    if (!this.listaSelecionada.includes(utilizador) && utilizador != "") {
+      if (this.listaSelecionada.length == 0) {
         this.listaSelecionada.push(utilizador);
       } else {
         var u = ("; ").concat(utilizador);
@@ -48,9 +48,9 @@ export class SugerirGruposComponent implements OnInit {
     }
   }
 
-  adicionaUtilizadorPretendido(utilizador: any){
-    if(!this.listaSelecionadaPretendida.includes(utilizador) && utilizador != ""){
-      if(this.listaSelecionadaPretendida.length == 0){
+  adicionaUtilizadorPretendido(utilizador: any) {
+    if (!this.listaSelecionadaPretendida.includes(utilizador) && utilizador != "") {
+      if (this.listaSelecionadaPretendida.length == 0) {
         this.listaSelecionadaPretendida.push(utilizador);
       } else {
         var u = ("; ").concat(utilizador);
@@ -59,11 +59,11 @@ export class SugerirGruposComponent implements OnInit {
     }
   }
 
-  removeUtilizadorPretendido(utilizador: any){
+  removeUtilizadorPretendido(utilizador: any) {
     var u = ("; ").concat(utilizador);
-    if(this.listaSelecionadaPretendida.includes(utilizador) || this.listaSelecionadaPretendida.includes(u)){
-      if(this.listaSelecionadaPretendida.indexOf(utilizador) == 0){
-        var s = this.listaSelecionadaPretendida[this.listaSelecionadaPretendida.indexOf(utilizador) + 1].replace("; ","");
+    if (this.listaSelecionadaPretendida.includes(utilizador) || this.listaSelecionadaPretendida.includes(u)) {
+      if (this.listaSelecionadaPretendida.indexOf(utilizador) == 0) {
+        var s = this.listaSelecionadaPretendida[this.listaSelecionadaPretendida.indexOf(utilizador) + 1].replace("; ", "");
         this.listaSelecionadaPretendida[this.listaSelecionadaPretendida.indexOf(utilizador) + 1] = s;
         this.listaSelecionadaPretendida.splice(this.listaSelecionadaPretendida.indexOf(utilizador), 1);
       } else {
@@ -72,11 +72,11 @@ export class SugerirGruposComponent implements OnInit {
     }
   }
 
-  removeUtilizador(utilizador: any){
+  removeUtilizador(utilizador: any) {
     var u = ("; ").concat(utilizador);
-    if(this.listaSelecionada.includes(utilizador) || this.listaSelecionada.includes(u)){
-      if(this.listaSelecionada.indexOf(utilizador) == 0){
-        var s = this.listaSelecionada[this.listaSelecionada.indexOf(utilizador) + 1].replace("; ","");
+    if (this.listaSelecionada.includes(utilizador) || this.listaSelecionada.includes(u)) {
+      if (this.listaSelecionada.indexOf(utilizador) == 0) {
+        var s = this.listaSelecionada[this.listaSelecionada.indexOf(utilizador) + 1].replace("; ", "");
         this.listaSelecionada[this.listaSelecionada.indexOf(utilizador) + 1] = s;
         this.listaSelecionada.splice(this.listaSelecionada.indexOf(utilizador), 1);
       } else {
@@ -84,8 +84,6 @@ export class SugerirGruposComponent implements OnInit {
       }
     }
   }
-
-
 
   ngOnInit(): void {
     document.getElementById("mensagem1").style.display = "none";
@@ -101,8 +99,8 @@ export class SugerirGruposComponent implements OnInit {
   porListaCorreta(lista: any): string[] {
     var listaPretendida: string[] = [];
     lista.forEach(element => {
-      if(this.listaSelecionadaPretendida.indexOf(element) != 0){
-        listaPretendida.push(element.replace("; ",""));
+      if (this.listaSelecionadaPretendida.indexOf(element) != 0) {
+        listaPretendida.push(element.replace("; ", ""));
       } else {
         listaPretendida.push(element);
       }
@@ -110,62 +108,60 @@ export class SugerirGruposComponent implements OnInit {
     return listaPretendida;
   }
 
-  onSubmit(): void{
-    
+  onSubmit(): void {
     var listaPretendida = this.porListaCorreta(this.listaSelecionadaPretendida);
     var listaNaoDesejados = this.porListaCorreta(this.listaSelecionada);
 
-    console.log(listaNaoDesejados);
-    console.log(listaPretendida);
-    document.getElementById("mensagem1").style.display = "block";
-    this.grupo='';
-    this.tag = '';
-    this.tagsObg = [];
-    this.tag = this.verGruposForm.controls['tagsObg'].value;
-    this.tagsObg = this.tag.split(",");
-    this.nUsers = this.verGruposForm.controls['nUsers'].value;
-    this.nTags = this.verGruposForm.controls['nTags'].value;
-    const currentUser = localStorage.getItem('currentUser');
-    this.emailCurrentUser = currentUser?.replace(/\"/g,"");
-    this.sugerirGruposService.getGrupos(this.nTags,this.nUsers,this.tagsObg).subscribe(array=>{
-      console.log(array);
-      var aux = Object.values(array);
-      var valores = aux[0];
-      console.log(aux);
-      if (valores.length == 0) {
-        this.toastr.error("Não existe grupo tendo em conta os parâmetros definidos. Redefina-os por favor.", undefined, { positionClass: 'toast-bottom-left' });
-      } else {
-        this.grupo = valores;
-        this.sugerirGruposService.alteraEstados(this.emailCurrentUser, valores, listaPretendida, listaNaoDesejados).subscribe(
-          (res: any) => {
-            console.log(res);
-            var array:number[] = Object.values(res);
-            console.log(array);
-            this.sugerirGruposService.getPerfilByEmail(this.emailCurrentUser).subscribe(
-              (res1: any) => {
-                var anteriorEsperanca = res1.estadoHumor['Hopeful'];
-                var anteriorAlivio = res1.estadoHumor['Relieved'];
-                var anteriorMedo = res1.estadoHumor['Fearful'];
-                var anteriorDececao = res1.estadoHumor['Disappointed'];
-                res1.estadoHumor['Hopeful'] = array[0].toFixed(2);
-                res1.estadoHumor['Relieved'] = array[1].toFixed(2);
-                res1.estadoHumor['Fearful'] = array[2].toFixed(2);
-                res1.estadoHumor['Disappointed'] = array[3].toFixed(2);
-                this.sugerirGruposService.updateEstadoPerfil(res1.id, res1).subscribe(
-                  () => {
-                    this.toastr.success("Esperança: " + anteriorEsperanca + " → " + array[0].toFixed(2) + ", Alívio: " + anteriorAlivio + " → " + array[1].toFixed(2) + ", Medo: " + anteriorMedo + " → " + array[2].toFixed(2) + " e Deceção: " + anteriorDececao + " → " + array[3].toFixed(2) +" do utilizador " + this.emailCurrentUser + " atualizados!", undefined, { positionClass: 'toast-bottom-left' });
-                  }
-                )
-              }
-            );
-          }
-        );
-       // this.toastr.success("Caminho mais forte calculado", undefined, { positionClass: 'toast-bottom-left' });
-      }
-    });
+    if (listaNaoDesejados.length == 0 || listaPretendida.length == 0) {
+      this.toastr.error("Defina a lista pretendida/não desejada", undefined, { positionClass: 'toast-bottom-left' });
+    } else {
+      document.getElementById("mensagem1").style.display = "block";
+      this.grupo = '';
+      this.tag = '';
+      this.tagsObg = [];
+      this.tag = this.verGruposForm.controls['tagsObg'].value;
+      this.tagsObg = this.tag.split(",");
+      this.nUsers = this.verGruposForm.controls['nUsers'].value;
+      this.nTags = this.verGruposForm.controls['nTags'].value;
+      const currentUser = localStorage.getItem('currentUser');
+      this.emailCurrentUser = currentUser?.replace(/\"/g, "");
+      this.sugerirGruposService.getGrupos(this.nTags, this.nUsers, this.tagsObg).subscribe(array => {
+        var aux = Object.values(array);
+        var valores = aux[0];
+        console.log(aux);
+        if (valores.length == 0) {
+          this.toastr.error("Não existe grupo tendo em conta os parâmetros definidos. Redefina-os por favor.", undefined, { positionClass: 'toast-bottom-left' });
+        } else {
+          this.grupo = valores;
+          this.sugerirGruposService.alteraEstados(this.emailCurrentUser, valores, listaPretendida, listaNaoDesejados).subscribe(
+            (res: any) => {
+              var array: number[] = Object.values(res);
+              console.log(array);
+              this.sugerirGruposService.getPerfilByEmail(this.emailCurrentUser).subscribe(
+                (res1: any) => {
+                  var anteriorEsperanca = res1.estadoHumor['Hopeful'];
+                  var anteriorAlivio = res1.estadoHumor['Relieved'];
+                  var anteriorMedo = res1.estadoHumor['Fearful'];
+                  var anteriorDececao = res1.estadoHumor['Disappointed'];
+                  res1.estadoHumor['Hopeful'] = array[0].toFixed(2);
+                  res1.estadoHumor['Relieved'] = array[1].toFixed(2);
+                  res1.estadoHumor['Fearful'] = array[2].toFixed(2);
+                  res1.estadoHumor['Disappointed'] = array[3].toFixed(2);
+                  this.sugerirGruposService.updateEstadoPerfil(res1.id, res1).subscribe(
+                    () => {
+                      this.toastr.success("Esperança: " + anteriorEsperanca + " → " + array[0].toFixed(2) + ", Alívio: " + anteriorAlivio + " → " + array[1].toFixed(2) + ", Medo: " + anteriorMedo + " → " + array[2].toFixed(2) + " e Deceção: " + anteriorDececao + " → " + array[3].toFixed(2) + " do utilizador " + this.emailCurrentUser + " atualizados!", undefined, { positionClass: 'toast-bottom-left' });
+                    }
+                  )
+                }
+              );
+            }
+          );
+        }
+      });
+    }
   }
 
-  return():void{
+  return(): void {
     this.router.navigateByUrl("/ver_amigos_grupos");
   }
 }
