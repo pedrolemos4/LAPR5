@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { PerfilService } from 'src/app/Services/Perfil/perfil.service';
 import { Router } from '@angular/router';
 import { Perfil } from 'src/app/Models/Perfil';
@@ -60,11 +60,14 @@ export class PerfilComponent implements OnInit {
   onVoltarEstados() {
     const targetDiv = document.getElementById("estados");
     targetDiv.style.display = "none";
+    const targetDiv1 = document.getElementById("PrimeiroCard");
+    targetDiv1.style.display = "block";
   }
 
   escolherEstados() {
     this.mudou = 1;
-    console.log(this.mudou);
+    const targetDiv1 = document.getElementById("PrimeiroCard");
+    targetDiv1.style.display = 'none';
     const targetDiv = document.getElementById("estados");
     if (targetDiv.style.display !== "none") {
       targetDiv.style.display = "none";

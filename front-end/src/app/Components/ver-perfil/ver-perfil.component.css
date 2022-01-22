@@ -1,15 +1,17 @@
 .card {
-    border-color: #76b5c5;
-    border-style: solid;
-    top: 70px;
-    padding: 18px;
-    text-align: center;
-    width: 40%;
-    background-color: #f2f2f2e7;
-    border-radius: 5px;
-    justify-content: center;
-    margin-left: 39%;
-    position: fixed;
+  padding: 17px;
+  text-align: center;
+  width: 40%;
+  background-color: #f2f2f2e7;
+  justify-content: center;
+  position: absolute;
+  border-color: #76b5c5;
+  border-style: solid;
+  border-radius: 8px;
+  top: 52%;
+  left: 58%;
+  transform: translateX(-50%) translateY(-50%);
+  position: fixed;
 }
 
 .card-header{
@@ -52,11 +54,6 @@
     width: 100%;
     margin-top: 7px;
     text-align: center;
-}
-
-.dataNascimento{
-    margin-top: -6%;
-    margin-left: 60%;
 }
 
 #myfile{

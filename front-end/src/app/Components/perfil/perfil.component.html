@@ -1,59 +1,66 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+
 <app-header></app-header>
 <app-navbar></app-navbar>
-   <div class="card1">
-        <h4 class="card-header">Editar Perfil</h4>
-        <div class="card-body">
-            <form [formGroup]="editarPerfilForm">
-                <div class = "form-group">
-                    <div class="row">
-                        <div class="col-25">
-                            <label for="nome">Nome</label>
-                        </div>
-                        <div class="col-75">
-                            <input id="nome" type="text" placeholder="Insira o nome" formControlName="nome" class="form-control" />
-                        </div>
+
+<div id="PrimeiroCard" class="card1">
+    <h2 class="card-header">Editar Perfil</h2>
+    <div class="card-body">
+        <form [formGroup]="editarPerfilForm">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-25">
+                        <label for="nome">Nome:</label>
+                    </div>
+                    <div class="col-75">
+                        <input id="nome" type="text" placeholder="Insira o nome" formControlName="nome" class="form-control" />
                     </div>
                 </div>
-                <div class = "form-group">
-                    <div class="row">
-                        <div class="col-25">
-                            <label for="pais">País</label>
-                        </div>
-                        <div class="col-75">
-                            <input id="pais" type="text" placeholder="Insira o país" formControlName="pais" class="form-control" />
-                        </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-25">
+                        <label for="pais">País:</label>
+                    </div>
+                    <div class="col-75">
+                        <input id="pais" type="text" placeholder="Insira o país" formControlName="pais"
+                            class="form-control" />
                     </div>
                 </div>
-                <div class = "form-group">
-                    <div class="row">
-                        <div class="col-25">
-                            <label for="estadodehumor">Estado de Humor</label>
-                        </div>
-                        <div class="col-75">
-                            <button class="botaoInicial" (click)="escolherEstados()">Determinação dos Estados de Humor</button>    
-                        </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-25">
+                        <label for="estadodehumor">Estado de Humor:</label>
+                    </div>
+                    <div class="col-75">
+                        <i type="submit" (click)="escolherEstados()" class="fa a">Determinação dos Estados de Humor</i>
                     </div>
                 </div>
-                <div class = "form-group">
-                    <div class="row">
-                        <div class="col-25">
-                            <label for="tags">Tags</label>
-                        </div>
-                        <div class="col-75">
-                            <input id="tags" type="text" placeholder="Insira as tags entre vírgulas" formControlName="tags" class="form-control" />
-                        </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-25">
+                        <label for="tags">Tags:</label>
+                    </div>
+                    <div class="col-75">
+                        <input id="tags" type="text" placeholder="Insira as tags entre vírgulas" formControlName="tags"
+                            class="form-control" />
                     </div>
                 </div>
-                <div class="form-group">
-                    <button type="submit" id="submit" class="btn-primary" (click)="onSubmit()">Editar</button>
-                </div>
-            </form>
-        </div>
+            </div>
+            <div class="form-group">
+                <i type="submit" (click)="onSubmit()" class="fas fa-user-edit"> Editar</i>
+            </div>
+        </form>
     </div>
-<!-- <button class="btn btn-danger" (click)="deleteUser()" style="float: right;"> Apagar Utilizador </button>-->
+</div>
 
 <div class="card3" id="estados">
-    <h4 class="card-header1">Determinação dos Estados de Humor</h4>
+    <div class="voltar">
+        <i id="return" type="submit" (click)="onVoltarEstados()" class="fa fa-arrow-left"> Voltar </i>
+    </div>
+    <h2 class="card-header1">Determinação dos Estados de Humor</h2>
     <div class="card-body">
         <form [formGroup]="estadosForm">
             <div class="form-group">
@@ -136,8 +143,6 @@
                     <b>Valor: <span id="angry"></span></b>
                 </div>
             </div>
-            
         </form>
     </div>
-    <button type="button" class="estadosButton" (click)="onVoltarEstados()">Voltar</button>
-</div>    
+</div>

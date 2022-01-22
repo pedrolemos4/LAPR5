@@ -1,14 +1,18 @@
 /* Add padding to containers */
 .card1 {
-    padding: 17px;
-    text-align: center;
-    width: 40%;
-    background-color: #f2f2f2e7;
-    border-radius: 5px;
-    justify-content: center;
-    margin-left: 38%;
-    margin-top: 2%;
-    position: fixed;
+  padding: 17px;
+  text-align: center;
+  width: 40%;
+  background-color: #f2f2f2e7;
+  justify-content: center;
+  position: absolute;
+  border-color: #76b5c5;
+  border-style: solid;
+  border-radius: 8px;
+  top: 45%;
+  left: 58%;
+  transform: translateX(-50%) translateY(-50%);
+  position: fixed;
 }
 
 
@@ -17,13 +21,12 @@
 label {
     padding: 12px 12px 12px 12px;
     display: inline-block;
-    /*float: left;
-    /*margin-right: 10px;*/
 }
 
 .col-25 {
-    float: left;
-    width: 25%;
+  float: left;
+  width: 25%;
+  font-weight: bold;
 }
 
 .row {
@@ -32,7 +35,7 @@ label {
 
 .col-75 {
   float: left;
-  width: 75%;
+  width: 72%;
 }
 
 .row:after {
@@ -55,38 +58,25 @@ input[type=text]:focus {
   outline: none;
 }
 
-/* Set a style for the submit/register button */
-
-.btn-primary {
-    background-color: #04AA6D;
-    color: white;
-    padding: 16px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    opacity: 0.9;
-}
-
-.btn-primary:hover {
-    opacity: 1;
-}
-
 .card-header {
     font-weight: bold;
-    padding-bottom: 7%;
+    padding-bottom: 5%;
 }
 
 .card3 {
-    padding: 17px;
-    text-align: center;
-    width: 50%;
-    background-color: #f2f2f2;
-    border-radius: 5px;
-    justify-content: center;
-    margin-left: 33%;
-    position: fixed;
-  }
+  padding: 17px;
+  text-align: center;
+  width: 50%;
+  background-color: #f2f2f2e7;
+  justify-content: center;
+  border-color: #76b5c5;
+  border-style: solid;
+  border-radius: 8px;
+  top: 52%;
+  left: 58%;
+  transform: translateX(-50%) translateY(-50%);
+  position: fixed;
+}
 
   .estadoClass {
     margin-bottom: 1%;
@@ -134,10 +124,54 @@ input[type=text]:focus {
 .card-header1 {
     height: 40px;
     text-align: center;
-    margin-bottom: 0%;
+    margin-bottom: 25px;
     font-weight: bold;
 }
 
-.botaoInicial {
-  margin-top: 2%;
+.voltar {
+  text-align: left;
 }
+
+.fas {
+  font-size: 22px;
+  cursor: pointer;
+  user-select: none;
+  color: black;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+.fas:hover {
+  transform: scale(1.2);
+}
+
+.fa {
+  font-size: 20px;
+  cursor: pointer;
+  user-select: none;
+  color: black;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.fa-arrow-left:hover {
+  transform: scale(1.2);
+}
+
+.a:hover {
+  transform: scale(1.2);
+  color: #7692c5;
+}
+/* 
+.fa {
+  margin-top: 2%;
+  font-size: 130%;
+  cursor: pointer;
+  user-select: none;
+  color: black;
+  margin-bottom: 10px;
+}
+
+.fa:hover {
+  transform: scale(1.2);
+} */
