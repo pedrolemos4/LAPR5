@@ -2,18 +2,22 @@
     margin-left: 17%;
     padding: 1px 16px;
     height: 665px;
-    width: 89%;
+    width: 70%;
     display: inline-block;
     vertical-align: top;
     position: absolute;
 }
 
 #container {
+    border-color: #76b5c5;
+    border-style: solid;
     border-radius: 8px;
     background-color: #f2f2f2e7;
     padding: 15px;
     padding-top: 2px;
     width: 70%;
+    margin-top: 100px;
+    margin-left: 23%;
 }
 
 .aceitar {

@@ -123,7 +123,12 @@ export class RedeComponent implements OnInit {
 
     let playerDiv = document.createElement('div');
     playerDiv.className = 'label';
-    playerDiv.textContent = playerName + ' ' + email;
+    if(playerName == '') {
+      playerDiv.textContent = '- ' + email;
+    } else {
+      playerDiv.textContent = playerName + ' ' + email;
+    }
+    
     playerDiv.style.marginLeft = '+3px';
     playerDiv.style.marginRight = '+3px';
     playerDiv.style.backgroundColor = color;
@@ -729,9 +734,8 @@ export class RedeComponent implements OnInit {
       this.selected = intersects[0].object;
       if (this.selected.geometry.type == "SphereGeometry") {
         var aux = this.selected.children[0].element.innerText;
-        var list = aux.split(" ");
-
-        this.redeService.getPerfilAtual(list[1]).subscribe(Perfil => {
+        var list:string[] = aux.split(" ");
+        this.redeService.getPerfilAtual(list[1]).subscribe(Perfil => { 
           if (Perfil.avatar.length != 0) {
             const imageBlob = this.dataURItoBlob(Perfil.avatar);
             var avatarPostar = new File([imageBlob], "avatar", { type: 'image/png' });

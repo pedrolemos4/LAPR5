@@ -2,7 +2,7 @@
 <app-navbar></app-navbar>
 
 <div id="cardPrincipal" class="card1">
-    <h4 class="card-header" style="font-size: 20px;">Pesquisa...</h4><br>
+    <h2 class="card-header">Pesquisa...</h2><br>
     <div class="card-body">
         <div class="form-data">
             <select id="selector" (change)="selectChangeHandlerParametro($event)">
@@ -24,8 +24,8 @@
                 </div>
             </div>
         </form>
-        <h4 id="resultadosPesquisa" class="card-header" style="margin-top: 20px; font-size: 20px;">Resultados da
-            Pesquisa:</h4>
+        <h2 id="resultadosPesquisa" class="card-header" style="margin-top: 20px; font-size: 22px;">Resultados da
+            Pesquisa:</h2>
         <div id="resultadosPesquisaCard" class="card-body">
             <div class="form-data">
                 <select id="escolha" (change)="selectChangeHandler($event)">
