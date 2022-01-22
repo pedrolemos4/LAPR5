@@ -435,15 +435,16 @@ export class RedeComponent implements OnInit {
     const light = new THREE.PointLight(0x00ff00, 1.2);
     light.position.set(2, 2, 0);
     this.scene.add(light);
-    // const helper = new THREE.PointLightHelper(light);
-    // this.scene.add(helper);
 
     //vermelho
     const light1 = new THREE.PointLight(0xff0000, 1.2);
     light1.position.set(-2, -2, 0);
     this.scene.add(light1);
-    // const helper1 = new THREE.PointLightHelper(light1);
-    // this.scene.add(helper1);
+
+
+    // foco solidário com a posicao da camera
+    var flashlight = new THREE.SpotLight(0xffffff,0.5);
+    this.camera.add(flashlight);
 
     // Ambient Light
     const lightAmbient = new THREE.AmbientLight(0xFFFFFF, 0.5);
