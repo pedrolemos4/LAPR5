@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { delay } from 'rxjs';
 import { Jogador } from 'src/app/Models/Jogador';
 import { RankDimensaoRedeService } from 'src/app/Services/RankDimensaoRede/rank-dimensao-rede.service';
@@ -19,12 +20,11 @@ export class RankDimensaoRedeComponent implements OnInit {
   listaFinal: string[] = [];
   emailFinal: string[] = [];
   
-  constructor(private rankDimensaoRedeService: RankDimensaoRedeService) { }
+  constructor(private router: Router,private rankDimensaoRedeService: RankDimensaoRedeService) { }
 
   ngOnInit() {
     this.rankDimensaoRedeService.getAllJogadores().subscribe(Jogadores => {
       Jogadores.forEach(element => {
-        //this.jogadores.push(element);
         this.rankDimensaoRedeService.getPerfil(element.id).subscribe(Perfil => {
           this.rankDimensaoRedeService.getTamRede(element.id, 1).subscribe(async Rede => {
             var res = Object.values(Rede);
@@ -60,5 +60,9 @@ export class RankDimensaoRedeComponent implements OnInit {
       this.listaFinal.push(this.sortedArray.shift() + "  -->  " + this.emailFinal.shift());
     } 
   
+  }
+
+  return() {
+    this.router.navigateByUrl("/home");
   }
 }

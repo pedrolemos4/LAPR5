@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   container: any;
   showNames: string[] = [];
 
-  nomes: string[] = [];
+  nomes: string = '';
   constructor(private formBuilder: FormBuilder, private homeService: HomeService, private toastr: ToastrService) {
     this.pedirJogadorObjetivo = this.formBuilder.group({
     });
@@ -34,14 +34,18 @@ export class HomeComponent implements OnInit {
   selectChangeHandler(event: any) {
     this.selected = event.target.value;
     document.getElementById("mensagemPedido").style.display = "block";
+    document.getElementById("botao").style.display = "block";
   }
 
   ngOnInit(): void {
+    document.getElementById("mensagemPedido").style.display = "none";
+    document.getElementById("selecionaJogador").style.display = "none";
+    document.getElementById("botao").style.display = "none";
     this.numeroTags = this.ntagsForm.controls['ntags'].value;
     const currentUser = localStorage.getItem('currentUser');
     this.emailUser = currentUser?.replace(/\"/g, "");
     this.homeService.getPerfilByEmail(this.emailUser).subscribe(Perfil => {
-      this.nomes.push(Perfil.nome);
+      this.nomes = Perfil.nome;
       if (this.numeroTags <= Perfil.tags.length) {
         this.homeService.getJogadorAtual(Perfil.id).subscribe(Jogador => {
           this.homeService.getRelacoesJogador(Jogador.id).subscribe(result => {
@@ -55,6 +59,7 @@ export class HomeComponent implements OnInit {
   }
 
   onSubmitTags() {
+    document.getElementById("selecionaJogador").style.display = "block";
     this.showNames = [];
     this.numeroTags = this.ntagsForm.controls['ntags'].value;
     const currentUser = localStorage.getItem('currentUser');

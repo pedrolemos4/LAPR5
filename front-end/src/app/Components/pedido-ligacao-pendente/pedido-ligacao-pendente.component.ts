@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { PedidoLigacaoPendenteService } from 'src/app/Services/PedidoLigacaoPendente/pedido-ligacao-pendente.service';
 import { Router } from '@angular/router';
 import { Perfil } from 'src/app/Models/Perfil';
@@ -16,7 +16,7 @@ export class PedidoLigacaoPendenteComponent implements OnInit {
 
   editarPerfilForm: FormGroup;
   emailUser: string | undefined = '';
-  idJogador: any; 
+  idJogador: any;
   Perfil!: Perfil;
   ListaLigacoesPendentes: string[] = [];
   tags1: string[] = new Array<string>();
@@ -29,16 +29,19 @@ export class PedidoLigacaoPendenteComponent implements OnInit {
   constructor(private service: PedidoLigacaoPendenteService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    document.getElementById("container-empty").style.visibility="hidden";
-    document.getElementById("container").style.visibility="visible";
+    document.getElementById("mensagem").style.display = "none";
+    document.getElementById("container-empty").style.visibility = "hidden";
+    document.getElementById("container").style.visibility = "visible";
     const currentUser = localStorage.getItem('currentUser');
     this.emailUser = currentUser?.replace(/\"/g, "");
+    //console.log(this.emailUser);
     this.service.getPerfilAtual(this.emailUser).subscribe(Perfil => {
       this.tags1 = Perfil.tags;
       this.service.getJogadorAtual(Perfil.id).subscribe(Jogador => {
         this.idJogador = Jogador.id;
         this.service.getListaLigacoesPendentes(Jogador.id).subscribe(ListaLigacoes => {
           this.LigacoesPendentes = ListaLigacoes;
+          //console.log(ListaLigacoes);
           if (ListaLigacoes.length > 0) {
             ListaLigacoes.forEach((name: Ligacao) => {
               console.log(name);
@@ -59,8 +62,8 @@ export class PedidoLigacaoPendenteComponent implements OnInit {
               }
             });
           } else {
-            document.getElementById("container-empty").style.visibility="visible";
-            document.getElementById("container").style.visibility="hidden";
+            document.getElementById("container-empty").style.visibility = "visible";
+            document.getElementById("container").style.visibility = "hidden";
           }
         });
       });
@@ -68,6 +71,7 @@ export class PedidoLigacaoPendenteComponent implements OnInit {
   }
 
   selectAmigo(event: any) {
+    document.getElementById("mensagem").style.display = "block";
     this.selectPedido = event.target.value;
     var aux = this.selectPedido.split(". Texto Ligação: ");
     this.service.getPerfilAtual(aux[0]).subscribe(Perfil => {
@@ -89,7 +93,7 @@ export class PedidoLigacaoPendenteComponent implements OnInit {
   }
 
   aceitar() {
-    console.log(this.LigacaoSelecionada);
+    //console.log(this.LigacaoSelecionada);
     this.service.patchLigacao(this.LigacaoSelecionada.id, {
       id: this.LigacaoSelecionada.id,
       textoLigacao: this.LigacaoSelecionada.textoLigacao,
@@ -106,8 +110,8 @@ export class PedidoLigacaoPendenteComponent implements OnInit {
       }
 
     });
-    console.log(this.idJogador + " 102");
-    console.log(this.idJogador2 + " 103");
+    //console.log(this.idJogador + " 102");
+    //console.log(this.idJogador2 + " 103");
     if (this.tags2.length == 0) {
       this.tags2 = this.tags1;
     }
@@ -120,23 +124,24 @@ export class PedidoLigacaoPendenteComponent implements OnInit {
       forcaLigacao: 50
     } as Relacao).subscribe({
       next: () => {
-        this.toastr.success('Relação foi criada com sucesso!', undefined, { positionClass: 'toast-bottom-left' });
-        this.router.navigateByUrl('/home');
+        this.service.registoRelacao({
+          jogador1: this.idJogador2,
+          jogador2: this.idJogador,
+          id: '',
+          tags: this.tags2,
+          forcaRelacao: 0,
+          forcaLigacao: 50
+        } as Relacao).subscribe(
+          () => {
+            this.toastr.success('Relação foi criada com sucesso!', undefined, { positionClass: 'toast-bottom-left' });
+            this.router.navigateByUrl('/home');
+          }
+        );
       },
       error: () => {
         this.toastr.error("Erro: Serviço Não Disponível", undefined, { positionClass: 'toast-bottom-left' });
       }
-
     });
-    console.log(this.tags2 + " === 121");
-    this.service.registoRelacao({
-      id: '',
-      jogador1: this.idJogador2,
-      jogador2: this.idJogador,
-      tags: this.tags2,
-      forcaRelacao: 0,
-      forcaLigacao: 0
-    } as Relacao);
   }
 
   rejeitar() {

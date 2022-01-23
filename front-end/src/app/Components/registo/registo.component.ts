@@ -65,7 +65,6 @@ export class RegistoComponent implements OnInit {
   }
 
   selectChangeHandler(event: any) {
-    //update the ui
     this.selected = event.target.value;
   }
 
@@ -80,15 +79,6 @@ export class RegistoComponent implements OnInit {
   convertDataURIToBase64(dataURI) {
     var base64Index = dataURI.indexOf(';base64,') + ';base64,'.length;
     var base64 = dataURI.substring(base64Index);
-    console.log(base64);
-    // var raw = window.atob(base64);
-    // var rawLength = raw.length;
-    // var array = new Uint8Array(new ArrayBuffer(rawLength));
-    // var i: number;
-    // console.log(array);
-    // for(i = 0; i < rawLength; i++) {
-    //   array[i] = raw.charCodeAt(i);
-    // }
     return base64;
   }
 
@@ -153,7 +143,7 @@ export class RegistoComponent implements OnInit {
         let n: string = this.registoForm.controls['nome'].value;
         let checkNome = n.startsWith(" ", 0);
         if (checkNome == true) {
-          this.toastr.error("Nome não pode começar com espaço branco");
+          this.toastr.error("Nome não pode começar com espaço branco", undefined, { positionClass: 'toast-bottom-left' });
         }
       }
 
@@ -165,22 +155,22 @@ export class RegistoComponent implements OnInit {
           (res: any) => {
             console.log(res);
             if (res.includes(e)) {
-              this.toastr.error("Email já se encontra na aplicação");
+              this.toastr.error("Email já se encontra na aplicação", undefined, { positionClass: 'toast-bottom-left' });
             }
           }
         );
       } else {
-        this.toastr.error("Email é obrigatório");
+        this.toastr.error("Email é obrigatório", undefined, { positionClass: 'toast-bottom-left' });
       }
 
       // valida Telefone
       if (this.registoForm.controls['telefone'].value != '') {
         let t: string = this.registoForm.controls['telefone'].value;
         if (t.length != 12) {
-          this.toastr.error("Telefone tem que ter 12 algarismos");
+          this.toastr.error("Telefone tem que ter 12 algarismos", undefined, { positionClass: 'toast-bottom-left' });
         }
       } else {
-        this.toastr.error("Telefone é obrigatório");
+        this.toastr.error("Telefone é obrigatório", undefined, { positionClass: 'toast-bottom-left' });
       }
 
       // valida Cidade
@@ -188,7 +178,7 @@ export class RegistoComponent implements OnInit {
         var regex = /^[A-Za-z0-9]+$/;
         var checkCidade = regex.test(this.registoForm.controls['cidade'].value);
         if (checkCidade == false) {
-          this.toastr.error("Cidade tem que ter apenas letras e/ou números");
+          this.toastr.error("Cidade tem que ter apenas letras e/ou números", undefined, { positionClass: 'toast-bottom-left' });
         }
       }
 
@@ -197,15 +187,15 @@ export class RegistoComponent implements OnInit {
         var d: string[] = this.registoForm.controls['dataNascimento'].value.split("-");
         console.log(Number(d[0]));
         if (2021 - Number(d[0]) < 16) {
-          this.toastr.error("É obrigatório ter pelo menos 16 anos");
+          this.toastr.error("É obrigatório ter pelo menos 16 anos", undefined, { positionClass: 'toast-bottom-left' });
         }
       } else {
-        this.toastr.error("Data de Nascimento é obrigatória");
+        this.toastr.error("Data de Nascimento é obrigatória", undefined, { positionClass: 'toast-bottom-left' });
       }
 
       // valida Tags
       if (this.registoForm.controls['tags'].value == '') {
-        this.toastr.error("Tags são obrigatórias");
+        this.toastr.error("Tags são obrigatórias", undefined, { positionClass: 'toast-bottom-left' });
       }
 
       // valida Password
@@ -214,13 +204,13 @@ export class RegistoComponent implements OnInit {
         // var regex2 = /^(?=.*?[A-Z])(?=.*?[@$!%*#?&+=^_])$/;
         // var checkPass1 = regex2.test(p);
         if (p.length < 8) {
-          this.toastr.error("Password tem que ter pelo menos 8 caracteres");
+          this.toastr.error("Password tem que ter pelo menos 8 caracteres", undefined, { positionClass: 'toast-bottom-left' });
         }
         //   else if (checkPass1 == false) {
         //    this.toastr.error("Password tem que ter pelo menos uma letra maiscula e um caracter especial");
         // } 
       } else {
-        this.toastr.error("Password é obrigatória");
+        this.toastr.error("Password é obrigatória", undefined, { positionClass: 'toast-bottom-left' });
       }
 
       this.arrayNomesEstados.forEach(element => {
@@ -246,9 +236,7 @@ export class RegistoComponent implements OnInit {
           id: '',
           pontuacao: this.pontos,
           perfilId: res.id,
-          listaRelacoes: this.listavazia,
-          listaMissoes: this.listavazia,
-          listaPosts: this.listavazia
+          listaRelacoes: this.listavazia
         } as Jogador)))
         .subscribe({
           next: () => {

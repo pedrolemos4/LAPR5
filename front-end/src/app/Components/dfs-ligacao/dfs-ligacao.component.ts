@@ -62,35 +62,25 @@ export class DfsLigacaoComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.opcao);
+    this.Caminho = [];
     this.nNiveis = this.form.controls['numeroNiveis'].value;
-    if (this.form.controls['numeroNiveis'].value != '' && this.selectedJogador != '') {
-      this.service.getPerfilAtualEmail(this.selectedJogador).subscribe(PerfilSelecionado => {
-        this.service.getJogador(PerfilSelecionado.id).subscribe(JogadorSelecionado => {
-          this.service.getResultadosAlgoritmo(this.idCurrentJogador, JogadorSelecionado.id, this.nNiveis, this.opcao).subscribe(Resultado => {
-            var aux = Object.values(Resultado);
-            this.Custo = aux[1];
-            if (aux[0].length == 0) {
-              this.toastr.error("Selecione outro nível ou outro utilizador", undefined, { positionClass: 'toast-bottom-left' });
-            } else {
-              var var1 = aux[0] + '';
-              var auxArray = var1.split(",");
-              auxArray.forEach((element: any) => {
-                this.service.getJogadorById(element).subscribe(Jogador => {
-                  this.service.getPerfilJogador(Jogador.id).subscribe(Perfil => {
-                    this.Caminho.push(Perfil.email);
-                  });
+        this.service.getResultadosAlgoritmo(this.emailCurrentUser,this.selectedJogador,this.nNiveis,this.opcao).subscribe(Resultado =>{
+          var aux = Object.values(Resultado);
+          this.Custo= aux[1];
+          if(aux[0].length == 0){
+            this.toastr.error("Selecione outro nível ou outro utilizador", undefined, { positionClass: 'toast-bottom-left' });
+          } else{
+            var var1 = aux[0] +'';
+            var auxArray = var1.split(",");
+            auxArray.forEach((element: any) =>{
+                  this.Caminho.push(element);
                 });
-              });
-              this.toastr.success("Soluções encontradas", undefined, { positionClass: 'toast-bottom-left' });
-            }
-          });
+            this.toastr.success("Soluções encontradas", undefined, { positionClass: 'toast-bottom-left' });
+          }
         });
-      });
-      document.getElementById("mensagem1").style.display = "block";
-      document.getElementById("mensagem2").style.display = "block";
-    } else {
-      this.toastr.error("Amigo e/ou Nivel é obrigatório", undefined, { positionClass: 'toast-bottom-left' });
-    }
+        document.getElementById("mensagem1").style.display = "block";
+        document.getElementById("mensagem2").style.display = "block";    
   }
 
   onVoltar() {

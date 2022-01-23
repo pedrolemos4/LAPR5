@@ -63,6 +63,7 @@ export class BestfirstLigacaoComponent implements OnInit {
 
   onSubmit() {
     console.log(this.opcao);
+    this.Caminho = [];
     this.nNiveis = this.form.controls['numeroNiveis'].value;
     if (this.form.controls['numeroNiveis'].value != '' && this.selectedJogador != '') {
       this.service.getPerfilAtualEmail(this.selectedJogador).subscribe(PerfilSelecionado => {

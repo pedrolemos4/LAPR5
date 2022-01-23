@@ -63,6 +63,7 @@ export class DfsLigacaoRelacaoComponent implements OnInit {
 
   onSubmit(){
     console.log(this.opcao);
+    this.Caminho = [];
     this.nNiveis = this.form.controls['numeroNiveis'].value;
         this.service.getResultadosAlgoritmo(this.emailCurrentUser,this.selectedJogador,this.nNiveis,this.opcao).subscribe(Resultado =>{
           var aux = Object.values(Resultado);
@@ -73,12 +74,8 @@ export class DfsLigacaoRelacaoComponent implements OnInit {
             var var1 = aux[0] +'';
             var auxArray = var1.split(",");
             auxArray.forEach((element: any) =>{
-              //this.service.getJogadorById(element).subscribe(Jogador =>{
-               // this.service.getPerfilJogador(Jogador.id).subscribe(Perfil => {
                   this.Caminho.push(element);
                 });
-              //});
-           // });
             this.toastr.success("Soluções encontradas", undefined, { positionClass: 'toast-bottom-left' });
           }
         });

@@ -36,6 +36,9 @@ export class FeedPostsComponent implements OnInit {
   }
 
   selectChangeHandler(event: any) {
+    if (this.div == true) {
+      this.div = false;
+    }
     this.selected = event.target.value;
     this.cards = [];
 
@@ -274,6 +277,9 @@ export class FeedPostsComponent implements OnInit {
         dislikes: []
       }).subscribe({
         next: () => {
+          if (this.div == true) {
+            this.div = false;
+          }
           this.toastr.success("Comentário adicionado com sucesso!", undefined, { positionClass: 'toast-bottom-left' });
         },
         error: () => {

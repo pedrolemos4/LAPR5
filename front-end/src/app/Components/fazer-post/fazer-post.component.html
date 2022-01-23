@@ -2,20 +2,25 @@
 <app-navbar></app-navbar>
 <div id="texto">
     <div id="container">
-        <h2>Fazer Post</h2>
-        <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
-            <div class = "form-group">
-                <input id="post" type="text" placeholder="Escreva aqui o seu post..." formControlName="post"
-                    class ="form-control" required/>
-            </div>
-            <div>
-                <input id="tags" type="text" placeholder="Escreva aqui as tags..." formControlName="tags"
-                    class="form-control" required/>
-            </div>
-            <div class = "form-group">
-                <button type="submit" id="submit" class="submit"> Publicar</button>
-            </div>
-        </form>
+        <h2 style="text-align: center; font-weight: bold;">Fazer Post</h2>
+        <table style="width: 500px;">
+            <tr>
+                <td style="text-align: center;">
+                    <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+                        <div class = "form-group">
+                            <input id="post" type="text" placeholder="Escreva aqui o seu post..." formControlName="post"
+                                class ="form-control" required/>
+                        </div>
+                        <div>
+                            <input id="tags" type="text" placeholder="Escreva aqui as tags..." formControlName="tags"
+                                class="form-control" required/>
+                        </div>
+                        <div class = "form-group">
+                            <i id="submit" style="font-size: 20px; margin-left: 35%;" (click)="onSubmit()" class="fa fa-paper-plane"> Publicar</i>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
-

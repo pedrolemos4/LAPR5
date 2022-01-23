@@ -48,7 +48,7 @@ export class SugerirAmigosComponent implements OnInit {
             console.log(this.aux + " 46");
             console.log(this.aux.length + " 47");
             document.getElementById("textoSugestoes").style.display = "block";
-            if (this.aux.length == 1) {
+            if (this.aux.length == 0) {
               this.sugerirAmigosService.getAllPerfis().subscribe(All => {
                 All.forEach((element: Perfil) => {
                   if (element.id != this.idCurrentUser) {
@@ -70,15 +70,7 @@ export class SugerirAmigosComponent implements OnInit {
             }
           });
         } else {
-          this.aux.forEach((element: any) => {
-            console.log(element + " 51");
-            this.sugerirAmigosService.getJogadorById(element).subscribe(Jogador => {
-              this.sugerirAmigosService.getPerfilById(Jogador.perfilId).subscribe(PerfilAux => {
-                this.lista.push(PerfilAux.email);
-              });
-            });
-          });
-          this.toastr.success("Amigos sugeridos com base nas tags e nível listados.", undefined, { positionClass: 'toast-bottom-left' });
+          this.toastr.error("Nível tem que ser superior a 1", undefined, { positionClass: 'toast-bottom-left' });
         }
       });
     });

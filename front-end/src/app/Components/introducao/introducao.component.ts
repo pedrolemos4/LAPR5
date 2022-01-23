@@ -31,7 +31,7 @@ export class IntroducaoComponent implements OnInit {
 
 
   perfilIntrodutoresList: string[] = [];
-  perfilListAux: any[][] = new Array<any[]>()
+  perfilListAux: any[][] = new Array<any[]>();
   perfilIniciaisList: string[] = [];
   constructor(private router: Router, private toastr: ToastrService, private introducaoService: IntroducaoService) {
   }

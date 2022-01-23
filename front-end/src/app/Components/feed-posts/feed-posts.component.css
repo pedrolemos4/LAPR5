@@ -3,30 +3,22 @@
     text-align: center;
     width: 55%;
     background-color: #f2f2f2e7;
-    border-radius: 5px;
     justify-content: center;
     margin-left: 30%;
     margin-top: 2%;
     position: absolute;
     height: 80%;
     overflow-y: auto;
+    border-color: #76b5c5;
+    border-style: solid;
+    border-radius: 8px;
   }
   
-  .aceitar{
-    margin-left: 10px;
-    margin-bottom: 10px;
-    background-color: rgb(16, 219, 60);
-    color: white;
-    border: none;
-    padding: 7px 10px;
-    cursor: pointer;
-}
   .card3 {
     padding: 15px;
     text-align: center;
     width: 55%;
     background-color: #f2f2f2;
-    border-radius: 5px;
     justify-content: center;
     margin-left: 30%;
     margin-top: 2%;
@@ -34,6 +26,9 @@
     height: 80%;
     overflow-y: auto;
     z-index: 9;
+    border-color: #76b5c5;
+    border-style: solid;
+    border-radius: 8px;
   }
 
   .card4 {
@@ -48,6 +43,9 @@
     position: absolute;
     height: 80%;
     overflow-y: auto;
+    border-color: #76b5c5;
+    border-style: solid;
+    border-radius: 8px;
   }
 
   .lcards {
@@ -59,12 +57,10 @@
   }
 
   .card-header{
-      text-align: left;
+    text-align: left;
     font-weight: bold;
     padding-bottom: 0%;
-    width: 50%;
-    margin-left: 2%;
-    font-size: large;
+    width: 90%;
 }
 
 .card-lista {
@@ -146,7 +142,7 @@
 }
 
 .fa {
-    font-size: 25px;
+    font-size: 20px;
     cursor: pointer;
     user-select: none;
     color: black;

@@ -20,6 +20,10 @@ export class TamRedeComponent implements OnInit {
   currentUser!: Jogador;
   idCurrentUser: any = '';
   soma: string;
+  rede: number;
+  tamanho: string;
+  div: boolean = false;
+  div2: boolean = false;
 
   constructor(private fortalezaService: FortalezaRedeService, private formBuilder: FormBuilder, private tamRedeService: TamRedeService, private toastr: ToastrService) {
     this.tamRedeForm = this.formBuilder.group({
@@ -45,12 +49,14 @@ export class TamRedeComponent implements OnInit {
   };
 
   onSubmit() {
+    this.tamanho = "";
     var nivel = document.getElementById("nivel") as HTMLInputElement;
     if (nivel.value.match("1") || nivel.value.match("2") || nivel.value.match("3")) {
       this.tamRedeService.getTamRede(this.idCurrentUser, nivel.value).subscribe(Rede => {
         var res = Object.values(Rede);
-        var tamanho = res[0];
-        this.toastr.success("Tamanho da Rede: " + tamanho, undefined, { positionClass: 'toast-bottom-left' });
+        this.tamanho = res[0];
+        this.div2 = true;
+        this.div = false;
       });
     } else {
       this.toastr.error("Nivel tem que ser entre 1 e 3!", undefined, { positionClass: 'toast-bottom-left' });
@@ -58,8 +64,11 @@ export class TamRedeComponent implements OnInit {
   }
 
   dimensaoRede() {
+    this.rede = 0;
     this.tamRedeService.getDimensaoTotal().subscribe(Rede => {
-      this.toastr.success("Dimensão Total da Rede: " + Rede.length, undefined, { positionClass: 'toast-bottom-left' });
+      this.rede = Rede.length;
+      this.div = true;
+      this.div2 = false;
     });
   }
 }

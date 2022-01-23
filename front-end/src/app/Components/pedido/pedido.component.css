@@ -20,45 +20,78 @@
     margin-left: 23%;
 }
 
-.aceitar {
-    background-color: rgb(16, 219, 60);
-    color: white;
-    border: none;
-    padding: 7px 10px;
+/* Add padding to containers */
+.card2 {
+    padding: 17px;
+    text-align: center;
+    width: 45%;
+    background-color: #f2f2f2e7;
+    justify-content: center;
+    position: absolute;
+    border-color: #76b5c5;
+    border-style: solid;
+    border-radius: 8px;
+    top: 45%;
+    left: 58%;
+    transform: translateX(-50%) translateY(-50%);
+    z-index: 9;
+  }
+
+#table{
+    border-color: #76b5c5;
+    border-style: solid;
+    border-radius: 8px;
+}
+
+.fa {
+    font-size: 20px;
     cursor: pointer;
+    user-select: none;
+    color: black;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+  
+.fa:hover {
+    transform: scale(1.2);
+}
+  
+.fa-check-circle:hover {
+    color: green;
+}
+  
+.fa-times-circle:hover {
+   color: red;
 }
 
-.aceitar:hover {
-    background-color: rgb(21, 161, 52);
-}
 
-.rejeitar {
-    background-color: red;
-    color: white;
+.coluna1-menor input[type=text] {
+    width: 70%;
+    /*padding: 3px;*/
+    display: inline-block;
     border: none;
-    padding: 7px 10px;
-    margin-left: 15px;
-    cursor: pointer;
-}
+  }
+  
+  input[type=text]:focus {
+  background-color: #ffffff;
+    outline: none;
+  }
 
-.rejeitar:hover {
-    background-color: rgb(172, 0, 0);
-}
-
-.col-25 {
-    float: left;
-    width: 25%;
-    margin-top: 6px;
-}
-
-.col-75 {
-    float: left;
+  .label1-maior{
+    margin-left: 0%;
+    width: 22%;
+    font-size: medium;
+    text-align: center;
+    background-color: #76b5c5;
+  }
+  
+  .coluna1-menor{
+    float: right;
     width: 75%;
-    margin-top: 6px;
-}
+    margin-top: -24px;
+    text-align: left;
+  }
 
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
+.voltaBotao {
+    text-align: left;
 }

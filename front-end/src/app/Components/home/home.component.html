@@ -3,24 +3,26 @@
     <app-navbar></app-navbar>
     <div class="content">
         <div id="texto">
-            <div *ngFor="let nomeUser of nomes" id="container">
-                <div id="textHello">Olá {{nomeUser}}!</div>
+            <div id="container">
+                <div style="font-weight: bold;" id="textHello">Olá {{nomes}}!</div>
             </div>
         </div>
         <div id="card">
-            <p>Escolha o seu primeiro jogador objetivo</p>
+            <h2 style="text-align: center; font-weight: bold; margin-bottom: 30px;">Escolha o seu primeiro jogador objetivo</h2>
             <form [formGroup]="ntagsForm">
                 <div class="form-group">
-                    <label for="ntags">Número de tags que pretende que estejam em comum com outros utilizadores</label>
+                    <label style="font-weight: bold;" for="ntags">Número de tags que pretende que estejam em comum com outros utilizadores</label>
+                    <div class="nTagsCard" style="text-align: center; margin-top: 15px;">
                     <input type="text" id="ntags" placeholder="Número inteiro menos que o seu número de tags"
                         formControlName="ntags" class="form-control" required />
+                    </div>
                 </div>
             </form>
             <div class="form-group">
-                <button (click)="onSubmitTags()" id="submit" class="btn-primary">Ok</button>
+                <i id="aceitar" type="submit" (click)="onSubmitTags()" class="fa fa-check-circle"> Confirmar</i>
             </div>
             <form [formGroup]="pedirJogadorObjetivo" >
-                <div class="form-group">
+                <div id="selecionaJogador" class="form-group">
                     <div class="row">
                         <div class="col-75">
                             <select class="selector" style="margin: 20px; margin-left: 170px;"
@@ -30,12 +32,15 @@
                                     {{eachVal}}
                                 </option>
                             </select>
-                            <p id="mensagemPedido"><span>Pedido vai ser enviado a:</span><br><b>{{selected}}</b></p>
+                            <div id="mensagemPedido">
+                            <p ><span>Pedido vai ser enviado a:</span><br><b>{{selected}}</b></p>
+                        </div>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <button (click)="onSubmitLigacao()" id="submit" class="btn-primary">Confirmar</button>
+                <div id="botao" class="form-group">
+                    <i type="submit" (click)="onSubmitLigacao()" class="fa fa-paper-plane"> Enviar </i>
+                    <!-- <button (click)="onSubmitLigacao()" id="submit" class="btn-primary">Confirmar</button> -->
                 </div>
             </form>
             

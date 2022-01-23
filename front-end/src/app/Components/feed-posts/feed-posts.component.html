@@ -6,9 +6,8 @@
 <div class="card2">
   <div class="container">
     <div class="card-body">
-
       <div class="form-data">
-        <h4 class="card-header">Escolha um utilizador para ver os seus posts:</h4>
+        <h2 class="card-header">Escolha um utilizador para ver os seus posts:</h2>
         <select id="selector" (change)="selectChangeHandler($event)">
           <option selected disabled="disabled">Escolha o utilizador...</option>
           <option *ngFor="let perfil of listaPerfis">
@@ -16,7 +15,7 @@
         </select>
       </div>
     </div>
-    <h3 class="card-lista">Lista de posts do utilizador:<b>{{selected}}</b></h3>
+    <h2 class="card-lista">Lista de posts do utilizador:<b>{{selected}}</b></h2>
     <div class="row">
       <div class="lcards" *ngFor="let card of cards; index as i">
         <h4 class="card-desc"> Post: <b>{{card.description}}</b></h4>
@@ -41,31 +40,38 @@
         <input style="width: 300px; margin-left: 10px; margin-bottom: 10px;" id="comentario"
           type="text" placeholder="Escreva aqui o seu comentario..." formControlName="comentario"
           class="form-control" required /><br>
-        <input style="width: 300px; margin-left: 10px; margin-bottom: 10px;" id="tags" type="text"
+          <input style="width: 300px; margin-left: 10px; margin-bottom: 10px;" id="tags" type="text"
           placeholder="Escreva aqui as tags do comentario..." formControlName="tags" class="form-control"
-          required /><br><br>
-        <button id="submit" class="aceitar" (click)="comentarPost(post)"> Adicionar Comentário</button>
+          required /><br>
+        <i id="submit" style="font-size: 18px;" (click)="comentarPost(post)" class="fa fa-comment"> Adicionar Comentário</i>
       </form>
     </div>
   </div>
 </div>
 
 <div class="card3" id="likes">
-  <h4 class="card-header">Lista de Likes:</h4>
-  <p *ngFor="let l of lLikes">
+  <div style="text-align: left;">
+    <i id="return" type="submit" (click)="onLikesVoltar()" class="fa fa-arrow-left"> Voltar </i>
+  </div>
+  <h2 style="font-weight: bold;">Lista de Likes</h2>
+  <p style="text-align: center;" *ngFor="let l of lLikes">
     {{l}} </p>
-  <button type="button" class="btn-link2" (click)="onLikesVoltar()">Voltar</button>
 </div>
 
 <div class="card3" id="dislikes">
-  <h4 class="card-header">Lista de Dislikes:</h4>
-  <p *ngFor="let d of lDislikes">
+  <div style="text-align: left;">
+    <i id="return" type="submit" (click)="onDislikesVoltar()" class="fa fa-arrow-left"> Voltar </i>
+  </div>
+  <h2 style="font-weight: bold;">Lista de Dislikes</h2>
+  <p style="text-align: center;" *ngFor="let d of lDislikes">
     {{d}} </p>
-  <button type="button" class="btn-link2" (click)="onDislikesVoltar()">Voltar</button>
 </div>
 
 <div class="card4" id="comentarios">
-  <h4 class="card-header">Lista de Comentários:</h4>
+  <div style="text-align: left;">
+    <i id="return" type="submit" (click)="onListaComentariosVoltar()" class="fa fa-arrow-left"> Voltar </i>
+  </div>
+  <h2 style="font-weight: bold;">Lista de Comentários</h2>
   <div class="row">
     <div class="lcards" *ngFor="let c of lComentarios">
       <h4 class="card-desc"> Autor do Comentário: <b>{{c.autor}}</b></h4>
@@ -81,5 +87,4 @@
       </div>
     </div>
   </div>
-  <button type="button" class="btn-link2" (click)="onListaComentariosVoltar()">Voltar</button>
 </div>

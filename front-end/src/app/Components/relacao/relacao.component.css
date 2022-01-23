@@ -1,27 +1,17 @@
 /* Add padding to containers */
-.card {
-  padding: 17px;
-  text-align: center;
-  width: 30%;
-  background-color: #f2f2f2e7;
-  border-radius: 5px;
-  justify-content: center;
-  margin-left: 60%;
-  margin-top: 8%;
-  position: absolute;
-}
-
-/* Add padding to containers */
 .card1 {
   padding: 17px;
   text-align: center;
   width: 30%;
   background-color: #f2f2f2e7;
-  border-radius: 5px;
   justify-content: center;
-  margin-left: 25%;
-  margin-top: 15%;
   position: absolute;
+  border-color: #76b5c5;
+  border-style: solid;
+  border-radius: 8px;
+  top: 45%;
+  left: 58%;
+  transform: translateX(-50%) translateY(-50%);
 }
 
 
@@ -40,38 +30,15 @@ background-color: #ffffff;
   outline: none;
 }
 
-
-/* Set a style for the submit/register button */
-.btn-primary {
-  background-color: #04AA6D;
-  color: white;
-  padding: 10px 20px;
-  margin-left: 0%;
-  margin-top: 3%;
-  border: none;
-  cursor: pointer;
-  width: 35%;
-  opacity: 0.9;
-}
-
-.btn-primary:hover {
-  opacity:1;
-}
-
-.btn-link{
-  background-color: #8f9794a6;
-  color: white;
-  padding: 10px 20px;
-  margin-right: -10%;
-  border: none;
-  cursor: pointer;
-  width: 35%;
-  opacity: 0.9;
-}
-
 .card-header{
     font-weight: bold;
     padding-bottom: 0%;
+}
+
+.card-body1{
+  margin-left: 15%;
+  width: 70%;
+  text-align: center;
 }
 
 input[type=range] {
@@ -136,4 +103,21 @@ input[type=range]:focus::-webkit-slider-runnable-track {
   left: 50%;
   margin-left: -5px;
   margin-top: -1px;
+}
+
+.fa {
+  font-size: 20px;
+  cursor: pointer;
+  user-select: none;
+  color: black;
+  margin-bottom: 10px;
+}
+
+.fa:hover {
+  transform: scale(1.2);
+}
+
+.centro {
+  margin-top: 30px;
+  text-align: center;
 }

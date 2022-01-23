@@ -30,6 +30,19 @@
     position: absolute;
   }
 
+  .card3 {
+    border-color: #76b5c5;
+    border-style: solid;
+    text-align: center;
+    width: 70%;
+    background-color: #f2f2f2e7;
+    border-radius: 5px;
+    justify-content: center;
+    margin-left: 23%;
+    margin-top: 35%;
+    position: absolute;
+  }
+
 .card-header{
     font-weight: bold;
     padding-bottom: 0%;

@@ -56,7 +56,6 @@ export class AmigosComumComponent implements OnInit {
   }
 
   onSubmit() {
-    document.getElementById("mensagem1").style.display = "block";
     this.listaAmigosComum = [];
     this.service.getPerfilAtual(this.selectedAmigo).subscribe(Perfil => {
       this.service.getJogador(Perfil.id).subscribe(Jogador => {
