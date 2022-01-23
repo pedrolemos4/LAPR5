@@ -40,11 +40,8 @@ namespace DDDSample1
             //     opt.UseInMemoryDatabase("DDDSample1DB")
             //     .ReplaceService<IValueConverterSelector, StronglyEntityIdValueConverterSelector>());
             services.AddControllers().AddNewtonsoftJson();
-            services.AddCors(options =>
-           {
-               options.AddDefaultPolicy(builder =>
-               { builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); });
-           });
+            services.AddCors(options => { options.AddPolicy("AllowAll", builder => { builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); }); });
+
             services.AddDbContext<DDDSample1DbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
                 .ReplaceService<IValueConverterSelector, StronglyEntityIdValueConverterSelector>());
@@ -71,7 +68,7 @@ namespace DDDSample1
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseCors();
+            app.UseCors("AllowAll");
             app.UseHttpsRedirection();
 
             app.UseRouting();
