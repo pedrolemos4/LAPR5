@@ -13,10 +13,5 @@ namespace DDDSample1.Domain.Jogadores
 
         public Guid PerfilId {get; set;}
 
-        public List<Guid> Missao{ get; set; }
-
-        public HashSet<Guid> Relacao{ get; set; }
-
-        public List<Guid> Post{ get; set; }
     }
 }

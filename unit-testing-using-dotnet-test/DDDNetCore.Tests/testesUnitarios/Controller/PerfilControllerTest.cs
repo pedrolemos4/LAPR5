@@ -15,8 +15,19 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
         [Fact]
         public async Task PostPerfilTest()
         {
-            CreatingPerfilDto request = new CreatingPerfilDto("Beatriz", "beatriz@gmail.com", 351258963147, new List<string> { "tag1", "tag2" }, "2021/05/05",
-            "Angry", "B+kasnda21", "en-PT", "Viseu1", "perfilfb1", "perfilli1");
+            Dictionary<string, decimal> mapa1 = new Dictionary<string, decimal>();
+            mapa1.Add("Joyful", 0.5m);
+            mapa1.Add("Distressed", 0.5m);
+            mapa1.Add("Hopeful", 0.5m);
+            mapa1.Add("Fearful", 0.5m);
+            mapa1.Add("Relieved", 0.5m);
+            mapa1.Add("Disappointed", 0.5m);
+            mapa1.Add("Proud", 0.5m);
+            mapa1.Add("Remorseful", 0.5m);
+            mapa1.Add("Grateful", 0.5m);
+            mapa1.Add("Angry", 0.8m);
+            CreatingPerfilDto request = new CreatingPerfilDto("", "Beatriz", "beatriz@gmail.com", 351258963147, new List<string> { "tag1", "tag2" }, "2021/05/05",
+            mapa1, "B+kasnda21", "en-PT", "Viseu1", "perfilfb1", "perfilli1");
 
             var mock = new Mock<IPerfilService>();
 
@@ -95,9 +106,21 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
         [Fact]
         public async Task PutPerfilTest()
         {
+            Dictionary<string, decimal> mapa1 = new Dictionary<string, decimal>();
+            mapa1.Add("Joyful", 0.5m);
+            mapa1.Add("Distressed", 0.5m);
+            mapa1.Add("Hopeful", 0.5m);
+            mapa1.Add("Fearful", 0.5m);
+            mapa1.Add("Relieved", 0.5m);
+            mapa1.Add("Disappointed", 0.5m);
+            mapa1.Add("Proud", 0.5m);
+            mapa1.Add("Remorseful", 0.5m);
+            mapa1.Add("Grateful", 0.5m);
+            mapa1.Add("Angry", 0.8m);
+
             Guid id = new Guid();
 
-            PerfilDto perfil = new PerfilDto { Nome = "Beatriz", Email = "beatriz@gmail.com", EstadoHumor = "Angry", Pais = "en-PT" };
+            PerfilDto perfil = new PerfilDto { Nome = "Beatriz", Email = "beatriz@gmail.com", EstadoHumor = mapa1, Pais = "en-PT" };
 
             var mock = new Mock<IPerfilService>();
 
@@ -115,9 +138,21 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
         [Fact]
         public async Task PatchPerfilTest()
         {
+            Dictionary<string, decimal> mapa1 = new Dictionary<string, decimal>();
+            mapa1.Add("Joyful", 0.5m);
+            mapa1.Add("Distressed", 0.5m);
+            mapa1.Add("Hopeful", 0.5m);
+            mapa1.Add("Fearful", 0.5m);
+            mapa1.Add("Relieved", 0.5m);
+            mapa1.Add("Disappointed", 0.5m);
+            mapa1.Add("Proud", 0.5m);
+            mapa1.Add("Remorseful", 0.5m);
+            mapa1.Add("Grateful", 0.5m);
+            mapa1.Add("Angry", 0.8m);
+
             Guid id = new Guid();
 
-            PerfilDto perfil = new PerfilDto { Nome = "Beatriz", Email = "beatriz@gmail.com", EstadoHumor = "Angry", Pais = "en-PT" };
+            PerfilDto perfil = new PerfilDto { Nome = "Beatriz", Email = "beatriz@gmail.com", EstadoHumor = mapa1, Pais = "en-PT" };
 
             var mock = new Mock<IPerfilService>();
 

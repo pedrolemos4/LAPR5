@@ -5,6 +5,7 @@ using DDDSample1.Infrastructure.Shared;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using DDDSample1.Domain.Ligacoes;
+using DDDSample1.Domain.SharedValueObjects;
 
 namespace DDDSample1.Infrastructure.Ligacoes
 {
@@ -19,7 +20,12 @@ namespace DDDSample1.Infrastructure.Ligacoes
 
         public async Task<List<Ligacao>> GetLigacaoPendente(JogadorId id)
         {
-            return await _context.Ligacoes.Where(r => (r.Jogador1.Equals(id) && (r.EstadoLigacao.Equals("Pendente")))  ).ToListAsync();
+            return await _context.Ligacoes.Where(r => (r.Jogador2.Equals(id) && (r.EstadoLigacao.Equals(Estado.Pendente)))).ToListAsync();
+        }
+
+        public async Task<List<Ligacao>> GetByIdJogadorAsync(JogadorId id)
+        {
+            return await _context.Ligacoes.Where(r => (r.Jogador1.Equals(id) || r.Jogador2.Equals(id))).ToListAsync();
         }
     }
 }

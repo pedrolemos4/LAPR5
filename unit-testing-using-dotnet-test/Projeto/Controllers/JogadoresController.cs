@@ -5,6 +5,7 @@ using DDDSample1.Domain.Jogadores;
 using DDDSample1.Domain.Perfis;
 using System;
 using DDDSample1.Domain.Shared;
+using DDDSample1.Domain.LoginUser;
 
 namespace DDDSample1.Controllers
 {
@@ -22,20 +23,33 @@ namespace DDDSample1.Controllers
             _servicePer = servicePer;
         }
 
-        // GET: api/Jogadores/{email/password}
-        [HttpGet("{email}/{password}")]
-        public async Task<ActionResult<JogadorDto>> GetJogadorByEmailPassword(string email,string password)
+        // // GET: api/Jogadores/{email/password}
+        // [HttpGet("{email}/{password}")]
+        // public async Task<ActionResult<JogadorDto>> GetJogadorByEmailPassword(string email,string password)
+        // {
+        //     var perfil = await _servicePer.GetPerfilByEmailPassword(email,password);
+            
+        //     if (perfil == null) {
+        //         return NotFound();
+        //     }
+
+        //     var jogador = await _serviceJog.GetJogadorByPerfil(new PerfilId(perfil.Id));
+            
+
+        //     return jogador;
+        // }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult> Login(LoginUser user)
         {
-            var perfil = await _servicePer.GetPerfilByEmailPassword(email,password);
+            var succeeded = true;
+            var perfil = await _servicePer.GetPerfilByEmailPassword(user.email,user.password);
             
             if (perfil == null) {
-                return NotFound();
+                return BadRequest(new { message = "Email ou Password incorretos." });
             }
 
-            var jogador = await _serviceJog.GetJogadorByPerfil(new PerfilId(perfil.Id));
-            
-
-            return jogador;
+            return Ok(new { succeeded });
         }
 
         // GET: api/Jogadores

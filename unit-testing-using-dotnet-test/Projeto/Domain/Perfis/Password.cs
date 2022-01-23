@@ -19,7 +19,8 @@ namespace DDDSample1.Domain.Perfis
         }
         private void setPassword(string password)
         {
-            char[] special = { '@', '#', '$', '%', '^', '&', '+', '=', '_' }; //Estarão todos ou haverá uma melhor abordagem ?
+            
+            char[] special = { '@', '#', '!', '$', '%', '*', '^', '&', '?', '+', '=', '_' }; //Estarão todos ou haverá uma melhor abordagem ?
             if (password.Length > 7 && password.Any(char.IsUpper) && password.IndexOfAny(special) > 0)
             {
                 this.password = password;

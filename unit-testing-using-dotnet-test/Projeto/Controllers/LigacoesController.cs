@@ -39,6 +39,15 @@ namespace DDDSample1.Controllers
 
             return ligacao;
         }
+
+        [HttpGet]
+        [Route("[action]/{id}")]
+        public async Task<ActionResult<List<LigacaoDto>>> GetLigacaoJogador(Guid id)
+        {
+            var ligacao = await _service.GetByIdJogadorAsync(new JogadorId(id));
+
+            return ligacao;
+        }
         
         [HttpGet]
         [Route("[action]/{id}")]
@@ -72,8 +81,8 @@ namespace DDDSample1.Controllers
         }
 
         // PATCH: api/Ligacoes/5
-        [HttpPut("{ligacao}")]
-        public async Task<ActionResult<LigacaoDto>> PatchLigacao(Guid id, LigacaoDto dto)
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<LigacaoDto>> PatchLigacao([FromRoute] Guid id, [FromBody] LigacaoDto dto)
         {
             if (id != dto.Id)
             {

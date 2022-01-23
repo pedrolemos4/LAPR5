@@ -78,5 +78,11 @@ namespace DDDSample1.Domain.Introducoes
         {
             this.Active = false;
         }
+
+        public void ChangeTextoIntroducao(string textoIntroducao){
+            if (!this.Active)
+                throw new BusinessRuleValidationException("It is not possible to change the textoIntroducao to an inactive introducao.");
+            this.TextoIntroducao = new TextoIntroducao(textoIntroducao);
+        }
     }
 }

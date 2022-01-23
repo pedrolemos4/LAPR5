@@ -13,37 +13,47 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Relacoes
         [Fact]
         public void TestCreateRelacao()
         {
+            Dictionary<string, decimal> mapa1 = new Dictionary<string, decimal>();
+            mapa1.Add("Joyful", 0.5m);
+            mapa1.Add("Distressed", 0.5m);
+            mapa1.Add("Hopeful", 0.5m);
+            mapa1.Add("Fearful", 0.5m);
+            mapa1.Add("Relieved", 0.5m);
+            mapa1.Add("Disappointed", 0.5m);
+            mapa1.Add("Proud", 0.5m);
+            mapa1.Add("Remorseful", 0.5m);
+            mapa1.Add("Grateful", 0.5m);
+            mapa1.Add("Angry", 0.8m);
+
             string nome = "Beatriz";
             string email = "beatriz.vaz2001@gmail.com";
             long telefone = 351915246058;
-            List<string> tag =  new List<string>();
+            List<string> tag = new List<string>();
             tag.Add("musica");
             string data = "2000-08-15";
-            string estado = "Disappointed";
             string password = "Q178oAX.qw@";
             string pais = "en-PT";
             string cidade = "Porto1";
             string perfilFB = "perfilFb";
             string perfilLI = "perfilLin";
-            Perfil per = new Perfil(nome, email, telefone, tag, data, estado, password, pais, cidade, perfilFB, perfilLI);
+            Perfil per = new Perfil("", nome, email, telefone, tag, data, mapa1, password, pais, cidade, perfilFB, perfilLI);
             Jogador jog1 = new Jogador(per.Id);
 
             string nome1 = "Ricardo";
             string email1 = "ricardo.pires@gmail.com";
             long telefone1 = 351932468250;
-            List<string> tag1 =  new List<string>();
+            List<string> tag1 = new List<string>();
             tag1.Add("desporto");
             string data1 = "2001-07-20";
-            string estado1 = "Joyful";
             string password1 = "QS@D15oAX.qw";
             string pais1 = "en-PT";
             string cidade1 = "Porto1";
             string perfilFB1 = "perfilFb1";
             string perfilLI1 = "perfilLin1";
-            Perfil per1 = new Perfil(nome1, email1, telefone1, tag1, data1, estado1, password1, pais1, cidade1, perfilFB1, perfilLI1);
+            Perfil per1 = new Perfil("", nome1, email1, telefone1, tag1, data1, mapa1, password1, pais1, cidade1, perfilFB1, perfilLI1);
             Jogador jog2 = new Jogador(per1.Id);
 
-            List<string> tags =  new List<string>();
+            List<string> tags = new List<string>();
             tags.Add("tag1");
             tags.Add("tag2");
             int fr = 5;
@@ -52,7 +62,8 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Relacoes
             Relacao relacao = new Relacao(jog1.Id, jog2.Id, tags, fr, fl);
 
             List<string> tags2 = new List<string>();
-            foreach(Tag tagg in relacao.Tags){
+            foreach (Tag tagg in relacao.Tags)
+            {
                 tags2.Add(tagg.Descricao);
             }
 
@@ -72,19 +83,29 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Relacoes
             string nome1 = "Ricardo";
             string email1 = "ricardo.pires@gmail.com";
             long telefone1 = 351932468250;
-            List<string> tag1 =  new List<string>();
+            List<string> tag1 = new List<string>();
             tag1.Add("desporto");
             string data1 = "2001-07-20";
-            string estado1 = "Joyful";
+            Dictionary<string, decimal> mapa1 = new Dictionary<string, decimal>();
+            mapa1.Add("Joyful", 0.5m);
+            mapa1.Add("Distressed", 0.5m);
+            mapa1.Add("Hopeful", 0.5m);
+            mapa1.Add("Fearful", 0.5m);
+            mapa1.Add("Relieved", 0.5m);
+            mapa1.Add("Disappointed", 0.5m);
+            mapa1.Add("Proud", 0.5m);
+            mapa1.Add("Remorseful", 0.5m);
+            mapa1.Add("Grateful", 0.5m);
+            mapa1.Add("Angry", 0.8m);
             string password1 = "QS@D15oAX.qw";
             string pais1 = "en-PT";
             string cidade1 = "Porto1";
             string perfilFB1 = "perfilFb1";
             string perfilLI1 = "perfilLin1";
-            Perfil per1 = new Perfil(nome1, email1, telefone1, tag1, data1, estado1, password1, pais1, cidade1, perfilFB1, perfilLI1);
+            Perfil per1 = new Perfil("", nome1, email1, telefone1, tag1, data1, mapa1, password1, pais1, cidade1, perfilFB1, perfilLI1);
             Jogador jog2 = new Jogador(per1.Id);
 
-            List<string> tags =  new List<string>();
+            List<string> tags = new List<string>();
             tags.Add("tag1");
             tags.Add("tag2");
 
@@ -97,31 +118,40 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Relacoes
             string nome = "Beatriz";
             string email = "beatriz.vaz2001@gmail.com";
             long telefone = 351915246058;
-            List<string> tag =  new List<string>();
+            List<string> tag = new List<string>();
             tag.Add("musica");
             string data = "2000-08-15";
-            string estado = "Disappointed";
+            Dictionary<string, decimal> mapa1 = new Dictionary<string, decimal>();
+            mapa1.Add("Joyful", 0.5m);
+            mapa1.Add("Distressed", 0.5m);
+            mapa1.Add("Hopeful", 0.5m);
+            mapa1.Add("Fearful", 0.5m);
+            mapa1.Add("Relieved", 0.5m);
+            mapa1.Add("Disappointed", 0.5m);
+            mapa1.Add("Proud", 0.5m);
+            mapa1.Add("Remorseful", 0.5m);
+            mapa1.Add("Grateful", 0.5m);
+            mapa1.Add("Angry", 0.8m);
             string password = "Q178oAX.qw@";
             string pais = "en-PT";
             string cidade = "Porto1";
             string perfilFB = "perfilFb";
             string perfilLI = "perfilLin";
-            Perfil per = new Perfil(nome, email, telefone, tag, data, estado, password, pais, cidade, perfilFB, perfilLI);
+            Perfil per = new Perfil("", nome, email, telefone, tag, data, mapa1, password, pais, cidade, perfilFB, perfilLI);
             Jogador jog1 = new Jogador(per.Id);
 
             string nome1 = "Ricardo";
             string email1 = "ricardo.pires@gmail.com";
             long telefone1 = 351932468250;
-            List<string> tag1 =  new List<string>();
+            List<string> tag1 = new List<string>();
             tag1.Add("desporto");
             string data1 = "2001-07-20";
-            string estado1 = "Joyful";
             string password1 = "QS@D15oAX.qw";
             string pais1 = "en-PT";
             string cidade1 = "Porto1";
             string perfilFB1 = "perfilFb1";
             string perfilLI1 = "perfilLin1";
-            Perfil per1 = new Perfil(nome1, email1, telefone1, tag1, data1, estado1, password1, pais1, cidade1, perfilFB1, perfilLI1);
+            Perfil per1 = new Perfil("", nome1, email1, telefone1, tag1, data1, mapa1, password1, pais1, cidade1, perfilFB1, perfilLI1);
             Jogador jog2 = new Jogador(per1.Id);
 
             List<string> tags = null;
@@ -135,34 +165,43 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Relacoes
             string nome = "Beatriz";
             string email = "beatriz.vaz2001@gmail.com";
             long telefone = 351915246058;
-            List<string> tag =  new List<string>();
+            List<string> tag = new List<string>();
             tag.Add("musica");
             string data = "2000-08-15";
-            string estado = "Disappointed";
+            Dictionary<string, decimal> mapa1 = new Dictionary<string, decimal>();
+            mapa1.Add("Joyful", 0.5m);
+            mapa1.Add("Distressed", 0.5m);
+            mapa1.Add("Hopeful", 0.5m);
+            mapa1.Add("Fearful", 0.5m);
+            mapa1.Add("Relieved", 0.5m);
+            mapa1.Add("Disappointed", 0.5m);
+            mapa1.Add("Proud", 0.5m);
+            mapa1.Add("Remorseful", 0.5m);
+            mapa1.Add("Grateful", 0.5m);
+            mapa1.Add("Angry", 0.8m);
             string password = "Q178oAX.qw@";
             string pais = "en-PT";
             string cidade = "Porto1";
             string perfilFB = "perfilFb";
             string perfilLI = "perfilLin";
-            Perfil per = new Perfil(nome, email, telefone, tag, data, estado, password, pais, cidade, perfilFB, perfilLI);
+            Perfil per = new Perfil("", nome, email, telefone, tag, data, mapa1, password, pais, cidade, perfilFB, perfilLI);
             Jogador jog1 = new Jogador(per.Id);
 
             string nome1 = "Ricardo";
             string email1 = "ricardo.pires@gmail.com";
             long telefone1 = 351932468250;
-            List<string> tag1 =  new List<string>();
+            List<string> tag1 = new List<string>();
             tag1.Add("desporto");
             string data1 = "2001-07-20";
-            string estado1 = "Joyful";
             string password1 = "QS@D15oAX.qw";
             string pais1 = "en-PT";
             string cidade1 = "Porto1";
             string perfilFB1 = "perfilFb1";
             string perfilLI1 = "perfilLin1";
-            Perfil per1 = new Perfil(nome1, email1, telefone1, tag1, data1, estado1, password1, pais1, cidade1, perfilFB1, perfilLI1);
+            Perfil per1 = new Perfil("", nome1, email1, telefone1, tag1, data1, mapa1, password1, pais1, cidade1, perfilFB1, perfilLI1);
             Jogador jog2 = new Jogador(per1.Id);
 
-            List<string> tags =  new List<string>();
+            List<string> tags = new List<string>();
             tags.Add("tag1");
             tags.Add("tag2");
             int fr = 0;
@@ -179,34 +218,43 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Relacoes
             string nome = "Beatriz";
             string email = "beatriz.vaz2001@gmail.com";
             long telefone = 351915246058;
-            List<string> tag =  new List<string>();
+            List<string> tag = new List<string>();
             tag.Add("musica");
             string data = "2000-08-15";
-            string estado = "Disappointed";
+            Dictionary<string, decimal> mapa1 = new Dictionary<string, decimal>();
+            mapa1.Add("Joyful", 0.5m);
+            mapa1.Add("Distressed", 0.5m);
+            mapa1.Add("Hopeful", 0.5m);
+            mapa1.Add("Fearful", 0.5m);
+            mapa1.Add("Relieved", 0.5m);
+            mapa1.Add("Disappointed", 0.5m);
+            mapa1.Add("Proud", 0.5m);
+            mapa1.Add("Remorseful", 0.5m);
+            mapa1.Add("Grateful", 0.5m);
+            mapa1.Add("Angry", 0.8m);
             string password = "Q178oAX.qw@";
             string pais = "en-PT";
             string cidade = "Porto1";
             string perfilFB = "perfilFb";
             string perfilLI = "perfilLin";
-            Perfil per = new Perfil(nome, email, telefone, tag, data, estado, password, pais, cidade, perfilFB, perfilLI);
+            Perfil per = new Perfil("", nome, email, telefone, tag, data, mapa1, password, pais, cidade, perfilFB, perfilLI);
             Jogador jog1 = new Jogador(per.Id);
 
             string nome1 = "Ricardo";
             string email1 = "ricardo.pires@gmail.com";
             long telefone1 = 351932468250;
-            List<string> tag1 =  new List<string>();
+            List<string> tag1 = new List<string>();
             tag1.Add("desporto");
             string data1 = "2001-07-20";
-            string estado1 = "Joyful";
             string password1 = "QS@D15oAX.qw";
             string pais1 = "en-PT";
             string cidade1 = "Porto1";
             string perfilFB1 = "perfilFb1";
             string perfilLI1 = "perfilLin1";
-            Perfil per1 = new Perfil(nome1, email1, telefone1, tag1, data1, estado1, password1, pais1, cidade1, perfilFB1, perfilLI1);
+            Perfil per1 = new Perfil("", nome1, email1, telefone1, tag1, data1, mapa1, password1, pais1, cidade1, perfilFB1, perfilLI1);
             Jogador jog2 = new Jogador(per1.Id);
 
-            List<string> tags =  new List<string>();
+            List<string> tags = new List<string>();
             tags.Add("tag1");
             tags.Add("tag2");
             int fr = 5;
@@ -221,31 +269,40 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Relacoes
             string nome = "Beatriz";
             string email = "beatriz.vaz2001@gmail.com";
             long telefone = 351915246058;
-            List<string> tag =  new List<string>();
+            List<string> tag = new List<string>();
             tag.Add("musica");
             string data = "2000-08-15";
-            string estado = "Disappointed";
+            Dictionary<string, decimal> mapa1 = new Dictionary<string, decimal>();
+            mapa1.Add("Joyful", 0.5m);
+            mapa1.Add("Distressed", 0.5m);
+            mapa1.Add("Hopeful", 0.5m);
+            mapa1.Add("Fearful", 0.5m);
+            mapa1.Add("Relieved", 0.5m);
+            mapa1.Add("Disappointed", 0.5m);
+            mapa1.Add("Proud", 0.5m);
+            mapa1.Add("Remorseful", 0.5m);
+            mapa1.Add("Grateful", 0.5m);
+            mapa1.Add("Angry", 0.8m);
             string password = "Q178oAX.qw@";
             string pais = "en-PT";
             string cidade = "Porto1";
             string perfilFB = "perfilFb";
             string perfilLI = "perfilLin";
-            Perfil per = new Perfil(nome, email, telefone, tag, data, estado, password, pais, cidade, perfilFB, perfilLI);
+            Perfil per = new Perfil("", nome, email, telefone, tag, data, mapa1, password, pais, cidade, perfilFB, perfilLI);
             Jogador jog1 = new Jogador(per.Id);
 
             string nome1 = "Ricardo";
             string email1 = "ricardo.pires@gmail.com";
             long telefone1 = 351932468250;
-            List<string> tag1 =  new List<string>();
+            List<string> tag1 = new List<string>();
             tag1.Add("desporto");
             string data1 = "2001-07-20";
-            string estado1 = "Joyful";
             string password1 = "QS@D15oAX.qw";
             string pais1 = "en-PT";
             string cidade1 = "Porto1";
             string perfilFB1 = "perfilFb1";
             string perfilLI1 = "perfilLin1";
-            Perfil per1 = new Perfil(nome1, email1, telefone1, tag1, data1, estado1, password1, pais1, cidade1, perfilFB1, perfilLI1);
+            Perfil per1 = new Perfil("", nome1, email1, telefone1, tag1, data1, mapa1, password1, pais1, cidade1, perfilFB1, perfilLI1);
             Jogador jog2 = new Jogador(per1.Id);
 
             List<string> tags = new List<string>();
@@ -263,7 +320,8 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Relacoes
             relacao.ChangeTags(tags2);
 
             List<string> tags3 = new List<string>();
-            foreach(Tag tag2 in relacao.Tags){
+            foreach (Tag tag2 in relacao.Tags)
+            {
                 tags3.Add(tag2.Descricao);
             }
 
@@ -276,31 +334,40 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Relacoes
             string nome = "Beatriz";
             string email = "beatriz.vaz2001@gmail.com";
             long telefone = 351915246058;
-            List<string> tag =  new List<string>();
+            List<string> tag = new List<string>();
             tag.Add("musica");
             string data = "2000-08-15";
-            string estado = "Disappointed";
+            Dictionary<string, decimal> mapa1 = new Dictionary<string, decimal>();
+            mapa1.Add("Joyful", 0.5m);
+            mapa1.Add("Distressed", 0.5m);
+            mapa1.Add("Hopeful", 0.5m);
+            mapa1.Add("Fearful", 0.5m);
+            mapa1.Add("Relieved", 0.5m);
+            mapa1.Add("Disappointed", 0.5m);
+            mapa1.Add("Proud", 0.5m);
+            mapa1.Add("Remorseful", 0.5m);
+            mapa1.Add("Grateful", 0.5m);
+            mapa1.Add("Angry", 0.8m);
             string password = "Q178oAX.qw@";
             string pais = "en-PT";
             string cidade = "Porto1";
             string perfilFB = "perfilFb";
             string perfilLI = "perfilLin";
-            Perfil per = new Perfil(nome, email, telefone, tag, data, estado, password, pais, cidade, perfilFB, perfilLI);
+            Perfil per = new Perfil("", nome, email, telefone, tag, data, mapa1, password, pais, cidade, perfilFB, perfilLI);
             Jogador jog1 = new Jogador(per.Id);
 
             string nome1 = "Ricardo";
             string email1 = "ricardo.pires@gmail.com";
             long telefone1 = 351932468250;
-            List<string> tag1 =  new List<string>();
+            List<string> tag1 = new List<string>();
             tag1.Add("desporto");
             string data1 = "2001-07-20";
-            string estado1 = "Joyful";
             string password1 = "QS@D15oAX.qw";
             string pais1 = "en-PT";
             string cidade1 = "Porto1";
             string perfilFB1 = "perfilFb1";
             string perfilLI1 = "perfilLin1";
-            Perfil per1 = new Perfil(nome1, email1, telefone1, tag1, data1, estado1, password1, pais1, cidade1, perfilFB1, perfilLI1);
+            Perfil per1 = new Perfil("",nome1, email1, telefone1, tag1, data1, mapa1, password1, pais1, cidade1, perfilFB1, perfilLI1);
             Jogador jog2 = new Jogador(per1.Id);
 
             List<string> tags = new List<string>();

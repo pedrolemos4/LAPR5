@@ -72,8 +72,8 @@ namespace DDDSample1.Domain.Relacoes
             if (relacao == null)
                 return null;
 
-            if (relacao.Active)
-                throw new BusinessRuleValidationException("It is not possible to delete an active relacao.");
+            // if (relacao.Active)
+            //     throw new BusinessRuleValidationException("It is not possible to delete an active relacao.");
 
             this._repo.Remove(relacao);
             await this._unitOfWork.CommitAsync();

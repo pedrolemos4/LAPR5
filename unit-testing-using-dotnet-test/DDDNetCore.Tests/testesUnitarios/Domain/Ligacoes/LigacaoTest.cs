@@ -13,19 +13,30 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Ligacoes
         [Fact]
         public void CriacaoLigacao()
         {
+            Dictionary<string, decimal> mapa1 = new Dictionary<string, decimal>();
+            mapa1.Add("Joyful", 0.5m);
+            mapa1.Add("Distressed", 0.5m);
+            mapa1.Add("Hopeful", 0.5m);
+            mapa1.Add("Fearful", 0.5m);
+            mapa1.Add("Relieved", 0.5m);
+            mapa1.Add("Disappointed", 0.5m);
+            mapa1.Add("Proud", 0.5m);
+            mapa1.Add("Remorseful", 0.5m);
+            mapa1.Add("Grateful", 0.5m);
+            mapa1.Add("Angry", 0.8m);
+
             string nome = "Beatriz";
             string email = "beatriz.vaz2001@gmail.com";
             long telefone = 351915246058;
             List<string> tag = new List<string>();
             tag.Add("musica");
             string data = "2000-08-15";
-            string estado = "Disappointed";
             string password = "Q178oAX.qw@";
             string pais = "en-PT";
             string cidade = "Porto1";
             string perfilFB = "perfilFb";
             string perfilLI = "perfilLin";
-            Perfil per = new Perfil(nome, email, telefone, tag, data, estado, password, pais, cidade, perfilFB, perfilLI);
+            Perfil per = new Perfil("", nome, email, telefone, tag, data, mapa1, password, pais, cidade, perfilFB, perfilLI);
             Jogador jogador1 = new Jogador(per.Id);
 
             string nome1 = "Ricardo";
@@ -34,13 +45,12 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Ligacoes
             List<string> tag1 = new List<string>();
             tag1.Add("desporto");
             string data1 = "2001-07-20";
-            string estado1 = "Joyful";
             string password1 = "QS@D15oAX.qw";
             string pais1 = "en-PT";
             string cidade1 = "Porto1";
             string perfilFB1 = "perfilFb1";
             string perfilLI1 = "perfilLin1";
-            Perfil per1 = new Perfil(nome1, email1, telefone1, tag1, data1, estado1, password1, pais1, cidade1, perfilFB1, perfilLI1);
+            Perfil per1 = new Perfil("", nome1, email1, telefone1, tag1, data1, mapa1, password1, pais1, cidade1, perfilFB1, perfilLI1);
             Jogador jogador2 = new Jogador(per1.Id);
 
             string textoLigacao = "friends";
@@ -61,39 +71,59 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Ligacoes
             List<string> tag = new List<string>();
             tag.Add("musica");
             string data = "2000-08-15";
-            string estado = "Disappointed";
+            Dictionary<string, decimal> mapa1 = new Dictionary<string, decimal>();
+            mapa1.Add("Joyful", 0.5m);
+            mapa1.Add("Distressed", 0.5m);
+            mapa1.Add("Hopeful", 0.5m);
+            mapa1.Add("Fearful", 0.5m);
+            mapa1.Add("Relieved", 0.5m);
+            mapa1.Add("Disappointed", 0.5m);
+            mapa1.Add("Proud", 0.5m);
+            mapa1.Add("Remorseful", 0.5m);
+            mapa1.Add("Grateful", 0.5m);
+            mapa1.Add("Angry", 0.8m);
             string password = "Q178oAX.qw@";
             string pais = "en-PT";
             string cidade = "Porto1";
             string perfilFB = "perfilFb";
             string perfilLI = "perfilLin";
-            Perfil per = new Perfil(nome, email, telefone, tag, data, estado, password, pais, cidade, perfilFB, perfilLI);
+            Perfil per = new Perfil("", nome, email, telefone, tag, data, mapa1, password, pais, cidade, perfilFB, perfilLI);
             Jogador jogador1 = new Jogador(per.Id);
             string textoLigacao = "friends";
             string estadoLigacao = "Pendente";
-            Assert.Throws<BusinessRuleValidationException>(() =>new Ligacao(textoLigacao, estadoLigacao, jogador1.Id, null));
+            Assert.Throws<BusinessRuleValidationException>(() => new Ligacao(textoLigacao, estadoLigacao, jogador1.Id, null));
         }
 
         [Fact]
         public void VerificaJogador1IsNull()
         {
-             string nome = "Beatriz";
+            string nome = "Beatriz";
             string email = "beatriz.vaz2001@gmail.com";
             long telefone = 351915246058;
             List<string> tag = new List<string>();
             tag.Add("musica");
             string data = "2000-08-15";
-            string estado = "Disappointed";
+            Dictionary<string, decimal> mapa1 = new Dictionary<string, decimal>();
+            mapa1.Add("Joyful", 0.5m);
+            mapa1.Add("Distressed", 0.5m);
+            mapa1.Add("Hopeful", 0.5m);
+            mapa1.Add("Fearful", 0.5m);
+            mapa1.Add("Relieved", 0.5m);
+            mapa1.Add("Disappointed", 0.5m);
+            mapa1.Add("Proud", 0.5m);
+            mapa1.Add("Remorseful", 0.5m);
+            mapa1.Add("Grateful", 0.5m);
+            mapa1.Add("Angry", 0.8m);
             string password = "Q178oAX.qw@";
             string pais = "en-PT";
             string cidade = "Porto1";
             string perfilFB = "perfilFb";
             string perfilLI = "perfilLin";
-            Perfil per = new Perfil(nome, email, telefone, tag, data, estado, password, pais, cidade, perfilFB, perfilLI);
+            Perfil per = new Perfil("", nome, email, telefone, tag, data, mapa1, password, pais, cidade, perfilFB, perfilLI);
             Jogador jogador2 = new Jogador(per.Id);
             string textoLigacao = "friends";
             string estadoLigacao = "Pendente";
-            Assert.Throws<BusinessRuleValidationException>(() =>new Ligacao(textoLigacao, estadoLigacao, null, jogador2.Id));
+            Assert.Throws<BusinessRuleValidationException>(() => new Ligacao(textoLigacao, estadoLigacao, null, jogador2.Id));
         }
     }
 }

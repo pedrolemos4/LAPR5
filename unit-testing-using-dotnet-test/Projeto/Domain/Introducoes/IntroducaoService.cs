@@ -87,7 +87,8 @@ namespace DDDSample1.Domain.Introducoes
                 return null;
 
             // change all field
-            intro.ChangeEstado(dto.EstadoIntroducao.ToString());
+            intro.ChangeEstado(dto.EstadoIntroducao);
+            intro.ChangeTextoIntroducao(dto.TextoIntroducao);
 
             await this._unitOfWork.CommitAsync();
 

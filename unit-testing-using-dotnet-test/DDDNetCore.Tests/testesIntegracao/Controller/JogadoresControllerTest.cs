@@ -8,8 +8,6 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using DDDSample1.Domain.Shared;
-using DDDSample1.Domain.Missoes;
-using DDDSample1.Domain.Relacoes;
 
 namespace DDDNetCore.Tests.testesIntegracao.Controller
 {
@@ -20,13 +18,11 @@ namespace DDDNetCore.Tests.testesIntegracao.Controller
         {
             var mockJog = new Mock<IJogadorRepository>();
             var mockPer = new Mock<IPerfilRepository>();
-            var mockMiss = new Mock<IMissaoRepository>();
-            var mockRel = new Mock<IRelacaoRepository>();
             mockJog.Setup(repository => repository.GetAllAsync()).Returns(Task.FromResult(new List<Jogador>()));
 
             var mockUnit = new Mock<IUnitOfWork>();
 
-            JogadorService service = new JogadorService(mockUnit.Object, mockJog.Object, mockPer.Object, mockMiss.Object, mockRel.Object, null);
+            JogadorService service = new JogadorService(mockUnit.Object, mockJog.Object, mockPer.Object);
             PerfilService perService = new PerfilService(mockUnit.Object, mockPer.Object);
             JogadoresController controller = new JogadoresController(service, perService);
 
@@ -42,13 +38,11 @@ namespace DDDNetCore.Tests.testesIntegracao.Controller
 
             var mockJog = new Mock<IJogadorRepository>();
             var mockPer = new Mock<IPerfilRepository>();
-            var mockMiss = new Mock<IMissaoRepository>();
-            var mockRel = new Mock<IRelacaoRepository>();
             mockJog.Setup(repository => repository.GetByIdAsync(It.IsAny<JogadorId>()));
 
             var mockUnit = new Mock<IUnitOfWork>();
 
-            JogadorService service = new JogadorService(mockUnit.Object, mockJog.Object, mockPer.Object, mockMiss.Object, mockRel.Object, null);
+            JogadorService service = new JogadorService(mockUnit.Object, mockJog.Object, mockPer.Object);
             PerfilService perService = new PerfilService(mockUnit.Object, mockPer.Object);
             JogadoresController controller = new JogadoresController(service, perService);
 
@@ -64,13 +58,11 @@ namespace DDDNetCore.Tests.testesIntegracao.Controller
 
             var mockJog = new Mock<IJogadorRepository>();
             var mockPer = new Mock<IPerfilRepository>();
-            var mockMiss = new Mock<IMissaoRepository>();
-            var mockRel = new Mock<IRelacaoRepository>();
             mockJog.Setup(repository => repository.GetJogadorByPerfil(It.IsAny<PerfilId>()));
 
             var mockUnit = new Mock<IUnitOfWork>();
 
-            JogadorService service = new JogadorService(mockUnit.Object, mockJog.Object, mockPer.Object, mockMiss.Object, mockRel.Object, null);
+            JogadorService service = new JogadorService(mockUnit.Object, mockJog.Object, mockPer.Object);
             PerfilService perService = new PerfilService(mockUnit.Object, mockPer.Object);
             JogadoresController controller = new JogadoresController(service, perService);
 
@@ -87,13 +79,11 @@ namespace DDDNetCore.Tests.testesIntegracao.Controller
 
             var mockJog = new Mock<IJogadorRepository>();
             var mockPer = new Mock<IPerfilRepository>();
-            var mockMiss = new Mock<IMissaoRepository>();
-            var mockRel = new Mock<IRelacaoRepository>();
             mockPer.Setup(repository => repository.GetByIdAsync(It.IsAny<PerfilId>()));
 
             var mockUnit = new Mock<IUnitOfWork>();
 
-            JogadorService service = new JogadorService(mockUnit.Object, mockJog.Object, mockPer.Object, mockMiss.Object, mockRel.Object, null);
+            JogadorService service = new JogadorService(mockUnit.Object, mockJog.Object, mockPer.Object);
             PerfilService perService = new PerfilService(mockUnit.Object, mockPer.Object);
             JogadoresController controller = new JogadoresController(service, perService);
 
@@ -112,15 +102,13 @@ namespace DDDNetCore.Tests.testesIntegracao.Controller
 
             var mockJog = new Mock<IJogadorRepository>();
             var mockPer = new Mock<IPerfilRepository>();
-            var mockMiss = new Mock<IMissaoRepository>();
-            var mockRel = new Mock<IRelacaoRepository>();
 
             mockPer.Setup(repository => repository.GetPerfilByEmailPassword(email, pass));
             mockJog.Setup(repository => repository.GetJogadorByPerfil(It.IsAny<PerfilId>()));
 
             var mockUnit = new Mock<IUnitOfWork>();
 
-            JogadorService service = new JogadorService(mockUnit.Object, mockJog.Object, mockPer.Object, mockMiss.Object, mockRel.Object, null);
+            JogadorService service = new JogadorService(mockUnit.Object, mockJog.Object, mockPer.Object);
             PerfilService perService = new PerfilService(mockUnit.Object, mockPer.Object);
             JogadoresController controller = new JogadoresController(service, perService);
 
@@ -133,67 +121,37 @@ namespace DDDNetCore.Tests.testesIntegracao.Controller
         [Fact]
         public async Task GetAmigosEmComumTest()
         {
-            Guid jogadorId = new Guid();
-            Guid objetoId = new Guid();
-
-            var mockJog = new Mock<IJogadorRepository>();
-            var mockPer = new Mock<IPerfilRepository>();
-            var mockMiss = new Mock<IMissaoRepository>();
-            var mockRel = new Mock<IRelacaoRepository>();
-            mockJog.Setup(repository => repository.GetAmigosEmComum(It.IsAny<JogadorId>(), It.IsAny<JogadorId>()));
-
-            var mockUnit = new Mock<IUnitOfWork>();
-
-            JogadorService service = new JogadorService(mockUnit.Object, mockJog.Object, mockPer.Object, mockMiss.Object, mockRel.Object, null);
-            PerfilService perService = new PerfilService(mockUnit.Object, mockPer.Object);
-            JogadoresController controller = new JogadoresController(service, perService);
-
-            var result = controller.GetAmigosEmComum(jogadorId, objetoId);
-
+            Guid idJog = new Guid();
+            Guid idObj = new Guid();
+            var mockJog = new Mock<IJogadorService>();
+            var mockPer = new Mock<IPerfilService>();
+            mockJog.Setup(service => service.GetAmigosEmComum(It.IsAny<JogadorId>(), It.IsAny<JogadorId>()));
+            JogadoresController controller = new JogadoresController(mockJog.Object, mockPer.Object);
+            var result = await controller.GetAmigosEmComum(idJog, idObj);
             mockJog.Verify(service => service.GetAmigosEmComum(It.IsAny<JogadorId>(), It.IsAny<JogadorId>()), Times.AtLeastOnce());
         }
 
         [Fact]
         public async Task GetAmigosTest()
         {
-            Guid jogadorId = new Guid();
-
-            var mockJog = new Mock<IJogadorRepository>();
-            var mockPer = new Mock<IPerfilRepository>();
-            var mockMiss = new Mock<IMissaoRepository>();
-            var mockRel = new Mock<IRelacaoRepository>();
-            mockJog.Setup(repository => repository.GetAmigos(It.IsAny<JogadorId>()));
-
-            var mockUnit = new Mock<IUnitOfWork>();
-
-            JogadorService service = new JogadorService(mockUnit.Object, mockJog.Object, mockPer.Object, mockMiss.Object, mockRel.Object, null);
-            PerfilService perService = new PerfilService(mockUnit.Object, mockPer.Object);
-            JogadoresController controller = new JogadoresController(service, perService);
-
-            var result = controller.GetAmigos(jogadorId);
-
+            Guid idJog = new Guid();
+            var mockJog = new Mock<IJogadorService>();
+            var mockPer = new Mock<IPerfilService>();
+            mockJog.Setup(service => service.GetAmigos(It.IsAny<JogadorId>()));
+            JogadoresController controller = new JogadoresController(mockJog.Object, mockPer.Object);
+            var result = await controller.GetAmigos(idJog);
             mockJog.Verify(service => service.GetAmigos(It.IsAny<JogadorId>()), Times.AtLeastOnce());
         }
 
         [Fact]
         public async Task GetPossiveisAmigosTest()
         {
-            Guid jogadorId = new Guid();
-
-            var mockJog = new Mock<IJogadorRepository>();
-            var mockPer = new Mock<IPerfilRepository>();
-            var mockMiss = new Mock<IMissaoRepository>();
-            var mockRel = new Mock<IRelacaoRepository>();
-            mockJog.Setup(repository => repository.GetPossiveisAmigos(It.IsAny<JogadorId>()));
-
-            var mockUnit = new Mock<IUnitOfWork>();
-
-            JogadorService service = new JogadorService(mockUnit.Object, mockJog.Object, mockPer.Object, mockMiss.Object, mockRel.Object, null);
-            PerfilService perService = new PerfilService(mockUnit.Object, mockPer.Object);
-            JogadoresController controller = new JogadoresController(service, perService);
-
-            var result = controller.GetPossiveisAmigos(jogadorId);
-
+            Guid idJog = new Guid();
+            var mockJog = new Mock<IJogadorService>();
+            var mockPer = new Mock<IPerfilService>();
+            mockJog.Setup(service => service.GetPossiveisAmigos(It.IsAny<JogadorId>()));
+            JogadoresController controller = new JogadoresController(mockJog.Object, mockPer.Object);
+            var result = await controller.GetPossiveisAmigos(idJog);
             mockJog.Verify(service => service.GetPossiveisAmigos(It.IsAny<JogadorId>()), Times.AtLeastOnce());
         }
     }

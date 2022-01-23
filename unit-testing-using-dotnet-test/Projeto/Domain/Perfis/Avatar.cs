@@ -1,24 +1,25 @@
+using System;
+using System.Collections.Generic;
 using DDDSample1.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
 
-namespace DDDSample1.Domain.Posts
+namespace DDDSample1.Domain.Perfis
 {
     [Owned]
-    public class Comentario : IValueObject
+    public class Avatar : IValueObject
     {
-
-        public string Texto { get;  private set; }
+        public string avatar { get;  private set; }
 
         public bool Active{ get;  private set; }
 
-        private Comentario()
+        private Avatar()
         {
             this.Active = true;
         }
 
-        public Comentario(string comentario)
+        public Avatar(string avatar)
         {
-            this.Texto = comentario;
+            this.avatar = avatar;
             this.Active = true;
         }
 

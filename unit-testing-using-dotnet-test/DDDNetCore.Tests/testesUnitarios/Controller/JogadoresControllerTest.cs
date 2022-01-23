@@ -53,7 +53,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
             JogadoresController controller = new JogadoresController(mockJog.Object, mockPer.Object);
 
             var result = await controller.GetJogadorByPerfil(perfilId);
-        
+
             mockJog.Verify(service => service.GetJogadorByPerfil(It.IsAny<PerfilId>()), Times.AtLeastOnce());
         }
 
@@ -128,7 +128,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
             List<Guid> missao = new List<Guid>();
             HashSet<Guid> relacao = new HashSet<Guid>();
             List<Guid> post = new List<Guid>();
-            JogadorDto jog = new JogadorDto { Id = id, PerfilId = perfilId, Pontuacao = pontuacao, Missao = missao, Relacao = relacao, Post = post };
+            JogadorDto jog = new JogadorDto { Id = id, PerfilId = perfilId, Pontuacao = pontuacao };
 
             var mockJog = new Mock<IJogadorService>();
             var mockPer = new Mock<IPerfilService>();
@@ -149,7 +149,7 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
             List<string> missoes = new List<string>();
             List<string> relacoes = new List<string>();
             List<string> posts = new List<string>();
-            CreatingJogadorDto jogador = new CreatingJogadorDto(10,idDto, relacoes, missoes, posts);
+            CreatingJogadorDto jogador = new CreatingJogadorDto(10, idDto, relacoes);
             var mockJog = new Mock<IJogadorService>();
             var mockPer = new Mock<IPerfilService>();
             Guid id = new Guid();
@@ -158,12 +158,12 @@ namespace DDDNetCore.Tests.testesUnitarios.Controller
             List<Guid> missao = new List<Guid>();
             HashSet<Guid> relacao = new HashSet<Guid>();
             List<Guid> post = new List<Guid>();
-            JogadorDto jog = new JogadorDto { Id = id, PerfilId = perfilId, Pontuacao = pontuacao, Missao = missao, Relacao = relacao, Post = post };
+            JogadorDto jog = new JogadorDto { Id = id, PerfilId = perfilId, Pontuacao = pontuacao };
 
             mockJog.Setup(service => service.AddAsync(It.IsAny<CreatingJogadorDto>())).Returns(Task.FromResult(jog));
             JogadoresController controller = new JogadoresController(mockJog.Object, mockPer.Object);
             var result = await controller.PostJogador(jogador);
-            mockJog.Verify(service => service.AddAsync(It.IsAny<CreatingJogadorDto>()),Times.AtLeastOnce());
+            mockJog.Verify(service => service.AddAsync(It.IsAny<CreatingJogadorDto>()), Times.AtLeastOnce());
             ActionResult<JogadorDto> JogadorDto = jog;
             Assert.IsType<ActionResult<JogadorDto>>(result);
         }

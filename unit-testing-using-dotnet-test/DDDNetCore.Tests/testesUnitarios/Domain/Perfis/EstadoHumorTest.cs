@@ -1,6 +1,8 @@
 using DDDSample1.Domain.Perfis;
 using DDDSample1.Domain.Shared;
+using System.Collections.Generic;
 using Xunit;
+using System;
 
 namespace DDDNetCore.Tests.testesUnitarios.Domain.Perfis
 {
@@ -9,18 +11,18 @@ namespace DDDNetCore.Tests.testesUnitarios.Domain.Perfis
         [Fact]
         public void TestCreateEstadoHumor()
         {
-            string estado = "Joyful";
-            EstadoHumor e = new EstadoHumor(estado);
-            
-            Assert.Equal(estado, e.Estado);
+
+            EstadoHumor e = new EstadoHumor("Joyful", 0.5m);
+
+            Assert.Equal("Joyful", e.Estado);
         }
 
         [Fact]
         public void TestCreateEstadoHumorErrado()
         {
-            string estado = "estado";
-            
-            Assert.Throws<BusinessRuleValidationException>(() => new EstadoHumor(estado));
+            string estado = "Joyful";
+
+            Assert.Throws<BusinessRuleValidationException>(() => new EstadoHumor(estado, 15));
         }
     }
 }

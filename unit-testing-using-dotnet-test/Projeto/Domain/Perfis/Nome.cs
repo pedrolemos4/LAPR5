@@ -1,3 +1,4 @@
+using System;
 using DDDSample1.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
 namespace DDDSample1.Domain.Perfis
@@ -23,14 +24,17 @@ namespace DDDSample1.Domain.Perfis
 
         private void setNome(string nome)
         {
-            if (char.IsWhiteSpace(nome, 0))
-            {//Verificar
-                throw new BusinessRuleValidationException("Name does not have the correct syntax.");
-            }
-            else
+            if (nome.Length == 0)
             {
                 this.Name = nome;
             }
+            else if (char.IsWhiteSpace(nome, 0))
+            {//Verificar
+                throw new BusinessRuleValidationException("Nome não pode começar com espaço em branco.");
+            } else {
+                this.Name = nome;
+            }
+
         }
 
         public void MarkAsInative()
