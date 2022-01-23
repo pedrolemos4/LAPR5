@@ -15,8 +15,6 @@ namespace DDDSample1.Domain.Jogadores
 
         public PerfilId Perfil { get; private set; }
 
-        public HashSet<Relacao> ListaRelacoes { get; private set; }
-
         private Jogador()
         {
             // this.Pontuacao = new Pontuacao();
@@ -28,7 +26,6 @@ namespace DDDSample1.Domain.Jogadores
         {
             this.Id = new JogadorId(Guid.NewGuid());
             this.Pontuacao = new Pontuacao(pontuacao);
-            this.ListaRelacoes = new HashSet<Relacao>();
             this.Active = true;
         }
 
@@ -38,29 +35,15 @@ namespace DDDSample1.Domain.Jogadores
             }
             this.Id = new JogadorId(Guid.NewGuid());
             this.Pontuacao = new Pontuacao(0);
-            this.ListaRelacoes = new HashSet<Relacao>();
             this.Active = true;
             this.Perfil = perfil;
         }
-
-        public void adicionaRelacao(Relacao relacao)
-        {
-            this.ListaRelacoes.Add(relacao);
-        }
-
 
         public void ChangePontuacao(int pontos)
         {
             if (!this.Active)
                 throw new BusinessRuleValidationException("It is not possible to add more points to an inactive player.");
             this.Pontuacao = new Pontuacao(pontos);
-        }
-
-        public void ChangeRelacoes(HashSet<Relacao> relacoes)
-        {
-            if (!this.Active)
-                throw new BusinessRuleValidationException("It is not possible to add more points to an inactive player.");
-            this.ListaRelacoes = relacoes;
         }
 
         public void MarkAsInative()

@@ -35,20 +35,19 @@ namespace DDDSample1.Domain.Jogadores
                 Id = jog.Id.AsGuid(),
                 Pontuacao = jog.Pontuacao.Pontos,
                 PerfilId = jog.Perfil.AsGuid(),
-                Relacao = converteParaListaGuidRelacao(jog.ListaRelacoes)
             });
 
             return listDto;
         }
 
-        public static HashSet<Guid> converteParaListaGuidRelacao(HashSet<Relacao> lista)
+        public static HashSet<Guid> converteParaListaGuidRelacao(List<RelacaoId> lista)
         {
             HashSet<Guid> ls = new HashSet<Guid>();
             if (lista != null)
             {
-                foreach (Relacao r in lista)
+                foreach (RelacaoId r in lista)
                 {
-                    ls.Add(r.Id.AsGuid());
+                    ls.Add(r.AsGuid());
                 }
             }
             return ls;
@@ -66,7 +65,6 @@ namespace DDDSample1.Domain.Jogadores
                 Id = jog.Id.AsGuid(),
                 Pontuacao = jog.Pontuacao.Pontos,
                 PerfilId = jog.Perfil.AsGuid(),
-                Relacao = converteParaListaGuidRelacao(jog.ListaRelacoes)
             };
         }
 
@@ -82,7 +80,6 @@ namespace DDDSample1.Domain.Jogadores
                     Id = jog.Id.AsGuid(),
                 Pontuacao = jog.Pontuacao.Pontos,
                 PerfilId = jog.Perfil.AsGuid(),
-                Relacao = converteParaListaGuidRelacao(jog.ListaRelacoes)
                 });
             }
             return jogadors;
@@ -100,7 +97,6 @@ namespace DDDSample1.Domain.Jogadores
                     Id = jog.Id.AsGuid(),
                 Pontuacao = jog.Pontuacao.Pontos,
                 PerfilId = jog.Perfil.AsGuid(),
-                Relacao = converteParaListaGuidRelacao(jog.ListaRelacoes)
                 });
             }
             return jogadors;
@@ -118,11 +114,11 @@ namespace DDDSample1.Domain.Jogadores
                     Id = jog.Id.AsGuid(),
                 Pontuacao = jog.Pontuacao.Pontos,
                 PerfilId = jog.Perfil.AsGuid(),
-                Relacao = converteParaListaGuidRelacao(jog.ListaRelacoes)
                 });
             }
             return jogadors;   
         }
+        
         public async Task<JogadorDto> AddAsync(CreatingJogadorDto jogadorDto)
         {
             var perfil = await _repoPer.GetByIdAsync(new PerfilId(jogadorDto.perfilId));
@@ -137,7 +133,6 @@ namespace DDDSample1.Domain.Jogadores
                 Id = jog.Id.AsGuid(),
                 Pontuacao = jog.Pontuacao.Pontos,
                 PerfilId = jog.Perfil.AsGuid(),
-                Relacao = converteParaListaGuidRelacao(jog.ListaRelacoes)
             };
         }
 
@@ -153,7 +148,6 @@ namespace DDDSample1.Domain.Jogadores
                 Id = jog.Id.AsGuid(),
                 Pontuacao = jog.Pontuacao.Pontos,
                 PerfilId = jog.Perfil.AsGuid(),
-                Relacao = converteParaListaGuidRelacao(jog.ListaRelacoes),
             };
         }
 
@@ -164,10 +158,6 @@ namespace DDDSample1.Domain.Jogadores
             if (jog == null)
                 return null;
 
-            HashSet<Relacao> lrel = new HashSet<Relacao>();
-
-            jog.ChangeRelacoes(lrel);
-
             await this._unitOfWork.CommitAsync();
 
             return new JogadorDto
@@ -175,20 +165,8 @@ namespace DDDSample1.Domain.Jogadores
                 Id = jog.Id.AsGuid(),
                 Pontuacao = jog.Pontuacao.Pontos,
                 PerfilId = jog.Perfil.AsGuid(),
-                Relacao = converteParaListaGuidRelacao(jog.ListaRelacoes)
             };
         }
-
-        public static HashSet<Guid> converteParaListaRelacao(HashSet<Relacao> lista)
-        {
-            HashSet<Guid> ls = new HashSet<Guid>();
-            foreach (Relacao r in lista)
-            {
-                ls.Add(r.Id.AsGuid());
-            }
-            return ls;
-        }
-
 
         public async Task<JogadorDto> DeleteAsync(JogadorId id)
         {
@@ -205,7 +183,6 @@ namespace DDDSample1.Domain.Jogadores
                 Id = jog.Id.AsGuid(),
                 Pontuacao = jog.Pontuacao.Pontos,
                 PerfilId = jog.Perfil.AsGuid(),
-                Relacao = converteParaListaGuidRelacao(jog.ListaRelacoes)
             };
         }
     }
