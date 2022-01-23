@@ -11,6 +11,6 @@ export class AmigosComumPage {
     }
 
     getButton(){
-        return element(by.id('submit'));
+        return element(by.id('Calcular'));
     }
 }

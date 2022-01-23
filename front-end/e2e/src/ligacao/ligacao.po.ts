@@ -6,26 +6,25 @@ export class LigacaoPage {
         return browser.get('/ligacao');
     }
 
-    getButtonPeloNome(){
-        return element(by.id('submit'));
-    }
-    getButtonPeloEmail(){
-        return element(by.id('submit1'));
-    }
-    getButtonPeloPais(){
-        return element(by.id('submit2'));
-    }
 
     getParametroTextBox(){
         return element(by.id('parametro'));
     }
 
+    getParametroEscolha(){
+        return element(by.id('selector'));
+    }
+
     getButtonPesquisa(){
-        return element(by.id('botao'));
+        return element(by.id('pesquisa'));
     }
 
     getSelector(){
         return element(by.id('escolha'));
+    }
+
+    getButtonSend(){
+        return element(by.id('send'));
     }
 
     getTextoLigacaoTextBox(){
@@ -33,6 +32,6 @@ export class LigacaoPage {
     }
 
     getButtonSubmit(){
-        return element(by.id('submit4'));
+        return element(by.id('ligacaoIcon'));
     }
 }

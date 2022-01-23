@@ -9,6 +9,11 @@ export class FazerPostPage {
     getPostTextbox() {
         return element(by.id('post'));
     }
+
+    geTagsTextbox() {
+        return element(by.id('tags'));
+    }
+
     getButton(){
         return element(by.id('submit'));
     }

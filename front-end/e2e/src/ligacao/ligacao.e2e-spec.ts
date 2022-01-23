@@ -1,19 +1,27 @@
-import { browser } from 'protractor';
+import { browser, by, element, protractor, until } from 'protractor';
 import { LigacaoPage } from './ligacao.po';
 
 describe('Ligacao tests', () => {
     let page: LigacaoPage;
-    
-    beforeEach(() => {
-        page = new LigacaoPage(); 
-    });
+
+    beforeEach(async () => {
+        page = new LigacaoPage();});
 
     it('Pesquisa pelo Nome', async () => {
         await page.navigateTo();
-        await page.getButtonPeloNome().click();
+        await page.getParametroEscolha().click();
+        const EC  = new protractor.ProtractorExpectedConditions();
+        await browser.wait(EC.visibilityOf(element(by.id('parametro'))), 30000, 'Element didnt load in 30 seconds');
         await page.getParametroTextBox().sendKeys('Joaquim');
-        await page.getTextoLigacaoTextBox().sendKeys('texto');
+        await browser.wait(EC.elementToBeClickable(element(by.id('pesquisa'))), 30000, 'Element didnt load in 30 seconds');
+        await page.getButtonPesquisa().click();
+        await browser.wait(EC.elementToBeClickable(element(by.id('escolha'))), 30000, 'Element didnt load in 30 seconds');
         await page.getSelector().click();
+        await browser.wait(EC.elementToBeClickable(element(by.id('send'))), 30000, 'Element didnt load in 30 seconds');
+        await page.getButtonSend().click();
+        await browser.wait(EC.visibilityOf(element(by.id('ligacao'))), 30000, 'Element didnt load in 30 seconds');
+        await page.getTextoLigacaoTextBox().sendKeys('texto');
+        await browser.wait(EC.elementToBeClickable(element(by.id('ligacaoIcon'))), 30000, 'Element didnt load in 30 seconds');
         await page.getButtonSubmit().click();
         let valLocalStorage = browser.executeScript("return window.localStorage.getItem('token');");
         expect(valLocalStorage);
@@ -21,10 +29,19 @@ describe('Ligacao tests', () => {
 
     it('Pesquisa pelo Email', async () => {
         await page.navigateTo();
-        await page.getButtonPeloEmail().click();
+        await page.getParametroEscolha().click();
+        const EC  = new protractor.ProtractorExpectedConditions();
+        await browser.wait(EC.visibilityOf(element(by.id('parametro'))), 30000, 'Element didnt load in 30 seconds');
         await page.getParametroTextBox().sendKeys('joaquim@gmail.com');
-        await page.getTextoLigacaoTextBox().sendKeys('texto');
+        await browser.wait(EC.elementToBeClickable(element(by.id('pesquisa'))), 30000, 'Element didnt load in 30 seconds');
+        await page.getButtonPesquisa().click();
+        await browser.wait(EC.elementToBeClickable(element(by.id('escolha'))), 30000, 'Element didnt load in 30 seconds');
         await page.getSelector().click();
+        await browser.wait(EC.elementToBeClickable(element(by.id('send'))), 30000, 'Element didnt load in 30 seconds');
+        await page.getButtonSend().click();
+        await browser.wait(EC.visibilityOf(element(by.id('ligacao'))), 30000, 'Element didnt load in 30 seconds');
+        await page.getTextoLigacaoTextBox().sendKeys('texto');
+        await browser.wait(EC.elementToBeClickable(element(by.id('ligacaoIcon'))), 30000, 'Element didnt load in 30 seconds');
         await page.getButtonSubmit().click();
         let valLocalStorage = browser.executeScript("return window.localStorage.getItem('token');");
         expect(valLocalStorage);
@@ -32,22 +49,22 @@ describe('Ligacao tests', () => {
 
     it('Pesquisa pelo Pais', async () => {
         await page.navigateTo();
-        await page.getButtonPeloEmail().click();
-        await page.getParametroTextBox().sendKeys('en-PT');
-        await page.getTextoLigacaoTextBox().sendKeys('texto');
+        await page.getParametroEscolha().click();
+        const EC  = new protractor.ProtractorExpectedConditions();
+        await browser.wait(EC.visibilityOf(element(by.id('parametro'))), 30000, 'Element didnt load in 30 seconds');
+        await page.getParametroTextBox().sendKeys('Portugal');
+        await browser.wait(EC.elementToBeClickable(element(by.id('pesquisa'))), 30000, 'Element didnt load in 30 seconds');
+        await page.getButtonPesquisa().click();
+        await browser.wait(EC.elementToBeClickable(element(by.id('escolha'))), 30000, 'Element didnt load in 30 seconds');
         await page.getSelector().click();
+        await browser.wait(EC.elementToBeClickable(element(by.id('send'))), 30000, 'Element didnt load in 30 seconds');
+        await page.getButtonSend().click();
+        await browser.wait(EC.visibilityOf(element(by.id('ligacao'))), 30000, 'Element didnt load in 30 seconds');
+        await page.getTextoLigacaoTextBox().sendKeys('texto');
+        await browser.wait(EC.elementToBeClickable(element(by.id('ligacaoIcon'))), 30000, 'Element didnt load in 30 seconds');
         await page.getButtonSubmit().click();
         let valLocalStorage = browser.executeScript("return window.localStorage.getItem('token');");
         expect(valLocalStorage);
     });
 
-    it('Pesquisa Inválida', async () => {
-        await page.navigateTo();
-        await page.getParametroTextBox().sendKeys('');
-        await page.getTextoLigacaoTextBox().sendKeys('');
-        await page.getSelector().click();
-        await page.getButtonSubmit().click();
-        let valLocalStorage = browser.executeScript("return window.localStorage.getItem('token');");
-        expect(valLocalStorage);
-    });
 })

@@ -17,6 +17,6 @@ export class PedirIntroducaoPage {
         return element(by.id('mensagem'));
     }
     getButton(){
-        return element(by.id('submit'));
+        return element(by.id('ligacaoIcon'));
     }
 }

@@ -1,7 +1,7 @@
 import { browser } from 'protractor';
 import { SugerirAmigosPage } from './sugerir_amigos.po';
 
-describe('Fazer Post tests', () => {
+describe('Sugerir Amigos tests', () => {
     let page: SugerirAmigosPage;
     
     beforeEach(() => {

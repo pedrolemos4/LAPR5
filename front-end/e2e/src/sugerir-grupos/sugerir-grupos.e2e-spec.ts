@@ -12,6 +12,7 @@ describe('Sugerir Grupos tests', () => {
         await page.navigateTo();
         await page.getUsersTextbox().sendKeys('2');
         await page.getTagsTextbox().sendKeys('musica');
+        await page.getTagsObsTextbox().sendKeys('musica,Valongo');
         await page.getButton().click();
         let valLocalStorage = browser.executeScript("return window.localStorage.getItem('token');");
         expect(valLocalStorage);
@@ -21,6 +22,7 @@ describe('Sugerir Grupos tests', () => {
         await page.navigateTo();
         await page.getUsersTextbox().sendKeys('asd');
         await page.getTagsTextbox().sendKeys('musica');
+        await page.getTagsObsTextbox().sendKeys('musica,Valongo');
         await page.getButton().click();
         let valLocalStorage = browser.executeScript("return window.localStorage.getItem('token');");
         expect(valLocalStorage);
@@ -38,6 +40,7 @@ describe('Sugerir Grupos tests', () => {
         await page.navigateTo();
         await page.getButton().click();
         await page.getTagsTextbox().sendKeys('musica');
+        await page.getTagsObsTextbox().sendKeys('musica,Valongo');
         let valLocalStorage = browser.executeScript("return window.localStorage.getItem('token');");
         expect(valLocalStorage);
     });

@@ -11,6 +11,7 @@ describe('Fazer Post tests', () => {
     it('Should Create Post', async () => {
         await page.navigateTo();
         await page.getPostTextbox().sendKeys('post teste');
+        await page.geTagsTextbox().sendKeys('desporto');
         await page.getButton().click();
         let valLocalStorage = browser.executeScript("return window.localStorage.getItem('token');");
         expect(valLocalStorage);
@@ -26,6 +27,7 @@ describe('Fazer Post tests', () => {
     it("Shouldn't Create Post - Button Not Clicked", async () => {
         await page.navigateTo();
         await page.getPostTextbox().sendKeys('post teste');
+        await page.geTagsTextbox().sendKeys('desporto');
         let valLocalStorage = browser.executeScript("return window.localStorage.getItem('token');");
         expect(valLocalStorage);
     });

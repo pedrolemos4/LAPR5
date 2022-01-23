@@ -11,6 +11,6 @@ export class SugerirAmigosPage {
     }
 
     getButton() {
-        return element(by.id('submit'));
+        return element(by.id('Calcular'));
     }
 }

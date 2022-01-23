@@ -15,6 +15,6 @@ export class CamSeguroPage {
     }
 
     getButton(){
-        return element(by.id('submit'));
+        return element(by.id('Calcular'));
     }
 }

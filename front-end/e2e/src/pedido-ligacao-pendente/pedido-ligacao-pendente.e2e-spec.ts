@@ -1,7 +1,7 @@
 import { browser } from 'protractor';
 import { PedidoLigacaoPendentePage } from './pedido-ligacao-pendente.po';
 
-describe('Pedido tests', () => {
+describe('Pedido Ligacao Pendente tests', () => {
     let page: PedidoLigacaoPendentePage;
     
     beforeEach(() => {
