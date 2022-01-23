@@ -21,10 +21,13 @@
                     </div>
                 </div>
             </div>
-            <p id="mensagem"><span> Selecionou: </span><b>{{selectedAmigo}}</b></p>
+            <p id="mensagem" style="text-align: center;"><span>Selecionou: </span><b>{{selectedAmigo}}</b></p>
             <i id="Calcular" style="margin-left: 37%;" type="submit" (click)="onSubmit()" class="fa fa-calculator"> Calcular caminho </i>
-            <!-- <button id="submit" type="submit" class="submit"> Calcular Caminho</button> -->
-            <p id="mensagem1"><span>Caminho mais curto: </span><b>{{caminho}}</b></p>
+            <p id="mensagem1"><span>Caminho mais Curto: </span></p>
+            <div style="font-weight: bold; display: inline; padding-left: 5px; " *ngFor="let eachVal of caminho; last as isLast">
+                <span *ngIf="!isLast">{{eachVal}}  →</span>
+                <span *ngIf="isLast">{{eachVal}}</span>
+            </div>
         </form>
     </div>
 </div>

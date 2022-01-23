@@ -63,7 +63,7 @@ export class AlgoritmoLigacaoRelacaoComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.opcao);
+    this.Caminho = [];
     this.nNiveis = this.form.controls['numeroNiveis'].value;
     this.service.getPerfilAtualEmail(this.selectedJogador).subscribe(PerfilSelecionado => {
       this.service.getJogador(PerfilSelecionado.id).subscribe(JogadorSelecionado => {
@@ -73,18 +73,11 @@ export class AlgoritmoLigacaoRelacaoComponent implements OnInit {
           if (aux[0].length == 0) {
             this.toastr.error("Selecione outro nível ou outro utilizador", undefined, { positionClass: 'toast-bottom-left' });
           } else {
-            console.log(aux[0] + " 64");
-            console.log(Object.values(aux[0]) + " 65");
             var var1 = aux[0] + '';
-            console.log(var1+ " 67");
             var auxArray = var1.split(",");
-            console.log(auxArray+" 69");
-            console.log(auxArray.length+" 70");
             auxArray.forEach((element: any) => {
               this.service.getJogadorById(element).subscribe(Jogador => {
-                console.log(Jogador.id);
                 this.service.getPerfilJogador(Jogador.id).subscribe(Perfil => {
-                  console.log(Perfil.email);
                   this.Caminho.push(Perfil.email);
                 });
               });

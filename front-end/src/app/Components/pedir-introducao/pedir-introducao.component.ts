@@ -44,6 +44,9 @@ export class PedirIntroducaoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    document.getElementById("mensagem1").style.display = "none";
+    document.getElementById("mensagem2").style.display = "none";
+    document.getElementById("mensagem3").style.display = "none";
     const currentUser = localStorage.getItem('currentUser');
     this.emailCurrentUser = currentUser?.replace(/\"/g, "");
     this.pedirIntroducaoService.getPerfilAtual(this.emailCurrentUser).subscribe(Perfil => {
@@ -73,7 +76,7 @@ export class PedirIntroducaoComponent implements OnInit {
 
 
   selectJogadorObjetivo(event: any) {
-    //update the ui
+    document.getElementById("mensagem1").style.display = "block";
     this.selectedJogadorObjetivo = event.target.value;
     try {
       this.pedirIntroducaoService.getPerfilAtual(this.selectedJogadorObjetivo).subscribe(Response => {
@@ -105,6 +108,8 @@ export class PedirIntroducaoComponent implements OnInit {
   }
 
   selectJogadorIntrodutorio(event: any) {
+    document.getElementById("mensagem2").style.display = "block";
+    document.getElementById("mensagem3").style.display = "block";
     this.selectedJogadorIntrodutorio = event.target.value;
     this.pedirIntroducaoService.getPerfilAtual(this.selectedJogadorIntrodutorio).subscribe(Response => {
       this.idPerfilJogIntro = Response.id;
@@ -124,7 +129,7 @@ export class PedirIntroducaoComponent implements OnInit {
       textoIntroducao: this.pedirIntroForm.controls['mensagem'].value// mensagem da ui
     } as Introducao).subscribe({
       next: () => {
-        this.toastr.success('Pedido realizado com sucesso!');
+        this.toastr.success('Pedido realizado com sucesso!', undefined, { positionClass: 'toast-bottom-left' });
         this.router.navigateByUrl('/home');
       }
     });

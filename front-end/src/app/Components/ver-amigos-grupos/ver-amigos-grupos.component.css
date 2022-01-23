@@ -1,16 +1,33 @@
 .card {
+    overflow-y: auto;
+    padding: 17px;
+    background-color: #f2f2f2e7;
+    justify-content: center;
+    position: absolute;
     border-color: #76b5c5;
     border-style: solid;
-    padding: 17px;
-    width: 50%;
-    background-color: #f2f2f2e7;
-    border-radius: 5px;
-    justify-content: center;
-    margin-left: 33%;
-    margin-top: 15px;
+    border-radius: 8px;
+    top: 42%;
+    left: 58%;
+    transform: translateX(-50%) translateY(-50%);
     position: fixed;
-    height: 30%;
-    overflow-y: auto;
+    width: 55%;
+    height: 300px;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 40px;
+}
+.col1{
+    float: left;
+    width: 33.3%;
+}
+
+.col3{
+    float: right;
+    width: 33.3%;
 }
 
 .tags {
@@ -19,7 +36,6 @@
 
 .tags h2 {
     margin-left: -3%;
-    color: black;
     font-weight: bold;
     height: auto;
 }
@@ -39,3 +55,4 @@
 #over:hover {
     color: #76b5c5;
 }
+

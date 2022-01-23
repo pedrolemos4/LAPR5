@@ -1,19 +1,40 @@
-.content {
-  /* The image used */
-  /*background-color: black;*/
-  background-image: url("./Components/imagens/social-network.jpg");
-  margin-top: 60px;
-  /* Control the height of the image */
-  min-height: 500px;
-  width: 100%;
+@media(max-width: 1550px){
+  .content {
+    /* The image used */
+    /*background-color: black;*/
+    background-image: url("./Components/imagens/social-network.jpg");
+    margin-top: 60px;
+    /* Control the height of the image */
+    background-size: cover;
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    position: fixed;
+  }
+}
 
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  overflow-x: hidden;
-  position: absolute;
+@media(min-width: 1551px) {
+  .content {
+    /* The image used */
+    /*background-color: black;*/
+    background-image: url("./Components/imagens/social-network.jpg");
+    margin-top: 60px;
+    background-size: cover;
+    
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    position: fixed;
+    overflow-y: auto;
+  }
 }

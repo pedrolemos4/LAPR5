@@ -2,22 +2,39 @@
 <app-navbar></app-navbar>
 <div id="texto">
     <div id="container">
-        <h2 style="text-align: center; font-weight: bold;">Lista de pedidos de introdução:</h2>
+        <h2 style="text-align: center; font-weight: bold; margin-bottom: 30px;">Lista de pedidos de introdução:</h2>
         <div *ngIf="!listIntroducoes.length"> Não tem pedidos de introdução pendentes!</div>
-            <table style="width: 500px;">
-                <tr>
-                    <td *ngFor="let perfil of perfilIniciaisList">Inicial: {{perfil}}</td>
-                </tr>
-                <tr>
-                    <td *ngFor="let perfil of perfilObjetivosList">Objetivo: {{perfil}}</td>
-                </tr>
+        <table style="width: 500px;">
             <tr>
-                <td *ngFor="let intro of listIntroducoes">
-                    <p>{{intro.textoIntroducao}}</p>
-                    <button id="aceitar" type="submit" class="aceitar" (click)="aceitar(intro)"><i class="fa fa-check"></i> Aceitar</button>
-                    <button id="rejeitar" type="submit" class="rejeitar" (click)="rejeitar(intro)"><i class="fa fa-times"></i> Rejeitar</button>
+                <td id="table" style="text-align: center;" *ngFor="let intro of perfilListAux">
+                    <p><b>Introdutor:</b> {{intro[0]}}</p>
+                    <p style="margin-top: -10px;"><b>Solicitante: </b>{{intro[1]}}</p>
+                    <p style="margin-top: 20px;">{{intro[2]}}</p>
+                    <i id="aceitar" type="submit" (click)="aceitar(intro[3],intro[1])" class="fa fa-check-circle"></i>
+                    <i id="rejeitar" style="margin-left: 10px;" type="submit" (click)="rejeitar(intro[3])"
+                        class="fa fa-times-circle"></i>
                 </td>
             </tr>
         </table>
+    </div>
+</div>
+
+<div id="cardPedido" class="card2">
+    <div class="voltaBotao">
+        <i id="return" type="submit" (click)="return()" class="fa fa-arrow-left"> Voltar </i>
+    </div>
+    <h2 style="font-weight: bold; font-size: 22px;" class="card-header">Efetuar Pedido de Introdução ao Jogador:<br><b
+            style="font-weight: normal; font-size: 17px;">{{jogador}}</b></h2>
+    <div class="card-body1" style="margin-top: 35px;">
+        <form [formGroup]="introducaoForm">
+            <div class="label1-maior">
+                <label for="TextoIntroducao">Texto da Introdução: </label>
+            </div>
+            <div class="coluna1-menor">
+                <input id="introducao" type="text" placeholder="Insira texto de Introdução..."
+                    formControlName="TextoIntroducao" class="form-control" />
+                <i id="introducaoIcon" type="submit" (click)="onSubmit()" class="fa fa-paper-plane"> Enviar </i>
+            </div>
+        </form>
     </div>
 </div>

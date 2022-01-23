@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { delay, map } from 'rxjs';
 import { RankFortalezaRedeService } from 'src/app/Services/RankFortalezaRede/rank-fortaleza-rede.service';
 
@@ -11,8 +12,6 @@ export class RankFortalezaRedeComponent implements OnInit {
 
   mapJog = new Map();
   mapFinal = new Map();
-  //mapFinal = undefined;
-  // mapFinal = new Map([...this.mapJog.entries()].sort((a,b) => b[1] - a[1]));
   emailList: string[] = [];
   emailFinal: string[] = [];
   pontuacaoList: number[] = [];
@@ -21,7 +20,7 @@ export class RankFortalezaRedeComponent implements OnInit {
   sortedArray: number[] = [];
   listaFinal: string[] = [];
 
-  constructor(private rankFortalezaRedeService: RankFortalezaRedeService) { }
+  constructor(private router: Router,private rankFortalezaRedeService: RankFortalezaRedeService) { }
 
   ngOnInit(): void {
 
@@ -60,5 +59,9 @@ export class RankFortalezaRedeComponent implements OnInit {
     for (var i = 0; i < length; i++) {
       this.listaFinal.push(this.sortedArray.shift() + "  -->  " + this.emailFinal.shift());
     }
+  }
+
+  return() {
+    this.router.navigateByUrl("/home");
   }
 }

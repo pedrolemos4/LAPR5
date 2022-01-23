@@ -90,52 +90,6 @@ namespace DDDNetCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Missoes",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Dificuldade_GrauDificuldade = table.Column<int>(type: "int", nullable: true),
-                    Dificuldade_Active = table.Column<bool>(type: "bit", nullable: true),
-                    Data_Date = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Data_Active = table.Column<bool>(type: "bit", nullable: true),
-                    JogadorObjetivoId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Active = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Missoes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Missoes_Jogadores_JogadorObjetivoId",
-                        column: x => x.JogadorObjetivoId,
-                        principalTable: "Jogadores",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Posts",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Texto_Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Texto_Active = table.Column<bool>(type: "bit", nullable: true),
-                    LikeDislike_Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LikeDislike_Active = table.Column<bool>(type: "bit", nullable: true),
-                    Active = table.Column<bool>(type: "bit", nullable: false),
-                    JogadorId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Posts", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Posts_Jogadores_JogadorId",
-                        column: x => x.JogadorId,
-                        principalTable: "Jogadores",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Relacoes",
                 columns: table => new
                 {
@@ -204,48 +158,6 @@ namespace DDDNetCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comentario",
-                columns: table => new
-                {
-                    PostId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Texto = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Active = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Comentario", x => new { x.PostId, x.Id });
-                    table.ForeignKey(
-                        name: "FK_Comentario_Posts_PostId",
-                        column: x => x.PostId,
-                        principalTable: "Posts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Posts_Tags",
-                columns: table => new
-                {
-                    PostId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Active = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Posts_Tags", x => new { x.PostId, x.Id });
-                    table.ForeignKey(
-                        name: "FK_Posts_Tags_Posts_PostId",
-                        column: x => x.PostId,
-                        principalTable: "Posts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Relacoes_Tags",
                 columns: table => new
                 {
@@ -267,16 +179,6 @@ namespace DDDNetCore.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Missoes_JogadorObjetivoId",
-                table: "Missoes",
-                column: "JogadorObjetivoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Posts_JogadorId",
-                table: "Posts",
-                column: "JogadorId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Relacoes_JogadorId",
                 table: "Relacoes",
                 column: "JogadorId");
@@ -284,9 +186,6 @@ namespace DDDNetCore.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Comentario");
-
             migrationBuilder.DropTable(
                 name: "EstadoHumor");
 
@@ -297,22 +196,13 @@ namespace DDDNetCore.Migrations
                 name: "Ligacoes");
 
             migrationBuilder.DropTable(
-                name: "Missoes");
-
-            migrationBuilder.DropTable(
                 name: "Perfis_tags");
-
-            migrationBuilder.DropTable(
-                name: "Posts_Tags");
 
             migrationBuilder.DropTable(
                 name: "Relacoes_Tags");
 
             migrationBuilder.DropTable(
                 name: "Perfis");
-
-            migrationBuilder.DropTable(
-                name: "Posts");
 
             migrationBuilder.DropTable(
                 name: "Relacoes");

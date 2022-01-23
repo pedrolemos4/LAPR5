@@ -5,6 +5,7 @@ import { PedidoService } from 'src/app/Services/Pedido/pedido.service';
 import { Perfil } from 'src/app/Models/Perfil';
 import { Jogador } from 'src/app/Models/Jogador';
 import { Introducao } from 'src/app/Models/Introducao';
+import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-pedido',
   templateUrl: './pedido.component.html',
@@ -20,15 +21,21 @@ export class PedidoComponent implements OnInit {
   listIntroducoes: Introducao[] = [];
   perfilObjetivosList: string[] = [];
   perfilIniciaisList: string[] = [];
-  
+  perfilListAux: any[][] = new Array<any[]>();
+  introducaoSelecionada: Introducao;
+  introducaoForm: FormGroup;
+  jogador:string = '';
 
 
-
-  constructor(private router: Router, private toastr: ToastrService, private pedidoService: PedidoService) {
-
+  constructor(private formBuilder: FormBuilder,private router: Router, private toastr: ToastrService, private pedidoService: PedidoService) {
+    this.introducaoForm = this.formBuilder.group({
+      TextoIntroducao: ''
+    });
   }
 
   ngOnInit(): void {
+    const targetDiv3 = document.getElementById('cardPedido');
+    targetDiv3.style.display = "none";
     const currentUser = localStorage.getItem('currentUser');
     this.emailCurrentUser = currentUser?.replace(/\"/g, "");
     console.log(this.emailCurrentUser);
@@ -46,58 +53,77 @@ export class PedidoComponent implements OnInit {
           console.log(this.idCurrentUser);
 
           this.listIntroducoes.forEach((introducao: any) => {
-            this.pedidoService.getPerfilJogador(introducao.jogadorInicial).subscribe(Perfil =>{
-              console.log(Perfil.email);
-              this.perfilIniciaisList.push(Perfil.email);
+            this.pedidoService.getPerfilJogador(introducao.jogadorInicial).subscribe(Perfil => {
+              this.pedidoService.getPerfilJogador(introducao.jogadorObjetivo).subscribe(Perfil1 => {
+                this.perfilListAux.push([Perfil.email, Perfil1.email, introducao.textoIntroducao, introducao]);
+              });
             });
-            this.pedidoService.getPerfilJogador(introducao.jogadorObjetivo).subscribe(Perfil =>{
-              this.perfilObjetivosList.push(Perfil.email);
-            });
+
           });
         });
       });
     });
   }
 
-  aceitar(intro:Introducao){
-    this.pedidoService.patchIntroducao(intro.id,{
-      id: intro.id,
-      jogadorInicial:intro.jogadorInicial,
-      jogadorIntrodutor:intro.jogadorIntrodutor,
-      jogadorObjetivo:intro.jogadorObjetivo,
-      estadoIntroducao: "Pendente",
-      textoIntroducao: "Mensagem"
-    } as Introducao).subscribe({
-      next: (result:any)=> {
-        console.log(result);
-        this.toastr.success("Introdução aceite com sucesso!",undefined,{positionClass: 'toast-bottom-left'});
-        this.router.navigateByUrl('/home');
-      },
-      error:()=>{
-        this.toastr.error("Error: Service Unavailable",undefined,{positionClass: 'toast-bottom-left'});
-      }
-    });
+  aceitar(intro: Introducao, jogador: any) {
+    const targetDiv2 = document.getElementById('container');
+    targetDiv2.style.display = "none";
+    const targetDiv3 = document.getElementById('cardPedido');
+    targetDiv3.style.display = "block";
+    this.introducaoSelecionada = intro;
+    this.jogador = jogador;
   }
 
-  rejeitar(intro:Introducao){
+  rejeitar(intro: Introducao) {
     console.log(intro);
-    this.pedidoService.patchIntroducao(intro.id,{
+    this.pedidoService.patchIntroducao(intro.id, {
       id: intro.id,
       jogadorInicial: intro.jogadorInicial,
       jogadorIntrodutor: intro.jogadorIntrodutor,
       jogadorObjetivo: intro.jogadorObjetivo,
       estadoIntroducao: "Recusado",
-      textoIntroducao: "Mensagem"
+      textoIntroducao: "Pedido Recusado"
     } as Introducao).subscribe({
-      next:(result : any) => {
+      next: (result: any) => {
         console.log(result);
-        this.toastr.success("Introdução rejeitada com sucesso!",undefined,{positionClass: 'toast-bottom-left'});
+        this.toastr.success("Introdução rejeitada com sucesso!", undefined, { positionClass: 'toast-bottom-left' });
         this.router.navigateByUrl('/home');
       },
       error: () => {
-        this.toastr.error("Error: Service Unavailable",undefined,{positionClass: 'toast-bottom-left'});
+        this.toastr.error("Error: Service Unavailable", undefined, { positionClass: 'toast-bottom-left' });
       }
     });
   }
 
+  onSubmit() {
+    if (this.introducaoForm.controls['TextoIntroducao'].value != '') {
+      this.pedidoService.patchIntroducao(this.introducaoSelecionada.id, {
+        id: this.introducaoSelecionada.id,
+        jogadorInicial: this.introducaoSelecionada.jogadorInicial,
+        jogadorIntrodutor: this.introducaoSelecionada.jogadorIntrodutor,
+        jogadorObjetivo: this.introducaoSelecionada.jogadorObjetivo,
+        estadoIntroducao: "Pendente",
+        textoIntroducao: this.introducaoForm.controls['TextoIntroducao'].value
+      } as Introducao).subscribe({
+        next: (result: any) => {
+          console.log(result);
+          this.toastr.success("Introdução aceite com sucesso!", undefined, { positionClass: 'toast-bottom-left' });
+          this.router.navigateByUrl('/home');
+        },
+        error: () => {
+          this.toastr.error("Error: Service Unavailable", undefined, { positionClass: 'toast-bottom-left' });
+        }
+      });
+
+    } else {
+      this.toastr.error("Mensagem de Introdução é obrigatória.", undefined, { positionClass: 'toast-bottom-left' });
+    }
+  }
+
+  return(){
+    const targetDiv3 = document.getElementById('cardPedido');
+    targetDiv3.style.display = "none";
+    const targetDiv2 = document.getElementById('container');
+    targetDiv2.style.display = "block";
+  }
 }

@@ -19,7 +19,7 @@ export class RelacaoComponent implements OnInit {
   test: string = '';
   final: string = '';
   final1: string = '';
-  array: string [] = [];
+  array: string[] = [];
   email: string = '';
   id: any = '';
   listaTags: string[] = new Array<string>();
@@ -35,28 +35,46 @@ export class RelacaoComponent implements OnInit {
 
   selectChangeHandler(event: any) {
     this.selected = event.target.value;
+    const targetDiv2 = document.getElementById('segundoCard');
+    targetDiv2.style.display = "block";
   }
 
   // convenience getter for easy access to form fields
   get f() { return this.relacaoForm.controls; }
 
   ngOnInit(): void {
+    const targetDiv2 = document.getElementById('segundoCard');
+    targetDiv2.style.display = "none";
+
     const currentUser = localStorage.getItem('currentUser');
     this.email = currentUser?.replace(/\"/g, "");
     //console.log(currentUser);
     //console.log(this.email);
-    this.relacaoService.getPerfilAtual(this.email).pipe(
-      mergeMap((res: any) => this.relacaoService.getJogadorAtual(res.id))).pipe(
-        mergeMap((res1: any) => this.relacaoService.getListRelacoes(res1.id))).subscribe(
-          (res2: any) => res2.forEach((element: any) => {
-            //console.log(element.jogador2),
-              this.relacaoService.getPerfilById(element.jogador2).subscribe(
-                (r: any) => {
-                  //console.log(r.nome),
-                    this.listaPerfis.push(r)
-                    //console.log(this.listaPerfis)
+    this.relacaoService.getPerfilAtual(this.email).subscribe(
+      (res: any) => {
+        this.relacaoService.getJogadorAtual(res.id).subscribe(
+          (res1: any) => {
+            this.relacaoService.getListRelacoes(res1.id).subscribe(
+              (res2: any) => {
+                console.log(res2);
+                res2.forEach((element: any) => {
+                  //console.log(element.jogador2),
+                  this.relacaoService.getPerfilById(element.jogador2).subscribe(
+                    (r: any) => {
+                      //console.log(r.nome),
+                      if (!this.listaPerfis.includes(r)) {
+                        this.listaPerfis.push(r);
+                      }
+                      console.log(this.listaPerfis);
+                    })
                 })
-              }));
+              }
+            );
+          }
+        );
+      }
+    );
+
   }
 
   onSubmit() {
@@ -75,26 +93,26 @@ export class RelacaoComponent implements OnInit {
             mergeMap((res1: any) => this.relacaoService.getJogadorAtual(res1.id))).pipe(
               mergeMap((res: any) => this.relacaoService.getRelacao(r.id, res.id))).subscribe(
                 (res2: any) => {
-                  //console.log(res2.id);
-                  this.listaStringTags = this.f['tags'].value;
+                  console.log(res2);
+                  this.listaStringTags = this.f['Tags'].value;
                   this.listaTags = this.listaStringTags.toString().split(",");
-                  this.f['tags'].setValue(this.listaTags);
+                  this.f['Tags'].setValue(this.listaTags);
                   //console.log(this.f['Tags'].value);
                   this.relacaoService.patchRelacao(res2.id, {
                     id: res2.id,
                     jogador1: res2.jogador1,
                     jogador2: res2.jogador2,
-                    tags: this.f['tags'].value,
+                    tags: this.f['Tags'].value,
                     forcaRelacao: res2.forcaRelacao,
                     forcaLigacao: this.f['forcaLigacao'].value
                   } as Relacao).subscribe({
                     next: (res3: any) => {
                       console.log(res3);
-                      this.toastr.success("Alteração realizada com sucesso!",undefined,{positionClass: 'toast-bottom-left'});
+                      this.toastr.success("Alteração realizada com sucesso!", undefined, { positionClass: 'toast-bottom-left' });
                       this.router.navigateByUrl('/home');
                     },
                     error: () => {
-                      this.toastr.error("Erro: Serviço Não Disponível",undefined,{positionClass: 'toast-bottom-left'});
+                      this.toastr.error("Erro: Serviço Não Disponível", undefined, { positionClass: 'toast-bottom-left' });
                     }
                   });
                 });

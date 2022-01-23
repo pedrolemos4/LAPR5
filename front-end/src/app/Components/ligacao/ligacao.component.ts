@@ -148,16 +148,33 @@ export class LigacaoComponent implements OnInit {
   onSubmit() {
     console.log(this.email);
     console.log(this.array[1]);
-    this.ligacaoService.registoLigacao({
-      id: '',
-      textoLigacao: this.ligacaoForm.controls['TextoLigacao'].value,
-      estado: this.estadoLigacao,
-      jogador1: this.email,
-      jogador2: this.array[1]
-    } as Ligacao).subscribe((result: any) => {
-      console.log(result),
-        this.toastr.success("Pedido de Ligação realizado com sucesso!", undefined, { positionClass: 'toast-bottom-left' });
-    });
+    this.ligacaoService.getPerfilAtual(this.email).subscribe(
+      (res: any) => {
+        this.ligacaoService.getJogadorAtual(res.id).subscribe(
+          (res1: any) => {
+            this.ligacaoService.getPerfilAtual(this.array[1]).subscribe(
+              (res2: any) => {
+                this.ligacaoService.getJogadorAtual(res2.id).subscribe(
+                  (res3: any) => {
+                    this.ligacaoService.registoLigacao({
+                      id: '',
+                      textoLigacao: this.ligacaoForm.controls['TextoLigacao'].value,
+                      estado: this.estadoLigacao,
+                      jogador1: res1.id,
+                      jogador2: res3.id
+                    } as Ligacao).subscribe((result: any) => {
+                        console.log(result),
+                        this.toastr.success("Pedido de Ligação realizado com sucesso!", undefined, { positionClass: 'toast-bottom-left' });
+                    });
+                  }
+                );
+              }
+            );
+          }
+        );
+        
+      }
+    );
     //this.router.navigateByUrl('/home');
 
   }

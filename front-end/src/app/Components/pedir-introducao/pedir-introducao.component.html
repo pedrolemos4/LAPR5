@@ -2,48 +2,62 @@
 <app-navbar></app-navbar>
 <div id="texto">
     <div id="container">
-    <h2>Pedir uma introdução</h2>
-    <form [formGroup]="pedirIntroForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <div class = "row">
-                <div class="col-25">
-                    <label for="jogadorObjetivo">Jogador Objetivo:</label>
-                </div>
-                <div class ="col-75">
-                    <select id="objetivo" class="selector" style="margin: 20px;" (change) ="selectJogadorObjetivo($event)">
-                        <option selected disabled="disabled"> Selecione um jogador</option>
-                        <option *ngFor="let eachVal of emailList" [ngValue] = "eachVal">
-                            {{eachVal}}
-                        </option>
-                    </select>
-                </div>
-            </div>
-        </div>
-         <p><span>You selected: </span><b>{{selectedJogadorObjetivo}}</b></p>
-        <div class="form-group">
-            <div class = "row">
-                <div class ="col-25">
-                    <label for="jogadorIntrodutorio"> Amigos em Comum:</label>
-                </div>
-                <div class ="col-75">
-                    <select id="introdutorio" class="selector" style="margin: 20px;" (change) ="selectJogadorIntrodutorio($event)">
-                        <option selected disabled="disabled"> Selecione um jogador</option>
-                        <option *ngFor="let eachVal of emailAmigosEmComum">
-                            {{eachVal}}
-                        </option>
-                    </select>
+        <h2 style="text-align: center; font-weight: bold;">Pedir uma introdução</h2>
+        <form [formGroup]="pedirIntroForm">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-25">
+                        <label for="jogadorObjetivo">
+                            <p style="margin-left: 35px; margin-top: 25px;">Jogador Objetivo:</p>
+                        </label>
+                    </div>
+                    <div class="col-75">
+                        <select id="objetivo" class="selector" style=" margin-top: 3.5%; margin-left: 4%;"
+                            (change)="selectJogadorObjetivo($event)">
+                            <option selected disabled="disabled"> Selecione um jogador</option>
+                            <option *ngFor="let eachVal of emailList" [ngValue]="eachVal">
+                                {{eachVal}}
+                            </option>
+                        </select>
+                    </div>
                 </div>
             </div>
-            <p><span>You selected: </span><b>{{selectedJogadorIntrodutorio}}</b></p>
-            <div class = "row">
-                <div class = "col-25">
-                    <label for="mensagemIntrodutoria"> Mensagem: </label>
+            <div class="form-group">
+                <p id="mensagem1" class="mensagem1" style="margin-top: -6px;"><span
+                        style="margin-left: -150px; ">Selecionou: <b>{{selectedJogadorObjetivo}}</b></span>
+                </p>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="jogadorIntrodutorio">
+                            <p style="margin-left: 35px;">Amigos em Comum:</p>
+                        </label>
+                    </div>
+                    <div class="col-75">
+                        <select id="introdutorio" class="selector" style=" margin-top: 1.5%; margin-left: 4%;"
+                            (change)="selectJogadorIntrodutorio($event)">
+                            <option selected disabled="disabled"> Selecione um jogador</option>
+                            <option *ngFor="let eachVal of emailAmigosEmComum">
+                                {{eachVal}}
+                            </option>
+                        </select>
+                    </div>
                 </div>
-                <div class ="col-75">
-                    <input id="mensagem" type="mensagemIntrodutoria" placeholder="Insira a mensagem introdutória" formControlName ="mensagem" class ="form-control"/>
+                <p id="mensagem2" class="mensagem1" style="margin-top: -5px;"><span
+                        style="margin-left: -150px; ">Selecionou:
+                    </span><b>{{selectedJogadorIntrodutorio}}</b></p>
+                <div id="mensagem3">
+                    <div class="label1-maior" style="margin-top: 4%;">
+                        <label for="TextoLigacao">Mensagem: </label>
+                    </div>
+                    <div class="coluna1-menor">
+                        <input id="mensagem" style="margin-top: 2.5%;" type="text"
+                            placeholder="Insira a mensagem introdutória" formControlName="mensagem"
+                            class="form-control" />
+                        <i id="ligacaoIcon" type="submit" (click)="onSubmit()" class="fa fa-paper-plane"> Pedir
+                            Introdução</i>
+                    </div>
                 </div>
             </div>
-        </div>    
-        <button type="submit" id="submit" class="submit"> Pedir Introdução</button>
-    </form>
+        </form>
+    </div>
 </div>

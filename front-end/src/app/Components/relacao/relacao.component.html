@@ -1,36 +1,36 @@
 <app-header></app-header>
 <app-navbar></app-navbar>
-    <div class="card1">
-        <h4 class="card-header">Lista de Relações</h4>
-        <div class="card-body">
-            <div class="form-data">
-                <select id="selector" (change)="selectChangeHandler($event)">
-                    <option selected disabled="disabled">Escolha...</option>
-                    <option *ngFor="let perfil of listaPerfis">
-                        Nome: {{perfil.nome}}, Email: {{perfil.email}} </option>
-                </select>
-                <p><span>Relação Selecionada:</span><br><b>{{selected}}</b></p>
-            </div>
+<div class="card1">
+    <h2 class="card-header">Lista de Relações:</h2>
+    <div class="card-body">
+        <div class="form-data">
+            <select id="selector" (change)="selectChangeHandler($event)">
+                <option selected disabled="disabled">Escolha...</option>
+                <option *ngFor="let perfil of listaPerfis">
+                    Nome: {{perfil.nome}}, Email: {{perfil.email}} </option>
+            </select>
+            <p><span>Relação Selecionada:</span><br><b>{{selected}}</b></p>
         </div>
     </div>
-    <div class="card">
-        <h4 class="card-header">Editar Relação</h4>
-        <div class="card-body">
-            <form [formGroup]="relacaoForm" (ngSubmit)="onSubmit()">
+    <div id="segundoCard" class="card" style="margin-top: 50px;">
+        <h2 class="card-header" style="font-size: 18px;">Editar Relação:</h2>
+        <div class="card-body1">
+            <form [formGroup]="relacaoForm">
                 <div class="form-group">
-                    <label for="Tags">Tags</label>
-                    <input id="tags" type="text" placeholder="Insira Tags..." formControlName="Tags" class="form-control"
-                        required />
+                    <label for="Tags">Tags:</label>
+                    <input id="tags" type="text" placeholder="Insira Tags..." formControlName="Tags"
+                        class="form-control" required />
                 </div>
                 <div class="slider">
-                    <label for="forcaLigacao" class="form-label">Força de Ligação</label>
+                    <label for="forcaLigacao" class="form-label">Força de Ligação:</label>
                     <input id="range" type="range" class="form-range" min="1" max="100" step="1" value="0"
                         formControlName="forcaLigacao" oninput="rangeValue.innerText = this.value">
                     <p>Valor: <span id="rangeValue">0</span></p>
                 </div>
-                <div class="form-group">
-                    <button type="submit" id="submit" class="btn-primary">Guardar Alterações</button>
+                <div class="centro">
+                    <i id="submit" type="submit" (click)="onSubmit()" class="fa fa-save"> Guardar Alterações </i>
                 </div>
             </form>
         </div>
     </div>
+</div>

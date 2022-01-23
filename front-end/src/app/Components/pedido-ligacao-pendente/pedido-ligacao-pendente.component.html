@@ -6,14 +6,14 @@
         </i>
     </div>
     <div id="container" style="margin-top: -5%;">
-        <h2>Pedidos de Ligação Pendentes</h2>
+        <h2 style="font-weight: bold; text-align: center;">Pedidos de Ligação Pendentes</h2>
         <div class="form-group" id="form-group">
             <div class="row">
                 <div class="col-25">
-                    <label for="amigos">Amigos:</label>
+                    <label for="amigos" style="margin-top: 10px; margin-left: -10px;">Amigos:</label>
                 </div>
                 <div class="col-75">
-                    <select id="amigos" class="selector" style="margin: 20px;" (change)="selectAmigo($event)">
+                    <select id="amigos" class="selector" style="width: auto; margin-left: -18%; margin-top: 20px;" (change)="selectAmigo($event)">
                         <option selected disabled="disabled">Selecione um pedido</option>
                         <option *ngFor="let eachVal of ListaLigacoesPendentes" [ngValue]="eachVal">
                             {{eachVal}}
@@ -22,10 +22,12 @@
                 </div>
             </div>
         </div>
-        <p id="mensagem"><span>Selecionou: </span><b>{{selectPedido}}</b></p>
-        <div class="like-outer" id="like-outer">
-            <i id="aceitar" type="submit" class="aceitar" (click)="aceitar()" class="fa fa-check-circle"></i>
-            <i id="rejeitar" type="submit" class="rejeitar" (click)="rejeitar()" class="fa fa-times-circle"></i>
+        <div id="mensagem" style="text-align: left;">
+            <p id="mensagem"><span>Selecionou: </span><b>{{selectPedido}}</b></p>
+            <div class="like-outer" id="like-outer">
+                <i id="aceitar" type="submit" class="aceitar" (click)="aceitar()" class="fa fa-check-circle"></i>
+                <i id="rejeitar" type="submit" class="rejeitar" (click)="rejeitar()" class="fa fa-times-circle"></i>
+            </div>
         </div>
     </div>
 </div>

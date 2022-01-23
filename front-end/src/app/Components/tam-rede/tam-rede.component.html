@@ -29,3 +29,16 @@
         <!-- <button id="submit2" (click)="dimensaoRede()" class="submit"> Calcular Dimensão Total</button> -->
     </div>
 </div>
+
+<div class="card3" *ngIf="div">
+    <h2 class="card-header">Dimensão da Rede:</h2>
+    <div class="card-body">
+        <p id="mensagem1"><span>Dimensão total da rede: </span><b>{{rede}}</b></p>
+    </div>
+</div>
+<div class="card3" *ngIf="div2">
+    <h2 class="card-header">Tamanho da Rede:</h2>
+    <div class="card-body">
+        <p id="mensagem1"><span>Tamanho da rede: </span><b>{{tamanho}}</b></p>
+    </div>
+</div>

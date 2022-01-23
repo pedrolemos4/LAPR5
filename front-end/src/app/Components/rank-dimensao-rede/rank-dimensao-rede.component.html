@@ -1,28 +1,14 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+
 <app-header></app-header>
 <app-navbar></app-navbar>
-<div class="card">
-    <div class="card-body">
-        <div class="jogadores" >
-            <h4>Leaderboard Dimensão da Rede</h4>
-           <!-- <table>
-                <tr>
-                    <th>Jogadores</th>
-                    <th>Pontuação</th>
-                </tr>
-                <tr *ngFor="let jog of emailList">
-                    <th>{{jog}}</th>
-                </tr>
-                <tr *ngFor="let pont of pontuacaoList">
-                    <th>{{pont}}</th>
-                </tr>
-            </table>-->
-            <div *ngFor = "let jog of listaFinal">
-                <p>{{jog}}</p>
-            </div>
-
-            <button type="submit" id="submit" (click)="dimensaoRede()" class="btn-primary"> Ver Ranking</button>
-
+<div id="texto">
+    <div id="container">
+        <i id="return" type="submit" (click)="return()" class="fa fa-arrow-left"> Voltar </i>
+        <h2 style="text-align: center; font-weight: bold;">Leaderboard Dimensão da Rede</h2>
+        <div *ngFor = "let jog of listaFinal">
+            <p style="text-align: center;">{{jog}}</p>
         </div>
+        <i style="margin-left: 40%;" type="submit" id="submit" (click)="dimensaoRede()" class="fas fa-medal"> Ver Ranking</i>
     </div>
 </div>
-
